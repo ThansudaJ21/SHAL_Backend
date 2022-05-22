@@ -1,7 +1,7 @@
 package com.se.shal.product.entity;
 
 public enum CategoryName {
-    NA("A",100),
+    NA("None",100),
     BEAUTY("Beauty & Personal Care",1),
     ELECTRONIC("Electronic",2),
     TOY("Toy, DIY, and Hobbies",3),

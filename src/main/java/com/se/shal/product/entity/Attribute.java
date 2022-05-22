@@ -17,9 +17,4 @@ public class Attribute {
     @EqualsAndHashCode.Exclude
     Long id;
     String attribute;
-
-    @ManyToMany
-    @Builder.Default
-    List<Category> categories = new ArrayList<>();
-
 }

@@ -1,13 +1,14 @@
 package com.se.shal.product.entity;
 
 public enum ShipmentName {
-    NA("A",100),
+    NA("None",100),
     REGISTEREDMAILS("Thailand Post - Registered Mail",1),
     EMS("Thailand Post - EMS",2),
     KERRY("Kerry",3),
     JANDT("J&T",4),
     FLASH("Flash Express",5),
-    DHL("DHL Domestic",6);
+    DHL("DHL Domestic",6),
+    NINJA("Ninja Van",7);
 
     private String shipmentName;
     private Integer order;

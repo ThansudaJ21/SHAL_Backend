@@ -28,8 +28,14 @@ public class Product {
     TimeUnit timeUnitForAuctionPeriod;
     TimeUnit timeUnitForNextAuction;
 
+    @OneToOne
+    Category category;
+
     @OneToMany(mappedBy="product")
     List<Shipment> shipmentNames;
+
+    @OneToMany(mappedBy="product")
+    List<ProductAttribute> productAttributes;
 
     @Convert(converter = StringListConverter.class)
     @Builder.Default

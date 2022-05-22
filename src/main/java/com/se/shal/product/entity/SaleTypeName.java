@@ -1,7 +1,7 @@
 package com.se.shal.product.entity;
 
 public enum SaleTypeName {
-    NA("A",100),
+    NA("None",100),
     AUCTION("Auction only",1),
     SALE("Sale only",2),
     AUCTIONANDSALE("Auction and Sale",3);

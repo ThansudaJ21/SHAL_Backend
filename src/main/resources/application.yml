@@ -28,10 +28,10 @@ jwt:
       path: auth
       refresh: refresh
 
-graphql:
-  servlet:
-    # Sets if GraphQL servlet should be created and exposed. If not specified defaults to "true".
-    enabled: true
-    # Sets the path where GraphQL servlet will be exposed. If not specified defaults to "/graphql"
-    mapping: /graphql
-    corsEnabled: false
+#graphql:
+#  servlet:
+#    # Sets if GraphQL servlet should be created and exposed. If not specified defaults to "true".
+#    enabled: true
+#    # Sets the path where GraphQL servlet will be exposed. If not specified defaults to "/graphql"
+#    mapping: /graphql
+#    corsEnabled: false
