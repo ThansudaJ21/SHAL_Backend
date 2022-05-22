@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Component
 public class ShopQueryQL implements GraphQLQueryResolver {
@@ -17,5 +18,11 @@ public class ShopQueryQL implements GraphQLQueryResolver {
     Shop getRegisterShop(Long id){
         Shop shop = shopService.getRegisterShop(id);
         return shop;
+    }
+
+    @Transactional
+    List<Shop> getAllShop() {
+        List<Shop> shops = shopService.getAllShop();
+        return shops;
     }
 }

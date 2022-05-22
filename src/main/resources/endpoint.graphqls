@@ -4,6 +4,7 @@ schema {
 }
 type Query {
     getRegisterShop(id: Int): ShopQuery
+    getAllShop: [ShopQuery]
 }
 type Mutation {
     registerShop(shop: ShopInput): Shop
