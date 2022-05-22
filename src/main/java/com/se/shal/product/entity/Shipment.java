@@ -18,9 +18,6 @@ public class Shipment {
     @Enumerated(EnumType.STRING)
     private ShipmentName shipmentName;
 
-    @ManyToOne
-    Product product;
-
     public Shipment() {
 
     }

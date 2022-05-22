@@ -31,7 +31,7 @@ public class Product {
     @OneToOne
     Category category;
 
-    @OneToMany(mappedBy="product")
+    @OneToMany
     List<Shipment> shipmentNames;
 
     @OneToMany(mappedBy="product")
