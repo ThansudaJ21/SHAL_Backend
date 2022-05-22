@@ -18,7 +18,6 @@ input ShopInput {
     promptPay: String
     email: String
     shopAddress: ShopAddressInput
-
 }
 
 type ShopAddress {
@@ -47,5 +46,10 @@ type ShopQuery{
     promptPay: String
     email: String
     shopAddress: ShopAddress
+    shopStatus: String
+}
+
+input ShopStatusInput {
+    id: Int
     shopStatus: String
 }

@@ -22,13 +22,24 @@ public class ShopServiceImpl implements ShopService{
                 .promptPay(shop.getPromptPay())
                 .email(shop.getEmail())
                 .shopAddress(shop.getShopAddress())
-                .shopStatus(ShopStatus.DISABLE)
+                .shopStatus(ShopStatus.Disable)
                 .build();
         return shopDao.save(newShop);
     }
 
     @Override
     public Shop getRegisterShop(Long id) {
-        return shopDao.getRegisterShop(id);
+        return shopDao.findById(id);
+    }
+
+    @Override
+    public Shop updateShopStatus(Shop shop) {
+        Shop shop1 = shopDao.findById(shop.getId());
+        if (shop1.getShopStatus() == ShopStatus.Enable) {
+            shop1.setShopStatus(ShopStatus.Disable);
+        } else if (shop1.getShopStatus() == ShopStatus.Disable){
+            shop1.setShopStatus(ShopStatus.Enable);
+        }
+        return  shopDao.save(shop1);
     }
 }

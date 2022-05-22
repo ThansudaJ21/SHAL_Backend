@@ -20,4 +20,9 @@ public class ShopMutationQL implements GraphQLMutationResolver {
         Shop newShop = shopService.registerShop(shop);
         return ShalMapper.INSTANCE.registerShop(newShop);
     }
+
+    ShopDto updateShopStatus(Shop shop){
+        Shop newShop = shopService.updateShopStatus(shop);
+        return ShalMapper.INSTANCE.updateShopStatus(newShop);
+    }
 }

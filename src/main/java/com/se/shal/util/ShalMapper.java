@@ -12,4 +12,5 @@ public interface ShalMapper {
     ShalMapper INSTANCE = Mappers.getMapper(ShalMapper.class);
 
     ShopDto registerShop(Shop Shop);
+    ShopDto updateShopStatus(Shop shop);
 }
