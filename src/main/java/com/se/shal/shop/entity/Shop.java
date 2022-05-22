@@ -19,7 +19,7 @@ public class Shop {
     Long id;
     String shopName;
     String idCard;
-    String ShopLogoImagePath;
+    String shopLogoImagePath;
     String selfiePhotoWithIdCardPath;
     String promptPay;
     String email;
