@@ -22,6 +22,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     ShipmentRepository shipmentRepository;
 
+
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
@@ -110,5 +111,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Shipment flash = shipmentRepository.save(Shipment.builder().shipmentName(ShipmentName.FLASH).build());
         Shipment dhl = shipmentRepository.save(Shipment.builder().shipmentName(ShipmentName.DHL).build());
         Shipment ninja = shipmentRepository.save(Shipment.builder().shipmentName(ShipmentName.NINJA).build());
+
+
     }
 }

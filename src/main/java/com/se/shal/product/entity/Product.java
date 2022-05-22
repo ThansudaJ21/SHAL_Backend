@@ -1,5 +1,6 @@
 package com.se.shal.product.entity;
 
+import com.se.shal.shop.entity.Shop;
 import com.se.shal.util.hibernate.StringListConverter;
 import lombok.*;
 
@@ -42,5 +43,6 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     List<String> imagesPath = new ArrayList<>();
 
-
+    @ManyToOne
+    Shop shop;
 }
