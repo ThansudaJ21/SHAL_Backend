@@ -30,4 +30,6 @@ public class Shop {
 
     @OneToOne(cascade = CascadeType.ALL)
     ShopAddress shopAddress;
+
+    ShopStatus shopStatus;
 }
