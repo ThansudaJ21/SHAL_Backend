@@ -5,12 +5,15 @@ import com.se.shal.shop.entity.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class ShopServiceImpl implements ShopService{
 
     @Autowired
     ShopDao shopDao;
 
+    @Transactional
     @Override
     public Shop registerShop(Shop shop) {
         Shop newShop = Shop.builder()
@@ -25,8 +28,9 @@ public class ShopServiceImpl implements ShopService{
         return shopDao.save(newShop);
     }
 
+
     @Override
     public Shop getRegisterShop(Long id) {
-        return shopDao.getRegisterShop(id);
+        return shopDao.findById(id);
     }
 }

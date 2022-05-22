@@ -29,5 +29,6 @@ public class Shop {
     List<Product> products = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shopAddress_id", referencedColumnName = "id")
     ShopAddress shopAddress;
 }

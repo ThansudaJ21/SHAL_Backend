@@ -19,4 +19,9 @@ public class ShopDaoImpl implements ShopDao{
     public Shop getRegisterShop(Long id) {
         return shopRepository.getById(id);
     }
+
+    @Override
+    public Shop findById(Long id) {
+        return shopRepository.findById(id).orElse(null);
+    }
 }
