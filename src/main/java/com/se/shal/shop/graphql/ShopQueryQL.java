@@ -1,7 +1,8 @@
 package com.se.shal.shop.graphql;
 
 import com.se.shal.shop.entity.Shop;
-import com.se.shal.shop.graphql.entity.ShopQueryFilter;
+import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
+import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopStatus;
 import com.se.shal.shop.service.ShopService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class ShopQueryQL implements GraphQLQueryResolver {
 
     @Autowired
     ShopService shopService;
+
     @Transactional
     Shop getRegisterShop(Long id){
         Shop shop = shopService.getRegisterShop(id);
@@ -30,7 +32,12 @@ public class ShopQueryQL implements GraphQLQueryResolver {
     }
 
     @Transactional
-    Page<Shop> shopQueryFilter(ShopQueryFilter filter, int pageNo, int pageSize){
-        return shopService.findShopByFilter(filter, PageRequest.of(pageNo,pageSize));
+    Page<Shop> shopQueryFilterByShopName(ShopQueryFilterByShopName filter, int pageNo, int pageSize){
+        return shopService.findShopByFilterByShopName(filter, PageRequest.of(pageNo,pageSize));
+    }
+
+    @Transactional
+    Page<Shop> ShopQueryFilterByShopStatus(ShopQueryFilterByShopStatus filter, int pageNo, int pageSize){
+        return shopService.findShopByFilterByShopStatus(filter, PageRequest.of(pageNo,pageSize));
     }
 }

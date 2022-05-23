@@ -4,6 +4,9 @@ import com.se.shal.product.entity.*;
 import com.se.shal.product.repository.AttributeRepository;
 import com.se.shal.product.repository.CategoryRepository;
 import com.se.shal.product.repository.ShipmentRepository;
+import com.se.shal.shop.entity.ShopStatus;
+import com.se.shal.shop.entity.ShopStatusName;
+import com.se.shal.shop.repository.ShopStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -21,12 +24,20 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
     @Autowired
     ShipmentRepository shipmentRepository;
-
+    @Autowired
+    ShopStatusRepository shopStatusRepository;
 
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
 
+        ShopStatus disable = shopStatusRepository.save(ShopStatus.builder()
+                .shopStatusName(ShopStatusName.DISABLE)
+                .build());
+        ShopStatus enable = shopStatusRepository.save(ShopStatus.builder()
+                .shopStatusName(ShopStatusName.ENABLE)
+                .build());
+        
         Category beauty = Category.builder().categoryName(CategoryName.BEAUTY).build();
         Category fashion = Category.builder().categoryName(CategoryName.FASHION).build();
         Category electronic = Category.builder().categoryName(CategoryName.ELECTRONIC).build();

@@ -1,7 +1,8 @@
 package com.se.shal.shop.dao;
 
 import com.se.shal.shop.entity.Shop;
-import com.se.shal.shop.graphql.entity.ShopQueryFilter;
+import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
+import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -11,5 +12,6 @@ public interface ShopDao {
     Shop save(Shop shop);
     Shop findById(Long id);
     List<Shop> getAllShop();
-    Page<Shop> getShoptByFilter(ShopQueryFilter filter, PageRequest pageRequest);
+    Page<Shop> getShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest);
+    Page<Shop> getShopFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest);
 }

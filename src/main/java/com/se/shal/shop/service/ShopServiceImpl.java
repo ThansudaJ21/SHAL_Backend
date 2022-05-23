@@ -3,7 +3,9 @@ package com.se.shal.shop.service;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.entity.ShopStatus;
-import com.se.shal.shop.graphql.entity.ShopQueryFilter;
+import com.se.shal.shop.entity.ShopStatusName;
+import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
+import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,7 @@ public class ShopServiceImpl implements ShopService{
     @Autowired
     ShopDao shopDao;
 
+    @Transactional
     @Override
     public Shop registerShop(Shop shop) {
         Shop newShop = Shop.builder()
@@ -27,8 +30,8 @@ public class ShopServiceImpl implements ShopService{
                 .selfiePhotoWithIdCardPath(shop.getSelfiePhotoWithIdCardPath())
                 .promptPay(shop.getPromptPay())
                 .email(shop.getEmail())
+                .shopStatus(ShopStatusName.DISABLE)
                 .shopAddress(shop.getShopAddress())
-                .shopStatus(ShopStatus.Disable)
                 .build();
         return shopDao.save(newShop);
     }
@@ -41,10 +44,10 @@ public class ShopServiceImpl implements ShopService{
     @Override
     public Shop updateShopStatus(Shop shop) {
         Shop shop1 = shopDao.findById(shop.getId());
-        if (shop1.getShopStatus() == ShopStatus.Enable) {
-            shop1.setShopStatus(ShopStatus.Disable);
-        } else if (shop1.getShopStatus() == ShopStatus.Disable){
-            shop1.setShopStatus(ShopStatus.Enable);
+        if (shop1.getShopStatus() == ShopStatusName.ENABLE) {
+            shop1.setShopStatus(ShopStatusName.DISABLE);
+        } else if (shop1.getShopStatus() == ShopStatusName.DISABLE){
+            shop1.setShopStatus(ShopStatusName.ENABLE);
         }
         return shopDao.save(shop1);
     }
@@ -56,7 +59,18 @@ public class ShopServiceImpl implements ShopService{
 
     @Transactional
     @Override
-    public Page<Shop> findShopByFilter(ShopQueryFilter filter, PageRequest pageRequest) {
-        return shopDao.getShoptByFilter(filter, pageRequest);
+    public Page<Shop> findShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
+        return shopDao.getShopByFilterByShopName(filter, pageRequest);
+    }
+
+
+    @Transactional
+    @Override
+    public Page<Shop> findShopByFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest) {
+        if (filter.getShopStatus().equalsIgnoreCase(ShopStatusName.DISABLE.toString())) {
+        } else if (filter.getShopStatus().equalsIgnoreCase(ShopStatusName.ENABLE.toString())) {
+            return shopDao.getShopFilterByShopStatus(filter, pageRequest);
+        }
+        return shopDao.getShopFilterByShopStatus(filter, pageRequest);
     }
 }
