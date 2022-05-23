@@ -3,9 +3,13 @@ package com.se.shal.shop.service;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.entity.ShopStatus;
+import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -48,5 +52,11 @@ public class ShopServiceImpl implements ShopService{
     @Override
     public List<Shop> getAllShop() {
         return shopDao.getAllShop();
+    }
+
+    @Transactional
+    @Override
+    public Page<Shop> findShopByFilter(ShopQueryFilter filter, PageRequest pageRequest) {
+        return shopDao.getShoptByFilter(filter, pageRequest);
     }
 }

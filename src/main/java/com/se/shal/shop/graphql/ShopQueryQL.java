@@ -1,9 +1,12 @@
 package com.se.shal.shop.graphql;
 
 import com.se.shal.shop.entity.Shop;
+import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import com.se.shal.shop.service.ShopService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -24,5 +27,10 @@ public class ShopQueryQL implements GraphQLQueryResolver {
     List<Shop> getAllShop() {
         List<Shop> shops = shopService.getAllShop();
         return shops;
+    }
+
+    @Transactional
+    Page<Shop> shopQueryFilter(ShopQueryFilter filter, int pageNo, int pageSize){
+        return shopService.findShopByFilter(filter, PageRequest.of(pageNo,pageSize));
     }
 }

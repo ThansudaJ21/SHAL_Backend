@@ -53,3 +53,14 @@ input ShopStatusInput {
     id: Int
     shopStatus: String
 }
+
+input ShopQueryFilter{
+    shopName: String
+}
+
+type PageShop {
+    number: Int
+    totalPages: Int
+    totalElements: Int
+    content: [ShopQuery]
+}
