@@ -1,0 +1,13 @@
+schema {
+    mutation: Mutation
+    query: Query
+}
+type Query {
+    getRegisterShop(id: Int): ShopQuery
+    getAllShop: [ShopQuery]
+    shopQueryFilter(shopName: ShopQueryFilter, pageNo:Int, pageSize:Int): PageShop
+}
+type Mutation {
+    registerShop(shop: ShopInput): Shop
+    updateShopStatus(shopStatus: ShopStatusInput): Shop
+}

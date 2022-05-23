@@ -1,0 +1,66 @@
+type Shop{
+    id: Int
+    shopName:String
+    idCard:String
+    shopLogoImagePath: String
+    selfiePhotoWithIdCardPath: String
+    promptPay: String
+    email: String
+    shopAddress: ShopAddress
+    shopStatus: String
+}
+
+input ShopInput {
+    shopName:String
+    idCard:String
+    shopLogoImagePath: String
+    selfiePhotoWithIdCardPath: String
+    promptPay: String
+    email: String
+    shopAddress: ShopAddressInput
+}
+
+type ShopAddress {
+    houseNumber: String
+    moo: String
+    postalCode: String
+    district: String
+    subDistrict: String
+    province: String
+}
+
+input ShopAddressInput {
+    houseNumber: String
+    moo: String
+    postalCode: String
+    district: String
+    subDistrict: String
+    province: String
+}
+type ShopQuery{
+    id: Int
+    shopName:String
+    idCard:String
+    shopLogoImagePath: String
+    selfiePhotoWithIdCardPath: String
+    promptPay: String
+    email: String
+    shopAddress: ShopAddress
+    shopStatus: String
+}
+
+input ShopStatusInput {
+    id: Int
+    shopStatus: String
+}
+
+input ShopQueryFilter{
+    shopName: String
+}
+
+type PageShop {
+    number: Int
+    totalPages: Int
+    totalElements: Int
+    content: [ShopQuery]
+}
