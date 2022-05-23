@@ -18,30 +18,29 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    String productName;
-    String details;
-    Double salePrice;
-    Double startingBid;
-    Integer storage;
-    Integer auctionPeriod;
-    Integer nextAuction;
-    SaleTypeName saleTypeName;
-    TimeUnit timeUnitForAuctionPeriod;
-    TimeUnit timeUnitForNextAuction;
-
-    @OneToOne
-    Category category;
-
-    @OneToMany
-    List<Shipment> shipmentNames;
-
-    @OneToMany(mappedBy="product")
-    List<ProductAttribute> productAttributes;
-
+    //    page1
     @Convert(converter = StringListConverter.class)
     @Builder.Default
     @Column(columnDefinition = "TEXT")
     List<String> imagesPath = new ArrayList<>();
+
+    String productName;
+    String details;
+    @OneToOne
+    Category category;
+
+    //  page2
+    @OneToMany(mappedBy = "product")
+    List<ProductAttribute> productAttributes;
+    //    page3 option
+    @OneToMany
+    List<Variations> variations;
+    //    page 4
+    @OneToOne
+    SalesInformation salesInformation;
+    //    page 5
+    @OneToMany
+    List<Shipment> shipmentNames;
 
     @ManyToOne
     Shop shop;

@@ -2,7 +2,7 @@ package com.se.shal.product.entity;
 
 public enum TimeUnit {
     NA("None",100),
-    MINUST("minute",1),
+    MINUTE("minute",1),
     HOUR("hour",2),
     DAY("Day",3),
     WEEK("Week",4);
