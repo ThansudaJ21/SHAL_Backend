@@ -23,6 +23,6 @@ public class SalesInformation {
     TimeUnit timeUnitForAuctionPeriod;
     TimeUnit timeUnitForNextAuction;
 
-    @OneToOne(mappedBy = "salesInformation")
+    @OneToOne
     Product product;
 }

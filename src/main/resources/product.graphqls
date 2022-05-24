@@ -4,10 +4,8 @@ type  Product {
     productName: String
     details: String
     category: String
-    productAttributes: [ProductAttributes]
-    variations: [Variations]
-    salesInformation: SalesInformation
-    shipments: [String]
+    ShopId: Int
+    imagesPath: [String]
 }
 
 type  ProductAttributes {
@@ -34,7 +32,7 @@ type Options {
     image:String
 }
 type SalesInformation {
-#    id:Int
+    id:Int
     salePrice: Float
     startingBid: Float
     storage:Int
@@ -43,6 +41,7 @@ type SalesInformation {
     saleTypeName: String
     timeUnitForAuctionPeriod: String
     timeUnitForNextAuction:String
+    productId: Int
 }
 
 
@@ -52,10 +51,8 @@ input InputProduct {
     productName: String
     details: String
     category: String
-    productAttributes: [InputProductAttributes]
-    variations: [InputVariations]
-    salesInformation: InputSalesInformation
-    shipments: [String]
+    ShopId: Int
+    imagesPath: [String]
 }
 
 input  InputProductAttributes {
@@ -82,7 +79,6 @@ input InputOptions {
     image:String
 }
 input InputSalesInformation {
-#    id:Int
     salePrice: Float
     startingBid: Float
     storage:Int
@@ -91,6 +87,7 @@ input InputSalesInformation {
     saleTypeName: String
     timeUnitForAuctionPeriod: String
     timeUnitForNextAuction:String
+    productId: Int
 }
 
 #Category

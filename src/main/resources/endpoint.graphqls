@@ -19,5 +19,6 @@ type Mutation {
 
 #    Product
     saveProduct(shopId: Int,product: InputProduct): Product
+    saveSaleInformation(productId: Int, saleInformation: InputSalesInformation) :SalesInformation
 }
 

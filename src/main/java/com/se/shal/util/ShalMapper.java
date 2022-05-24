@@ -21,15 +21,12 @@ public interface ShalMapper {
     ShopDto registerShop(Shop Shop);
     ShopDto updateShopStatus(Shop shop);
 
-    @Mapping(target = "shipments",
-            expression = "java(product.getShipments().stream()" +
-                    ".map(d -> d.getShipmentName().getShipmentName())" +
-                    ".collect(Collectors.toList()))")
+    @Mapping(target = "ShopId",  source = "shop.id")
     ProductDto saveProduct(Product product);
 
 
-    @Mapping(target = "shipments", ignore = true)
-    Product getProduct(InputProductDto inputDto);
+//    @Mapping(target = "shipments", ignore = true)
+//    Product getProduct(InputProductDto inputDto);
 
     @Mapping(target = "attributes", source = "attributes")
     CategoryDto getCategoryDto(Category category);
