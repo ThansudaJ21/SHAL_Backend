@@ -92,3 +92,13 @@ input InputSalesInformation {
     timeUnitForAuctionPeriod: String
     timeUnitForNextAuction:String
 }
+
+#Category
+type CategoryDto {
+    categoryName: String
+    attributes: [AttributeDto]
+}
+
+type AttributeDto {
+    attribute: String
+}

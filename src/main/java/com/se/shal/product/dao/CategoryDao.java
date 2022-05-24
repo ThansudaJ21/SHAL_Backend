@@ -5,5 +5,5 @@ import com.se.shal.product.entity.Shipment;
 
 public interface CategoryDao {
     Category findCategoryByName(String name);
-    Category getCategory(Category category);
+    Category getCategory(Long id);
 }

@@ -9,6 +9,7 @@ type Query {
     ShopQueryFilterByShopStatus(shopStatus: ShopQueryFilterByShopStatus, pageNo:Int, pageSize:Int): PageShop
 
 #    Product
+    getCategory(id: Int): CategoryDto
 
 }
 type Mutation {
