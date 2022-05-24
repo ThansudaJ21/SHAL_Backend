@@ -8,9 +8,14 @@ type Query {
     shopQueryFilterByShopName(shopName: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
     ShopQueryFilterByShopStatus(shopStatus: ShopQueryFilterByShopStatus, pageNo:Int, pageSize:Int): PageShop
 
+#    Product
+
 }
 type Mutation {
     registerShop(shop: ShopInput): Shop
     updateShopStatus(shopStatus: ShopStatusInput): Shop
+
+#    Product
+    saveProduct(shopId: Int,product: InputProduct): Product
 }
 

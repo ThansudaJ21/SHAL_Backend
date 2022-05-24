@@ -19,8 +19,8 @@ public class ShopStatus {
     @Enumerated(EnumType.STRING)
     private ShopStatusName shopStatusName;
 
-    @OneToOne
-    Shop shop;
+//    @OneToOne
+//    Shop shop;
 
     public ShopStatus() {
 

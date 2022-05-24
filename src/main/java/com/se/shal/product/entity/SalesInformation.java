@@ -2,10 +2,7 @@ package com.se.shal.product.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -25,4 +22,7 @@ public class SalesInformation {
     SaleTypeName saleTypeName;
     TimeUnit timeUnitForAuctionPeriod;
     TimeUnit timeUnitForNextAuction;
+
+    @OneToOne(mappedBy = "salesInformation")
+    Product product;
 }

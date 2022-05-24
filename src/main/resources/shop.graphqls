@@ -1,3 +1,4 @@
+#Shop
 type Shop{
     id: Int
     shopName:String
@@ -69,3 +70,4 @@ type PageShop {
     totalElements: Int
     content: [ShopQuery]
 }
+

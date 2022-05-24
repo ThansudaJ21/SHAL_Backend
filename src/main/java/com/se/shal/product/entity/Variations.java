@@ -20,4 +20,7 @@ public class Variations {
     @OneToMany
     List<Options> options;
 
+    @ManyToOne
+    Product product;
+
 }

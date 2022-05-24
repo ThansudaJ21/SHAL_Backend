@@ -26,21 +26,22 @@ public class Product {
 
     String productName;
     String details;
-    @OneToOne
-    Category category;
+//    @OneToOne
+    CategoryName category;
 
     //  page2
     @OneToMany(mappedBy = "product")
     List<ProductAttribute> productAttributes;
     //    page3 option
-    @OneToMany
+    @OneToMany(mappedBy = "product")
     List<Variations> variations;
     //    page 4
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "salesInformation_id", referencedColumnName = "id")
     SalesInformation salesInformation;
     //    page 5
-    @OneToMany
-    List<Shipment> shipmentNames;
+    @ManyToMany(mappedBy="products")
+    List<Shipment> shipments;
 
     @ManyToOne
     Shop shop;
