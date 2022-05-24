@@ -102,3 +102,9 @@ type CategoryDto {
 type AttributeDto {
     attribute: String
 }
+
+type Category{
+    name: String
+    order: Int
+    categoryName: String
+}
