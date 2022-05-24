@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SalesInformationDto {
+    Long id;
     Double salePrice;
     Double startingBid;
     Integer storage;
@@ -20,4 +21,5 @@ public class SalesInformationDto {
     SaleTypeName saleTypeName;
     TimeUnit timeUnitForAuctionPeriod;
     TimeUnit timeUnitForNextAuction;
+    Long productId;
 }

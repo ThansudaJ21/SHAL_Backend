@@ -5,4 +5,5 @@ import com.se.shal.product.entity.Product;
 
 public interface ProductService {
     Product saveProduct(Long shopId, Product product);
+
 }

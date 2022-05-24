@@ -3,8 +3,10 @@ package com.se.shal.util;
 import com.se.shal.product.dto.CategoryDto;
 import com.se.shal.product.dto.InputProductDto;
 import com.se.shal.product.dto.ProductDto;
+import com.se.shal.product.dto.SalesInformationDto;
 import com.se.shal.product.entity.Category;
 import com.se.shal.product.entity.Product;
+import com.se.shal.product.entity.SalesInformation;
 import com.se.shal.shop.dto.ShopDto;
 import com.se.shal.shop.entity.Shop;
 import org.mapstruct.Mapper;
@@ -24,6 +26,8 @@ public interface ShalMapper {
     @Mapping(target = "ShopId",  source = "shop.id")
     ProductDto saveProduct(Product product);
 
+    @Mapping(target = "productId",  source = "product.id")
+    SalesInformationDto saveSaleInformation(SalesInformation salesInformation);
 
 //    @Mapping(target = "shipments", ignore = true)
 //    Product getProduct(InputProductDto inputDto);
