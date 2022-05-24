@@ -32,13 +32,7 @@ public class Product {
     //  page2
 //    @OneToMany(mappedBy = "product")
 //    List<ProductAttribute> productAttributes;
-    //    page3 option
-//    @OneToMany(mappedBy = "product")
-//    List<Variations> variations;
-    //    page 4
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "salesInformation_id", referencedColumnName = "id")
-//    SalesInformation salesInformation;
+
     //    page 5
 //    @ManyToMany(mappedBy="products")
 //    List<Shipment> shipments;

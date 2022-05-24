@@ -37,8 +37,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public Product saveProduct(Long shopId, Product product) {
-//        Product product1 = ShalMapper.INSTANCE.getProduct(product);
-
         Shop shop = shopDao.findById(shopId);
         product.setShop(shop);
 
@@ -46,20 +44,12 @@ public class ProductServiceImpl implements ProductService {
 //                .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
 //                .collect(Collectors.toList());
 //        product1.setShipments(shipments);
-//
-//        List<Variations> variations = variationDao.save(product1.getVariations());
-//        product1.setVariations(variations);
+
 //
 //        List<ProductAttribute> productAttributes = productAttributeDao.save(product1.getProductAttributes());
 //        product1.setProductAttributes(productAttributes);
 
-//        for (Variations variations1 : product1.getVariations()
-//        ) {
-//            List<Options> options = optionsDao.save(variations1.getOptions());
-//            variations1.setProduct(product3);
-//            variations1.setName(variations1.getName());
-//            variations1.setOptions(options);
-//        }
+
 //
 //        for (ProductAttribute productAttribute : product1.getProductAttributes()
 //        ) {

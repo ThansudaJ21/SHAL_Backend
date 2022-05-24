@@ -20,9 +20,10 @@ type Attribute {
 }
 
 type Variations {
-#    id:Int
+    id:Int
     name: String
     options: [Options]
+    productId: Int
 }
 
 type Options {
@@ -70,6 +71,7 @@ input InputVariations {
 #    id:Int
     name: String
     options: [InputOptions]
+    productId: Int
 }
 
 input InputOptions {

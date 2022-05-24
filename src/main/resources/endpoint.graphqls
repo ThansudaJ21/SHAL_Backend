@@ -20,5 +20,7 @@ type Mutation {
 #    Product
     saveProduct(shopId: Int,product: InputProduct): Product
     saveSaleInformation(productId: Int, saleInformation: InputSalesInformation) :SalesInformation
+    saveVariations(productId: Int, variations: [InputVariations]): [Variations]
+    #    saveAttribute(productId: Int, ):
 }
 
