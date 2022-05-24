@@ -1,15 +1,9 @@
 package com.se.shal.product.service;
 
-import com.se.shal.product.dao.OptionsDao;
-import com.se.shal.product.dao.ProductDao;
-import com.se.shal.product.dao.ShipmentDao;
-import com.se.shal.product.dao.VariationDao;
+import com.se.shal.product.dao.*;
 import com.se.shal.product.dto.InputProductDto;
 import com.se.shal.product.dto.VariationsDto;
-import com.se.shal.product.entity.Options;
-import com.se.shal.product.entity.Product;
-import com.se.shal.product.entity.Shipment;
-import com.se.shal.product.entity.Variations;
+import com.se.shal.product.entity.*;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.util.ShalMapper;
@@ -21,18 +15,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductDao productDao;
-
+    @Autowired
+    ProductAttributeDao productAttributeDao;
     @Autowired
     ShopDao shopDao;
     @Autowired
     ShipmentDao shipmentDao;
-@Autowired
+    @Autowired
     OptionsDao optionsDao;
     @Autowired
     VariationDao variationDao;
+    @Autowired
+    AttributeDao attributeDao;
+
+    @Autowired
+    CategoryDao categoryDao;
 
     @Transactional
     @Override
@@ -50,6 +50,8 @@ public class ProductServiceImpl implements ProductService{
         List<Variations> variations = variationDao.save(product1.getVariations());
         product1.setVariations(variations);
 
+        List<ProductAttribute> productAttributes = productAttributeDao.save(product1.getProductAttributes());
+        product1.setProductAttributes(productAttributes);
 
         Product product3 = productDao.saveProduct(product1);
 
@@ -59,6 +61,15 @@ public class ProductServiceImpl implements ProductService{
             variations1.setProduct(product3);
             variations1.setName(variations1.getName());
             variations1.setOptions(options);
+        }
+
+        for (ProductAttribute productAttribute : product1.getProductAttributes()
+        ) {
+            Attribute attribute = attributeDao.save(productAttribute.getAttribute());
+            productAttribute.setText(productAttribute.getText());
+            productAttribute.setAttribute(attribute);
+            productAttribute.setProduct(product3);
+
         }
 
         product3.getShipments().forEach(shipment -> {
