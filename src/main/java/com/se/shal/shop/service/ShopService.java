@@ -1,7 +1,8 @@
 package com.se.shal.shop.service;
 
 import com.se.shal.shop.entity.Shop;
-import com.se.shal.shop.graphql.entity.ShopQueryFilter;
+import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
+import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -13,6 +14,8 @@ public interface ShopService {
     Shop updateShopStatus(Shop shop);
     List<Shop> getAllShop();
 
-    Page<Shop> findShopByFilter(ShopQueryFilter filter, PageRequest pageRequest);
+    Page<Shop> findShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest);
+    Page<Shop> findShopByFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest);
+
 
 }

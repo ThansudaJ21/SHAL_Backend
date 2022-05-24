@@ -1,20 +1,17 @@
 package com.se.shal.product.dto;
 
-import com.se.shal.product.entity.*;
-import com.se.shal.util.hibernate.StringListConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.OneToMany;
 import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDto {
+public class InputProductDto {
     Long id;
     String productName;
     String details;
@@ -24,4 +21,5 @@ public class ProductDto {
     List<VariationsDto> variations;
     SalesInformationDto salesInformation;
     String category;
+    Long shopId;
 }

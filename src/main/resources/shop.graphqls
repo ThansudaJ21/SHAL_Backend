@@ -1,3 +1,4 @@
+#Shop
 type Shop{
     id: Int
     shopName:String
@@ -17,6 +18,7 @@ input ShopInput {
     selfiePhotoWithIdCardPath: String
     promptPay: String
     email: String
+    shopStatus: String
     shopAddress: ShopAddressInput
 }
 
@@ -54,8 +56,12 @@ input ShopStatusInput {
     shopStatus: String
 }
 
-input ShopQueryFilter{
+input ShopQueryFilterByShopName {
     shopName: String
+}
+
+input ShopQueryFilterByShopStatus{
+    shopStatus: String
 }
 
 type PageShop {
@@ -64,3 +70,4 @@ type PageShop {
     totalElements: Int
     content: [ShopQuery]
 }
+

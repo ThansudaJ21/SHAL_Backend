@@ -1,14 +1,14 @@
-package com.se.shal.shop.graphql.entity;
+package com.se.shal.product.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class ShopQueryFilterByShopStatus {
-    String shopStatus;
+@AllArgsConstructor
+public class AttributeDto {
+    String attribute;
 }
