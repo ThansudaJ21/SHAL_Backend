@@ -1,10 +1,7 @@
 package com.se.shal.util;
 
 import com.se.shal.product.dto.*;
-import com.se.shal.product.entity.Category;
-import com.se.shal.product.entity.Product;
-import com.se.shal.product.entity.SalesInformation;
-import com.se.shal.product.entity.Variations;
+import com.se.shal.product.entity.*;
 import com.se.shal.shop.dto.ShopDto;
 import com.se.shal.shop.entity.Shop;
 import org.mapstruct.Mapper;
@@ -31,8 +28,20 @@ public interface ShalMapper {
     @Mapping(target = "productId",  source = "product.id")
     List<VariationsDto> saveVariations(List<Variations> variationsList) ;
 
+    @Mapping(target = "shipments", ignore = true)
+    ShipmentList getShipmentList(InputShipmentList inputShipmentList);
+
 //    @Mapping(target = "shipments", ignore = true)
 //    Product getProduct(InputProductDto inputDto);
+
+    @Mappings({
+            @Mapping(target = "shipments",
+                    expression = "java(shipmentList.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "ProductId", source = "product.id"),
+    })
+    ShipmentListDto getShipmentListDto(ShipmentList shipmentList);
 
     @Mapping(target = "attributes", source = "attributes")
     CategoryDto getCategoryDto(Category category);

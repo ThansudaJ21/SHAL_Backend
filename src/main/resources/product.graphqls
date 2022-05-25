@@ -45,6 +45,26 @@ type SalesInformation {
     productId: Int
 }
 
+#Category
+type CategoryDto {
+    categoryName: String
+    attributes: [AttributeDto]
+}
+
+type AttributeDto {
+    attribute: String
+}
+
+type Category{
+    name: String
+    order: Int
+    categoryName: String
+}
+
+type  ShipmentList{
+    shipments: [String]
+    productId: Int
+}
 
 #Product Input
 
@@ -92,18 +112,9 @@ input InputSalesInformation {
     productId: Int
 }
 
-#Category
-type CategoryDto {
-    categoryName: String
-    attributes: [AttributeDto]
+
+input  InputShipmentList {
+    shipments: [String]
+    productId: Int
 }
 
-type AttributeDto {
-    attribute: String
-}
-
-type Category{
-    name: String
-    order: Int
-    categoryName: String
-}

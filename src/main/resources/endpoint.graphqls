@@ -22,5 +22,7 @@ type Mutation {
     saveSaleInformation(productId: Int, saleInformation: InputSalesInformation) :SalesInformation
     saveVariations(productId: Int, variations: [InputVariations]): [Variations]
     #    saveAttribute(productId: Int, ):
+
+    saveShipment(productId: Int, shipment: InputShipmentList): ShipmentList
 }
 
