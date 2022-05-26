@@ -8,7 +8,7 @@ type Query {
     shopQueryFilterByShopName(shopName: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
     ShopQueryFilterByShopStatus(shopStatus: ShopQueryFilterByShopStatus, pageNo:Int, pageSize:Int): PageShop
 
-#    Product
+    #    Product
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]
 
@@ -17,12 +17,11 @@ type Mutation {
     registerShop(shop: ShopInput): Shop
     updateShopStatus(shopStatus: ShopStatusInput): Shop
 
-#    Product
+    #    Product
     saveProduct(shopId: Int,product: InputProduct): Product
     saveSaleInformation(productId: Int, saleInformation: InputSalesInformation) :SalesInformation
     saveVariations(productId: Int, variations: [InputVariations]): [Variations]
-    #    saveAttribute(productId: Int, ):
-
+    saveAttribute(productId: Int,attribute: [InputProductAttributes] ):ProductAttributeDto
     saveShipment(productId: Int, shipment: InputShipmentList): ShipmentList
 }
 

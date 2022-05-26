@@ -20,5 +20,5 @@ public class ProductDto {
     String details;
     List<String> imagesPath;
     String category;
-    Long ShopId;
+    Long shopId;
 }

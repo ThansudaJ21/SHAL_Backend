@@ -1,14 +1,8 @@
 package com.se.shal.product.graphql;
 
 import com.se.shal.product.dto.*;
-import com.se.shal.product.entity.Product;
-import com.se.shal.product.entity.SalesInformation;
-import com.se.shal.product.entity.ShipmentList;
-import com.se.shal.product.entity.Variations;
-import com.se.shal.product.service.ProductService;
-import com.se.shal.product.service.SalesInformationService;
-import com.se.shal.product.service.ShipmentListService;
-import com.se.shal.product.service.VariationsService;
+import com.se.shal.product.entity.*;
+import com.se.shal.product.service.*;
 import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +23,8 @@ public class ProductMutationQL implements GraphQLMutationResolver {
     VariationsService variationsService;
     @Autowired
     ShipmentListService shipmentListService;
+    @Autowired
+    ProductAttributeService productAttributeService;
 
     @Transactional
     ProductDto saveProduct(Long shopId, Product product) {
@@ -52,6 +48,12 @@ public class ProductMutationQL implements GraphQLMutationResolver {
     ShipmentListDto saveShipment(Long productId, InputShipmentList shipmentList) {
         ShipmentList shipmentList1 = shipmentListService.save(productId, shipmentList);
         return ShalMapper.INSTANCE.getShipmentListDto(shipmentList1);
+    }
+
+    @Transactional
+    List<ProductAttributeDto> saveAttribute(Long productId, List<InputProductAttributeDto> inputProductAttributeDto){
+        List<ProductAttribute> productAttributes = productAttributeService.save(productId, inputProductAttributeDto);
+        return ShalMapper.INSTANCE.getProductAttributeDto(productAttributes);
     }
 
 }
