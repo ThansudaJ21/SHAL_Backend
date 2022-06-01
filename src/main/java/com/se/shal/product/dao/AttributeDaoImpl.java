@@ -14,4 +14,9 @@ public class AttributeDaoImpl implements AttributeDao{
     public Attribute save(Attribute attribute) {
         return attributeRepository.save(attribute);
     }
+
+    @Override
+    public Attribute findById(Long id) {
+        return attributeRepository.findById(id).orElse(null);
+    }
 }

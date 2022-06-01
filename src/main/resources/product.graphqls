@@ -78,6 +78,7 @@ input InputProduct {
 input  InputProductAttributes {
     text: String
     attribute: InputAttribute
+    productId: Int
 }
 
 input InputAttribute {
