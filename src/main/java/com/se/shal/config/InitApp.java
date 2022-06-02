@@ -3,9 +3,13 @@ package com.se.shal.config;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.repository.AttributeRepository;
 import com.se.shal.product.repository.CategoryRepository;
+import com.se.shal.product.repository.ProductRepository;
 import com.se.shal.product.repository.ShipmentRepository;
+import com.se.shal.shop.entity.Shop;
+import com.se.shal.shop.entity.ShopAddress;
 import com.se.shal.shop.entity.ShopStatus;
 import com.se.shal.shop.entity.ShopStatusName;
+import com.se.shal.shop.repository.ShopRepository;
 import com.se.shal.shop.repository.ShopStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -13,6 +17,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 
 @Component
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
@@ -27,6 +32,12 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     ShopStatusRepository shopStatusRepository;
 
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    ShopRepository shopRepository;
+
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
@@ -37,7 +48,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         ShopStatus enable = shopStatusRepository.save(ShopStatus.builder()
                 .shopStatusName(ShopStatusName.ENABLE)
                 .build());
-        
+
         Category beauty = Category.builder().categoryName(CategoryName.BEAUTY).build();
         Category fashion = Category.builder().categoryName(CategoryName.FASHION).build();
         Category electronic = Category.builder().categoryName(CategoryName.ELECTRONIC).build();
@@ -123,6 +134,29 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Shipment dhl = shipmentRepository.save(Shipment.builder().shipmentName(ShipmentName.DHL).build());
         Shipment ninja = shipmentRepository.save(Shipment.builder().shipmentName(ShipmentName.NINJA).build());
 
+        Shop shop = shopRepository.save(Shop.builder()
+                .shopName("Thansuda shop")
+                .email("Thansuda2010@gmail.com")
+                .promptPay("0954475249")
+                .idCard("1234567891234")
+                .shopStatus(ShopStatusName.ENABLE)
+                .shopLogoImagePath("shop image")
+                .selfiePhotoWithIdCardPath("selfie")
+                .shopAddress(ShopAddress.builder()
+                        .district("meachan")
+                        .houseNumber("322")
+                        .moo("12").subDistrict("mea kham")
+                        .postalCode("57240")
+                        .province("chiang rai")
+                        .build())
+                .build());
+        Product product = productRepository.save(Product.builder()
+                .productName("IPhone13")
+                .details("IPhone13 128 GB")
+                .category(CategoryName.ELECTRONIC)
+                .imagesPath(Arrays.asList("Image1", "Image2"))
+                .shop(shop)
+                .build());
 
     }
 }
