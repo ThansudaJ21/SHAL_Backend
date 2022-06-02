@@ -20,7 +20,7 @@ public interface ShalMapper {
     ShopDto updateShopStatus(Shop shop);
 
     @Mapping(target = "shopId",  source = "shop.id")
-    ProductDto saveProduct(Product product);
+    InputProductDto saveProduct(Product product);
 
     @Mapping(target = "productId",  source = "product.id")
     SalesInformationDto saveSaleInformation(SalesInformation salesInformation);
@@ -33,8 +33,8 @@ public interface ShalMapper {
 
     @Mapping(target = "attribute", ignore = true)
     List<ProductAttribute> getProductAttribute(List<InputProductAttributeDto> inputShipmentList);
-//    @Mapping(target = "shipments", ignore = true)
-//    Product getProduct(InputProductDto inputDto);
+
+    ProductDto getProductDto(Product product);
 
     @Mappings({
             @Mapping(target = "productId",  source = "product.id"),

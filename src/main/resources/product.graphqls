@@ -7,7 +7,14 @@ type  Product {
     ShopId: Int
     imagesPath: [String]
 }
-
+type  ProductDto {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
 type  ProductAttributeDto {
     text: String
     attribute: Attribute

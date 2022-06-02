@@ -11,6 +11,7 @@ type Query {
     #    Product
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]
+    getProduct(id: Int):ProductDto
 
 }
 type Mutation {
