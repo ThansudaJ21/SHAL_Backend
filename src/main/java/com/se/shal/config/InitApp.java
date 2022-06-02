@@ -1,10 +1,7 @@
 package com.se.shal.config;
 
 import com.se.shal.product.entity.*;
-import com.se.shal.product.repository.AttributeRepository;
-import com.se.shal.product.repository.CategoryRepository;
-import com.se.shal.product.repository.ProductRepository;
-import com.se.shal.product.repository.ShipmentRepository;
+import com.se.shal.product.repository.*;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.entity.ShopAddress;
 import com.se.shal.shop.entity.ShopStatus;
@@ -23,20 +20,26 @@ import java.util.Arrays;
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     CategoryRepository categoryRepository;
-
     @Autowired
     AttributeRepository attributeRepository;
-
     @Autowired
     ShipmentRepository shipmentRepository;
     @Autowired
     ShopStatusRepository shopStatusRepository;
-
     @Autowired
     ProductRepository productRepository;
-
     @Autowired
     ShopRepository shopRepository;
+    @Autowired
+    OptionsRepository optionsRepository;
+    @Autowired
+    SalesInformationRepository salesInformationRepository;
+    @Autowired
+    VariationRepository variationRepository;
+    @Autowired
+    ShipmentListRepository shipmentListRepository;
+    @Autowired
+    ProductAttributeRepository productAttributeRepository;
 
     @Override
     @Transactional
@@ -156,6 +159,47 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .category(CategoryName.ELECTRONIC)
                 .imagesPath(Arrays.asList("Image1", "Image2"))
                 .shop(shop)
+                .build());
+
+        SalesInformation salesInformation = salesInformationRepository.save(SalesInformation.builder()
+                .product(product)
+                .timeUnitForNextAuction(TimeUnit.HOUR)
+                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
+                .saleTypeName(SaleTypeName.SALE)
+                .nextAuction(2)
+                .auctionPeriod(1)
+                .storage(100)
+                .startingBid(10200.0)
+                .salePrice(29000.0)
+                .build());
+
+        ShipmentList shipmentList = shipmentListRepository.save(ShipmentList.builder()
+                .product(product)
+                .shipments(Arrays.asList(Registered, jandt))
+                .build());
+
+        Options options = optionsRepository.save(Options.builder()
+                .image("128")
+                .stock(20)
+                .price(29000)
+                .build());
+
+        Options options1 = optionsRepository.save(Options.builder()
+                .image("256")
+                .stock(20)
+                .price(39000)
+                .build());
+
+        Variations variations = variationRepository.save(Variations.builder()
+                .product(product)
+                .name("Storage")
+                .options(Arrays.asList(options, options1))
+                .build());
+
+        ProductAttribute productAttribute = productAttributeRepository.save(ProductAttribute.builder()
+                .attribute(brand)
+                .product(product)
+                .text("Brand")
                 .build());
 
     }
