@@ -33,4 +33,10 @@ public class SalesInformationServiceImpl implements SalesInformationService {
                 .build();
         return salesInformationDao.save(newSalesInformation);
     }
+
+    @Transactional
+    @Override
+    public SalesInformation getSalesInformation(Long id) {
+        return salesInformationDao.getSalesInformation(id);
+    }
 }

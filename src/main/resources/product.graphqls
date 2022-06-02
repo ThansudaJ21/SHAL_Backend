@@ -50,7 +50,30 @@ type SalesInformation {
     timeUnitForNextAuction:String
     productId: Int
 }
-
+type SalesInformation {
+    id:Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    productId: Int
+}
+type SalesInformationDto {
+    id:Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    productId: Int
+}
 #Category
 type CategoryDto {
     categoryName: String
