@@ -40,10 +40,14 @@ public interface ShalMapper {
     SalesInformationDto getSalesInformationDto(SalesInformation salesInformation);
 
     @Mappings({
-            @Mapping(target = "productId",  source = "product.id"),
             @Mapping(target = "attribute", ignore = true)
     })
     List<ProductAttributeDto> getProductAttributeDto(List<ProductAttribute> productAttributes);
+    @Mappings({
+            @Mapping(target = "productId",  source = "product.id"),
+
+    })
+    ProductAttributeDto getProductAttributeDto(ProductAttribute productAttributes);
 
     @Mappings({
             @Mapping(target = "shipments",

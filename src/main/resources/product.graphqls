@@ -38,18 +38,7 @@ type Options {
     stock: Int
     image:String
 }
-type SalesInformation {
-    id:Int
-    salePrice: Float
-    startingBid: Float
-    storage:Int
-    auctionPeriod:Int
-    nextAuction:Int
-    saleTypeName: String
-    timeUnitForAuctionPeriod: String
-    timeUnitForNextAuction:String
-    productId: Int
-}
+
 type SalesInformation {
     id:Int
     salePrice: Float
