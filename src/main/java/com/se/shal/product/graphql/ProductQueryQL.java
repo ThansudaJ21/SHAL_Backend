@@ -60,5 +60,11 @@ public class ProductQueryQL implements GraphQLQueryResolver {
         List<Product> products = productService.getAllProduct(shopId);
         return ShalMapper.INSTANCE.getQueryAllProductDto(products);
     }
+
+    @Transactional
+    List<FilterProductByCategoryDto> productFilterByCategory(String category) {
+        List<Product> products = productService.productFilterByCategory(category);
+        return ShalMapper.INSTANCE.getFilterAllProductByCategory(products);
+    }
 }
 

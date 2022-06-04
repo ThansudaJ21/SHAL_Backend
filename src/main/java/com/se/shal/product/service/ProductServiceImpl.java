@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -22,6 +23,8 @@ public class ProductServiceImpl implements ProductService {
     ProductDao productDao;
     @Autowired
     ShopDao shopDao;
+    @Autowired
+    CategoryDao categoryDao;
 
     @Transactional
     @Override
@@ -45,8 +48,25 @@ public class ProductServiceImpl implements ProductService {
         List<Product> output = new ArrayList<>();
 
         for (Product product : products) {
-            if (Objects.equals(product.getShop().getId(), shop.getId())){
+            if (Objects.equals(product.getShop().getId(), shop.getId())) {
                 output.add(product);
+            }
+        }
+        return output;
+    }
+
+    @Transactional
+    @Override
+    public List<Product> productFilterByCategory(String category) {
+        List<Product> products = productDao.findAll();
+        List<Product> output = new ArrayList<>();
+        Category c = categoryDao.findCategoryByName(category);
+        for (Product product : products) {
+
+            if (Objects.equals(product.getCategory().getCategoryName(),c.getCategoryName().getCategoryName())) {
+                output.add(product);
+            } else {
+                return null;
             }
         }
         return output;

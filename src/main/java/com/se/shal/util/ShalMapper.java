@@ -29,6 +29,11 @@ public interface ShalMapper {
 //    @Mapping(target = "shopId",  source = "shop.id")
     List<QueryProductDto> getQueryAllProductDto(List<Product> product);
 
+    List<FilterProductByCategoryDto> getFilterAllProductByCategory(List<Product> product);
+
+    @Mapping(target = "shopId",  source = "shop.id")
+    FilterProductByCategoryDto getFilterAllProductByCategory(Product product);
+
     @Mapping(target = "shopId",  source = "shop.id")
     QueryProductDto getQueryAllProductDto(Product product);
 

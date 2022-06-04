@@ -9,4 +9,5 @@ public interface ProductService {
     Product saveProduct(Long shopId, Product product);
     Product getProduct(Long id);
     List<Product> getAllProduct(Long shopId);
+    List<Product> productFilterByCategory(String category);
 }

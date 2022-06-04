@@ -17,6 +17,7 @@ type Query {
     getShipment(productId:Int, id:Int): ShipmentListDto
     getAttribute(productId:Int): [ProductAttributeQuery]
     getVariations(productId: Int): [VariationsDto]
+    productFilterByCategory(category: String): [FilterProductDto]
 }
 type Mutation {
     registerShop(shop: ShopInput): Shop

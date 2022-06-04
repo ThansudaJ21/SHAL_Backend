@@ -14,8 +14,8 @@ public enum CategoryName {
     private String category;
     private Integer order;
 
-    CategoryName(String saleType, Integer order){
-        this.category = saleType;
+    CategoryName(String category, Integer order){
+        this.category = category;
         this.order = order;
     }
 
