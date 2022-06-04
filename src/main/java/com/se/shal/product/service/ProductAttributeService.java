@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ProductAttributeService {
     List<ProductAttribute> save(Long productId, List<InputProductAttributeDto> productAttribute);
+    List<ProductAttribute> getProductAttribute(Long productId);
 }

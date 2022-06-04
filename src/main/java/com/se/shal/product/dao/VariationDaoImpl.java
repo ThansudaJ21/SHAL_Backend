@@ -16,4 +16,9 @@ public class VariationDaoImpl implements VariationDao{
     public List<Variations> save(List<Variations> variations) {
         return variationRepository.saveAll(variations);
     }
+
+    @Override
+    public List<Variations> findAll() {
+        return variationRepository.findAll();
+    }
 }

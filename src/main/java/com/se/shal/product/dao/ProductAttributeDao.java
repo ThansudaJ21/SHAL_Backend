@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ProductAttributeDao {
     List<ProductAttribute> save(List<ProductAttribute> productAttributes);
+    List<ProductAttribute> findAll();
+    ProductAttribute getProductAttribute(Long id);
 }
