@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,5 +35,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProduct(Long id) {
         return productDao.getProduct(id);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> getAllProduct(Long shopId) {
+        Shop shop = shopDao.findById(shopId);
+        List<Product> products = productDao.findAll();
+        List<Product> output = new ArrayList<>();
+
+        for (Product product : products) {
+            if (Objects.equals(product.getShop().getId(), shop.getId())){
+                output.add(product);
+            }
+        }
+        return output;
     }
 }

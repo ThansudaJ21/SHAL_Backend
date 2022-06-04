@@ -12,6 +12,7 @@ type Query {
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]
     getProduct(id: Int):ProductDto
+    getAllProduct(shopId: Int): [QueryProductDto]
     getSaleInformation(productId:Int, id:Int): SalesInformationDto
     getShipment(productId:Int, id:Int): ShipmentListDto
     getAttribute(productId:Int): [ProductAttributeQuery]

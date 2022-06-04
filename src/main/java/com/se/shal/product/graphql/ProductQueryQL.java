@@ -54,5 +54,11 @@ public class ProductQueryQL implements GraphQLQueryResolver {
         List<Variations> variations = variationsService.getVariations(productId);
         return ShalMapper.INSTANCE.getQueryVariationsDto(variations);
     }
+
+    @Transactional
+    List<QueryProductDto> getAllProduct(Long shopId){
+        List<Product> products = productService.getAllProduct(shopId);
+        return ShalMapper.INSTANCE.getQueryAllProductDto(products);
+    }
 }
 
