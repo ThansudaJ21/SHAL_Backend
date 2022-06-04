@@ -14,5 +14,5 @@ import java.util.List;
 public class ShipmentListDto {
     Long id;
     List<String> shipments;
-    Long ProductId;
+    Long productId;
 }

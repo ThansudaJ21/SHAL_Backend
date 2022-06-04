@@ -20,6 +20,7 @@ public class Shipment {
 
 //    @ManyToMany
 //    @Builder.Default
+//    @ToString.Exclude
 //    List<ShipmentList> shipmentLists = new ArrayList<>();
 
     public Shipment() {

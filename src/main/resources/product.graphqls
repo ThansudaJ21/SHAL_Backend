@@ -7,7 +7,14 @@ type  Product {
     ShopId: Int
     imagesPath: [String]
 }
-
+type  ProductDto {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
 type  ProductAttributeDto {
     text: String
     attribute: Attribute
@@ -20,17 +27,19 @@ type Attribute {
 
 type Variations {
     id:Int
-    name: String
+    variationName: String
     options: [Options]
     productId: Int
 }
 
 type Options {
     #    id: Int
+    optionName:String
     price: Int
     stock: Int
     image:String
 }
+
 type SalesInformation {
     id:Int
     salePrice: Float
@@ -43,7 +52,18 @@ type SalesInformation {
     timeUnitForNextAuction:String
     productId: Int
 }
-
+type SalesInformationDto {
+    id:Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    productId: Int
+}
 #Category
 type CategoryDto {
     categoryName: String
@@ -87,13 +107,14 @@ input InputAttribute {
 
 input InputVariations {
     #    id:Int
-    name: String
+    variationName: String
     options: [InputOptions]
     productId: Int
 }
 
 input InputOptions {
     #    id: Int
+    optionName: String
     price: Int
     stock: Int
     image:String

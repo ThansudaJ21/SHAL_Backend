@@ -14,4 +14,9 @@ public class SalesInformationDaoImpl implements  SalesInformationDao{
     public SalesInformation save(SalesInformation salesInformation) {
         return salesInformationRepository.save(salesInformation);
     }
+
+    @Override
+    public SalesInformation getSalesInformation(Long id) {
+        return salesInformationRepository.findById(id).orElse(null);
+    }
 }
