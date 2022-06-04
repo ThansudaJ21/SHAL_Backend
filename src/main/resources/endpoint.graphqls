@@ -13,7 +13,7 @@ type Query {
     getAllCategory: [Category]
     getProduct(id: Int):ProductDto
     getSaleInformation(productId:Int, id:Int): SalesInformationDto
-
+    getShipment(productId:Int, id:Int): ShipmentListDto
 }
 type Mutation {
     registerShop(shop: ShopInput): Shop

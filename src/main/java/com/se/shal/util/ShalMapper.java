@@ -61,6 +61,14 @@ public interface ShalMapper {
     })
     ShipmentListDto getShipmentListDto(ShipmentList shipmentList);
 
+    @Mappings({
+            @Mapping(target = "shipments",
+                    expression = "java(shipmentList.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "productId", source = "product.id")
+    })
+    QueryShipmentListDto getQueryShipmentListDto(ShipmentList shipmentList);
 
     @Mapping(target = "attributes", source = "attributes")
     CategoryDto getCategoryDto(Category category);

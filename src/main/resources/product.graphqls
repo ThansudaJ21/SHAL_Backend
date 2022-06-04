@@ -81,10 +81,15 @@ type Category{
 }
 
 type  ShipmentList{
+    id: Int
     shipments: [String]
     productId: Int
 }
-
+type  ShipmentListDto{
+    id: Int
+    shipments: [String]
+    productId: Int
+}
 #Product Input
 
 input InputProduct {

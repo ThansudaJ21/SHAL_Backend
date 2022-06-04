@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ShipmentListService {
     ShipmentList save(Long productId, InputShipmentList shipmentList);
+    ShipmentList getShipmentLists(Long productId, Long id);
 }
