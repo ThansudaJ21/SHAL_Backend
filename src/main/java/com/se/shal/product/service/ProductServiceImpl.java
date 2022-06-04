@@ -1,7 +1,7 @@
 package com.se.shal.product.service;
 
 import com.se.shal.product.dao.*;
-import com.se.shal.product.dto.InputProductDto;
+
 import com.se.shal.product.dto.VariationsDto;
 import com.se.shal.product.entity.*;
 import com.se.shal.shop.dao.ShopDao;
@@ -27,5 +27,11 @@ public class ProductServiceImpl implements ProductService {
         Shop shop = shopDao.findById(shopId);
         product.setShop(shop);
         return productDao.saveProduct(product);
+    }
+
+    @Transactional
+    @Override
+    public Product getProduct(Long id) {
+        return productDao.getProduct(id);
     }
 }
