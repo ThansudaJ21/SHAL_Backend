@@ -26,8 +26,8 @@ public class ProductQueryQL implements GraphQLQueryResolver {
     }
 
     @Transactional
-    SalesInformationDto getSaleInformation(Long id) {
-        SalesInformation salesInformation = salesInformationService.getSalesInformation(id);
+    SalesInformationDto getSaleInformation(Long productId,Long id) {
+        SalesInformation salesInformation = salesInformationService.getSalesInformation(productId,id);
         return ShalMapper.INSTANCE.getSalesInformationDto(salesInformation);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Objects;
 
 @Service
 public class SalesInformationServiceImpl implements SalesInformationService {
@@ -36,7 +37,12 @@ public class SalesInformationServiceImpl implements SalesInformationService {
 
     @Transactional
     @Override
-    public SalesInformation getSalesInformation(Long id) {
-        return salesInformationDao.getSalesInformation(id);
+    public SalesInformation getSalesInformation(Long productId,Long id) {
+        Product product = productDao.findById(productId);
+        SalesInformation salesInformation = salesInformationDao.getSalesInformation(id);
+        if (Objects.equals(product.getId(), salesInformation.getProduct().getId())){
+            salesInformation = salesInformationDao.getSalesInformation(id);
+        }
+        return salesInformation;
     }
 }
