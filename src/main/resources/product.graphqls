@@ -15,6 +15,22 @@ type  ProductDto {
     ShopId: Int
     imagesPath: [String]
 }
+type  QueryProductDto {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
+type  FilterProductDto {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
 type  ProductAttributeDto {
     text: String
     attribute: Attribute
