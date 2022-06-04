@@ -192,7 +192,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Variations variations = variationRepository.save(Variations.builder()
                 .product(product)
-                .name("Storage")
+                .variationName("Storage")
                 .options(Arrays.asList(options, options1))
                 .build());
 

@@ -32,7 +32,7 @@ public class VariationsServiceImpl implements VariationsService {
         ) {
             List<Options> options = optionsDao.save(variations1.getOptions());
             variations1.setProduct(product);
-            variations1.setName(variations1.getName());
+            variations1.setVariationName(variations1.getVariationName());
             variations1.setOptions(options);
         }
 
