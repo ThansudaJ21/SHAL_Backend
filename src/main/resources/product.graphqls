@@ -36,7 +36,12 @@ type Variations {
     options: [Options]
     productId: Int
 }
-
+type VariationsDto {
+    id:Int
+    variationName: String
+    options: [Options]
+    productId: Int
+}
 type Options {
     #    id: Int
     optionName:String

@@ -56,7 +56,6 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
     @Transactional
     @Override
     public List<ProductAttribute> getProductAttribute(Long productId) {
-        Product product = productDao.findById(productId);
         List<ProductAttribute> productAttribute = productAttributeDao.findAll();
 
         List<ProductAttribute> output = new ArrayList<>();

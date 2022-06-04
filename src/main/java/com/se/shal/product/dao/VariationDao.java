@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface VariationDao {
     List<Variations> save(List<Variations> variations);
+
+    List<Variations> findAll();
 }

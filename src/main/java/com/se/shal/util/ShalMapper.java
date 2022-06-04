@@ -30,8 +30,12 @@ public interface ShalMapper {
     List<VariationsDto> saveVariations(List<Variations> variationsList);
 
     @Mapping(target = "productId",  source = "product.id")
-    VariationsDto saveVariations(Variations variationsList) ;
+    VariationsDto saveVariations(Variations variationsList);
 
+    @Mapping(target = "productId", source = "product.id")
+    QueryVariationsDto getQueryVariationsDto(Variations variations);
+
+    List<QueryVariationsDto> getQueryVariationsDto(List<Variations> variations);
     @Mappings({
             @Mapping(target = "shipments", ignore = true)
     })
@@ -51,6 +55,8 @@ public interface ShalMapper {
 
     @Mapping(target = "attribute", ignore = true)
     List<QueryProductAttributeDto> getQueryProductAttributeDto(List<ProductAttribute> productAttributes);
+
+
 
     @Mapping(target = "productId",  source = "product.id")
     QueryProductAttributeDto getQueryProductAttributeDto(ProductAttribute productAttributes);
