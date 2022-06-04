@@ -12,8 +12,8 @@ type Query {
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]
     getProduct(id: Int):ProductDto
-    getSaleInformation(id:Int): SalesInformationDto
-
+    getSaleInformation(productId:Int, id:Int): SalesInformationDto
+    getShipment(productId:Int, id:Int): ShipmentListDto
 }
 type Mutation {
     registerShop(shop: ShopInput): Shop

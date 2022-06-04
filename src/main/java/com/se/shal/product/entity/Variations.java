@@ -15,7 +15,7 @@ public class Variations {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    String name;
+    String variationName;
 
     @OneToMany
     List<Options> options;

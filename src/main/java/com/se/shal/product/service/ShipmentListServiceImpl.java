@@ -8,11 +8,13 @@ import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.Shipment;
 import com.se.shal.product.entity.ShipmentList;
 import com.se.shal.util.ShalMapper;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,5 +41,17 @@ public class ShipmentListServiceImpl implements ShipmentListService{
         shipmentList1.setShipments(dsgList);
         shipmentList1.setProduct(product);
         return shipmentListDao.save(shipmentList1);
+    }
+
+    @Transactional
+    @Override
+    public ShipmentList getShipmentLists(Long productId, Long id) {
+        Product product = productDao.findById(productId);
+        ShipmentList shipmentList = shipmentListDao.findById(id);
+        if (Objects.equals(product.getId(), shipmentList.getProduct().getId())){
+            shipmentList = shipmentListDao.getShipmentList(id);
+            Hibernate.initialize(shipmentList.getShipments());
+        }
+        return shipmentList;
     }
 }

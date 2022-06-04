@@ -27,13 +27,14 @@ type Attribute {
 
 type Variations {
     id:Int
-    name: String
+    variationName: String
     options: [Options]
     productId: Int
 }
 
 type Options {
     #    id: Int
+    optionName:String
     price: Int
     stock: Int
     image:String
@@ -80,10 +81,15 @@ type Category{
 }
 
 type  ShipmentList{
+    id: Int
     shipments: [String]
     productId: Int
 }
-
+type  ShipmentListDto{
+    id: Int
+    shipments: [String]
+    productId: Int
+}
 #Product Input
 
 input InputProduct {
@@ -106,13 +112,14 @@ input InputAttribute {
 
 input InputVariations {
     #    id:Int
-    name: String
+    variationName: String
     options: [InputOptions]
     productId: Int
 }
 
 input InputOptions {
     #    id: Int
+    optionName: String
     price: Int
     stock: Int
     image:String

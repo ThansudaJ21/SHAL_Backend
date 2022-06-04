@@ -20,7 +20,7 @@ public class ShipmentList {
     @OneToMany
     List<Shipment> shipments;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     Product product;
 
     public ShipmentList() {
