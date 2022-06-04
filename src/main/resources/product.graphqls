@@ -20,7 +20,12 @@ type  ProductAttributeDto {
     attribute: Attribute
     productId: Int
 }
-
+type  ProductAttributeQuery {
+    id: Int
+    text: String
+    attribute: Attribute
+    productId: Int
+}
 type Attribute {
     attribute: String
 }

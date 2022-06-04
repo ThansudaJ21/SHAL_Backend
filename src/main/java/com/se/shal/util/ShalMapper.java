@@ -49,6 +49,12 @@ public interface ShalMapper {
     @Mapping(target = "attribute", ignore = true)
     List<ProductAttributeDto> getProductAttributeDto(List<ProductAttribute> productAttributes);
 
+    @Mapping(target = "attribute", ignore = true)
+    List<QueryProductAttributeDto> getQueryProductAttributeDto(List<ProductAttribute> productAttributes);
+
+    @Mapping(target = "productId",  source = "product.id")
+    QueryProductAttributeDto getQueryProductAttributeDto(ProductAttribute productAttributes);
+
     @Mapping(target = "productId",  source = "product.id")
     ProductAttributeDto getProductAttributeDto(ProductAttribute productAttributes);
 
