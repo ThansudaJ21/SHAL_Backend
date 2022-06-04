@@ -4,6 +4,7 @@ import com.se.shal.product.dto.*;
 import com.se.shal.product.entity.*;
 import com.se.shal.shop.dto.ShopDto;
 import com.se.shal.shop.entity.Shop;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -31,15 +32,16 @@ public interface ShalMapper {
     @Mapping(target = "productId",  source = "product.id")
     VariationsDto saveVariations(Variations variationsList) ;
 
-
-    @Mapping(target = "shipments", ignore = true)
+    @Mappings({
+            @Mapping(target = "shipments", ignore = true)
+    })
     ShipmentList getShipmentList(InputShipmentList inputShipmentList);
 
     @Mapping(target = "attribute", ignore = true)
     List<ProductAttribute> getProductAttribute(List<InputProductAttributeDto> inputShipmentList);
 
     ProductDto getProductDto(Product product);
-    
+
     @Mapping(target = "productId",  source = "product.id")
     SalesInformationDto getSalesInformationDto(SalesInformation salesInformation);
 
@@ -55,9 +57,10 @@ public interface ShalMapper {
                     expression = "java(shipmentList.getShipments().stream()" +
                             ".map(d -> d.getShipmentName().getShipmentName())" +
                             ".collect(Collectors.toList()))"),
-            @Mapping(target = "ProductId", source = "product.id"),
+            @Mapping(target = "productId", source = "product.id")
     })
     ShipmentListDto getShipmentListDto(ShipmentList shipmentList);
+
 
     @Mapping(target = "attributes", source = "attributes")
     CategoryDto getCategoryDto(Category category);

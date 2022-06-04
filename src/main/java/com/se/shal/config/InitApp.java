@@ -172,11 +172,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .startingBid(10200.0)
                 .salePrice(29000.0)
                 .build());
-
-        ShipmentList shipmentList = shipmentListRepository.save(ShipmentList.builder()
-                .product(product)
-                .shipments(Arrays.asList(Registered, jandt))
-                .build());
+//
+//        ShipmentList shipmentList = shipmentListRepository.save(ShipmentList.builder()
+//                .product(product)
+//                .shipments(Arrays.asList(Registered, jandt))
+//                .build());
 
         Options options = optionsRepository.save(Options.builder()
                 .image("128")
