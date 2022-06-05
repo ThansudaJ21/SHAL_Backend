@@ -62,6 +62,10 @@ public interface ShalMapper {
     })
     ShipmentList getShipmentList(InputShipmentList inputShipmentList);
 
+    @Mappings({
+            @Mapping(target = "shipments", ignore = true)
+    })
+    ShipmentList getUpdateShipmentList(InputUpdateShipmentList inputShipmentList);
     @Mapping(target = "attribute", ignore = true)
     List<ProductAttribute> getProductAttribute(List<InputProductAttributeDto> inputShipmentList);
 
@@ -91,6 +95,15 @@ public interface ShalMapper {
             @Mapping(target = "productId", source = "product.id")
     })
     ShipmentListDto getShipmentListDto(ShipmentList shipmentList);
+
+    @Mappings({
+            @Mapping(target = "shipments",
+                    expression = "java(shipmentList.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "productId", source = "product.id")
+    })
+    UpdateShipmentList getUpdateShipmentListDto(ShipmentList shipmentList);
 
     @Mappings({
             @Mapping(target = "shipments",

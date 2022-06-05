@@ -4,6 +4,7 @@ import com.se.shal.product.dao.ProductDao;
 import com.se.shal.product.dao.ShipmentDao;
 import com.se.shal.product.dao.ShipmentListDao;
 import com.se.shal.product.dto.input.InputShipmentList;
+import com.se.shal.product.dto.input.InputUpdateShipmentList;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.Shipment;
 import com.se.shal.product.entity.ShipmentList;
@@ -53,5 +54,18 @@ public class ShipmentListServiceImpl implements ShipmentListService{
             Hibernate.initialize(shipmentList.getShipments());
         }
         return shipmentList;
+    }
+
+    @Transactional
+    @Override
+    public ShipmentList updateShipmentLists(InputUpdateShipmentList shipmentList) {
+        ShipmentList shipmentList1 = ShalMapper.INSTANCE.getUpdateShipmentList(shipmentList);
+        ShipmentList shipmentList2 = shipmentListDao.getShipmentList(shipmentList1.getId());
+        List<Shipment> dsgList = shipmentList.getShipments().stream()
+                .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
+                .collect(Collectors.toList());
+
+        shipmentList2.setShipments(dsgList);
+        return shipmentListDao.save(shipmentList2);
     }
 }

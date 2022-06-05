@@ -130,6 +130,11 @@ type  ShipmentList{
     shipments: [String]
     productId: Int
 }
+type  UpdateShipmentList{
+    id: Int
+    shipments: [String]
+    productId: Int
+}
 type  ShipmentListDto{
     id: Int
     shipments: [String]
@@ -204,4 +209,8 @@ input  InputShipmentList {
     shipments: [String]
     productId: Int
 }
-
+input  InputUpdateShipmentList {
+    id: Int
+    shipments: [String]
+    productId: Int
+}
