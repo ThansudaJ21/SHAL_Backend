@@ -63,4 +63,10 @@ public class ProductMutationQL implements GraphQLMutationResolver {
         Product product1 = productService.updateProduct(product);
         return ShalMapper.INSTANCE.updateProduct(product1);
     }
+
+    @Transactional
+    InputUpdateSalesInformationDto updateSaleInformation(SalesInformation salesInformation){
+        SalesInformation salesInformation1 = salesInformationService.updateSalesInformation(salesInformation);
+        return ShalMapper.INSTANCE.updateSaleInformation(salesInformation1);
+    }
 }

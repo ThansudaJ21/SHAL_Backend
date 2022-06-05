@@ -22,31 +22,34 @@ public interface ShalMapper {
     ShalMapper INSTANCE = Mappers.getMapper(ShalMapper.class);
 
     ShopDto registerShop(Shop Shop);
+
     ShopDto updateShopStatus(Shop shop);
 
-    @Mapping(target = "shopId",  source = "shop.id")
+    @Mapping(target = "shopId", source = "shop.id")
     InputProductDto saveProduct(Product product);
 
-    @Mapping(target = "shopId",  source = "shop.id")
+    @Mapping(target = "shopId", source = "shop.id")
     InputUpdateProductDto updateProduct(Product product);
 
-    @Mapping(target = "productId",  source = "product.id")
+    @Mapping(target = "productId", source = "product.id")
     InputSalesInformationDto saveSaleInformation(SalesInformation salesInformation);
 
-//    @Mapping(target = "shopId",  source = "shop.id")
+    @Mapping(target = "productId", source = "product.id")
+    InputUpdateSalesInformationDto updateSaleInformation(SalesInformation salesInformation);
+
     List<QueryProductDto> getQueryAllProductDto(List<Product> product);
 
     List<FilterProductByCategoryDto> getFilterAllProductByCategory(List<Product> product);
 
-    @Mapping(target = "shopId",  source = "shop.id")
+    @Mapping(target = "shopId", source = "shop.id")
     FilterProductByCategoryDto getFilterAllProductByCategory(Product product);
 
-    @Mapping(target = "shopId",  source = "shop.id")
+    @Mapping(target = "shopId", source = "shop.id")
     QueryProductDto getQueryAllProductDto(Product product);
 
     List<VariationsDto> saveVariations(List<Variations> variationsList);
 
-    @Mapping(target = "productId",  source = "product.id")
+    @Mapping(target = "productId", source = "product.id")
     VariationsDto saveVariations(Variations variationsList);
 
     @Mapping(target = "productId", source = "product.id")
@@ -64,7 +67,7 @@ public interface ShalMapper {
 
     ProductDto getProductDto(Product product);
 
-    @Mapping(target = "productId",  source = "product.id")
+    @Mapping(target = "productId", source = "product.id")
     SalesInformationDto getSalesInformationDto(SalesInformation salesInformation);
 
 
@@ -74,10 +77,10 @@ public interface ShalMapper {
     @Mapping(target = "attribute", ignore = true)
     List<QueryProductAttributeDto> getQueryProductAttributeDto(List<ProductAttribute> productAttributes);
 
-    @Mapping(target = "productId",  source = "product.id")
+    @Mapping(target = "productId", source = "product.id")
     QueryProductAttributeDto getQueryProductAttributeDto(ProductAttribute productAttributes);
 
-    @Mapping(target = "productId",  source = "product.id")
+    @Mapping(target = "productId", source = "product.id")
     ProductAttributeDto getProductAttributeDto(ProductAttribute productAttributes);
 
     @Mappings({

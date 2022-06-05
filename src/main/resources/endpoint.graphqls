@@ -32,6 +32,8 @@ type Mutation {
 
     #    Update Product
     updateProduct(product: InputUpdateProduct): UpdateProduct
+    updateSaleInformation(saleInformation: InputUpdateSalesInformation) :UpdateSalesInformation
+
 
 }
 
