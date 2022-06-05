@@ -31,4 +31,6 @@ public class Shop {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shopAddress_id", referencedColumnName = "id")
     ShopAddress shopAddress;
+
+    ShopStatusName shopStatus;
 }

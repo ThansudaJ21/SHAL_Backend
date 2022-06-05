@@ -1,0 +1,94 @@
+#Product
+type  Product {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    productAttributes: [ProductAttributes]
+    variations: [Variations]
+    salesInformation: SalesInformation
+    shipments: [String]
+}
+
+type  ProductAttributes {
+#    id:Int
+    text: String
+    attribute: Attribute
+}
+
+type Attribute {
+#    id:Int
+    attribute: String
+}
+
+type Variations {
+#    id:Int
+    name: String
+    options: [Options]
+}
+
+type Options {
+#    id: Int
+    price: Int
+    stock: Int
+    image:String
+}
+type SalesInformation {
+#    id:Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+}
+
+
+#Product Input
+
+input InputProduct {
+    productName: String
+    details: String
+    category: String
+    productAttributes: [InputProductAttributes]
+    variations: [InputVariations]
+    salesInformation: InputSalesInformation
+    shipments: [String]
+}
+
+input  InputProductAttributes {
+#    id:Int
+    text: String
+    attribute: InputAttribute
+}
+
+input InputAttribute {
+#    id:Int
+    attribute: String
+}
+
+input InputVariations {
+#    id:Int
+    name: String
+    options: [InputOptions]
+}
+
+input InputOptions {
+#    id: Int
+    price: Int
+    stock: Int
+    image:String
+}
+input InputSalesInformation {
+#    id:Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+}

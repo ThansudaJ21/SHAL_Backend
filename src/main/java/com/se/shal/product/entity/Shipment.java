@@ -18,6 +18,10 @@ public class Shipment {
     @Enumerated(EnumType.STRING)
     private ShipmentName shipmentName;
 
+    @ManyToMany
+    @Builder.Default
+    List<Product> products = new ArrayList<>();
+
     public Shipment() {
 
     }

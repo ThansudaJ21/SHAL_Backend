@@ -1,12 +1,12 @@
 package com.se.shal.shop.dto;
 
 import com.se.shal.shop.entity.ShopAddress;
+import com.se.shal.shop.entity.ShopStatus;
+import com.se.shal.shop.entity.ShopStatusName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @Builder
@@ -21,4 +21,5 @@ public class ShopDto {
     String promptPay;
     String email;
     ShopAddress shopAddress;
+    String shopStatus;
 }
