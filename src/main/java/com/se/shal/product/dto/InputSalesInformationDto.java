@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SalesInformationDto {
+public class InputSalesInformationDto {
     Long id;
     Double salePrice;
     Double startingBid;

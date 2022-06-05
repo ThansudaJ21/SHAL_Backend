@@ -8,14 +8,26 @@ type Query {
     shopQueryFilterByShopName(shopName: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
     ShopQueryFilterByShopStatus(shopStatus: ShopQueryFilterByShopStatus, pageNo:Int, pageSize:Int): PageShop
 
-#    Product
-
+    #    Product
+    getCategory(id: Int): CategoryDto
+    getAllCategory: [Category]
+    getProduct(id: Int):ProductDto
+    getAllProduct(shopId: Int): [QueryProductDto]
+    getSaleInformation(productId:Int, id:Int): SalesInformationDto
+    getShipment(productId:Int, id:Int): ShipmentListDto
+    getAttribute(productId:Int): [ProductAttributeQuery]
+    getVariations(productId: Int): [VariationsDto]
+    productFilterByCategory(category: String): [FilterProductDto]
 }
 type Mutation {
     registerShop(shop: ShopInput): Shop
     updateShopStatus(shopStatus: ShopStatusInput): Shop
 
-#    Product
+    #    Product
     saveProduct(shopId: Int,product: InputProduct): Product
+    saveSaleInformation(productId: Int, saleInformation: InputSalesInformation) :SalesInformation
+    saveVariations(productId: Int, variations: [InputVariations]): [Variations]
+    saveAttribute(productId: Int,attribute: [InputProductAttributes] ):[ProductAttributeDto]
+    saveShipment(productId: Int, shipment: InputShipmentList): ShipmentList
 }
 

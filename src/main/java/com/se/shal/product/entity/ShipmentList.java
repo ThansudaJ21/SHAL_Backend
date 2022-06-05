@@ -1,6 +1,9 @@
 package com.se.shal.product.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,19 +11,19 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-public class Variations {
+public class ShipmentList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    String variationName;
+    @OneToMany
+    List<Shipment> shipments;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    List<Options> options;
-
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     Product product;
 
+    public ShipmentList() {
+
+    }
 }

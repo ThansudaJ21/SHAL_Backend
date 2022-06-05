@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ShopQueryFilterByShopName {
     String shopName;
+    String shopStatus;
 }

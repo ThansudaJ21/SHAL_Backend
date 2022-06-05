@@ -4,37 +4,70 @@ type  Product {
     productName: String
     details: String
     category: String
-    productAttributes: [ProductAttributes]
-    variations: [Variations]
-    salesInformation: SalesInformation
-    shipments: [String]
+    ShopId: Int
+    imagesPath: [String]
 }
-
-type  ProductAttributes {
-#    id:Int
+type  ProductDto {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
+type  QueryProductDto {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
+type  FilterProductDto {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
+type  ProductAttributeDto {
     text: String
     attribute: Attribute
+    productId: Int
 }
-
+type  ProductAttributeQuery {
+    id: Int
+    text: String
+    attribute: Attribute
+    productId: Int
+}
 type Attribute {
-#    id:Int
     attribute: String
 }
 
 type Variations {
-#    id:Int
-    name: String
+    id:Int
+    variationName: String
     options: [Options]
+    productId: Int
 }
-
+type VariationsDto {
+    id:Int
+    variationName: String
+    options: [Options]
+    productId: Int
+}
 type Options {
-#    id: Int
+    #    id: Int
+    optionName:String
     price: Int
     stock: Int
     image:String
 }
+
 type SalesInformation {
-#    id:Int
+    id:Int
     salePrice: Float
     startingBid: Float
     storage:Int
@@ -43,46 +76,81 @@ type SalesInformation {
     saleTypeName: String
     timeUnitForAuctionPeriod: String
     timeUnitForNextAuction:String
+    productId: Int
+}
+type SalesInformationDto {
+    id:Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    productId: Int
+}
+#Category
+type CategoryDto {
+    categoryName: String
+    attributes: [AttributeDto]
 }
 
+type AttributeDto {
+    attribute: String
+}
 
+type Category{
+    name: String
+    order: Int
+    categoryName: String
+}
+
+type  ShipmentList{
+    id: Int
+    shipments: [String]
+    productId: Int
+}
+type  ShipmentListDto{
+    id: Int
+    shipments: [String]
+    productId: Int
+}
 #Product Input
 
 input InputProduct {
     productName: String
     details: String
     category: String
-    productAttributes: [InputProductAttributes]
-    variations: [InputVariations]
-    salesInformation: InputSalesInformation
-    shipments: [String]
+    ShopId: Int
+    imagesPath: [String]
 }
 
 input  InputProductAttributes {
-#    id:Int
     text: String
     attribute: InputAttribute
+    productId: Int
 }
 
 input InputAttribute {
-#    id:Int
     attribute: String
 }
 
 input InputVariations {
-#    id:Int
-    name: String
+    #    id:Int
+    variationName: String
     options: [InputOptions]
+    productId: Int
 }
 
 input InputOptions {
-#    id: Int
+    #    id: Int
+    optionName: String
     price: Int
     stock: Int
     image:String
 }
 input InputSalesInformation {
-#    id:Int
     salePrice: Float
     startingBid: Float
     storage:Int
@@ -91,4 +159,12 @@ input InputSalesInformation {
     saleTypeName: String
     timeUnitForAuctionPeriod: String
     timeUnitForNextAuction:String
+    productId: Int
 }
+
+
+input  InputShipmentList {
+    shipments: [String]
+    productId: Int
+}
+

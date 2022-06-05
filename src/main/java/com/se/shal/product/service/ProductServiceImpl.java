@@ -1,15 +1,9 @@
 package com.se.shal.product.service;
 
-import com.se.shal.product.dao.OptionsDao;
-import com.se.shal.product.dao.ProductDao;
-import com.se.shal.product.dao.ShipmentDao;
-import com.se.shal.product.dao.VariationDao;
-import com.se.shal.product.dto.InputProductDto;
+import com.se.shal.product.dao.*;
+
 import com.se.shal.product.dto.VariationsDto;
-import com.se.shal.product.entity.Options;
-import com.se.shal.product.entity.Product;
-import com.se.shal.product.entity.Shipment;
-import com.se.shal.product.entity.Variations;
+import com.se.shal.product.entity.*;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.util.ShalMapper;
@@ -17,54 +11,64 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductDao productDao;
-
     @Autowired
     ShopDao shopDao;
     @Autowired
-    ShipmentDao shipmentDao;
-@Autowired
-    OptionsDao optionsDao;
-    @Autowired
-    VariationDao variationDao;
+    CategoryDao categoryDao;
 
     @Transactional
     @Override
-    public Product saveProduct(Long shopId, InputProductDto product) {
-        Product product1 = ShalMapper.INSTANCE.getProduct(product);
-
+    public Product saveProduct(Long shopId, Product product) {
         Shop shop = shopDao.findById(shopId);
-        product1.setShop(shop);
+        product.setShop(shop);
+        return productDao.saveProduct(product);
+    }
 
-        List<Shipment> shipments = product.getShipments().stream()
-                .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
-                .collect(Collectors.toList());
-        product1.setShipments(shipments);
+    @Transactional
+    @Override
+    public Product getProduct(Long id) {
+        return productDao.getProduct(id);
+    }
 
-        List<Variations> variations = variationDao.save(product1.getVariations());
-        product1.setVariations(variations);
+    @Transactional
+    @Override
+    public List<Product> getAllProduct(Long shopId) {
+        Shop shop = shopDao.findById(shopId);
+        List<Product> products = productDao.findAll();
+        List<Product> output = new ArrayList<>();
 
-
-        Product product3 = productDao.saveProduct(product1);
-
-        for (Variations variations1 : product1.getVariations()
-        ) {
-            List<Options> options = optionsDao.save(variations1.getOptions());
-            variations1.setProduct(product3);
-            variations1.setName(variations1.getName());
-            variations1.setOptions(options);
+        for (Product product : products) {
+            if (Objects.equals(product.getShop().getId(), shop.getId())) {
+                output.add(product);
+            }
         }
+        return output;
+    }
 
-        product3.getShipments().forEach(shipment -> {
-            shipment.getProducts().add(product3);
-        });
+    @Transactional
+    @Override
+    public List<Product> productFilterByCategory(String category) {
+        List<Product> products = productDao.findAll();
+        List<Product> output = new ArrayList<>();
+        Category c = categoryDao.findCategoryByName(category);
+        for (Product product : products) {
 
-        return product3;
+            if (Objects.equals(product.getCategory().getCategoryName(),c.getCategoryName().getCategoryName())) {
+                output.add(product);
+            } else {
+                return null;
+            }
+        }
+        return output;
     }
 }

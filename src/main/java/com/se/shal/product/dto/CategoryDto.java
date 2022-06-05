@@ -11,11 +11,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputProductDto {
-    Long id;
-    String productName;
-    String details;
-    List<String> imagesPath;
-    String category;
-    Long shopId;
+public class CategoryDto {
+
+    String categoryName;
+    List<CategoryAttributeDto> attributes;
+
 }

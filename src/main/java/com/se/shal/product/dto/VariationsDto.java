@@ -14,7 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VariationsDto {
-    String name;
-    @OneToMany
+    Long id;
+    String variationName;
     List<OptionsDto> options;
+    Long productId;
 }

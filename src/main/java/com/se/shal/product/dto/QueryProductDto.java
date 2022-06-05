@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputProductDto {
+public class QueryProductDto {
     Long id;
     String productName;
     String details;

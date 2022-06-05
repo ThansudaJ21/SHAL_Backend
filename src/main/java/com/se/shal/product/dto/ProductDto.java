@@ -18,10 +18,7 @@ public class ProductDto {
     Long id;
     String productName;
     String details;
-    List<String> shipments;
     List<String> imagesPath;
-    List<ProductAttributeDto> productAttributes;
-    List<VariationsDto> variations;
-    SalesInformationDto salesInformation;
     String category;
+    Long shopId;
 }

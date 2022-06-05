@@ -5,17 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputProductDto {
+public class QueryProductAttributeDto {
     Long id;
-    String productName;
-    String details;
-    List<String> imagesPath;
-    String category;
-    Long shopId;
+    String text;
+    AttributeDto attribute;
+    Long productId;
 }
