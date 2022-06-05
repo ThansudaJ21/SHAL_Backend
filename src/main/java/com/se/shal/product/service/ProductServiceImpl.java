@@ -63,12 +63,24 @@ public class ProductServiceImpl implements ProductService {
         Category c = categoryDao.findCategoryByName(category);
         for (Product product : products) {
 
-            if (Objects.equals(product.getCategory().getCategoryName(),c.getCategoryName().getCategoryName())) {
+            if (Objects.equals(product.getCategory().getCategoryName(), c.getCategoryName().getCategoryName())) {
                 output.add(product);
             } else {
                 return null;
             }
         }
         return output;
+    }
+
+    @Transactional
+    @Override
+    public Product updateProduct(Product product) {
+        Long id = product.getId();
+        Product product1 = productDao.findById(id);
+        product1.setProductName(product.getProductName());
+        product1.setDetails(product.getDetails());
+        product1.setCategory(product.getCategory());
+        product1.setImagesPath(product.getImagesPath());
+        return productDao.saveProduct(product1);
     }
 }

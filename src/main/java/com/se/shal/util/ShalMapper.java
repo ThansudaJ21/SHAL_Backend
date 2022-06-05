@@ -1,10 +1,14 @@
 package com.se.shal.util;
 
 import com.se.shal.product.dto.*;
+import com.se.shal.product.dto.input.*;
+import com.se.shal.product.dto.query.QueryProductAttributeDto;
+import com.se.shal.product.dto.query.QueryProductDto;
+import com.se.shal.product.dto.query.QueryShipmentListDto;
+import com.se.shal.product.dto.query.QueryVariationsDto;
 import com.se.shal.product.entity.*;
 import com.se.shal.shop.dto.ShopDto;
 import com.se.shal.shop.entity.Shop;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -22,6 +26,9 @@ public interface ShalMapper {
 
     @Mapping(target = "shopId",  source = "shop.id")
     InputProductDto saveProduct(Product product);
+
+    @Mapping(target = "shopId",  source = "shop.id")
+    InputUpdateProductDto updateProduct(Product product);
 
     @Mapping(target = "productId",  source = "product.id")
     InputSalesInformationDto saveSaleInformation(SalesInformation salesInformation);

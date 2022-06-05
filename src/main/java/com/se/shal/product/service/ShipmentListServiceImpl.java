@@ -3,7 +3,7 @@ package com.se.shal.product.service;
 import com.se.shal.product.dao.ProductDao;
 import com.se.shal.product.dao.ShipmentDao;
 import com.se.shal.product.dao.ShipmentListDao;
-import com.se.shal.product.dto.InputShipmentList;
+import com.se.shal.product.dto.input.InputShipmentList;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.Shipment;
 import com.se.shal.product.entity.ShipmentList;

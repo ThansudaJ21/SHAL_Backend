@@ -7,6 +7,14 @@ type  Product {
     ShopId: Int
     imagesPath: [String]
 }
+type  UpdateProduct {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
 type  ProductDto {
     id:Int
     productName: String
@@ -125,7 +133,14 @@ input InputProduct {
     ShopId: Int
     imagesPath: [String]
 }
-
+input InputUpdateProduct {
+    id: Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
 input  InputProductAttributes {
     text: String
     attribute: InputAttribute
