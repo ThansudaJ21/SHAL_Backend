@@ -72,4 +72,9 @@ public class ShopDaoImpl implements ShopDao{
             return cb.or(predicates.toArray(new Predicate[0]));
         };
     }
+
+    @Override
+    public Shop findById(Long id) {
+        return shopRepository.findById(id).orElse(null);
+    }
 }

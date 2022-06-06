@@ -1,18 +1,18 @@
-package com.se.shal.product.dto;
+package com.se.shal.product.dto.query;
 
+import com.se.shal.product.dto.AttributeDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputShipmentList {
+public class QueryProductAttributeDto {
     Long id;
-    List<String> shipments;
+    String text;
+    AttributeDto attribute;
     Long productId;
 }

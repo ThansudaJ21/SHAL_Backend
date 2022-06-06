@@ -12,18 +12,28 @@ type Query {
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]
     getProduct(id: Int):ProductDto
-    getSaleInformation(id:Int): SalesInformationDto
-
+    getAllProduct(shopId: Int): [QueryProductDto]
+    getSaleInformation(productId:Int, id:Int): SalesInformationDto
+    getShipment(productId:Int, id:Int): ShipmentListDto
+    getAttribute(productId:Int): [ProductAttributeQuery]
+    getVariations(productId: Int): [VariationsDto]
+    productFilterByCategory(category: String): [FilterProductDto]
 }
 type Mutation {
     registerShop(shop: ShopInput): Shop
     updateShopStatus(shopStatus: ShopStatusInput): Shop
 
-    #    Product
+    #    Save Product
     saveProduct(shopId: Int,product: InputProduct): Product
     saveSaleInformation(productId: Int, saleInformation: InputSalesInformation) :SalesInformation
     saveVariations(productId: Int, variations: [InputVariations]): [Variations]
     saveAttribute(productId: Int,attribute: [InputProductAttributes] ):[ProductAttributeDto]
     saveShipment(productId: Int, shipment: InputShipmentList): ShipmentList
+
+    #    Update Product
+    updateProduct(product: InputUpdateProduct): UpdateProduct
+    updateSaleInformation(saleInformation: InputUpdateSalesInformation) :UpdateSalesInformation
+
+    updateShipments(shipment: InputUpdateShipmentList): UpdateShipmentList
 }
 
