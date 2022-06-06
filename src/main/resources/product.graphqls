@@ -4,7 +4,8 @@ type  Product {
     productName: String
     details: String
     category: String
-    ShopId: Int
+    shopId: Int
+    productStatus: String
     imagesPath: [String]
 }
 type  UpdateProduct {
@@ -20,7 +21,8 @@ type  ProductDto {
     productName: String
     details: String
     category: String
-    ShopId: Int
+    productStatus: String
+    shopId: Int
     imagesPath: [String]
 }
 type  QueryProductDto {
@@ -40,6 +42,7 @@ type  FilterProductDto {
     imagesPath: [String]
 }
 type  ProductAttributeDto {
+    id:Int
     text: String
     attribute: Attribute
     productId: Int
@@ -158,6 +161,7 @@ input InputUpdateProduct {
     imagesPath: [String]
 }
 input  InputProductAttributes {
+
     text: String
     attribute: InputAttribute
     productId: Int

@@ -69,6 +69,7 @@ public interface ShalMapper {
     @Mapping(target = "attribute", ignore = true)
     List<ProductAttribute> getProductAttribute(List<InputProductAttributeDto> inputShipmentList);
 
+    @Mapping(target = "shopId", source = "shop.id")
     ProductDto getProductDto(Product product);
 
     @Mapping(target = "productId", source = "product.id")

@@ -19,6 +19,7 @@ public class ProductDto {
     String productName;
     String details;
     List<String> imagesPath;
+    ProductStatus productStatus;
     String category;
     Long shopId;
 }
