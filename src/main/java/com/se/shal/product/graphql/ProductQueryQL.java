@@ -1,11 +1,15 @@
 package com.se.shal.product.graphql;
 
 import com.se.shal.product.dto.*;
+import com.se.shal.product.dto.input.FilterProductByCategoryDto;
+import com.se.shal.product.dto.query.QueryProductAttributeDto;
+import com.se.shal.product.dto.query.QueryProductDto;
+import com.se.shal.product.dto.query.QueryShipmentListDto;
+import com.se.shal.product.dto.query.QueryVariationsDto;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.service.*;
 import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLQueryResolver;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

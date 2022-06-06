@@ -1,4 +1,4 @@
-package com.se.shal.product.dto;
+package com.se.shal.product.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputProductDto {
+public class FilterProductByCategoryDto {
     Long id;
     String productName;
     String details;

@@ -7,6 +7,14 @@ type  Product {
     ShopId: Int
     imagesPath: [String]
 }
+type  UpdateProduct {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
 type  ProductDto {
     id:Int
     productName: String
@@ -65,7 +73,18 @@ type Options {
     stock: Int
     image:String
 }
-
+type UpdateSalesInformation {
+    id:Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    productId: Int
+}
 type SalesInformation {
     id:Int
     salePrice: Float
@@ -111,6 +130,11 @@ type  ShipmentList{
     shipments: [String]
     productId: Int
 }
+type  UpdateShipmentList{
+    id: Int
+    shipments: [String]
+    productId: Int
+}
 type  ShipmentListDto{
     id: Int
     shipments: [String]
@@ -125,7 +149,14 @@ input InputProduct {
     ShopId: Int
     imagesPath: [String]
 }
-
+input InputUpdateProduct {
+    id: Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
 input  InputProductAttributes {
     text: String
     attribute: InputAttribute
@@ -161,10 +192,25 @@ input InputSalesInformation {
     timeUnitForNextAuction:String
     productId: Int
 }
-
+input InputUpdateSalesInformation {
+    id: Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    productId: Int
+}
 
 input  InputShipmentList {
     shipments: [String]
     productId: Int
 }
-
+input  InputUpdateShipmentList {
+    id: Int
+    shipments: [String]
+    productId: Int
+}

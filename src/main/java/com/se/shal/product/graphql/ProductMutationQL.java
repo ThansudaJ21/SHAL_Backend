@@ -1,6 +1,7 @@
 package com.se.shal.product.graphql;
 
 import com.se.shal.product.dto.*;
+import com.se.shal.product.dto.input.*;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.service.*;
 import com.se.shal.util.ShalMapper;
@@ -56,4 +57,22 @@ public class ProductMutationQL implements GraphQLMutationResolver {
         return ShalMapper.INSTANCE.getProductAttributeDto(productAttributes);
     }
 
+//    Update method
+    @Transactional
+    InputUpdateProductDto updateProduct(Product product){
+        Product product1 = productService.updateProduct(product);
+        return ShalMapper.INSTANCE.updateProduct(product1);
+    }
+
+    @Transactional
+    InputUpdateSalesInformationDto updateSaleInformation(SalesInformation salesInformation){
+        SalesInformation salesInformation1 = salesInformationService.updateSalesInformation(salesInformation);
+        return ShalMapper.INSTANCE.updateSaleInformation(salesInformation1);
+    }
+
+    @Transactional
+    UpdateShipmentList updateShipments( InputUpdateShipmentList shipmentList) {
+        ShipmentList shipmentList1 = shipmentListService.updateShipmentLists(shipmentList);
+        return ShalMapper.INSTANCE.getUpdateShipmentListDto(shipmentList1);
+    }
 }

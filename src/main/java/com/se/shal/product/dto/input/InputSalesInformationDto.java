@@ -1,4 +1,4 @@
-package com.se.shal.product.dto;
+package com.se.shal.product.dto.input;
 
 import com.se.shal.product.entity.SaleTypeName;
 import com.se.shal.product.entity.TimeUnit;
