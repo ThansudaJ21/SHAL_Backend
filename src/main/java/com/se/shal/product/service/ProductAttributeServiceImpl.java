@@ -4,8 +4,10 @@ import com.se.shal.product.dao.AttributeDao;
 import com.se.shal.product.dao.ProductAttributeDao;
 import com.se.shal.product.dao.ProductDao;
 import com.se.shal.product.dto.input.InputProductAttributeDto;
+import com.se.shal.product.dto.input.InputUpdateProductAttributeDto;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.ProductAttribute;
+import com.se.shal.product.entity.Variations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,7 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
         Product product = productDao.findById(productId);
         List<ProductAttribute> output = new ArrayList<>();
         for (InputProductAttributeDto productInput : productAttributes) {
+
             attributeDao.findByName(productInput.getAttribute().getAttribute())
                     .ifPresentOrElse(
                             (attribute) -> {
@@ -55,10 +58,22 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
         List<ProductAttribute> output = new ArrayList<>();
 
         for (ProductAttribute productAttribute1 : productAttribute) {
-            if (Objects.equals(productAttribute1.getProduct().getId(), productId)){
+            if (Objects.equals(productAttribute1.getProduct().getId(), productId)) {
                 output.add(productAttribute1);
             }
         }
-       return output;
+        return output;
+    }
+
+    @Transactional
+    @Override
+    public List<ProductAttribute> updateProductAttribute(Long productId, List<InputUpdateProductAttributeDto> productAttribute) {
+        List<ProductAttribute> updateProductAttribute = new ArrayList<>();
+        for (InputUpdateProductAttributeDto productInput : productAttribute) {
+            ProductAttribute productAttribute1 = productAttributeDao.getProductAttribute(productInput.getId());
+            productAttribute1.setText(productInput.getText());
+            updateProductAttribute.add(productAttribute1);
+        }
+        return productAttributeDao.save(updateProductAttribute);
     }
 }

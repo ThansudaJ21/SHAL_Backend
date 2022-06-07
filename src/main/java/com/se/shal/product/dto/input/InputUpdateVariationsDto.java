@@ -1,6 +1,6 @@
 package com.se.shal.product.dto.input;
 
-import com.se.shal.product.entity.ProductStatus;
+import com.se.shal.product.dto.OptionsDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +12,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputProductDto {
+public class InputUpdateVariationsDto {
     Long id;
-    String productName;
-    String details;
-    List<String> imagesPath;
-    ProductStatus productStatus;
-    String category;
-    Long shopId;
+    String variationName;
+    List<OptionsDto> options;
+    Long productId;
 }

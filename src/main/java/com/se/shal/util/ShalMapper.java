@@ -13,6 +13,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,9 @@ public interface ShalMapper {
     ShopDto registerShop(Shop Shop);
 
     ShopDto updateShopStatus(Shop shop);
+
+    @Mapping(target = "shopId", source = "shop.id")
+    InputUpdateProductStatusDto updateProductStatus(Product product);
 
     @Mapping(target = "shopId", source = "shop.id")
     InputProductDto saveProduct(Product product);
@@ -52,6 +56,16 @@ public interface ShalMapper {
     @Mapping(target = "productId", source = "product.id")
     VariationsDto saveVariations(Variations variationsList);
 
+    List<InputUpdateVariationsDto> updateVariations(List<Variations> variationsList);
+
+    @Mapping(target = "productId", source = "product.id")
+    InputUpdateVariationsDto updateVariations(Variations variationsList);
+
+    List<UpdateProductAttributeDto> updateProductAttributeDto(List<ProductAttribute> productAttributes);
+
+    @Mapping(target = "productId", source = "product.id")
+    UpdateProductAttributeDto updateProductAttributeDto(ProductAttribute productAttribute);
+
     @Mapping(target = "productId", source = "product.id")
     QueryVariationsDto getQueryVariationsDto(Variations variations);
 
@@ -69,6 +83,7 @@ public interface ShalMapper {
     @Mapping(target = "attribute", ignore = true)
     List<ProductAttribute> getProductAttribute(List<InputProductAttributeDto> inputShipmentList);
 
+    @Mapping(target = "shopId", source = "shop.id")
     ProductDto getProductDto(Product product);
 
     @Mapping(target = "productId", source = "product.id")

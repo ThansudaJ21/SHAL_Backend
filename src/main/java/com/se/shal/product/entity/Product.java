@@ -28,6 +28,7 @@ public class Product {
     String details;
     CategoryName category;
 
+    ProductStatus productStatus;
     @ManyToOne
     Shop shop;
 }

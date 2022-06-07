@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OptionsDto {
+public class UpdateProductAttributeDto {
     Long id;
-    String optionName;
-    Integer price;
-    Integer stock;
-    String image;
+    String text;
+    AttributeDto attribute;
+    Long productId;
 }

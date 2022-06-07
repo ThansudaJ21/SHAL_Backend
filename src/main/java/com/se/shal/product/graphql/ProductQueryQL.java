@@ -10,6 +10,7 @@ import com.se.shal.product.entity.*;
 import com.se.shal.product.service.*;
 import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLQueryResolver;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,7 @@ public class ProductQueryQL implements GraphQLQueryResolver {
     @Transactional
     ProductDto getProduct(Long id) {
         Product product = productService.getProduct(id);
+        Hibernate.initialize(product.getProductStatus());
         return ShalMapper.INSTANCE.getProductDto(product);
     }
 

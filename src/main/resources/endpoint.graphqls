@@ -31,9 +31,11 @@ type Mutation {
     saveShipment(productId: Int, shipment: InputShipmentList): ShipmentList
 
     #    Update Product
+    updateProductStatus(productStatus: ProductStatusInput): UpdateProductStatus
     updateProduct(product: InputUpdateProduct): UpdateProduct
     updateSaleInformation(saleInformation: InputUpdateSalesInformation) :UpdateSalesInformation
-
+    updateVariations(productId: Int,variations: [InputUpdateVariations]): [UpdateVariations]
     updateShipments(shipment: InputUpdateShipmentList): UpdateShipmentList
+    updateAttribute(productId: Int,attribute: [InputUpdateProductAttributes]): [UpdateProductAttributeDto]
 }
 

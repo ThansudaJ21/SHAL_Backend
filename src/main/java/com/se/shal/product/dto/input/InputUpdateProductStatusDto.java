@@ -1,20 +1,18 @@
-package com.se.shal.product.dto;
+package com.se.shal.product.dto.input;
 
-import com.se.shal.product.entity.*;
-import com.se.shal.util.hibernate.StringListConverter;
+import com.se.shal.product.entity.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.OneToMany;
 import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDto {
+public class InputUpdateProductStatusDto {
     Long id;
     String productName;
     String details;
