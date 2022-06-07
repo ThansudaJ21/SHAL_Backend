@@ -3,6 +3,7 @@ package com.se.shal.product.service;
 import com.se.shal.product.dao.ProductDao;
 import com.se.shal.product.dao.SalesInformationDao;
 import com.se.shal.product.entity.Product;
+import com.se.shal.product.entity.ProductStatus;
 import com.se.shal.product.entity.SalesInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,9 @@ public class SalesInformationServiceImpl implements SalesInformationService {
         if (Objects.equals(product.getId(), salesInformation.getProduct().getId())) {
             salesInformation = salesInformationDao.getSalesInformation(id);
         }
+//        if (salesInformation.getStorage() == 0){
+//            product.setProductStatus(ProductStatus.SOLD);
+//        }
         return salesInformation;
     }
 

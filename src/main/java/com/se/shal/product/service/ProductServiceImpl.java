@@ -25,19 +25,29 @@ public class ProductServiceImpl implements ProductService {
     ShopDao shopDao;
     @Autowired
     CategoryDao categoryDao;
-
+    @Autowired
+    SalesInformationDao salesInformationDao;
     @Transactional
     @Override
     public Product saveProduct(Long shopId, Product product) {
         Shop shop = shopDao.findById(shopId);
         product.setShop(shop);
+        product.setProductStatus(ProductStatus.ACTIVE);
         return productDao.saveProduct(product);
     }
 
     @Transactional
     @Override
     public Product getProduct(Long id) {
-        return productDao.getProduct(id);
+        Product product = productDao.getProduct(id);
+        SalesInformation salesInformation = salesInformationDao.getSalesInformation(id);
+        if (Objects.equals(product.getId(), salesInformation.getProduct().getId())) {
+            salesInformation = salesInformationDao.getSalesInformation(id);
+        }
+        if (salesInformation.getStorage() == 0){
+            product.setProductStatus(ProductStatus.SOLD);
+        }
+        return product;
     }
 
     @Transactional
