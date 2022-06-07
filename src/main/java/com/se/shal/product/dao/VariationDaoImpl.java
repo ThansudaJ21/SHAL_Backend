@@ -36,4 +36,9 @@ public class VariationDaoImpl implements VariationDao{
     public List<Variations> updateVariations(List<Variations> variations) {
         return variationRepository.saveAllAndFlush(variations);
     }
+
+    @Override
+    public void deleteVariationsById(Long id) {
+        variationRepository.deleteById(id);
+    }
 }

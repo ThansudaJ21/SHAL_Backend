@@ -9,4 +9,6 @@ public interface VariationsService {
     List<Variations> getVariations(Long productId );
 
     List<Variations> updateVariations(Long productId,List<Variations> variations);
+
+    void deleteVariations(Long id);
 }
