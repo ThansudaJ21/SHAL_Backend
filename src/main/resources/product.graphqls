@@ -8,6 +8,15 @@ type  Product {
     productStatus: String
     imagesPath: [String]
 }
+type  UpdateProductStatus {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    productStatus: String
+    shopId: Int
+    imagesPath: [String]
+}
 type  UpdateProduct {
     id:Int
     productName: String
@@ -157,6 +166,10 @@ input InputProduct {
     category: String
     ShopId: Int
     imagesPath: [String]
+}
+input ProductStatusInput {
+    id: Int
+    productStatus: String
 }
 input InputUpdateProduct {
     id: Int

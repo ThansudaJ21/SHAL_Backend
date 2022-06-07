@@ -11,4 +11,5 @@ public interface ProductService {
     List<Product> getAllProduct(Long shopId);
     List<Product> productFilterByCategory(String category);
     Product updateProduct(Product product);
+    Product updateProductStatus(Product product);
 }

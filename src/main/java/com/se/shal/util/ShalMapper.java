@@ -13,6 +13,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,9 @@ public interface ShalMapper {
     ShopDto registerShop(Shop Shop);
 
     ShopDto updateShopStatus(Shop shop);
+
+    @Mapping(target = "shopId", source = "shop.id")
+    InputUpdateProductStatusDto updateProductStatus(Product product);
 
     @Mapping(target = "shopId", source = "shop.id")
     InputProductDto saveProduct(Product product);
