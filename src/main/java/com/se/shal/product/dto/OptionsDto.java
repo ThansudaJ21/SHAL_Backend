@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OptionsDto {
+    Long id;
     String optionName;
     Integer price;
     Integer stock;

@@ -63,6 +63,12 @@ type Variations {
     options: [Options]
     productId: Int
 }
+type UpdateVariations {
+    id:Int
+    variationName: String
+    options: [Options]
+    productId: Int
+}
 type VariationsDto {
     id:Int
     variationName: String
@@ -70,7 +76,7 @@ type VariationsDto {
     productId: Int
 }
 type Options {
-    #    id: Int
+        id: Int
     optionName:String
     price: Int
     stock: Int
@@ -177,9 +183,14 @@ input InputVariations {
     options: [InputOptions]
     productId: Int
 }
-
+input InputUpdateVariations {
+    id:Int
+    variationName: String
+    options: [InputOptions]
+    productId: Int
+}
 input InputOptions {
-    #    id: Int
+        id: Int
     optionName: String
     price: Int
     stock: Int

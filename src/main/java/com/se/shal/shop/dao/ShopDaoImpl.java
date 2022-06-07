@@ -30,11 +30,6 @@ public class ShopDaoImpl implements ShopDao{
 
 
     @Override
-    public Shop findById(Long id) {
-        return shopRepository.findById(id).orElse(null);
-    }
-
-    @Override
     public List<Shop> getAllShop() {
         return shopRepository.findAll();
     }

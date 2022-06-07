@@ -180,12 +180,14 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Options options = optionsRepository.save(Options.builder()
                 .image("128")
+                .optionName("128")
                 .stock(20)
                 .price(29000)
                 .build());
 
         Options options1 = optionsRepository.save(Options.builder()
                 .image("256")
+                .optionName("256")
                 .stock(20)
                 .price(39000)
                 .build());
