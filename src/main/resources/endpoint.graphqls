@@ -37,5 +37,8 @@ type Mutation {
     updateVariations(productId: Int,variations: [InputUpdateVariations]): [UpdateVariations]
     updateShipments(shipment: InputUpdateShipmentList): UpdateShipmentList
     updateAttribute(productId: Int,attribute: [InputUpdateProductAttributes]): [UpdateProductAttributeDto]
+
+#   Delete
+    delete(id:Int): Int
 }
 

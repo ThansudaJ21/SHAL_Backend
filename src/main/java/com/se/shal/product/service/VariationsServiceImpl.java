@@ -82,4 +82,9 @@ public class VariationsServiceImpl implements VariationsService {
 
         return variationDao.updateVariations(updatedVariations);
     }
+
+    @Override
+    public void deleteVariations(Long id) {
+        variationDao.deleteVariationsById(id);
+    }
 }

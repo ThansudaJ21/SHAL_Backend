@@ -10,4 +10,5 @@ public interface VariationDao {
     List<Variations> getVariationsByIds(List<Long> ids);
     Variations getVariationsById(Long id);
     List<Variations> findAll();
+    void  deleteVariationsById(Long id);
 }
