@@ -56,6 +56,12 @@ type  ProductAttributeDto {
     attribute: Attribute
     productId: Int
 }
+type  UpdateProductAttributeDto {
+    id:Int
+    text: String
+    attribute: Attribute
+    productId: Int
+}
 type  ProductAttributeQuery {
     id: Int
     text: String
@@ -181,6 +187,12 @@ input InputUpdateProduct {
 }
 input  InputProductAttributes {
 
+    text: String
+    attribute: InputAttribute
+    productId: Int
+}
+input  InputUpdateProductAttributes {
+    id: Int
     text: String
     attribute: InputAttribute
     productId: Int

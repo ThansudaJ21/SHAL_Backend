@@ -61,6 +61,11 @@ public interface ShalMapper {
     @Mapping(target = "productId", source = "product.id")
     InputUpdateVariationsDto updateVariations(Variations variationsList);
 
+    List<UpdateProductAttributeDto> updateProductAttributeDto(List<ProductAttribute> productAttributes);
+
+    @Mapping(target = "productId", source = "product.id")
+    UpdateProductAttributeDto updateProductAttributeDto(ProductAttribute productAttribute);
+
     @Mapping(target = "productId", source = "product.id")
     QueryVariationsDto getQueryVariationsDto(Variations variations);
 

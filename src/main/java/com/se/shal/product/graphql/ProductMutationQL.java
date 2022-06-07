@@ -87,4 +87,10 @@ public class ProductMutationQL implements GraphQLMutationResolver {
         Product product1 = productService.updateProductStatus(product);
         return ShalMapper.INSTANCE.updateProductStatus(product1);
     }
+
+    @Transactional
+    List<UpdateProductAttributeDto> updateAttribute(Long productId,List<InputUpdateProductAttributeDto> productAttributes) {
+        List<ProductAttribute> updateVariations = productAttributeService.updateProductAttribute(productId,productAttributes);
+        return ShalMapper.INSTANCE.updateProductAttributeDto(updateVariations);
+    }
 }

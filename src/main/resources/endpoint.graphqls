@@ -36,5 +36,6 @@ type Mutation {
     updateSaleInformation(saleInformation: InputUpdateSalesInformation) :UpdateSalesInformation
     updateVariations(productId: Int,variations: [InputUpdateVariations]): [UpdateVariations]
     updateShipments(shipment: InputUpdateShipmentList): UpdateShipmentList
+    updateAttribute(productId: Int,attribute: [InputUpdateProductAttributes]): [UpdateProductAttributeDto]
 }
 
