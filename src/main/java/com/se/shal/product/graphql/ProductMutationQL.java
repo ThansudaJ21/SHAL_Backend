@@ -71,7 +71,7 @@ public class ProductMutationQL implements GraphQLMutationResolver {
     }
 
     @Transactional
-    UpdateShipmentList updateShipments( InputUpdateShipmentList shipmentList) {
+    InputUpdateShipmentList updateShipments(UpdateShipmentList shipmentList) {
         ShipmentList shipmentList1 = shipmentListService.updateShipmentLists(shipmentList);
         return ShalMapper.INSTANCE.getUpdateShipmentListDto(shipmentList1);
     }
@@ -89,12 +89,12 @@ public class ProductMutationQL implements GraphQLMutationResolver {
     }
 
     @Transactional
-    List<UpdateProductAttributeDto> updateAttribute(Long productId,List<InputUpdateProductAttributeDto> productAttributes) {
+    List<InputUpdateProductAttributeDto> updateAttribute(Long productId,List<UpdateProductAttributeDto> productAttributes) {
         List<ProductAttribute> updateVariations = productAttributeService.updateProductAttribute(productId,productAttributes);
         return ShalMapper.INSTANCE.updateProductAttributeDto(updateVariations);
     }
     @Transactional
-    void delete(Long id){
+    void deleteVariations(Long id){
         variationsService.deleteVariations(id);
     }
 }

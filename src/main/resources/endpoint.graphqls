@@ -18,6 +18,7 @@ type Query {
     getAttribute(productId:Int): [ProductAttributeQuery]
     getVariations(productId: Int): [VariationsDto]
     productFilterByCategory(category: String): [FilterProductDto]
+    productFilterByStatus(status: String): [FilterProductDto]
 }
 type Mutation {
     registerShop(shop: ShopInput): Shop
@@ -39,6 +40,6 @@ type Mutation {
     updateAttribute(productId: Int,attribute: [InputUpdateProductAttributes]): [UpdateProductAttributeDto]
 
 #   Delete
-    delete(id:Int): Int
+    deleteVariations(id:Int): Int
 }
 

@@ -5,6 +5,7 @@ import com.se.shal.product.dao.ShipmentDao;
 import com.se.shal.product.dao.ShipmentListDao;
 import com.se.shal.product.dto.input.InputShipmentList;
 import com.se.shal.product.dto.input.InputUpdateShipmentList;
+import com.se.shal.product.dto.input.UpdateShipmentList;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.Shipment;
 import com.se.shal.product.entity.ShipmentList;
@@ -58,7 +59,7 @@ public class ShipmentListServiceImpl implements ShipmentListService{
 
     @Transactional
     @Override
-    public ShipmentList updateShipmentLists(InputUpdateShipmentList shipmentList) {
+    public ShipmentList updateShipmentLists(UpdateShipmentList shipmentList) {
         ShipmentList shipmentList1 = ShalMapper.INSTANCE.getUpdateShipmentList(shipmentList);
         ShipmentList shipmentList2 = shipmentListDao.getShipmentList(shipmentList1.getId());
         List<Shipment> dsgList = shipmentList.getShipments().stream()

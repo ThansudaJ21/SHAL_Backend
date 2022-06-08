@@ -80,7 +80,7 @@ public class VariationsServiceImpl implements VariationsService {
             updatedVariations.add(newVariations);
         }
 
-        return variationDao.updateVariations(updatedVariations);
+        return variationDao.save(updatedVariations);
     }
 
     @Override

@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDto {
-
     String categoryName;
     List<CategoryAttributeDto> attributes;
 

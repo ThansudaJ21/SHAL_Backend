@@ -1,7 +1,7 @@
 package com.se.shal.product.graphql;
 
 import com.se.shal.product.dto.*;
-import com.se.shal.product.dto.input.FilterProductByCategoryDto;
+import com.se.shal.product.dto.input.FilterProductDto;
 import com.se.shal.product.dto.query.QueryProductAttributeDto;
 import com.se.shal.product.dto.query.QueryProductDto;
 import com.se.shal.product.dto.query.QueryShipmentListDto;
@@ -68,9 +68,15 @@ public class ProductQueryQL implements GraphQLQueryResolver {
     }
 
     @Transactional
-    List<FilterProductByCategoryDto> productFilterByCategory(String category) {
+    List<FilterProductDto> productFilterByCategory(String category) {
         List<Product> products = productService.productFilterByCategory(category);
         return ShalMapper.INSTANCE.getFilterAllProductByCategory(products);
     }
+
+    @Transactional
+   List<FilterProductDto> productFilterByStatus(String status) {
+        List<Product> products = productService.productFilterByStatus(status);
+        return ShalMapper.INSTANCE.getFilterAllProductByStatus(products);
+   }
 }
 

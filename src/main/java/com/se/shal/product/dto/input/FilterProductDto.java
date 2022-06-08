@@ -11,11 +11,12 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FilterProductByCategoryDto {
+public class FilterProductDto {
     Long id;
     String productName;
     String details;
     List<String> imagesPath;
+    String productStatus;
     String category;
     Long shopId;
 }

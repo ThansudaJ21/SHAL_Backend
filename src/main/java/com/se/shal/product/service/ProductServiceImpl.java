@@ -23,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
     CategoryDao categoryDao;
     @Autowired
     SalesInformationDao salesInformationDao;
+
     @Transactional
     @Override
     public Product saveProduct(Long shopId, Product product) {
@@ -36,13 +37,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProduct(Long id) {
         Product product = productDao.getProduct(id);
-//        SalesInformation salesInformation = salesInformationDao.getSalesInformation(id);
-//        if (Objects.equals(product.getId(), salesInformation.getProduct().getId())) {
-//            salesInformation = salesInformationDao.getSalesInformation(id);
-//        }
-//        if (salesInformation.getStorage() == 0){
-//            product.setProductStatus(ProductStatus.SOLD);
-//        }
         return product;
     }
 
@@ -68,7 +62,6 @@ public class ProductServiceImpl implements ProductService {
         List<Product> output = new ArrayList<>();
         Category c = categoryDao.findCategoryByName(category);
         for (Product product : products) {
-
             if (Objects.equals(product.getCategory().getCategoryName(), c.getCategoryName().getCategoryName())) {
                 output.add(product);
             } else {
@@ -94,11 +87,24 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product updateProductStatus(Product product) {
         Product product1 = productDao.findById(product.getId());
-        if (product1.getProductStatus().equals(ProductStatus.ACTIVE)){
+        if (product1.getProductStatus().equals(ProductStatus.ACTIVE)) {
             product1.setProductStatus(ProductStatus.HIDDEN);
-        } else if (product1.getProductStatus().equals(ProductStatus.HIDDEN)){
+        } else if (product1.getProductStatus().equals(ProductStatus.HIDDEN)) {
             product1.setProductStatus(ProductStatus.ACTIVE);
         }
         return product1;
+    }
+
+    @Transactional
+    @Override
+    public List<Product> productFilterByStatus(String status) {
+        List<Product> products = productDao.findAll();
+        List<Product> output = new ArrayList<>();
+        for (Product product : products) {
+            if (Objects.equals(status, product.getProductStatus().name())) {
+                output.add(product);
+            }
+        }
+        return output;
     }
 }
