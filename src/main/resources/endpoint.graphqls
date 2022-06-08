@@ -23,11 +23,22 @@ type Mutation {
     registerShop(shop: ShopInput): Shop
     updateShopStatus(shopStatus: ShopStatusInput): Shop
 
-    #    Product
+    #    Save Product
     saveProduct(shopId: Int,product: InputProduct): Product
     saveSaleInformation(productId: Int, saleInformation: InputSalesInformation) :SalesInformation
     saveVariations(productId: Int, variations: [InputVariations]): [Variations]
     saveAttribute(productId: Int,attribute: [InputProductAttributes] ):[ProductAttributeDto]
     saveShipment(productId: Int, shipment: InputShipmentList): ShipmentList
+
+    #    Update Product
+    updateProductStatus(productStatus: ProductStatusInput): UpdateProductStatus
+    updateProduct(product: InputUpdateProduct): UpdateProduct
+    updateSaleInformation(saleInformation: InputUpdateSalesInformation) :UpdateSalesInformation
+    updateVariations(productId: Int,variations: [InputUpdateVariations]): [UpdateVariations]
+    updateShipments(shipment: InputUpdateShipmentList): UpdateShipmentList
+    updateAttribute(productId: Int,attribute: [InputUpdateProductAttributes]): [UpdateProductAttributeDto]
+
+#   Delete
+    delete(id:Int): Int
 }
 

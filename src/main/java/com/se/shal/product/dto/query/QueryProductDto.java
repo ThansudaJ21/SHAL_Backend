@@ -1,4 +1,4 @@
-package com.se.shal.product.dto;
+package com.se.shal.product.dto.query;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QueryVariationsDto {
+public class QueryProductDto {
     Long id;
-    String variationName;
-    List<OptionsDto> options;
-    Long productId;
+    String productName;
+    String details;
+    List<String> imagesPath;
+    String category;
+    Long shopId;
 }

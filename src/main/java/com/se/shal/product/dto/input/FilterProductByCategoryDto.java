@@ -1,4 +1,4 @@
-package com.se.shal.product.dto;
+package com.se.shal.product.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QueryShipmentListDto {
+public class FilterProductByCategoryDto {
     Long id;
-    List<String> shipments;
-    Long productId;
+    String productName;
+    String details;
+    List<String> imagesPath;
+    String category;
+    Long shopId;
 }

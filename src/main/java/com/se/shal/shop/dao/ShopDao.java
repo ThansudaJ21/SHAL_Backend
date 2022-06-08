@@ -14,4 +14,5 @@ public interface ShopDao {
     List<Shop> getAllShop();
     Page<Shop> getShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest);
     Page<Shop> getShopFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest);
+
 }

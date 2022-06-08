@@ -4,6 +4,24 @@ type  Product {
     productName: String
     details: String
     category: String
+    shopId: Int
+    productStatus: String
+    imagesPath: [String]
+}
+type  UpdateProductStatus {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    productStatus: String
+    shopId: Int
+    imagesPath: [String]
+}
+type  UpdateProduct {
+    id:Int
+    productName: String
+    details: String
+    category: String
     ShopId: Int
     imagesPath: [String]
 }
@@ -12,7 +30,8 @@ type  ProductDto {
     productName: String
     details: String
     category: String
-    ShopId: Int
+    productStatus: String
+    shopId: Int
     imagesPath: [String]
 }
 type  QueryProductDto {
@@ -32,6 +51,13 @@ type  FilterProductDto {
     imagesPath: [String]
 }
 type  ProductAttributeDto {
+    id:Int
+    text: String
+    attribute: Attribute
+    productId: Int
+}
+type  UpdateProductAttributeDto {
+    id:Int
     text: String
     attribute: Attribute
     productId: Int
@@ -52,6 +78,12 @@ type Variations {
     options: [Options]
     productId: Int
 }
+type UpdateVariations {
+    id:Int
+    variationName: String
+    options: [Options]
+    productId: Int
+}
 type VariationsDto {
     id:Int
     variationName: String
@@ -59,13 +91,24 @@ type VariationsDto {
     productId: Int
 }
 type Options {
-    #    id: Int
+        id: Int
     optionName:String
     price: Int
     stock: Int
     image:String
 }
-
+type UpdateSalesInformation {
+    id:Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    productId: Int
+}
 type SalesInformation {
     id:Int
     salePrice: Float
@@ -111,6 +154,11 @@ type  ShipmentList{
     shipments: [String]
     productId: Int
 }
+type  UpdateShipmentList{
+    id: Int
+    shipments: [String]
+    productId: Int
+}
 type  ShipmentListDto{
     id: Int
     shipments: [String]
@@ -125,8 +173,26 @@ input InputProduct {
     ShopId: Int
     imagesPath: [String]
 }
-
+input ProductStatusInput {
+    id: Int
+    productStatus: String
+}
+input InputUpdateProduct {
+    id: Int
+    productName: String
+    details: String
+    category: String
+    ShopId: Int
+    imagesPath: [String]
+}
 input  InputProductAttributes {
+
+    text: String
+    attribute: InputAttribute
+    productId: Int
+}
+input  InputUpdateProductAttributes {
+    id: Int
     text: String
     attribute: InputAttribute
     productId: Int
@@ -142,9 +208,14 @@ input InputVariations {
     options: [InputOptions]
     productId: Int
 }
-
+input InputUpdateVariations {
+    id:Int
+    variationName: String
+    options: [InputOptions]
+    productId: Int
+}
 input InputOptions {
-    #    id: Int
+        id: Int
     optionName: String
     price: Int
     stock: Int
@@ -161,10 +232,25 @@ input InputSalesInformation {
     timeUnitForNextAuction:String
     productId: Int
 }
-
+input InputUpdateSalesInformation {
+    id: Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    productId: Int
+}
 
 input  InputShipmentList {
     shipments: [String]
     productId: Int
 }
-
+input  InputUpdateShipmentList {
+    id: Int
+    shipments: [String]
+    productId: Int
+}

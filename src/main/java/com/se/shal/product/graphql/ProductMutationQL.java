@@ -1,6 +1,7 @@
 package com.se.shal.product.graphql;
 
 import com.se.shal.product.dto.*;
+import com.se.shal.product.dto.input.*;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.service.*;
 import com.se.shal.util.ShalMapper;
@@ -28,13 +29,13 @@ public class ProductMutationQL implements GraphQLMutationResolver {
 
     @Transactional
     InputProductDto saveProduct(Long shopId, Product product) {
-        Product newProduct = productService.saveProduct(shopId, product)  ;
+        Product newProduct = productService.saveProduct(shopId, product);
         return ShalMapper.INSTANCE.saveProduct(newProduct);
     }
 
     @Transactional
-    InputSalesInformationDto saveSaleInformation(Long productId, SalesInformation salesInformation){
-       SalesInformation newSalesInformation = salesInformationService.save(productId,salesInformation);
+    InputSalesInformationDto saveSaleInformation(Long productId, SalesInformation salesInformation) {
+        SalesInformation newSalesInformation = salesInformationService.save(productId, salesInformation);
         return ShalMapper.INSTANCE.saveSaleInformation(newSalesInformation);
     }
 
@@ -51,9 +52,49 @@ public class ProductMutationQL implements GraphQLMutationResolver {
     }
 
     @Transactional
-    List<ProductAttributeDto> saveAttribute(Long productId, List<InputProductAttributeDto> inputProductAttributeDto){
+    List<ProductAttributeDto> saveAttribute(Long productId, List<InputProductAttributeDto> inputProductAttributeDto) {
         List<ProductAttribute> productAttributes = productAttributeService.save(productId, inputProductAttributeDto);
         return ShalMapper.INSTANCE.getProductAttributeDto(productAttributes);
     }
 
+    //    Update method
+    @Transactional
+    InputUpdateProductDto updateProduct(Product product) {
+        Product product1 = productService.updateProduct(product);
+        return ShalMapper.INSTANCE.updateProduct(product1);
+    }
+
+    @Transactional
+    InputUpdateSalesInformationDto updateSaleInformation(SalesInformation salesInformation) {
+        SalesInformation salesInformation1 = salesInformationService.updateSalesInformation(salesInformation);
+        return ShalMapper.INSTANCE.updateSaleInformation(salesInformation1);
+    }
+
+    @Transactional
+    UpdateShipmentList updateShipments( InputUpdateShipmentList shipmentList) {
+        ShipmentList shipmentList1 = shipmentListService.updateShipmentLists(shipmentList);
+        return ShalMapper.INSTANCE.getUpdateShipmentListDto(shipmentList1);
+    }
+
+    @Transactional
+    List<InputUpdateVariationsDto> updateVariations(Long productId,List<Variations> variations) {
+        List<Variations> updateVariations = variationsService.updateVariations(productId,variations);
+        return ShalMapper.INSTANCE.updateVariations(updateVariations);
+    }
+
+    @Transactional
+    InputUpdateProductStatusDto updateProductStatus(Product product){
+        Product product1 = productService.updateProductStatus(product);
+        return ShalMapper.INSTANCE.updateProductStatus(product1);
+    }
+
+    @Transactional
+    List<UpdateProductAttributeDto> updateAttribute(Long productId,List<InputUpdateProductAttributeDto> productAttributes) {
+        List<ProductAttribute> updateVariations = productAttributeService.updateProductAttribute(productId,productAttributes);
+        return ShalMapper.INSTANCE.updateProductAttributeDto(updateVariations);
+    }
+    @Transactional
+    void delete(Long id){
+        variationsService.deleteVariations(id);
+    }
 }

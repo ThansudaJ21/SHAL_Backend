@@ -1,18 +1,18 @@
-package com.se.shal.product.dto;
+package com.se.shal.product.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OptionsDto {
+public class InputUpdateShipmentList {
     Long id;
-    String optionName;
-    Integer price;
-    Integer stock;
-    String image;
+    List<String> shipments;
+    Long productId;
 }
