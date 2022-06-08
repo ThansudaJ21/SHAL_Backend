@@ -44,10 +44,8 @@ public class ShopDaoImpl implements ShopDao{
         return (Root<Shop> root, CriteriaQuery<?> cq, CriteriaBuilder cb) ->{
             List<Predicate> predicates = new ArrayList<>();
             if (filter.getQueryText() != null){
-//                predicates.add(cb.like(root.get(Shop_.SHOP_STATUS),"%"+ filter.getQueryText() + "%"));
                 predicates.add(cb.like(root.get(Shop_.SHOP_NAME),"%"+ filter.getQueryText() + "%"));
             }
-
             return cb.or(predicates.toArray(new Predicate[0]));
         };
     }

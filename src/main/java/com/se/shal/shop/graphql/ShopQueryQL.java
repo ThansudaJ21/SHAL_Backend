@@ -35,12 +35,12 @@ public class ShopQueryQL implements GraphQLQueryResolver {
     }
 
     @Transactional
-    Page<Shop> ShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, int pageNo, int pageSize){
+    Page<Shop> shopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, int pageNo, int pageSize){
         return shopService.findShopByFilterByShopNameOrShopStatus(filter, PageRequest.of(pageNo,pageSize));
     }
 
-//    @Transactional
-//    Page<Shop> ShopQueryFilterByShopStatus(ShopQueryFilterByShopStatus filter, int pageNo, int pageSize){
-//        return shopService.findShopByFilterByShopStatus(filter, PageRequest.of(pageNo,pageSize));
-//    }
+    @Transactional
+    List<Shop> shopFilterByStatus(String  status){
+        return shopService.shopFilterByStatus(status);
+    }
 }
