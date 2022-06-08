@@ -12,7 +12,5 @@ public interface ShopDao {
     Shop save(Shop shop);
     Shop findById(Long id);
     List<Shop> getAllShop();
-    Page<Shop> getShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest);
-    Page<Shop> getShopFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest);
-
+    Page<Shop> getShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, PageRequest pageRequest);
 }

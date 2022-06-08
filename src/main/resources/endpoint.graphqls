@@ -5,8 +5,8 @@ schema {
 type Query {
     getRegisterShop(id: Int): ShopQuery
     getAllShop: [ShopQuery]
-    shopQueryFilterByShopName(shopName: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
-    ShopQueryFilterByShopStatus(shopStatus: ShopQueryFilterByShopStatus, pageNo:Int, pageSize:Int): PageShop
+    ShopByFilterByShopNameOrShopStatus(queryText: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
+#    ShopQueryFilterByShopStatus(shopStatus: ShopQueryFilterByShopStatus, pageNo:Int, pageSize:Int): PageShop
 
     #    Product
     getCategory(id: Int): CategoryDto

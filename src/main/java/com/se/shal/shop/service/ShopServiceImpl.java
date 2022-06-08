@@ -62,18 +62,8 @@ public class ShopServiceImpl implements ShopService{
 
     @Transactional
     @Override
-    public Page<Shop> findShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
-        return shopDao.getShopByFilterByShopName(filter, pageRequest);
+    public Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
+        return shopDao.getShopByFilterByShopNameOrShopStatus(filter, pageRequest);
     }
 
-
-    @Transactional
-    @Override
-    public Page<Shop> findShopByFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest) {
-        if (filter.getShopStatus().equalsIgnoreCase(ShopStatusName.DISABLE.toString())) {
-        } else if (filter.getShopStatus().equalsIgnoreCase(ShopStatusName.ENABLE.toString())) {
-            return shopDao.getShopFilterByShopStatus(filter, pageRequest);
-        }
-        return shopDao.getShopFilterByShopStatus(filter, pageRequest);
-    }
 }

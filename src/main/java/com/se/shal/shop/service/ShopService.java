@@ -14,8 +14,6 @@ public interface ShopService {
     Shop updateShopStatus(Shop shop);
     List<Shop> getAllShop();
 
-    Page<Shop> findShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest);
-    Page<Shop> findShopByFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest);
-
+    Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, PageRequest pageRequest);
 
 }
