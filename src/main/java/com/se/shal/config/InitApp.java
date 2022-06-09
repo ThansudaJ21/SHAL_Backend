@@ -157,6 +157,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .productName("IPhone13")
                 .details("IPhone13 128 GB")
                 .category(CategoryName.ELECTRONIC)
+                .productStatus(ProductStatus.ACTIVE)
                 .imagesPath(Arrays.asList("Image1", "Image2"))
                 .shop(shop)
                 .build());

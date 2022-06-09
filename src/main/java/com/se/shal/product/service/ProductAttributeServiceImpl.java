@@ -3,6 +3,7 @@ package com.se.shal.product.service;
 import com.se.shal.product.dao.AttributeDao;
 import com.se.shal.product.dao.ProductAttributeDao;
 import com.se.shal.product.dao.ProductDao;
+import com.se.shal.product.dto.UpdateProductAttributeDto;
 import com.se.shal.product.dto.input.InputProductAttributeDto;
 import com.se.shal.product.dto.input.InputUpdateProductAttributeDto;
 import com.se.shal.product.entity.Product;
@@ -67,9 +68,9 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
 
     @Transactional
     @Override
-    public List<ProductAttribute> updateProductAttribute(Long productId, List<InputUpdateProductAttributeDto> productAttribute) {
+    public List<ProductAttribute> updateProductAttribute(Long productId, List<UpdateProductAttributeDto> productAttribute) {
         List<ProductAttribute> updateProductAttribute = new ArrayList<>();
-        for (InputUpdateProductAttributeDto productInput : productAttribute) {
+        for (UpdateProductAttributeDto productInput : productAttribute) {
             ProductAttribute productAttribute1 = productAttributeDao.getProductAttribute(productInput.getId());
             productAttribute1.setText(productInput.getText());
             updateProductAttribute.add(productAttribute1);

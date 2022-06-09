@@ -57,7 +57,7 @@ input ShopStatusInput {
 }
 
 input ShopQueryFilterByShopName {
-    shopName: String
+    queryText: String
 }
 
 input ShopQueryFilterByShopStatus{

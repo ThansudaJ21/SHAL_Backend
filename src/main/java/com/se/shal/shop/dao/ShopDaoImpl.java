@@ -35,7 +35,7 @@ public class ShopDaoImpl implements ShopDao{
     }
 
     @Override
-    public Page<Shop> getShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
+    public Page<Shop> getShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
         Specification<Shop> specification = getShopPredicate(filter);
         return shopRepository.findAll(specification, pageRequest);
     }
@@ -43,30 +43,29 @@ public class ShopDaoImpl implements ShopDao{
     Specification<Shop> getShopPredicate(ShopQueryFilterByShopName filter){
         return (Root<Shop> root, CriteriaQuery<?> cq, CriteriaBuilder cb) ->{
             List<Predicate> predicates = new ArrayList<>();
-            if (filter.getShopName() != null){
-                predicates.add(cb.like(root.get(Shop_.SHOP_NAME),"%"+ filter.getShopName() + "%"));
+            if (filter.getQueryText() != null){
+                predicates.add(cb.like(root.get(Shop_.SHOP_NAME),"%"+ filter.getQueryText() + "%"));
             }
-
             return cb.or(predicates.toArray(new Predicate[0]));
         };
     }
 
-    @Override
-    public Page<Shop> getShopFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest) {
-        Specification<Shop> specification = getShopByShopStatusPredicate(filter);
-        return shopRepository.findAll(specification, pageRequest);
-    }
-
-    Specification<Shop> getShopByShopStatusPredicate(ShopQueryFilterByShopStatus filter){
-        return (Root<Shop> root, CriteriaQuery<?> cq, CriteriaBuilder cb) ->{
-            List<Predicate> predicates = new ArrayList<>();
-            if (filter.getShopStatus() != null){
-                predicates.add(cb.like(root.get(Shop_.SHOP_STATUS),"%"+ filter.getShopStatus() + "%"));
-            }
-
-            return cb.or(predicates.toArray(new Predicate[0]));
-        };
-    }
+//    @Override
+//    public Page<Shop> getShopFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest) {
+//        Specification<Shop> specification = getShopByShopStatusPredicate(filter);
+//        return shopRepository.findAll(specification, pageRequest);
+//    }
+//
+//    Specification<Shop> getShopByShopStatusPredicate(ShopQueryFilterByShopStatus filter){
+//        return (Root<Shop> root, CriteriaQuery<?> cq, CriteriaBuilder cb) ->{
+//            List<Predicate> predicates = new ArrayList<>();
+//            if (filter.getShopStatus() != null){
+//                predicates.add(cb.like(root.get(Shop_.SHOP_STATUS),"%"+ filter.getShopStatus() + "%"));
+//            }
+//
+//            return cb.or(predicates.toArray(new Predicate[0]));
+//        };
+//    }
 
     @Override
     public Shop findById(Long id) {

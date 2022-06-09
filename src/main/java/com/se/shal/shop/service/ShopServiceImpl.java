@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -62,18 +64,20 @@ public class ShopServiceImpl implements ShopService{
 
     @Transactional
     @Override
-    public Page<Shop> findShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
-        return shopDao.getShopByFilterByShopName(filter, pageRequest);
+    public Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
+        return shopDao.getShopByFilterByShopNameOrShopStatus(filter, pageRequest);
     }
-
 
     @Transactional
     @Override
-    public Page<Shop> findShopByFilterByShopStatus(ShopQueryFilterByShopStatus filter, PageRequest pageRequest) {
-        if (filter.getShopStatus().equalsIgnoreCase(ShopStatusName.DISABLE.toString())) {
-        } else if (filter.getShopStatus().equalsIgnoreCase(ShopStatusName.ENABLE.toString())) {
-            return shopDao.getShopFilterByShopStatus(filter, pageRequest);
+    public List<Shop> shopFilterByStatus(String status) {
+        List<Shop> shops = shopDao.getAllShop();
+        List<Shop> output = new ArrayList<>();
+        for (Shop shop : shops) {
+            if (Objects.equals(status, shop.getShopStatus().getShopStatus())){
+                output.add(shop);
+            }
         }
-        return shopDao.getShopFilterByShopStatus(filter, pageRequest);
+        return output;
     }
 }

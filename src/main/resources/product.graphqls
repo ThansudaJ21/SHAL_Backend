@@ -39,7 +39,8 @@ type  QueryProductDto {
     productName: String
     details: String
     category: String
-    ShopId: Int
+    shopId: Int
+    productStatus: String
     imagesPath: [String]
 }
 type  FilterProductDto {
@@ -47,7 +48,17 @@ type  FilterProductDto {
     productName: String
     details: String
     category: String
-    ShopId: Int
+    shopId: Int
+    productStatus: String
+    imagesPath: [String]
+}
+type  FilterProductStatusDto {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    shopId: Int
+    productStatus: String
     imagesPath: [String]
 }
 type  ProductAttributeDto {
