@@ -113,4 +113,22 @@ public class ShopServiceImpl implements ShopService {
         }
         return failureReasonListDao.save(output);
     }
+
+    @Override
+    public List<FailureReason> getFailureReason() {
+        return failureReasonDao.findAll();
+    }
+
+    @Transactional
+    @Override
+    public List<FailureReasonList> getFailureReasonByShopId(Long shopId) {
+        List<FailureReasonList> failureReasonLists = failureReasonListDao.findAll();
+        List<FailureReasonList> newArray = new ArrayList<>();
+        for (FailureReasonList list:failureReasonLists ) {
+            if (list.getShop().getId().equals(shopId)){
+                newArray.add(list);
+            }
+        }
+        return newArray;
+    }
 }
