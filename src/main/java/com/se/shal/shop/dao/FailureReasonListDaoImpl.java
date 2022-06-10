@@ -20,11 +20,6 @@ public class FailureReasonListDaoImpl implements FailureReasonListDao{
     }
 
     @Override
-    public List<FailureReasonList> getAllFailureReasonList() {
-        return failureReasonListRepository.findAll();
-    }
-
-    @Override
     public List<FailureReasonList> findAll() {
         return failureReasonListRepository.findAll();
     }

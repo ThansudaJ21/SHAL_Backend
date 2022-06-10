@@ -9,7 +9,7 @@ type Query {
     shopFilterByStatus(status: String): [ShopQuery]
     getFailureReason: [FailureReasonDto]
     getFailureReasonByShopId(shopId : Int): [QueryFailureReasonDto]
-
+    getAddressFromPostCode(postCode: String): PostCodeProvinceDto
     #    Product
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]

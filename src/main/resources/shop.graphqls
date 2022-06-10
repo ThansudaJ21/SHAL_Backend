@@ -98,4 +98,12 @@ type PageShop {
     totalElements: Int
     content: [ShopQuery]
 }
+type PostCodeProvinceDto{
+    province: String
+    amphoes: [PostCodeAmphoeDto]
+}
 
+type PostCodeAmphoeDto{
+    amphoe: String
+    tumbons: [String]
+}
