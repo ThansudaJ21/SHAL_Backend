@@ -1,5 +1,6 @@
 package com.se.shal.shop.dao;
 
+import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
 import org.springframework.data.domain.Page;
@@ -12,4 +13,5 @@ public interface ShopDao {
     Shop findById(Long id);
     List<Shop> getAllShop();
     Page<Shop> getShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest);
+
 }

@@ -10,4 +10,6 @@ import java.util.Optional;
 
 public interface FailureReasonListDao {
     List<FailureReasonList> save(List<FailureReasonList> failureReasonList);
+    List<FailureReasonList> getAllFailureReasonList();
+    List<FailureReasonList> findAll();
 }

@@ -16,6 +16,16 @@ type FailureReason {
     failureReasons: FailureListDto
     shopId:Int
 }
+type QueryFailureReasonDto {
+    id:Int
+    text: String
+    failureReasons: FailureListDto
+    shopId:Int
+}
+type FailureReasonDto {
+    id: Int
+    reason: String
+}
 type FailureListDto {
     reason: String
 }

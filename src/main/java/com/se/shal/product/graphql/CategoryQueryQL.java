@@ -1,7 +1,6 @@
 package com.se.shal.product.graphql;
 
 import com.se.shal.product.dto.CategoryDto;
-import com.se.shal.product.entity.Attribute;
 import com.se.shal.product.entity.Category;
 import com.se.shal.product.entity.CategoryName;
 import com.se.shal.product.service.CategoryService;
@@ -28,8 +27,11 @@ public class CategoryQueryQL implements GraphQLQueryResolver {
     }
 
     List<CategoryName> getAllCategory() {
-        List<CategoryName> categoryNames= Arrays.asList(CategoryName.values()).stream()
-                .sorted((c1,c2) -> c1.getOrder().compareTo(c2.getOrder())).collect(Collectors.toList());
+        List<CategoryName> categoryNames = Arrays.asList(CategoryName.values()).stream()
+                .sorted((c1, c2) -> c1.getOrder().compareTo(c2.getOrder())).collect(Collectors.toList());
         return categoryNames;
     }
+
+
+
 }

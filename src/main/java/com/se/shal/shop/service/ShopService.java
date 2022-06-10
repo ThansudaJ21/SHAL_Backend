@@ -17,4 +17,6 @@ public interface ShopService {
     Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, PageRequest pageRequest);
     List<Shop> shopFilterByStatus(String status);
     List<FailureReasonList> saveFailureReason(Long shopId, List<FailureReasonList> failureReason);
+    List<FailureReason> getFailureReason();
+    List<FailureReasonList> getFailureReasonByShopId(Long shopId);
 }
