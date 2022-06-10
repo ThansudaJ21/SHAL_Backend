@@ -7,7 +7,9 @@ import com.se.shal.product.dto.query.QueryProductDto;
 import com.se.shal.product.dto.query.QueryShipmentListDto;
 import com.se.shal.product.dto.query.QueryVariationsDto;
 import com.se.shal.product.entity.*;
+import com.se.shal.shop.dto.FailureReasonListDto;
 import com.se.shal.shop.dto.ShopDto;
+import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -53,6 +55,12 @@ public interface ShalMapper {
     QueryProductDto getQueryAllProductDto(Product product);
 
     List<VariationsDto> saveVariations(List<Variations> variationsList);
+
+    @Mapping(target = "shopId", source = "shop.id")
+    FailureReasonListDto saveFailureReasonList(FailureReasonList failureReasonLists);
+
+    List<FailureReasonListDto> getFailureReasonList(List<FailureReasonList> failureReasonLists);
+
 
     @Mapping(target = "productId", source = "product.id")
     VariationsDto saveVariations(Variations variationsList);

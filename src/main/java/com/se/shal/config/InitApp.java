@@ -2,10 +2,8 @@ package com.se.shal.config;
 
 import com.se.shal.product.entity.*;
 import com.se.shal.product.repository.*;
-import com.se.shal.shop.entity.Shop;
-import com.se.shal.shop.entity.ShopAddress;
-import com.se.shal.shop.entity.ShopStatus;
-import com.se.shal.shop.entity.ShopStatusName;
+import com.se.shal.shop.entity.*;
+import com.se.shal.shop.repository.FailureReasonRepository;
 import com.se.shal.shop.repository.ShopRepository;
 import com.se.shal.shop.repository.ShopStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +38,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     ShipmentListRepository shipmentListRepository;
     @Autowired
     ProductAttributeRepository productAttributeRepository;
+    @Autowired
+    FailureReasonRepository failureReasonRepository;
 
     @Override
     @Transactional
@@ -51,6 +51,20 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         ShopStatus enable = shopStatusRepository.save(ShopStatus.builder()
                 .shopStatusName(ShopStatusName.ENABLE)
                 .build());
+
+        FailureReason not_clear = FailureReason.builder().reason("Selfie Photo with ID card does not clear").build();
+        FailureReason logo = FailureReason.builder().reason("Inappropriate shop logo").build();
+        FailureReason name = FailureReason.builder().reason("Inappropriate shop name").build();
+        FailureReason selfie_id_card = FailureReason.builder().reason("ID card number does not match the selfie photo with ID card").build();
+        FailureReason name_id_card = FailureReason.builder().reason("Name does not match the ID card").build();
+        FailureReason other = FailureReason.builder().reason("Others").build();
+        failureReasonRepository.save(not_clear);
+        failureReasonRepository.save(logo);
+        failureReasonRepository.save(name);
+        failureReasonRepository.save(selfie_id_card);
+        failureReasonRepository.save(name_id_card);
+        failureReasonRepository.save(other);
+
 
         Category beauty = Category.builder().categoryName(CategoryName.BEAUTY).build();
         Category fashion = Category.builder().categoryName(CategoryName.FASHION).build();
@@ -204,6 +218,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .product(product)
                 .text("Brand")
                 .build());
+
 
     }
 }
