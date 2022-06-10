@@ -3,7 +3,6 @@ package com.se.shal.shop.dao;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.entity.Shop_;
 import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
-import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopStatus;
 import com.se.shal.shop.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,7 +34,7 @@ public class ShopDaoImpl implements ShopDao{
     }
 
     @Override
-    public Page<Shop> getShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
+    public Page<Shop> getShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
         Specification<Shop> specification = getShopPredicate(filter);
         return shopRepository.findAll(specification, pageRequest);
     }

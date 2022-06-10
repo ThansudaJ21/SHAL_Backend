@@ -5,9 +5,8 @@ schema {
 type Query {
     getRegisterShop(id: Int): ShopQuery
     getAllShop: [ShopQuery]
-    shopByFilterByShopNameOrShopStatus(queryText: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
+    shopByFilterByShopName(queryText: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
     shopFilterByStatus(status: String): [ShopQuery]
-
     #    Product
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]
@@ -23,6 +22,7 @@ type Query {
 type Mutation {
     registerShop(shop: ShopInput): Shop
     updateShopStatus(shopStatus: ShopStatusInput): Shop
+    shopFailureReason(shopId: Int, failure:[InputFailureReason]):[FailureReason]
 
     #    Save Product
     saveProduct(shopId: Int,product: InputProduct): Product

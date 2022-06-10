@@ -10,6 +10,24 @@ type Shop{
     shopAddress: ShopAddress
     shopStatus: String
 }
+type FailureReason {
+    id:Int
+    text: String
+    failureReasons: FailureListDto
+    shopId:Int
+}
+type FailureListDto {
+    reason: String
+}
+
+input InputFailureReason {
+    id: Int
+    text: String
+    failureReasons: InputReason
+}
+input InputReason {
+    reason: String
+}
 
 input ShopInput {
     shopName:String

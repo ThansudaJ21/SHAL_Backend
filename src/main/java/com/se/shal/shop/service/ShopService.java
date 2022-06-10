@@ -1,9 +1,9 @@
 package com.se.shal.shop.service;
 
-import com.se.shal.product.entity.Product;
+import com.se.shal.shop.entity.FailureReason;
+import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
-import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -16,5 +16,5 @@ public interface ShopService {
     List<Shop> getAllShop();
     Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, PageRequest pageRequest);
     List<Shop> shopFilterByStatus(String status);
-
+    List<FailureReasonList> saveFailureReason(Long shopId, List<FailureReasonList> failureReason);
 }
