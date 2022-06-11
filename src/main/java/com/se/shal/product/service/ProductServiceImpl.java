@@ -28,6 +28,10 @@ public class ProductServiceImpl implements ProductService {
     CategoryDao categoryDao;
     @Autowired
     ShipmentDao shipmentDao;
+    @Autowired
+    VariationDao variationDao;
+    @Autowired
+    OptionsDao optionsDao;
 
     @Transactional
     @Override
@@ -44,6 +48,19 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setShop(shop);
         newProduct.setProductStatus(ProductStatus.ACTIVE);
         Product product1 = productDao.saveProduct(newProduct);
+
+        List<Variations> newVariations = variationDao.save(product1.getVariations());
+
+        List<Variations> variations = new ArrayList<>();
+        for (Variations variations1 : newVariations
+        ) {
+            List<Options> options = optionsDao.save(variations1.getOptions());
+            variations1.setVariationName(variations1.getVariationName());
+            variations1.setOptions(options);
+            variations.add(variations1);
+        }
+        product1.setVariations(variations);
+
         return product1;
     }
 
