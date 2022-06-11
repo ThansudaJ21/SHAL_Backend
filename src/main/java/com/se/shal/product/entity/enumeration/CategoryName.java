@@ -1,4 +1,4 @@
-package com.se.shal.product.entity;
+package com.se.shal.product.entity.enumeration;
 
 public enum CategoryName {
     NA("None",100),

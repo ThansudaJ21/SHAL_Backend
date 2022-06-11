@@ -16,5 +16,5 @@ public class InputVariationsDto {
     Long id;
     String variationName;
     List<OptionsDto> options;
-    Long productId;
+
 }

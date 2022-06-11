@@ -14,5 +14,4 @@ import java.util.List;
 public class QueryShipmentListDto {
     Long id;
     List<String> shipments;
-    Long productId;
 }

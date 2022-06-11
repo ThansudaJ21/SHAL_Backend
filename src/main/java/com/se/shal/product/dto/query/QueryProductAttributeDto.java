@@ -14,5 +14,4 @@ public class QueryProductAttributeDto {
     Long id;
     String text;
     AttributeDto attribute;
-    Long productId;
 }

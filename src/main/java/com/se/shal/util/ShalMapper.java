@@ -58,9 +58,7 @@ public interface ShalMapper {
                             ".collect(Collectors.toList()))"),
             @Mapping(target = "shopId", source = "shop.id")
     })
-    InputUpdateProductDto saveProductDto(Product product);
-
-
+    ProductDto saveProductDto(Product product);
     @Mappings({
             @Mapping(target = "shipments",
                     expression = "java(product.getShipments().stream()" +
@@ -85,8 +83,6 @@ public interface ShalMapper {
     })
     FilterProductDto getFilterAllProductByCategory(Product product);
 
-    List<VariationsDto> saveVariations(List<Variations> variationsList);
-
     @Mapping(target = "shopId", source = "shop.id")
     FailureReasonListDto saveFailureReasonList(FailureReasonList failureReasonLists);
 
@@ -109,15 +105,7 @@ public interface ShalMapper {
                             ".collect(Collectors.toList()))"),
             @Mapping(target = "shopId", source = "shop.id")
     })
-    ProductDto getProductDto(Product product);
-
-
-    @Mapping(target = "attribute", ignore = true)
-    List<ProductAttributeDto> getProductAttributeDto(List<ProductAttribute> productAttributes);
-
-    @Mapping(target = "attribute", ignore = true)
-    List<QueryProductAttributeDto> getQueryProductAttributeDto(List<ProductAttribute> productAttributes);
-
+    ProductQuery getProductDto(Product product);
 
     @Mapping(target = "attributes", source = "attributes")
     CategoryDto getCategoryDto(Category category);

@@ -1,9 +1,8 @@
 package com.se.shal.product.dto.input;
 
-import com.se.shal.product.dto.VariationsDto;
-import com.se.shal.product.entity.ProductStatus;
-import com.se.shal.product.entity.SaleTypeName;
-import com.se.shal.product.entity.TimeUnit;
+import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
+import com.se.shal.product.entity.enumeration.TimeUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -3,7 +3,9 @@ package com.se.shal.product.service;
 import com.se.shal.product.dao.*;
 
 import com.se.shal.product.dto.input.InputProductDto;
+import com.se.shal.product.dto.input.InputUpdateProductDto;
 import com.se.shal.product.entity.*;
+import com.se.shal.product.entity.enumeration.ProductStatus;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.util.ShalMapper;
@@ -85,12 +87,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public Product updateProduct(Product product) {
+    public Product updateProduct(InputUpdateProductDto product) {
         Long id = product.getId();
         Product product1 = productDao.findById(id);
         product1.setProductName(product.getProductName());
         product1.setDetails(product.getDetails());
-        product1.setCategory(product.getCategory());
         product1.setImagesPath(product.getImagesPath());
         return productDao.saveProduct(product1);
     }

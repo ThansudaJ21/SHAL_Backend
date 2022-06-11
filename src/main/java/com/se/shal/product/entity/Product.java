@@ -1,5 +1,9 @@
 package com.se.shal.product.entity;
 
+import com.se.shal.product.entity.enumeration.CategoryName;
+import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
+import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.util.hibernate.StringListConverter;
 import lombok.*;

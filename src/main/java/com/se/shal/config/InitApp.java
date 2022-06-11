@@ -1,6 +1,9 @@
 package com.se.shal.config;
 
 import com.se.shal.product.entity.*;
+import com.se.shal.product.entity.enumeration.CategoryName;
+import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.ShipmentName;
 import com.se.shal.product.repository.*;
 import com.se.shal.shop.entity.*;
 import com.se.shal.shop.repository.FailureReasonRepository;

@@ -1,7 +1,8 @@
 package com.se.shal.product.graphql;
 
-import com.se.shal.product.dto.*;
+import com.se.shal.product.dto.ProductDto;
 import com.se.shal.product.dto.query.FilterProductDto;
+import com.se.shal.product.dto.query.ProductQuery;
 import com.se.shal.product.dto.query.QueryProductDto;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.service.*;
@@ -26,7 +27,7 @@ public class ProductQueryQL implements GraphQLQueryResolver {
     VariationsService variationsService;
 
     @Transactional
-    ProductDto getProduct(Long id) {
+    ProductQuery getProduct(Long id) {
         Product product = productService.getProduct(id);
         Hibernate.initialize(product.getProductStatus());
         return ShalMapper.INSTANCE.getProductDto(product);

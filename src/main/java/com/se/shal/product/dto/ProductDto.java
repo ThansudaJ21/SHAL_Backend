@@ -1,6 +1,10 @@
 package com.se.shal.product.dto;
 
-import com.se.shal.product.entity.*;
+import com.se.shal.product.dto.input.InputVariationsDto;
+import com.se.shal.product.dto.query.QueryVariationsDto;
+import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
+import com.se.shal.product.entity.enumeration.TimeUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +35,7 @@ public class ProductDto {
     //    shipments
     List<String> shipments;
     //    variations
-    List<VariationsDto> variations;
+    List<InputVariationsDto> variations;
     //    productAttribute
     List<ProductAttributeDto> productAttribute;
 }

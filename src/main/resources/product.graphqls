@@ -16,8 +16,8 @@ type  Product {
     timeUnitForAuctionPeriod: String
     timeUnitForNextAuction:String
     shipments: [String]
-    variations: [VariationsDto]
-    productAttribute: [MutationProductAttributeDto]
+    variations: [QueryVariationsDto]
+    productAttribute: [QueryProductAttributeDto]
 }
 type  UpdateProductStatus {
     id:Int
@@ -36,7 +36,7 @@ type  UpdateProductStatus {
     timeUnitForAuctionPeriod: String
     timeUnitForNextAuction:String
     shipments: [String]
-    variations: [VariationsDto]
+    variations: [QueryVariationsDto]
     productAttribute: [MutationProductAttributeDto]
 }
 type  UpdateProduct {
@@ -56,7 +56,7 @@ type  UpdateProduct {
     timeUnitForAuctionPeriod: String
     timeUnitForNextAuction:String
     shipments: [String]
-    variations: [VariationsDto]
+    variations: [QueryVariationsDto]
     productAttribute: [MutationProductAttributeDto]
 }
 type  ProductDto {
@@ -160,7 +160,6 @@ type Variations {
     id:Int
     variationName: String
     options: [Options]
-    productId: Int
 }
 type UpdateVariations {
     id:Int
@@ -168,11 +167,15 @@ type UpdateVariations {
     options: [Options]
 
 }
+type QueryVariationsDto {
+    id:Int
+    variationName: String
+    options: [Options]
+}
 type VariationsDto {
     id:Int
     variationName: String
     options: [Options]
-    productId: Int
 }
 type Options {
     id: Int
