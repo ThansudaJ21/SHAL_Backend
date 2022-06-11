@@ -1,6 +1,5 @@
-package com.se.shal.product.dto.query;
+package com.se.shal.product.dto.input;
 
-import com.se.shal.product.entity.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +11,12 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QueryProductDto {
+public class FilterProductDto {
     Long id;
     String productName;
     String details;
-    String productStatus;
     List<String> imagesPath;
+    String productStatus;
     String category;
     Long shopId;
 }

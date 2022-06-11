@@ -5,9 +5,11 @@ schema {
 type Query {
     getRegisterShop(id: Int): ShopQuery
     getAllShop: [ShopQuery]
-    shopQueryFilterByShopName(shopName: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
-    ShopQueryFilterByShopStatus(shopStatus: ShopQueryFilterByShopStatus, pageNo:Int, pageSize:Int): PageShop
-
+    shopByFilterByShopName(queryText: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
+    shopFilterByStatus(status: String): [ShopQuery]
+    getFailureReason: [FailureReasonDto]
+    getFailureReasonByShopId(shopId : Int): [QueryFailureReasonDto]
+    getAddressFromPostCode(postCode: String): PostCodeProvinceDto
     #    Product
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]
@@ -18,10 +20,12 @@ type Query {
     getAttribute(productId:Int): [ProductAttributeQuery]
     getVariations(productId: Int): [VariationsDto]
     productFilterByCategory(category: String): [FilterProductDto]
+    productFilterByStatus(status: String): [FilterProductDto]
 }
 type Mutation {
     registerShop(shop: ShopInput): Shop
     updateShopStatus(shopStatus: ShopStatusInput): Shop
+    shopFailureReason(shopId: Int, failure:[InputFailureReason]):[FailureReason]
 
     #    Save Product
     saveProduct(shopId: Int,product: InputProduct): Product
@@ -31,9 +35,14 @@ type Mutation {
     saveShipment(productId: Int, shipment: InputShipmentList): ShipmentList
 
     #    Update Product
+    updateProductStatus(productStatus: ProductStatusInput): UpdateProductStatus
     updateProduct(product: InputUpdateProduct): UpdateProduct
     updateSaleInformation(saleInformation: InputUpdateSalesInformation) :UpdateSalesInformation
-
+    updateVariations(productId: Int,variations: [InputUpdateVariations]): [UpdateVariations]
     updateShipments(shipment: InputUpdateShipmentList): UpdateShipmentList
+    updateAttribute(productId: Int,attribute: [InputUpdateProductAttributes]): [UpdateProductAttributeDto]
+
+#   Delete
+    deleteVariations(id:Int): Int
 }
 

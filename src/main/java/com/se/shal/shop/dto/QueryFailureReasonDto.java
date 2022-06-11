@@ -1,18 +1,16 @@
-package com.se.shal.product.dto;
+package com.se.shal.shop.dto;
 
+import com.se.shal.shop.entity.FailureReason;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDto {
-    String categoryName;
-    List<CategoryAttributeDto> attributes;
-
+public class QueryFailureReasonDto {
+    Long id;
+    String reason;
 }

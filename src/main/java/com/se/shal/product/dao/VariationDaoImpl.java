@@ -21,4 +21,15 @@ public class VariationDaoImpl implements VariationDao{
     public List<Variations> findAll() {
         return variationRepository.findAll();
     }
+
+    @Override
+    public Variations getVariationsById(Long id) {
+        return variationRepository.getById(id);
+    }
+
+
+    @Override
+    public void deleteVariationsById(Long id) {
+        variationRepository.deleteById(id);
+    }
 }

@@ -1,5 +1,6 @@
-package com.se.shal.product.dto;
+package com.se.shal.product.dto.input;
 
+import com.se.shal.product.dto.AttributeDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class    ProductAttributeDto {
+public class InputUpdateProductAttributeDto {
     Long id;
     String text;
     AttributeDto attribute;

@@ -1,5 +1,6 @@
-package com.se.shal.product.dto;
+package com.se.shal.shop.dto;
 
+import com.se.shal.shop.entity.FailureReason;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class    ProductAttributeDto {
+public class QueryFailureReasonListDto {
     Long id;
     String text;
-    AttributeDto attribute;
-    Long productId;
+    FailureReason failureReasons;
+    Long shopId;
 }

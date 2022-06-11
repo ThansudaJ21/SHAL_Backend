@@ -35,3 +35,5 @@ graphql:
     # Sets the path where GraphQL servlet will be exposed. If not specified defaults to "/graphql"
     mapping: /graphql
     corsEnabled: false
+shal:
+  postcodeDb: postcodeDb/postcodedb.json

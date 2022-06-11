@@ -1,9 +1,13 @@
 package com.se.shal.shop.graphql;
 
+import com.se.shal.shop.dto.QueryFailureReasonDto;
+import com.se.shal.shop.dto.QueryFailureReasonListDto;
+import com.se.shal.shop.entity.FailureReason;
+import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
-import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopStatus;
 import com.se.shal.shop.service.ShopService;
+import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,12 +39,24 @@ public class ShopQueryQL implements GraphQLQueryResolver {
     }
 
     @Transactional
-    Page<Shop> shopQueryFilterByShopName(ShopQueryFilterByShopName filter, int pageNo, int pageSize){
-        return shopService.findShopByFilterByShopName(filter, PageRequest.of(pageNo,pageSize));
+    Page<Shop> shopByFilterByShopName(ShopQueryFilterByShopName filter, int pageNo, int pageSize){
+        return shopService.findShopByFilterByShopNameOrShopStatus(filter, PageRequest.of(pageNo,pageSize));
     }
 
     @Transactional
-    Page<Shop> ShopQueryFilterByShopStatus(ShopQueryFilterByShopStatus filter, int pageNo, int pageSize){
-        return shopService.findShopByFilterByShopStatus(filter, PageRequest.of(pageNo,pageSize));
+    List<Shop> shopFilterByStatus(String  status){
+        return shopService.shopFilterByStatus(status);
+    }
+
+    @Transactional
+    List<QueryFailureReasonDto> getFailureReason() {
+        List<FailureReason> failureReasons= shopService.getFailureReason();
+        return ShalMapper.INSTANCE.getAllFailureReasonList(failureReasons);
+    }
+
+    @Transactional
+    List<QueryFailureReasonListDto> getFailureReasonByShopId(Long shopId) {
+        List<FailureReasonList> failureReasons = shopService.getFailureReasonByShopId(shopId);
+        return ShalMapper.INSTANCE.getFailureReasonListByShopId(failureReasons);
     }
 }
