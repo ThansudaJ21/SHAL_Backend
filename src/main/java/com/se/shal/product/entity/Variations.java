@@ -19,8 +19,4 @@ public class Variations {
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     List<Options> options;
-
-    @ManyToOne
-    Product product;
-
 }

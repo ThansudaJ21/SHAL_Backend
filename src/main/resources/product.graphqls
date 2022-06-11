@@ -7,32 +7,77 @@ type  Product {
     shopId: Int
     productStatus: String
     imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [VariationsDto]
+    productAttribute: [MutationProductAttributeDto]
 }
 type  UpdateProductStatus {
     id:Int
     productName: String
     details: String
     category: String
-    productStatus: String
     shopId: Int
+    productStatus: String
     imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [VariationsDto]
+    productAttribute: [MutationProductAttributeDto]
 }
 type  UpdateProduct {
     id:Int
     productName: String
     details: String
     category: String
-    ShopId: Int
+    shopId: Int
+    productStatus: String
     imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [VariationsDto]
+    productAttribute: [MutationProductAttributeDto]
 }
 type  ProductDto {
     id:Int
     productName: String
     details: String
     category: String
-    productStatus: String
     shopId: Int
+    productStatus: String
     imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [VariationsDto]
+    productAttribute: [QueryProductAttributeDto]
 }
 type  QueryProductDto {
     id:Int
@@ -42,6 +87,17 @@ type  QueryProductDto {
     shopId: Int
     productStatus: String
     imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [VariationsDto]
+    productAttribute: [QueryProductAttributeDto]
 }
 type  FilterProductDto {
     id:Int
@@ -51,6 +107,17 @@ type  FilterProductDto {
     shopId: Int
     productStatus: String
     imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [VariationsDto]
+    productAttribute: [QueryProductAttributeDto]
 }
 type  FilterProductStatusDto {
     id:Int
@@ -60,25 +127,31 @@ type  FilterProductStatusDto {
     shopId: Int
     productStatus: String
     imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [VariationsDto]
+    productAttribute: [QueryProductAttributeDto]
 }
-type  ProductAttributeDto {
+type  MutationProductAttributeDto {
     id:Int
     text: String
     attribute: Attribute
-    productId: Int
+
 }
-type  UpdateProductAttributeDto {
+type  QueryProductAttributeDto {
     id:Int
     text: String
     attribute: Attribute
-    productId: Int
+
 }
-type  ProductAttributeQuery {
-    id: Int
-    text: String
-    attribute: Attribute
-    productId: Int
-}
+
 type Attribute {
     attribute: String
 }
@@ -93,7 +166,7 @@ type UpdateVariations {
     id:Int
     variationName: String
     options: [Options]
-    productId: Int
+
 }
 type VariationsDto {
     id:Int
@@ -102,48 +175,13 @@ type VariationsDto {
     productId: Int
 }
 type Options {
-        id: Int
+    id: Int
     optionName:String
     price: Int
     stock: Int
     image:String
 }
-type UpdateSalesInformation {
-    id:Int
-    salePrice: Float
-    startingBid: Float
-    storage:Int
-    auctionPeriod:Int
-    nextAuction:Int
-    saleTypeName: String
-    timeUnitForAuctionPeriod: String
-    timeUnitForNextAuction:String
-    productId: Int
-}
-type SalesInformation {
-    id:Int
-    salePrice: Float
-    startingBid: Float
-    storage:Int
-    auctionPeriod:Int
-    nextAuction:Int
-    saleTypeName: String
-    timeUnitForAuctionPeriod: String
-    timeUnitForNextAuction:String
-    productId: Int
-}
-type SalesInformationDto {
-    id:Int
-    salePrice: Float
-    startingBid: Float
-    storage:Int
-    auctionPeriod:Int
-    nextAuction:Int
-    saleTypeName: String
-    timeUnitForAuctionPeriod: String
-    timeUnitForNextAuction:String
-    productId: Int
-}
+
 #Category
 type CategoryDto {
     categoryName: String
@@ -160,29 +198,27 @@ type Category{
     categoryName: String
 }
 
-type  ShipmentList{
-    id: Int
-    shipments: [String]
-    productId: Int
-}
-type  UpdateShipmentList{
-    id: Int
-    shipments: [String]
-    productId: Int
-}
-type  ShipmentListDto{
-    id: Int
-    shipments: [String]
-    productId: Int
-}
+
 #Product Input
 
 input InputProduct {
     productName: String
     details: String
     category: String
-    ShopId: Int
+    shopId: Int
+    productStatus: String
     imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [InputVariations]
+#    productAttribute: [InputProductAttribute]
 }
 input ProductStatusInput {
     id: Int
@@ -193,75 +229,42 @@ input InputUpdateProduct {
     productName: String
     details: String
     category: String
-    ShopId: Int
+    shopId: Int
+    productStatus: String
     imagesPath: [String]
-}
-input  InputProductAttributes {
-
-    text: String
-    attribute: InputAttribute
-    productId: Int
-}
-input  InputUpdateProductAttributes {
-    id: Int
-    text: String
-    attribute: InputAttribute
-    productId: Int
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [InputVariations]
+#    productAttribute: [InputProductAttribute]
 }
 
 input InputAttribute {
     attribute: String
 }
-
+input InputProductAttribute {
+    text: String
+    attribute: InputAttribute
+}
 input InputVariations {
-    #    id:Int
     variationName: String
     options: [InputOptions]
-    productId: Int
 }
 input InputUpdateVariations {
     id:Int
     variationName: String
     options: [InputOptions]
-    productId: Int
 }
 input InputOptions {
-        id: Int
+    id: Int
     optionName: String
     price: Int
     stock: Int
     image:String
-}
-input InputSalesInformation {
-    salePrice: Float
-    startingBid: Float
-    storage:Int
-    auctionPeriod:Int
-    nextAuction:Int
-    saleTypeName: String
-    timeUnitForAuctionPeriod: String
-    timeUnitForNextAuction:String
-    productId: Int
-}
-input InputUpdateSalesInformation {
-    id: Int
-    salePrice: Float
-    startingBid: Float
-    storage:Int
-    auctionPeriod:Int
-    nextAuction:Int
-    saleTypeName: String
-    timeUnitForAuctionPeriod: String
-    timeUnitForNextAuction:String
-    productId: Int
-}
-
-input  InputShipmentList {
-    shipments: [String]
-    productId: Int
-}
-input  InputUpdateShipmentList {
-    id: Int
-    shipments: [String]
-    productId: Int
 }

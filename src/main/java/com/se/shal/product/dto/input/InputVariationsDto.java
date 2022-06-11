@@ -1,5 +1,6 @@
 package com.se.shal.product.dto.input;
 
+import com.se.shal.product.dto.OptionsDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +12,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputShipmentList {
+public class InputVariationsDto {
     Long id;
-    List<String> shipments;
+    String variationName;
+    List<OptionsDto> options;
     Long productId;
 }

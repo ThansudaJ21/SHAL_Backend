@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InputProductAttributeDto {
+    Long id;
     String text;
     AttributeDto attribute;
-    Long productId;
 }

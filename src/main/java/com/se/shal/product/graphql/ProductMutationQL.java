@@ -19,67 +19,20 @@ public class ProductMutationQL implements GraphQLMutationResolver {
     ProductService productService;
 
     @Autowired
-    SalesInformationService salesInformationService;
-    @Autowired
     VariationsService variationsService;
-    @Autowired
-    ShipmentListService shipmentListService;
     @Autowired
     ProductAttributeService productAttributeService;
 
     @Transactional
-    InputProductDto saveProduct(Long shopId, Product product) {
+    InputUpdateProductDto saveProduct(Long shopId, InputProductDto product) {
         Product newProduct = productService.saveProduct(shopId, product);
-        return ShalMapper.INSTANCE.saveProduct(newProduct);
+        return ShalMapper.INSTANCE.saveProductDto(newProduct);
     }
 
-    @Transactional
-    InputSalesInformationDto saveSaleInformation(Long productId, SalesInformation salesInformation) {
-        SalesInformation newSalesInformation = salesInformationService.save(productId, salesInformation);
-        return ShalMapper.INSTANCE.saveSaleInformation(newSalesInformation);
-    }
-
-    @Transactional
-    List<VariationsDto> saveVariations(Long productId, List<Variations> variations) {
-        List<Variations> newVariations = variationsService.save(productId, variations);
-        return ShalMapper.INSTANCE.saveVariations(newVariations);
-    }
-
-    @Transactional
-    ShipmentListDto saveShipment(Long productId, InputShipmentList shipmentList) {
-        ShipmentList shipmentList1 = shipmentListService.save(productId, shipmentList);
-        return ShalMapper.INSTANCE.getShipmentListDto(shipmentList1);
-    }
-
-    @Transactional
-    List<ProductAttributeDto> saveAttribute(Long productId, List<InputProductAttributeDto> inputProductAttributeDto) {
-        List<ProductAttribute> productAttributes = productAttributeService.save(productId, inputProductAttributeDto);
-        return ShalMapper.INSTANCE.getProductAttributeDto(productAttributes);
-    }
-
-    //    Update method
     @Transactional
     InputUpdateProductDto updateProduct(Product product) {
         Product product1 = productService.updateProduct(product);
         return ShalMapper.INSTANCE.updateProduct(product1);
-    }
-
-    @Transactional
-    InputUpdateSalesInformationDto updateSaleInformation(SalesInformation salesInformation) {
-        SalesInformation salesInformation1 = salesInformationService.updateSalesInformation(salesInformation);
-        return ShalMapper.INSTANCE.updateSaleInformation(salesInformation1);
-    }
-
-    @Transactional
-    InputUpdateShipmentList updateShipments(UpdateShipmentList shipmentList) {
-        ShipmentList shipmentList1 = shipmentListService.updateShipmentLists(shipmentList);
-        return ShalMapper.INSTANCE.getUpdateShipmentListDto(shipmentList1);
-    }
-
-    @Transactional
-    List<InputUpdateVariationsDto> updateVariations(Long productId,List<Variations> variations) {
-        List<Variations> updateVariations = variationsService.updateVariations(productId,variations);
-        return ShalMapper.INSTANCE.updateVariations(updateVariations);
     }
 
     @Transactional
@@ -88,11 +41,6 @@ public class ProductMutationQL implements GraphQLMutationResolver {
         return ShalMapper.INSTANCE.updateProductStatus(product1);
     }
 
-    @Transactional
-    List<InputUpdateProductAttributeDto> updateAttribute(Long productId,List<UpdateProductAttributeDto> productAttributes) {
-        List<ProductAttribute> updateVariations = productAttributeService.updateProductAttribute(productId,productAttributes);
-        return ShalMapper.INSTANCE.updateProductAttributeDto(updateVariations);
-    }
     @Transactional
     void deleteVariations(Long id){
         variationsService.deleteVariations(id);

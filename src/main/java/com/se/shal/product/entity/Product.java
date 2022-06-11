@@ -27,8 +27,31 @@ public class Product {
     String productName;
     String details;
     CategoryName category;
-
     ProductStatus productStatus;
+
+//    sale information
+    Double salePrice;
+    Double startingBid;
+    Integer storage;
+    Integer auctionPeriod;
+    Integer nextAuction;
+    SaleTypeName saleTypeName;
+    TimeUnit timeUnitForAuctionPeriod;
+    TimeUnit timeUnitForNextAuction;
+
+//    shipment
+    @OneToMany
+    List<Shipment> shipments;
+
+//    variations
+    @OneToMany
+    List<Variations> variations;
+
+//    productAttributes
+    @OneToMany
+    List<ProductAttribute> productAttributes;
+
+//     shop
     @ManyToOne
     Shop shop;
 }

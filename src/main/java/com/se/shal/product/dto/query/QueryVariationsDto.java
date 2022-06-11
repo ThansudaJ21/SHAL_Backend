@@ -16,5 +16,4 @@ public class QueryVariationsDto {
     Long id;
     String variationName;
     List<OptionsDto> options;
-    Long productId;
 }

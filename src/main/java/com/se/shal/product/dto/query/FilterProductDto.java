@@ -1,5 +1,6 @@
-package com.se.shal.product.dto.input;
+package com.se.shal.product.dto.query;
 
+import com.se.shal.product.dto.ProductAttributeDto;
 import com.se.shal.product.dto.VariationsDto;
 import com.se.shal.product.entity.ProductStatus;
 import com.se.shal.product.entity.SaleTypeName;
@@ -15,7 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputUpdateProductStatusDto {
+public class FilterProductDto {
     Long id;
     String productName;
     String details;
@@ -35,7 +36,7 @@ public class InputUpdateProductStatusDto {
     //    shipments
     List<String> shipments;
     //    variations
-    List<InputVariationsDto> variations;
+    List<QueryVariationsDto> variations;
     //    productAttribute
-    List<InputProductAttributeDto> productAttribute;
+    List<ProductAttributeDto> productAttribute;
 }

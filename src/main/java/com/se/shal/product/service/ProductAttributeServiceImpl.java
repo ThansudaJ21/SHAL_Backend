@@ -5,10 +5,8 @@ import com.se.shal.product.dao.ProductAttributeDao;
 import com.se.shal.product.dao.ProductDao;
 import com.se.shal.product.dto.UpdateProductAttributeDto;
 import com.se.shal.product.dto.input.InputProductAttributeDto;
-import com.se.shal.product.dto.input.InputUpdateProductAttributeDto;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.ProductAttribute;
-import com.se.shal.product.entity.Variations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +38,7 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
                                 output.add(ProductAttribute.builder()
                                         .attribute(attribute)
                                         .text(productInput.getText())
-                                        .product(product)
+//                                        .product(product)
                                         .build());
                             },
                             () -> {
@@ -58,11 +56,11 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
 
         List<ProductAttribute> output = new ArrayList<>();
 
-        for (ProductAttribute productAttribute1 : productAttribute) {
-            if (Objects.equals(productAttribute1.getProduct().getId(), productId)) {
-                output.add(productAttribute1);
-            }
-        }
+//        for (ProductAttribute productAttribute1 : productAttribute) {
+//            if (Objects.equals(productAttribute1.getProduct().getId(), productId)) {
+//                output.add(productAttribute1);
+//            }
+//        }
         return output;
     }
 

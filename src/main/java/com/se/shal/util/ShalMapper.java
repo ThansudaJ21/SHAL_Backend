@@ -2,10 +2,7 @@ package com.se.shal.util;
 
 import com.se.shal.product.dto.*;
 import com.se.shal.product.dto.input.*;
-import com.se.shal.product.dto.query.QueryProductAttributeDto;
-import com.se.shal.product.dto.query.QueryProductDto;
-import com.se.shal.product.dto.query.QueryShipmentListDto;
-import com.se.shal.product.dto.query.QueryVariationsDto;
+import com.se.shal.product.dto.query.*;
 import com.se.shal.product.entity.*;
 import com.se.shal.shop.dto.FailureReasonListDto;
 import com.se.shal.shop.dto.QueryFailureReasonDto;
@@ -14,6 +11,7 @@ import com.se.shal.shop.dto.ShopDto;
 import com.se.shal.shop.entity.FailureReason;
 import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -30,20 +28,47 @@ public interface ShalMapper {
 
     ShopDto updateShopStatus(Shop shop);
 
-    @Mapping(target = "shopId", source = "shop.id")
+    @Mappings({
+            @Mapping(target = "shipments",
+                    expression = "java(product.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "shopId", source = "shop.id")
+    })
     InputUpdateProductStatusDto updateProductStatus(Product product);
 
-    @Mapping(target = "shopId", source = "shop.id")
-    InputProductDto saveProduct(Product product);
+    @Mappings({
+            @Mapping(target = "shipments", ignore = true),
+    })
+    Product saveProduct(InputProductDto product);
 
-    @Mapping(target = "shopId", source = "shop.id")
+    @Mappings({
+            @Mapping(target = "shipments",
+                    expression = "java(product.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "shopId", source = "shop.id")
+    })
     InputUpdateProductDto updateProduct(Product product);
 
-    @Mapping(target = "productId", source = "product.id")
-    InputSalesInformationDto saveSaleInformation(SalesInformation salesInformation);
+    @Mappings({
+            @Mapping(target = "shipments",
+                    expression = "java(product.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "shopId", source = "shop.id")
+    })
+    InputUpdateProductDto saveProductDto(Product product);
 
-    @Mapping(target = "productId", source = "product.id")
-    InputUpdateSalesInformationDto updateSaleInformation(SalesInformation salesInformation);
+
+    @Mappings({
+            @Mapping(target = "shipments",
+                    expression = "java(product.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "shopId", source = "shop.id")
+    })
+    QueryProductDto getQueryAllProductDto(Product product);
 
     List<QueryProductDto> getQueryAllProductDto(List<Product> product);
 
@@ -51,11 +76,14 @@ public interface ShalMapper {
 
     List<FilterProductDto> getFilterAllProductByStatus(List<Product> product);
 
-    @Mapping(target = "shopId", source = "shop.id")
+    @Mappings({
+            @Mapping(target = "shipments",
+                    expression = "java(product.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "shopId", source = "shop.id")
+    })
     FilterProductDto getFilterAllProductByCategory(Product product);
-
-    @Mapping(target = "shopId", source = "shop.id")
-    QueryProductDto getQueryAllProductDto(Product product);
 
     List<VariationsDto> saveVariations(List<Variations> variationsList);
 
@@ -65,46 +93,23 @@ public interface ShalMapper {
     List<FailureReasonListDto> getFailureReasonList(List<FailureReasonList> failureReasonLists);
 
     List<QueryFailureReasonDto> getAllFailureReasonList(List<FailureReason> failureReasonLists);
+
     @Mapping(target = "shopId", source = "shop.id")
     QueryFailureReasonListDto getFailureReasonListByShopId(FailureReasonList failureReasonLists);
 
     List<QueryFailureReasonListDto> getFailureReasonListByShopId(List<FailureReasonList> failureReasonLists);
 
-    @Mapping(target = "productId", source = "product.id")
-    VariationsDto saveVariations(Variations variationsList);
-
-    List<InputUpdateVariationsDto> updateVariations(List<Variations> variationsList);
-
-    @Mapping(target = "productId", source = "product.id")
-    InputUpdateVariationsDto updateVariations(Variations variationsList);
-
-    List<InputUpdateProductAttributeDto> updateProductAttributeDto(List<ProductAttribute> productAttributes);
-
-    @Mapping(target = "productId", source = "product.id")
-    InputUpdateProductAttributeDto updateProductAttributeDto(ProductAttribute productAttribute);
-
-    @Mapping(target = "productId", source = "product.id")
-    QueryVariationsDto getQueryVariationsDto(Variations variations);
-
     List<QueryVariationsDto> getQueryVariationsDto(List<Variations> variations);
 
-    @Mappings({
-            @Mapping(target = "shipments", ignore = true)
-    })
-    ShipmentList getShipmentList(InputShipmentList inputShipmentList);
 
     @Mappings({
-            @Mapping(target = "shipments", ignore = true)
+            @Mapping(target = "shipments",
+                    expression = "java(product.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "shopId", source = "shop.id")
     })
-    ShipmentList getUpdateShipmentList(UpdateShipmentList inputShipmentList);
-    @Mapping(target = "attribute", ignore = true)
-    List<ProductAttribute> getProductAttribute(List<InputProductAttributeDto> inputShipmentList);
-
-    @Mapping(target = "shopId", source = "shop.id")
     ProductDto getProductDto(Product product);
-
-    @Mapping(target = "productId", source = "product.id")
-    SalesInformationDto getSalesInformationDto(SalesInformation salesInformation);
 
 
     @Mapping(target = "attribute", ignore = true)
@@ -113,38 +118,6 @@ public interface ShalMapper {
     @Mapping(target = "attribute", ignore = true)
     List<QueryProductAttributeDto> getQueryProductAttributeDto(List<ProductAttribute> productAttributes);
 
-    @Mapping(target = "productId", source = "product.id")
-    QueryProductAttributeDto getQueryProductAttributeDto(ProductAttribute productAttributes);
-
-    @Mapping(target = "productId", source = "product.id")
-    ProductAttributeDto getProductAttributeDto(ProductAttribute productAttributes);
-
-    @Mappings({
-            @Mapping(target = "shipments",
-                    expression = "java(shipmentList.getShipments().stream()" +
-                            ".map(d -> d.getShipmentName().getShipmentName())" +
-                            ".collect(Collectors.toList()))"),
-            @Mapping(target = "productId", source = "product.id")
-    })
-    ShipmentListDto getShipmentListDto(ShipmentList shipmentList);
-
-    @Mappings({
-            @Mapping(target = "shipments",
-                    expression = "java(shipmentList.getShipments().stream()" +
-                            ".map(d -> d.getShipmentName().getShipmentName())" +
-                            ".collect(Collectors.toList()))"),
-            @Mapping(target = "productId", source = "product.id")
-    })
-    InputUpdateShipmentList getUpdateShipmentListDto(ShipmentList shipmentList);
-
-    @Mappings({
-            @Mapping(target = "shipments",
-                    expression = "java(shipmentList.getShipments().stream()" +
-                            ".map(d -> d.getShipmentName().getShipmentName())" +
-                            ".collect(Collectors.toList()))"),
-            @Mapping(target = "productId", source = "product.id")
-    })
-    QueryShipmentListDto getQueryShipmentListDto(ShipmentList shipmentList);
 
     @Mapping(target = "attributes", source = "attributes")
     CategoryDto getCategoryDto(Category category);
