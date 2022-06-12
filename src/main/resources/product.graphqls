@@ -149,7 +149,6 @@ type  QueryProductAttributeDto {
     id:Int
     text: String
     attribute: Attribute
-
 }
 
 type Attribute {
@@ -221,7 +220,7 @@ input InputProduct {
     timeUnitForNextAuction:String
     shipments: [String]
     variations: [InputVariations]
-#    productAttribute: [InputProductAttribute]
+    productAttribute: [InputProductAttribute]
 }
 input ProductStatusInput {
     id: Int
@@ -245,7 +244,7 @@ input InputUpdateProduct {
     timeUnitForNextAuction:String
     shipments: [String]
     variations: [InputVariations]
-#    productAttribute: [InputProductAttribute]
+    productAttribute: [InputProductAttribute]
 }
 
 input InputAttribute {

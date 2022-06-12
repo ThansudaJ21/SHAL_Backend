@@ -2,6 +2,9 @@ package com.se.shal.product.service;
 
 import com.se.shal.product.dao.*;
 
+import com.se.shal.product.dto.ProductAttributeDto;
+import com.se.shal.product.dto.UpdateProductAttributeDto;
+import com.se.shal.product.dto.input.InputProductAttributeDto;
 import com.se.shal.product.dto.input.InputProductDto;
 import com.se.shal.product.dto.input.InputUpdateProductDto;
 import com.se.shal.product.entity.*;
@@ -9,6 +12,7 @@ import com.se.shal.product.entity.enumeration.ProductStatus;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.util.ShalMapper;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,14 +36,17 @@ public class ProductServiceImpl implements ProductService {
     VariationDao variationDao;
     @Autowired
     OptionsDao optionsDao;
+    @Autowired
+    AttributeDao attributeDao;
+    @Autowired
+    ProductAttributeDao productAttributeDao;
 
     @Transactional
     @Override
     public Product saveProduct(Long shopId, InputProductDto product) {
-
         Product newProduct = ShalMapper.INSTANCE.saveProduct(product);
-
         Shop shop = shopDao.findById(shopId);
+
         List<Shipment> dsgList = product.getShipments().stream()
                 .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
                 .collect(Collectors.toList());
@@ -47,10 +54,10 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setShipments(dsgList);
         newProduct.setShop(shop);
         newProduct.setProductStatus(ProductStatus.ACTIVE);
-        Product product1 = productDao.saveProduct(newProduct);
 
-        List<Variations> newVariations = variationDao.save(product1.getVariations());
+//        Product product1 = productDao.saveProduct(newProduct);
 
+        List<Variations> newVariations = variationDao.save(newProduct.getVariations());
         List<Variations> variations = new ArrayList<>();
         for (Variations variations1 : newVariations
         ) {
@@ -59,8 +66,26 @@ public class ProductServiceImpl implements ProductService {
             variations1.setOptions(options);
             variations.add(variations1);
         }
-        product1.setVariations(variations);
 
+        List<ProductAttribute> output = new ArrayList<>();
+        for (ProductAttribute productInput : newProduct.getProductAttribute()) {
+            attributeDao.findByName(productInput.getAttribute().getAttribute())
+                    .ifPresentOrElse(
+                            (attribute) -> {
+                                output.add(ProductAttribute.builder()
+                                        .attribute(attribute)
+                                        .text(productInput.getText())
+                                        .build());
+                            },
+                            () -> {
+                                throw new RuntimeException();
+                            }
+                    );
+        }
+        List<ProductAttribute> p = productAttributeDao.save(output);
+        newProduct.setProductAttribute(p);
+        newProduct.setVariations(variations);
+        Product product1 = productDao.saveProduct(newProduct);
         return product1;
     }
 
@@ -68,6 +93,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProduct(Long id) {
         Product product = productDao.getProduct(id);
+        Hibernate.initialize(product.getVariations());
+        Hibernate.initialize(product.getProductAttribute());
+        Hibernate.initialize(product.getShipments());
         return product;
     }
 
@@ -80,6 +108,9 @@ public class ProductServiceImpl implements ProductService {
 
         for (Product product : products) {
             if (Objects.equals(product.getShop().getId(), shop.getId())) {
+                Hibernate.initialize(product.getVariations());
+                Hibernate.initialize(product.getProductAttribute());
+                Hibernate.initialize(product.getShipments());
                 output.add(product);
             }
         }

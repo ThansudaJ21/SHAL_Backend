@@ -38,7 +38,7 @@ public interface ShalMapper {
     InputUpdateProductStatusDto updateProductStatus(Product product);
 
     @Mappings({
-            @Mapping(target = "shipments", ignore = true),
+            @Mapping(target = "shipments", ignore = true)
     })
     Product saveProduct(InputProductDto product);
 

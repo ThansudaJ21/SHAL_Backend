@@ -38,7 +38,6 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
                                 output.add(ProductAttribute.builder()
                                         .attribute(attribute)
                                         .text(productInput.getText())
-//                                        .product(product)
                                         .build());
                             },
                             () -> {

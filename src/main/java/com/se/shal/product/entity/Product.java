@@ -53,7 +53,7 @@ public class Product {
 
 //    productAttributes
     @OneToMany
-    List<ProductAttribute> productAttributes;
+    List<ProductAttribute> productAttribute;
 
 //     shop
     @ManyToOne
