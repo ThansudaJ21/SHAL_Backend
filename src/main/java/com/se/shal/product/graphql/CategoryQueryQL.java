@@ -2,7 +2,7 @@ package com.se.shal.product.graphql;
 
 import com.se.shal.product.dto.CategoryDto;
 import com.se.shal.product.entity.Category;
-import com.se.shal.product.entity.CategoryName;
+import com.se.shal.product.entity.enumeration.CategoryName;
 import com.se.shal.product.service.CategoryService;
 import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -31,7 +31,4 @@ public class CategoryQueryQL implements GraphQLQueryResolver {
                 .sorted((c1, c2) -> c1.getOrder().compareTo(c2.getOrder())).collect(Collectors.toList());
         return categoryNames;
     }
-
-
-
 }

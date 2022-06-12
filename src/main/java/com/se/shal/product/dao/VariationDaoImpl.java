@@ -8,28 +8,23 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class VariationDaoImpl implements VariationDao{
+public class VariationDaoImpl implements VariationDao {
 
     @Autowired
     VariationRepository variationRepository;
+
     @Override
     public List<Variations> save(List<Variations> variations) {
         return variationRepository.saveAll(variations);
     }
 
     @Override
-    public List<Variations> findAll() {
-        return variationRepository.findAll();
-    }
-
-    @Override
-    public Variations getVariationsById(Long id) {
-        return variationRepository.getById(id);
-    }
-
-
-    @Override
     public void deleteVariationsById(Long id) {
         variationRepository.deleteById(id);
+    }
+
+    @Override
+    public Variations findById(Long id) {
+        return variationRepository.findById(id).orElse(null);
     }
 }

@@ -1,10 +1,9 @@
 package com.se.shal.product.entity;
 
+import com.se.shal.product.entity.enumeration.ShipmentName;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Builder
@@ -18,10 +17,6 @@ public class Shipment {
     @Enumerated(EnumType.STRING)
     private ShipmentName shipmentName;
 
-//    @ManyToMany
-//    @Builder.Default
-//    @ToString.Exclude
-//    List<ShipmentList> shipmentLists = new ArrayList<>();
 
     public Shipment() {
 

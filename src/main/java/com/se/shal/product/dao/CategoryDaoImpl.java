@@ -1,9 +1,7 @@
 package com.se.shal.product.dao;
 
 import com.se.shal.product.entity.Category;
-import com.se.shal.product.entity.CategoryName;
-import com.se.shal.product.entity.Shipment;
-import com.se.shal.product.entity.ShipmentName;
+import com.se.shal.product.entity.enumeration.CategoryName;
 import com.se.shal.product.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

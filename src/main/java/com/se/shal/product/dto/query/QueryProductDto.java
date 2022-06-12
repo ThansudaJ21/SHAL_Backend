@@ -1,6 +1,9 @@
 package com.se.shal.product.dto.query;
 
-import com.se.shal.product.entity.ProductStatus;
+import com.se.shal.product.dto.ProductAttributeDto;
+import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
+import com.se.shal.product.entity.enumeration.TimeUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +19,23 @@ public class QueryProductDto {
     Long id;
     String productName;
     String details;
-    String productStatus;
     List<String> imagesPath;
+    ProductStatus productStatus;
     String category;
     Long shopId;
+    //    sale information
+    Double salePrice;
+    Double startingBid;
+    Integer storage;
+    Integer auctionPeriod;
+    Integer nextAuction;
+    SaleTypeName saleTypeName;
+    TimeUnit timeUnitForAuctionPeriod;
+    TimeUnit timeUnitForNextAuction;
+    //    shipments
+    List<String> shipments;
+    //    variations
+    List<QueryVariationsDto> variations;
+    //    productAttribute
+    List<ProductAttributeDto> productAttribute;
 }

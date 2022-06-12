@@ -1,5 +1,9 @@
 package com.se.shal.product.entity;
 
+import com.se.shal.product.entity.enumeration.CategoryName;
+import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
+import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.util.hibernate.StringListConverter;
 import lombok.*;
@@ -27,8 +31,31 @@ public class Product {
     String productName;
     String details;
     CategoryName category;
-
     ProductStatus productStatus;
+
+//    sale information
+    Double salePrice;
+    Double startingBid;
+    Integer storage;
+    Integer auctionPeriod;
+    Integer nextAuction;
+    SaleTypeName saleTypeName;
+    TimeUnit timeUnitForAuctionPeriod;
+    TimeUnit timeUnitForNextAuction;
+
+//    shipment
+    @OneToMany
+    List<Shipment> shipments;
+
+//    variations
+    @OneToMany
+    List<Variations> variations;
+
+//    productAttributes
+    @OneToMany
+    List<ProductAttribute> productAttribute;
+
+//     shop
     @ManyToOne
     Shop shop;
 }

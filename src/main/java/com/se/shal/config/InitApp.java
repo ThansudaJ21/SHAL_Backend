@@ -1,6 +1,9 @@
 package com.se.shal.config;
 
 import com.se.shal.product.entity.*;
+import com.se.shal.product.entity.enumeration.CategoryName;
+import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.ShipmentName;
 import com.se.shal.product.repository.*;
 import com.se.shal.shop.entity.*;
 import com.se.shal.shop.repository.FailureReasonRepository;
@@ -31,13 +34,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     OptionsRepository optionsRepository;
     @Autowired
-    SalesInformationRepository salesInformationRepository;
-    @Autowired
     VariationRepository variationRepository;
-    @Autowired
-    ShipmentListRepository shipmentListRepository;
-    @Autowired
-    ProductAttributeRepository productAttributeRepository;
     @Autowired
     FailureReasonRepository failureReasonRepository;
 
@@ -172,26 +169,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .details("IPhone13 128 GB")
                 .category(CategoryName.ELECTRONIC)
                 .productStatus(ProductStatus.ACTIVE)
+//                .auctionPeriod(1)
+                .nextAuction(1)
                 .imagesPath(Arrays.asList("Image1", "Image2"))
                 .shop(shop)
                 .build());
-
-        SalesInformation salesInformation = salesInformationRepository.save(SalesInformation.builder()
-                .product(product)
-                .timeUnitForNextAuction(TimeUnit.HOUR)
-                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
-                .saleTypeName(SaleTypeName.SALE)
-                .nextAuction(2)
-                .auctionPeriod(1)
-                .storage(100)
-                .startingBid(10200.0)
-                .salePrice(29000.0)
-                .build());
-//
-//        ShipmentList shipmentList = shipmentListRepository.save(ShipmentList.builder()
-//                .product(product)
-//                .shipments(Arrays.asList(Registered, jandt))
-//                .build());
 
         Options options = optionsRepository.save(Options.builder()
                 .image("128")
@@ -207,17 +189,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .price(39000)
                 .build());
 
-        Variations variations = variationRepository.save(Variations.builder()
-                .product(product)
-                .variationName("Storage")
-                .options(Arrays.asList(options, options1))
-                .build());
-
-        ProductAttribute productAttribute = productAttributeRepository.save(ProductAttribute.builder()
-                .attribute(brand)
-                .product(product)
-                .text("Brand")
-                .build());
 
 
     }
