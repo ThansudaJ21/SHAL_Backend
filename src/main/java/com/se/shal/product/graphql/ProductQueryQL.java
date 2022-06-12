@@ -21,9 +21,6 @@ public class ProductQueryQL implements GraphQLQueryResolver {
     ProductService productService;
 
     @Autowired
-    ProductAttributeService productAttributeService;
-
-    @Autowired
     VariationsService variationsService;
 
     @Transactional

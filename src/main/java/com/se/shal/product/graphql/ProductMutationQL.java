@@ -20,8 +20,7 @@ public class ProductMutationQL implements GraphQLMutationResolver {
 
     @Autowired
     VariationsService variationsService;
-    @Autowired
-    ProductAttributeService productAttributeService;
+
 
     @Transactional
     ProductDto saveProduct(Long shopId, InputProductDto product) {

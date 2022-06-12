@@ -33,14 +33,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     ShopRepository shopRepository;
     @Autowired
     OptionsRepository optionsRepository;
-    //    @Autowired
-//    SalesInformationRepository salesInformationRepository;
     @Autowired
     VariationRepository variationRepository;
-    //    @Autowired
-//    ShipmentListRepository shipmentListRepository;
-    @Autowired
-    ProductAttributeRepository productAttributeRepository;
     @Autowired
     FailureReasonRepository failureReasonRepository;
 
@@ -195,11 +189,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .price(39000)
                 .build());
 
-        ProductAttribute productAttribute = productAttributeRepository.save(ProductAttribute.builder()
-                .attribute(brand)
-//                .product(product)
-                .text("Brand")
-                .build());
 
 
     }

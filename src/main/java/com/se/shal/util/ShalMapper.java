@@ -43,6 +43,11 @@ public interface ShalMapper {
     Product saveProduct(InputProductDto product);
 
     @Mappings({
+            @Mapping(target = "shipments", ignore = true)
+    })
+    Product updateProduct(InputUpdateProductDto product);
+
+    @Mappings({
             @Mapping(target = "shipments",
                     expression = "java(product.getShipments().stream()" +
                             ".map(d -> d.getShipmentName().getShipmentName())" +

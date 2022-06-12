@@ -8,22 +8,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class AttributeDaoImpl implements AttributeDao{
+public class AttributeDaoImpl implements AttributeDao {
     @Autowired
     AttributeRepository attributeRepository;
 
     @Override
-    public Attribute save(Attribute attribute) {
-        return attributeRepository.save(attribute);
-    }
-
-    @Override
-    public Attribute findById(Long id) {
-        return attributeRepository.findById(id).orElse(null);
-    }
-
-    @Override
     public Optional<Attribute> findByName(String attribute) {
-        return  attributeRepository.findByAttribute(attribute);
+        return attributeRepository.findByAttribute(attribute);
     }
 }

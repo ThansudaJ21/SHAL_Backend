@@ -152,6 +152,7 @@ type  QueryProductAttributeDto {
 }
 
 type Attribute {
+    id: Int
     attribute: String
 }
 
@@ -248,6 +249,7 @@ input InputUpdateProduct {
 }
 
 input InputAttribute {
+    id: Int
     attribute: String
 }
 input InputProductAttribute {
@@ -255,6 +257,7 @@ input InputProductAttribute {
     attribute: InputAttribute
 }
 input InputVariations {
+    id:Int
     variationName: String
     options: [InputOptions]
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface VariationDao {
     List<Variations> save(List<Variations> variations);
-    Variations getVariationsById(Long id);
-    List<Variations> findAll();
+    Variations findById(Long id);
     void  deleteVariationsById(Long id);
 }

@@ -31,7 +31,4 @@ public class CategoryQueryQL implements GraphQLQueryResolver {
                 .sorted((c1, c2) -> c1.getOrder().compareTo(c2.getOrder())).collect(Collectors.toList());
         return categoryNames;
     }
-
-
-
 }

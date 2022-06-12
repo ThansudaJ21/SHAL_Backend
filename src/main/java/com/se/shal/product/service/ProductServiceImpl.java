@@ -2,9 +2,6 @@ package com.se.shal.product.service;
 
 import com.se.shal.product.dao.*;
 
-import com.se.shal.product.dto.ProductAttributeDto;
-import com.se.shal.product.dto.UpdateProductAttributeDto;
-import com.se.shal.product.dto.input.InputProductAttributeDto;
 import com.se.shal.product.dto.input.InputProductDto;
 import com.se.shal.product.dto.input.InputUpdateProductDto;
 import com.se.shal.product.entity.*;
@@ -54,8 +51,6 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setShipments(dsgList);
         newProduct.setShop(shop);
         newProduct.setProductStatus(ProductStatus.ACTIVE);
-
-//        Product product1 = productDao.saveProduct(newProduct);
 
         List<Variations> newVariations = variationDao.save(newProduct.getVariations());
         List<Variations> variations = new ArrayList<>();
@@ -125,6 +120,9 @@ public class ProductServiceImpl implements ProductService {
         Category c = categoryDao.findCategoryByName(category);
         for (Product product : products) {
             if (Objects.equals(product.getCategory().getCategoryName(), c.getCategoryName().getCategoryName())) {
+                Hibernate.initialize(product.getVariations());
+                Hibernate.initialize(product.getProductAttribute());
+                Hibernate.initialize(product.getShipments());
                 output.add(product);
             } else {
                 return null;
@@ -136,12 +134,67 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public Product updateProduct(InputUpdateProductDto product) {
-        Long id = product.getId();
+        Product newProduct = ShalMapper.INSTANCE.updateProduct(product);
+        Long id = newProduct.getId();
         Product product1 = productDao.findById(id);
-        product1.setProductName(product.getProductName());
-        product1.setDetails(product.getDetails());
-        product1.setImagesPath(product.getImagesPath());
-        return productDao.saveProduct(product1);
+
+        List<Shipment> dsgList = product.getShipments().stream()
+                .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
+                .collect(Collectors.toList());
+
+        List<Variations> updatedVariations = new ArrayList<>();
+        for (Variations variations1 : newProduct.getVariations()
+        ) {
+            Variations variations = variationDao.findById(variations1.getId());
+            for (Options options : variations.getOptions()) {
+                Options options1 = optionsDao.findById(options.getId());
+                options1.setOptionName(options.getOptionName());
+                options1.setPrice(options.getPrice());
+                options1.setStock(options.getStock());
+                options1.setImage(options.getImage());
+            }
+            variations.setVariationName(variations1.getVariationName());
+            updatedVariations.add(variations);
+        }
+
+        List<Variations> var = variationDao.save(updatedVariations);
+
+        List<ProductAttribute> output = new ArrayList<>();
+        for (ProductAttribute productInput : newProduct.getProductAttribute()) {
+            attributeDao.findByName(productInput.getAttribute().getAttribute())
+                    .ifPresentOrElse(
+                            (attribute) -> {
+                                output.add(ProductAttribute.builder()
+                                        .attribute(attribute)
+                                        .text(productInput.getText())
+                                        .build());
+                            },
+                            () -> {
+                                throw new RuntimeException();
+                            }
+                    );
+        }
+        List<ProductAttribute> p = productAttributeDao.save(output);
+        product1.setProductAttribute(p);
+        product1.setVariations(var);
+        product1.setShipments(dsgList);
+
+        product1.setProductStatus(newProduct.getProductStatus());
+        product1.setProductName(newProduct.getProductName());
+        product1.setDetails(newProduct.getDetails());
+        product1.setImagesPath(newProduct.getImagesPath());
+        product1.setCategory(newProduct.getCategory());
+        product1.setNextAuction(newProduct.getNextAuction());
+        product1.setSalePrice(newProduct.getSalePrice());
+        product1.setStartingBid(newProduct.getStartingBid());
+        product1.setStorage(newProduct.getStorage());
+        product1.setAuctionPeriod(newProduct.getAuctionPeriod());
+        product1.setSaleTypeName(newProduct.getSaleTypeName());
+        product1.setTimeUnitForNextAuction(newProduct.getTimeUnitForNextAuction());
+        product1.setTimeUnitForAuctionPeriod(newProduct.getTimeUnitForAuctionPeriod());
+
+        Product product2 = productDao.saveProduct(product1);
+        return product2;
     }
 
     @Transactional
@@ -153,6 +206,9 @@ public class ProductServiceImpl implements ProductService {
         } else if (product1.getProductStatus().equals(ProductStatus.HIDDEN)) {
             product1.setProductStatus(ProductStatus.ACTIVE);
         }
+        Hibernate.initialize(product1.getVariations());
+        Hibernate.initialize(product1.getProductAttribute());
+        Hibernate.initialize(product1.getShipments());
         return product1;
     }
 
@@ -163,6 +219,9 @@ public class ProductServiceImpl implements ProductService {
         List<Product> output = new ArrayList<>();
         for (Product product : products) {
             if (Objects.equals(status, product.getProductStatus().name())) {
+                Hibernate.initialize(product.getVariations());
+                Hibernate.initialize(product.getProductAttribute());
+                Hibernate.initialize(product.getShipments());
                 output.add(product);
             }
         }
