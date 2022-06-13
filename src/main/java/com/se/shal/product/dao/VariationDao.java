@@ -7,5 +7,5 @@ import java.util.List;
 public interface VariationDao {
     List<Variations> save(List<Variations> variations);
     Variations findById(Long id);
-    void  deleteVariationsById(Long id);
+    void deleteVariationsById(Long id);
 }

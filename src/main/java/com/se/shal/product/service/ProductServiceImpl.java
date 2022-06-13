@@ -124,8 +124,6 @@ public class ProductServiceImpl implements ProductService {
                 Hibernate.initialize(product.getProductAttribute());
                 Hibernate.initialize(product.getShipments());
                 output.add(product);
-            } else {
-                return null;
             }
         }
         return output;

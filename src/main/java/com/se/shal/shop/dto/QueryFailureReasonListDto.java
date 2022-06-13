@@ -14,5 +14,4 @@ public class QueryFailureReasonListDto {
     Long id;
     String text;
     FailureReason failureReasons;
-    Long shopId;
 }

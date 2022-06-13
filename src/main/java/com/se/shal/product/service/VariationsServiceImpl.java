@@ -20,26 +20,8 @@ import java.util.Objects;
 public class VariationsServiceImpl implements VariationsService {
     @Autowired
     VariationDao variationDao;
-    @Autowired
-    OptionsDao optionsDao;
-    @Autowired
-    ProductDao productDao;
 
     @Transactional
-    @Override
-    public List<Variations> save(List<Variations> variations) {
-        List<Variations> newVariations = variationDao.save(variations);
-
-        for (Variations variations1 : newVariations
-        ) {
-            List<Options> options = optionsDao.save(variations1.getOptions());
-            variations1.setVariationName(variations1.getVariationName());
-            variations1.setOptions(options);
-        }
-
-        return variationDao.save(newVariations);
-    }
-
     @Override
     public void deleteVariations(Long id) {
         variationDao.deleteVariationsById(id);
