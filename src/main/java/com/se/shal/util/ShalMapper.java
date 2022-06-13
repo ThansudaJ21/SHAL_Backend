@@ -88,14 +88,14 @@ public interface ShalMapper {
     })
     FilterProductDto getFilterAllProductByCategory(Product product);
 
-    @Mapping(target = "shopId", source = "shop.id")
+//    @Mapping(target = "shopId" , ignore = true)
     FailureReasonListDto saveFailureReasonList(FailureReasonList failureReasonLists);
 
     List<FailureReasonListDto> getFailureReasonList(List<FailureReasonList> failureReasonLists);
 
     List<QueryFailureReasonDto> getAllFailureReasonList(List<FailureReason> failureReasonLists);
 
-    @Mapping(target = "shopId", source = "shop.id")
+//    @Mapping(target = "shopId", ignore = true)
     QueryFailureReasonListDto getFailureReasonListByShopId(FailureReasonList failureReasonLists);
 
     List<QueryFailureReasonListDto> getFailureReasonListByShopId(List<FailureReasonList> failureReasonLists);

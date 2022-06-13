@@ -16,9 +16,8 @@ public class FailureReasonList {
     @EqualsAndHashCode.Exclude
     Long id;
     String text;
+
     @ManyToOne
     FailureReason failureReasons;
-    @OneToOne
-    Shop shop;
 
 }

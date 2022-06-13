@@ -20,8 +20,6 @@ public class ProductQueryQL implements GraphQLQueryResolver {
     @Autowired
     ProductService productService;
 
-    @Autowired
-    VariationsService variationsService;
 
     @Transactional
     ProductQuery getProduct(Long id) {

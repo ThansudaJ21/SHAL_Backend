@@ -33,4 +33,7 @@ public class Shop {
     ShopAddress shopAddress;
 
     ShopStatusName shopStatus;
+
+    @ManyToMany
+    List<FailureReasonList> failureReasonLists;
 }

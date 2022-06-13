@@ -44,7 +44,7 @@ public class Product {
     TimeUnit timeUnitForNextAuction;
 
 //    shipment
-    @OneToMany
+    @ManyToMany
     List<Shipment> shipments;
 
 //    variations

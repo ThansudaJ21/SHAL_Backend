@@ -20,7 +20,6 @@ type QueryFailureReasonDto {
     id:Int
     text: String
     failureReasons: FailureListDto
-    shopId:Int
 }
 type FailureReasonDto {
     id: Int

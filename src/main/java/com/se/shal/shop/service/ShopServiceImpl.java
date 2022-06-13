@@ -103,14 +103,15 @@ public class ShopServiceImpl implements ShopService {
                                 output.add(FailureReasonList.builder()
                                         .failureReasons(reason)
                                         .text(failureReasonList.getText())
-                                        .shop(shop1)
                                         .build());
                             },
                             () -> {
                                 throw new RuntimeException();
                             }
                     );
+
         }
+        shop1.setFailureReasonLists(output);
         return failureReasonListDao.save(output);
     }
 
@@ -122,12 +123,11 @@ public class ShopServiceImpl implements ShopService {
     @Transactional
     @Override
     public List<FailureReasonList> getFailureReasonByShopId(Long shopId) {
-        List<FailureReasonList> failureReasonLists = failureReasonListDao.findAll();
+        Shop shop = shopDao.findById(shopId);
+        List<FailureReasonList> failureReasonLists = shop.getFailureReasonLists();
         List<FailureReasonList> newArray = new ArrayList<>();
-        for (FailureReasonList list:failureReasonLists ) {
-            if (list.getShop().getId().equals(shopId)){
-                newArray.add(list);
-            }
+        for (FailureReasonList list: failureReasonLists ) {
+            newArray.add(list);
         }
         return newArray;
     }
