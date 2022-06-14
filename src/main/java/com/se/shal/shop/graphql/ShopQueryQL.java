@@ -5,7 +5,7 @@ import com.se.shal.shop.dto.QueryFailureReasonListDto;
 import com.se.shal.shop.entity.FailureReason;
 import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
-import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
+import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import com.se.shal.shop.service.ShopService;
 import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -39,7 +39,7 @@ public class ShopQueryQL implements GraphQLQueryResolver {
     }
 
     @Transactional
-    Page<Shop> shopByFilterByShopName(ShopQueryFilterByShopName filter, int pageNo, int pageSize){
+    Page<Shop> shopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, int pageNo, int pageSize){
         return shopService.findShopByFilterByShopNameOrShopStatus(filter, PageRequest.of(pageNo,pageSize));
     }
 

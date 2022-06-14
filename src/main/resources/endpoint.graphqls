@@ -5,7 +5,7 @@ schema {
 type Query {
     getRegisterShop(id: Int): ShopQuery
     getAllShop: [ShopQuery]
-    shopByFilterByShopName(queryText: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
+    shopByFilterByShopNameOrShopStatus(queryText: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
     shopFilterByStatus(status: String): [ShopQuery]
     getFailureReason: [FailureReasonDto]
     getFailureReasonByShopId(shopId : Int): [QueryFailureReasonDto]

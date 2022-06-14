@@ -32,6 +32,7 @@ public class Shop {
     @JoinColumn(name = "shopAddress_id", referencedColumnName = "id")
     ShopAddress shopAddress;
 
+//    @OneToOne(cascade = CascadeType.ALL)
     ShopStatusName shopStatus;
 
     @ManyToMany

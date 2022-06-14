@@ -1,15 +1,11 @@
 package com.se.shal.shop.service;
 
-import com.se.shal.product.entity.ProductAttribute;
-import com.se.shal.product.entity.Variations;
 import com.se.shal.shop.dao.FailureReasonDao;
 import com.se.shal.shop.dao.FailureReasonListDao;
 import com.se.shal.shop.dao.ShopDao;
-import com.se.shal.shop.entity.FailureReason;
-import com.se.shal.shop.entity.FailureReasonList;
-import com.se.shal.shop.entity.Shop;
-import com.se.shal.shop.entity.ShopStatusName;
-import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
+import com.se.shal.shop.dao.ShopStatusDao;
+import com.se.shal.shop.entity.*;
+import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +16,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -28,7 +23,8 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     ShopDao shopDao;
-
+    @Autowired
+    ShopStatusDao shopStatusDao;
     @Autowired
     FailureReasonListDao failureReasonListDao;
     @Autowired
@@ -59,7 +55,7 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public Shop updateShopStatus(Shop shop) {
         Shop shop1 = shopDao.findById(shop.getId());
-        if (shop1.getShopStatus() == ShopStatusName.ENABLE) {
+        if (shop1.getShopStatus() == ShopStatusName.ENABLE ) {
             shop1.setShopStatus(ShopStatusName.DISABLE);
         } else if (shop1.getShopStatus() == ShopStatusName.DISABLE) {
             shop1.setShopStatus(ShopStatusName.ENABLE);
@@ -74,8 +70,8 @@ public class ShopServiceImpl implements ShopService {
 
     @Transactional
     @Override
-    public Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
-        return shopDao.getShopByFilterByShopName(filter, pageRequest);
+    public Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, PageRequest pageRequest) {
+        return shopDao.getShopByFilterByShopNameOrShopStatus(filter, pageRequest);
     }
 
     @Transactional
@@ -84,7 +80,7 @@ public class ShopServiceImpl implements ShopService {
         List<Shop> shops = shopDao.getAllShop();
         List<Shop> output = new ArrayList<>();
         for (Shop shop : shops) {
-            if (Objects.equals(status, shop.getShopStatus().getShopStatus())) {
+            if (Objects.equals(status, shop.getShopStatus())) {
                 output.add(shop);
             }
         }
@@ -126,7 +122,7 @@ public class ShopServiceImpl implements ShopService {
         Shop shop = shopDao.findById(shopId);
         List<FailureReasonList> failureReasonLists = shop.getFailureReasonLists();
         List<FailureReasonList> newArray = new ArrayList<>();
-        for (FailureReasonList list: failureReasonLists ) {
+        for (FailureReasonList list : failureReasonLists) {
             newArray.add(list);
         }
         return newArray;

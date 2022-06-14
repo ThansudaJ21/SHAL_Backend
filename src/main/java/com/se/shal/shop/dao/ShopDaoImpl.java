@@ -1,9 +1,9 @@
 package com.se.shal.shop.dao;
 
-import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
+import com.se.shal.shop.entity.ShopStatusName;
 import com.se.shal.shop.entity.Shop_;
-import com.se.shal.shop.graphql.entity.ShopQueryFilterByShopName;
+import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import com.se.shal.shop.repository.FailureReasonListRepository;
 import com.se.shal.shop.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,18 +38,26 @@ public class ShopDaoImpl implements ShopDao{
     }
 
     @Override
-    public Page<Shop> getShopByFilterByShopName(ShopQueryFilterByShopName filter, PageRequest pageRequest) {
+    public Page<Shop> getShopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, PageRequest pageRequest) {
         Specification<Shop> specification = getShopPredicate(filter);
         return shopRepository.findAll(specification, pageRequest);
     }
 
-    Specification<Shop> getShopPredicate(ShopQueryFilterByShopName filter){
+    Specification<Shop> getShopPredicate(ShopQueryFilter filter){
         return (Root<Shop> root, CriteriaQuery<?> cq, CriteriaBuilder cb) ->{
             List<Predicate> predicates = new ArrayList<>();
-            if (filter.getQueryText() != null){
-                predicates.add(cb.like(root.get(Shop_.SHOP_NAME),"%"+ filter.getQueryText() + "%"));
+            if (filter.getShopName() != null){
+                predicates.add(cb.like(root.get(Shop_.SHOP_NAME),"%"+ filter.getShopName() + "%"));
             }
-            return cb.or(predicates.toArray(new Predicate[0]));
+            if (filter.getShopStatus() != null){
+                try {
+                    ShopStatusName enumResult = ShopStatusName.valueOf(filter.getShopStatus());
+                    predicates.add(cb.equal(root.get(Shop_.SHOP_STATUS), enumResult));
+                }catch (IllegalArgumentException ex){
+
+                }
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
         };
     }
 

@@ -48,7 +48,7 @@ public class Product {
     List<Shipment> shipments;
 
 //    variations
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     List<Variations> variations;
 
 //    productAttributes
