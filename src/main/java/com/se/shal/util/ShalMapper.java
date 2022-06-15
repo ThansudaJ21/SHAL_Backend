@@ -29,9 +29,9 @@ public interface ShalMapper {
     })
     ShopDto registerShop(Shop Shop);
 
-    @Mappings({
-            @Mapping(target = "shopStatus", ignore = true)
-    })
+//    @Mappings({
+//            @Mapping(target = "shopStatus", ignore = true)
+//    })
     ShopDto updateShopStatus(Shop shop);
 
     @Mappings({
@@ -58,7 +58,8 @@ public interface ShalMapper {
                     expression = "java(product.getShipments().stream()" +
                             ".map(d -> d.getShipmentName().getShipmentName())" +
                             ".collect(Collectors.toList()))"),
-            @Mapping(target = "shopId", source = "shop.id")
+            @Mapping(target = "shopId", source = "shop.id"),
+
     })
     InputUpdateProductDto updateProduct(Product product);
 

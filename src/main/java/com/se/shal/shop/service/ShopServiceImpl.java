@@ -49,6 +49,7 @@ public class ShopServiceImpl implements ShopService {
         return shopDao.findById(id);
     }
 
+    @Transactional
     @Override
     public Shop updateShopStatus(Shop shop) {
         Shop shop1 = shopDao.findById(shop.getId());
