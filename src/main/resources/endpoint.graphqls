@@ -12,6 +12,8 @@ type Query {
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]
     getProduct(id: Int):ProductDto
+    productFilter(productFilter: InputProductFilter, pageNo:Int, pageSize:Int): PageProduct
+
     getAllProduct(shopId: Int): [QueryProductDto]
     productFilterByCategory(category: String): [FilterProductDto]
     productFilterByStatus(status: String): [FilterProductDto]

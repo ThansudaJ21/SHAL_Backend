@@ -7,6 +7,8 @@ import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.util.hibernate.StringListConverter;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class Product {
     CategoryName category;
     ProductStatus productStatus;
 
-//    sale information
+    //    sale information
     Double salePrice;
     Double startingBid;
     Integer storage;
@@ -43,19 +45,22 @@ public class Product {
     TimeUnit timeUnitForAuctionPeriod;
     TimeUnit timeUnitForNextAuction;
 
-//    shipment
-    @ManyToMany
+    //    shipment
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     List<Shipment> shipments;
 
-//    variations
-    @OneToMany(cascade = CascadeType.REMOVE)
+    //    variations
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     List<Variations> variations;
 
-//    productAttributes
-    @OneToMany
+    //    productAttributes
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     List<ProductAttribute> productAttribute;
 
-//     shop
+    //     shop
     @ManyToOne
     Shop shop;
 }

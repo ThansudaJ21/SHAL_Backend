@@ -17,6 +17,8 @@ public class Variations {
     Long id;
     String variationName;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne
+    Product product;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Options> options;
 }

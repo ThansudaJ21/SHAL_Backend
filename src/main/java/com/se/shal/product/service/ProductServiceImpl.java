@@ -6,11 +6,14 @@ import com.se.shal.product.dto.input.InputProductDto;
 import com.se.shal.product.dto.input.InputUpdateProductDto;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.graphql.entity.ProductFilter;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.util.ShalMapper;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -112,22 +115,7 @@ public class ProductServiceImpl implements ProductService {
         return output;
     }
 
-    @Transactional
-    @Override
-    public List<Product> productFilterByCategory(String category) {
-        List<Product> products = productDao.findAll();
-        List<Product> output = new ArrayList<>();
-        Category c = categoryDao.findCategoryByName(category);
-        for (Product product : products) {
-            if (Objects.equals(product.getCategory().getCategoryName(), c.getCategoryName().getCategoryName())) {
-                Hibernate.initialize(product.getVariations());
-                Hibernate.initialize(product.getProductAttribute());
-                Hibernate.initialize(product.getShipments());
-                output.add(product);
-            }
-        }
-        return output;
-    }
+
 
     @Transactional
     @Override
@@ -224,5 +212,28 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return output;
+    }
+
+    @Transactional
+    @Override
+    public List<Product> productFilterByCategory(String category) {
+        List<Product> products = productDao.findAll();
+        List<Product> output = new ArrayList<>();
+        Category c = categoryDao.findCategoryByName(category);
+        for (Product product : products) {
+            if (Objects.equals(product.getCategory().getCategoryName(), c.getCategoryName().getCategoryName())) {
+                Hibernate.initialize(product.getVariations());
+                Hibernate.initialize(product.getProductAttribute());
+                Hibernate.initialize(product.getShipments());
+                output.add(product);
+            }
+        }
+        return output;
+    }
+
+    @Transactional
+    @Override
+    public Page<Product> productFilter(ProductFilter productFilter, PageRequest pageRequest) {
+        return productDao.filterProduct(productFilter, pageRequest);
     }
 }

@@ -3,7 +3,6 @@ package com.se.shal.shop.service;
 import com.se.shal.shop.dao.FailureReasonDao;
 import com.se.shal.shop.dao.FailureReasonListDao;
 import com.se.shal.shop.dao.ShopDao;
-import com.se.shal.shop.dao.ShopStatusDao;
 import com.se.shal.shop.entity.*;
 import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,6 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     ShopDao shopDao;
-    @Autowired
-    ShopStatusDao shopStatusDao;
     @Autowired
     FailureReasonListDao failureReasonListDao;
     @Autowired

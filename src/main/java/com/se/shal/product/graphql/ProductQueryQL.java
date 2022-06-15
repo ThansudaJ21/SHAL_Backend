@@ -5,11 +5,16 @@ import com.se.shal.product.dto.query.FilterProductDto;
 import com.se.shal.product.dto.query.ProductQuery;
 import com.se.shal.product.dto.query.QueryProductDto;
 import com.se.shal.product.entity.*;
+import com.se.shal.product.graphql.entity.ProductFilter;
 import com.se.shal.product.service.*;
+import com.se.shal.shop.entity.Shop;
+import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -45,5 +50,10 @@ public class ProductQueryQL implements GraphQLQueryResolver {
         List<Product> products = productService.productFilterByStatus(status);
         return ShalMapper.INSTANCE.getFilterAllProductByStatus(products);
    }
+
+    @Transactional
+    Page<Product> productFilter(ProductFilter filter, int pageNo, int pageSize){
+        return productService.productFilter(filter, PageRequest.of(pageNo,pageSize));
+    }
 }
 

@@ -273,3 +273,64 @@ input InputOptions {
     stock: Int
     image:String
 }
+
+
+
+#Filter
+
+input InputProductFilter{
+    productName: String
+    category: String
+    productStatus: String
+}
+
+type PageProduct {
+    number: Int
+    totalPages: Int
+    totalElements: Int
+    content: [ProductFilter]
+}
+type  ProductFilter {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    productStatus: String
+    imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+    shipments: [String]
+    variations: [VariationsDtoFilter]
+    productAttribute: [QueryProductAttributeDtoFilter]
+}
+
+type VariationsDtoFilter {
+    id:Int
+    variationName: String
+    options: [OptionsFilter]
+}
+
+type  QueryProductAttributeDtoFilter {
+    id:Int
+    text: String
+    attribute: AttributeFilter
+}
+
+type OptionsFilter {
+    id: Int
+    optionName:String
+    price: Int
+    stock: Int
+    image:String
+}
+
+type AttributeFilter {
+    id: Int
+    attribute: String
+}
