@@ -10,7 +10,6 @@ import java.util.List;
 public interface ShopDao {
     Shop save(Shop shop);
     Shop findById(Long id);
-    List<Shop> getAllShop();
-    Page<Shop> getShopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, PageRequest pageRequest);
+    Page<Shop> getShopByFilter(ShopQueryFilter filter, PageRequest pageRequest);
 
 }

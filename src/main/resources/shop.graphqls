@@ -76,6 +76,7 @@ type ShopQuery{
     email: String
     shopAddress: ShopAddress
     shopStatus: String
+    failureReasonLists: [QueryFailureReasonDto]
 }
 
 input ShopStatusInput {
@@ -83,8 +84,7 @@ input ShopStatusInput {
     shopStatus: String
 }
 
-input ShopQueryFilterByShopName {
-#    queryText:String
+input ShopQueryFilter {
      shopName:String
      shopStatus:String
 }

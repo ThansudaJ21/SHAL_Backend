@@ -24,17 +24,11 @@ public class Shop {
     String promptPay;
     String email;
 
-    @OneToMany(mappedBy = "shop")
-    @Builder.Default
-    List<Product> products = new ArrayList<>();
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shopAddress_id", referencedColumnName = "id")
     ShopAddress shopAddress;
-
-//    @OneToOne(cascade = CascadeType.ALL)
     ShopStatusName shopStatus;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<FailureReasonList> failureReasonLists;
 }

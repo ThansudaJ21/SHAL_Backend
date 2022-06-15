@@ -169,7 +169,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                         .build())
                 .build());
         Shop shop2 = shopRepository.save(Shop.builder()
-                .shopName("Patteera shop")
+                .shopName("Patteeda shop")
                 .email("Patteera@gmail.com")
                 .promptPay("0953348895")
                 .idCard("1234567891234")

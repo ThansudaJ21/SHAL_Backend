@@ -32,31 +32,16 @@ public class ShopQueryQL implements GraphQLQueryResolver {
         return shop;
     }
 
-    @Transactional
-    List<Shop> getAllShop() {
-        List<Shop> shops = shopService.getAllShop();
-        return shops;
-    }
 
     @Transactional
-    Page<Shop> shopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, int pageNo, int pageSize){
+    Page<Shop> shopQueryFilter(ShopQueryFilter filter, int pageNo, int pageSize){
         return shopService.findShopByFilterByShopNameOrShopStatus(filter, PageRequest.of(pageNo,pageSize));
     }
 
-    @Transactional
-    List<Shop> shopFilterByStatus(String  status){
-        return shopService.shopFilterByStatus(status);
-    }
 
     @Transactional
     List<QueryFailureReasonDto> getFailureReason() {
         List<FailureReason> failureReasons= shopService.getFailureReason();
         return ShalMapper.INSTANCE.getAllFailureReasonList(failureReasons);
-    }
-
-    @Transactional
-    List<QueryFailureReasonListDto> getFailureReasonByShopId(Long shopId) {
-        List<FailureReasonList> failureReasons = shopService.getFailureReasonByShopId(shopId);
-        return ShalMapper.INSTANCE.getFailureReasonListByShopId(failureReasons);
     }
 }

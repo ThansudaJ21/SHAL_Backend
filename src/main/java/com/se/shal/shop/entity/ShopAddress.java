@@ -21,6 +21,4 @@ public class ShopAddress {
     String subDistrict;
     String province;
 
-    @OneToOne(mappedBy = "shopAddress")
-    Shop shop;
 }

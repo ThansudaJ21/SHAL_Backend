@@ -69,6 +69,15 @@ public interface ShalMapper {
                             ".collect(Collectors.toList()))"),
             @Mapping(target = "shopId", source = "shop.id")
     })
+    InputProductDto saveProductTest(Product product);
+
+    @Mappings({
+            @Mapping(target = "shipments",
+                    expression = "java(product.getShipments().stream()" +
+                            ".map(d -> d.getShipmentName().getShipmentName())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "shopId", source = "shop.id")
+    })
     ProductDto saveProductDto(Product product);
     @Mappings({
             @Mapping(target = "shipments",

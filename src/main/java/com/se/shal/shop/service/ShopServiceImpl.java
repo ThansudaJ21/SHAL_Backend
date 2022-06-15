@@ -63,29 +63,13 @@ public class ShopServiceImpl implements ShopService {
         return shopDao.save(shop1);
     }
 
-    @Override
-    public List<Shop> getAllShop() {
-        return shopDao.getAllShop();
-    }
 
     @Transactional
     @Override
     public Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, PageRequest pageRequest) {
-        return shopDao.getShopByFilterByShopNameOrShopStatus(filter, pageRequest);
+        return shopDao.getShopByFilter(filter, pageRequest);
     }
 
-    @Transactional
-    @Override
-    public List<Shop> shopFilterByStatus(String status) {
-        List<Shop> shops = shopDao.getAllShop();
-        List<Shop> output = new ArrayList<>();
-        for (Shop shop : shops) {
-            if (Objects.equals(status, shop.getShopStatus())) {
-                output.add(shop);
-            }
-        }
-        return output;
-    }
 
     @Transactional
     @Override
@@ -105,7 +89,6 @@ public class ShopServiceImpl implements ShopService {
                                 throw new RuntimeException();
                             }
                     );
-
         }
         shop1.setFailureReasonLists(output);
         return failureReasonListDao.save(output);
@@ -116,15 +99,4 @@ public class ShopServiceImpl implements ShopService {
         return failureReasonDao.findAll();
     }
 
-    @Transactional
-    @Override
-    public List<FailureReasonList> getFailureReasonByShopId(Long shopId) {
-        Shop shop = shopDao.findById(shopId);
-        List<FailureReasonList> failureReasonLists = shop.getFailureReasonLists();
-        List<FailureReasonList> newArray = new ArrayList<>();
-        for (FailureReasonList list : failureReasonLists) {
-            newArray.add(list);
-        }
-        return newArray;
-    }
 }

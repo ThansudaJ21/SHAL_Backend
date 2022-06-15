@@ -13,10 +13,7 @@ public interface ShopService {
     Shop registerShop(Shop shop);
     Shop getRegisterShop(Long id);
     Shop updateShopStatus(Shop shop);
-    List<Shop> getAllShop();
     Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, PageRequest pageRequest);
-    List<Shop> shopFilterByStatus(String status);
     List<FailureReasonList> saveFailureReason(Long shopId, List<FailureReasonList> failureReason);
     List<FailureReason> getFailureReason();
-    List<FailureReasonList> getFailureReasonByShopId(Long shopId);
 }

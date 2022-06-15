@@ -4,11 +4,9 @@ schema {
 }
 type Query {
     getRegisterShop(id: Int): ShopQuery
-    getAllShop: [ShopQuery]
-    shopByFilterByShopNameOrShopStatus(queryText: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
-    shopFilterByStatus(status: String): [ShopQuery]
+    shopQueryFilter(queryText: ShopQueryFilter, pageNo:Int, pageSize:Int): PageShop
     getFailureReason: [FailureReasonDto]
-    getFailureReasonByShopId(shopId : Int): [QueryFailureReasonDto]
+
     getAddressFromPostCode(postCode: String): PostCodeProvinceDto
     #    Product
     getCategory(id: Int): CategoryDto
