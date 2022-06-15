@@ -188,9 +188,9 @@ public class ProductServiceImpl implements ProductService {
     public Product updateProductStatus(Product product) {
         Product product1 = productDao.findById(product.getId());
         if (product1.getProductStatus().equals(ProductStatus.ACTIVE)) {
-            product1.setProductStatus(ProductStatus.HIDDEN);
+            product1.setProductStatus(product.getProductStatus());
         } else if (product1.getProductStatus().equals(ProductStatus.HIDDEN)) {
-            product1.setProductStatus(ProductStatus.ACTIVE);
+            product1.setProductStatus(product.getProductStatus());
         }
         Hibernate.initialize(product1.getVariations());
         Hibernate.initialize(product1.getProductAttribute());

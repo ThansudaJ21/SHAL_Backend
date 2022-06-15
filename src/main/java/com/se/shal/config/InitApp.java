@@ -222,14 +222,14 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Options options2 = optionsRepository.save(Options.builder()
                 .image("Iphone-green.png")
-                .optionName("128GB")
+                .optionName("Green")
                 .stock(20)
                 .price(29000)
                 .build());
 
         Options options3 = optionsRepository.save(Options.builder()
                 .image("Iphone-red.png")
-                .optionName("256GB")
+                .optionName("Red")
                 .stock(20)
                 .price(39000)
                 .build());
@@ -277,7 +277,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .timeUnitForNextAuction(TimeUnit.HOUR)
                 .salePrice(35000.0)
                 .saleTypeName(SaleTypeName.AUCTIONANDSALE)
-                .storage(10)
+                .storage(40)
                 .startingBid(20000.0)
                 .productAttribute(Arrays.asList(att1, att2, att3, att4, att5))
                 .variations(Arrays.asList(variations, variations1))
