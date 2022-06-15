@@ -466,7 +466,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Product bodycon_Dress = productRepository.save(Product.builder()
                 .productName("Twist Front Cut Out Ruched Bodycon Dress")
-                .details("Twist Front Cut Out Ruched Bodycon Dressl")
+                .details("Twist Front Cut Out Ruched Bodycon Dress")
                 .category(CategoryName.FASHION)
                 .productStatus(ProductStatus.ACTIVE)
                 .shop(shop)

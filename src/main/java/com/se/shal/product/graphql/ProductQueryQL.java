@@ -1,14 +1,12 @@
 package com.se.shal.product.graphql;
 
-import com.se.shal.product.dto.ProductDto;
-import com.se.shal.product.dto.query.FilterProductDto;
+
+
 import com.se.shal.product.dto.query.ProductQuery;
 import com.se.shal.product.dto.query.QueryProductDto;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.graphql.entity.ProductFilter;
 import com.se.shal.product.service.*;
-import com.se.shal.shop.entity.Shop;
-import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.hibernate.Hibernate;
@@ -38,18 +36,6 @@ public class ProductQueryQL implements GraphQLQueryResolver {
         List<Product> products = productService.getAllProduct(shopId);
         return ShalMapper.INSTANCE.getQueryAllProductDto(products);
     }
-
-    @Transactional
-    List<FilterProductDto> productFilterByCategory(String category) {
-        List<Product> products = productService.productFilterByCategory(category);
-        return ShalMapper.INSTANCE.getFilterAllProductByCategory(products);
-    }
-
-    @Transactional
-   List<FilterProductDto> productFilterByStatus(String status) {
-        List<Product> products = productService.productFilterByStatus(status);
-        return ShalMapper.INSTANCE.getFilterAllProductByStatus(products);
-   }
 
     @Transactional
     Page<Product> productFilter(ProductFilter filter, int pageNo, int pageSize){

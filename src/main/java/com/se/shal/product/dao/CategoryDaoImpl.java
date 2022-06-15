@@ -12,13 +12,6 @@ public class CategoryDaoImpl implements CategoryDao{
     CategoryRepository categoryRepository;
 
     @Override
-    public Category findCategoryByName(String name) {
-        CategoryName dsg = CategoryName.valueOf(name);
-        Category output = categoryRepository.findByCategoryName(dsg);
-        return output;
-    }
-
-    @Override
     public Category getCategory(Long id) {
         return categoryRepository.findById(id).orElse(null);
     }

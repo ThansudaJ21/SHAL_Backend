@@ -14,10 +14,7 @@ type Query {
     getProduct(id: Int):ProductDto
     productFilter(productFilter: InputProductFilter, pageNo:Int, pageSize:Int): PageProduct
 
-    getAllProduct(shopId: Int): [QueryProductDto]
-    productFilterByCategory(category: String): [FilterProductDto]
-    productFilterByStatus(status: String): [FilterProductDto]
-}
+    getAllProduct(shopId: Int): [QueryProductDto]}
 type Mutation {
     registerShop(shop: ShopInput): Shop
     updateShopStatus(shopStatus: ShopStatusInput): Shop

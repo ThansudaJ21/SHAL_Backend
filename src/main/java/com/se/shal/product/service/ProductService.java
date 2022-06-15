@@ -14,9 +14,7 @@ public interface ProductService {
     Product saveProduct(Long shopId, InputProductDto product);
     Product getProduct(Long id);
     List<Product> getAllProduct(Long shopId);
-    List<Product> productFilterByCategory(String category);
     Product updateProduct(InputUpdateProductDto product);
     Product updateProductStatus(Product product);
-    List<Product> productFilterByStatus(String status);
     Page<Product> productFilter(ProductFilter productFilter, PageRequest pageRequest);
 }

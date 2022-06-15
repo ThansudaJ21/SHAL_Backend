@@ -198,38 +198,6 @@ public class ProductServiceImpl implements ProductService {
         return product1;
     }
 
-    @Transactional
-    @Override
-    public List<Product> productFilterByStatus(String status) {
-        List<Product> products = productDao.findAll();
-        List<Product> output = new ArrayList<>();
-        for (Product product : products) {
-            if (Objects.equals(status, product.getProductStatus().name())) {
-                Hibernate.initialize(product.getVariations());
-                Hibernate.initialize(product.getProductAttribute());
-                Hibernate.initialize(product.getShipments());
-                output.add(product);
-            }
-        }
-        return output;
-    }
-
-    @Transactional
-    @Override
-    public List<Product> productFilterByCategory(String category) {
-        List<Product> products = productDao.findAll();
-        List<Product> output = new ArrayList<>();
-        Category c = categoryDao.findCategoryByName(category);
-        for (Product product : products) {
-            if (Objects.equals(product.getCategory().getCategoryName(), c.getCategoryName().getCategoryName())) {
-                Hibernate.initialize(product.getVariations());
-                Hibernate.initialize(product.getProductAttribute());
-                Hibernate.initialize(product.getShipments());
-                output.add(product);
-            }
-        }
-        return output;
-    }
 
     @Transactional
     @Override

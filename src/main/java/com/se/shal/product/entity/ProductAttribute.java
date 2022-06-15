@@ -19,6 +19,4 @@ public class ProductAttribute {
     @ManyToOne
     Attribute attribute;
 
-    @ManyToOne
-    Product product;
 }

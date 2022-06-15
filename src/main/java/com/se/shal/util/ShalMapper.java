@@ -90,19 +90,7 @@ public interface ShalMapper {
     QueryProductDto getQueryAllProductDto(Product product);
 
     List<QueryProductDto> getQueryAllProductDto(List<Product> product);
-
-    List<FilterProductDto> getFilterAllProductByCategory(List<Product> product);
-
-    List<FilterProductDto> getFilterAllProductByStatus(List<Product> product);
-
-    @Mappings({
-            @Mapping(target = "shipments",
-                    expression = "java(product.getShipments().stream()" +
-                            ".map(d -> d.getShipmentName().getShipmentName())" +
-                            ".collect(Collectors.toList()))"),
-            @Mapping(target = "shopId", source = "shop.id")
-    })
-    FilterProductDto getFilterAllProductByCategory(Product product);
+    
 
 //    @Mapping(target = "shopId" , ignore = true)
     FailureReasonListDto saveFailureReasonList(FailureReasonList failureReasonLists);
