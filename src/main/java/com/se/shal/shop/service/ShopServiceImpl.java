@@ -57,7 +57,9 @@ public class ShopServiceImpl implements ShopService {
             shop1.setShopStatus(ShopStatusName.DISABLE);
         } else if (shop1.getShopStatus() == ShopStatusName.DISABLE) {
             shop1.setShopStatus(ShopStatusName.ENABLE);
+            shop1.getFailureReasonLists().removeAll(shop1.getFailureReasonLists());
         }
+
         return shopDao.save(shop1);
     }
 

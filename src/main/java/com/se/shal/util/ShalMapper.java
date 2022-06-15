@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 public interface ShalMapper {
     ShalMapper INSTANCE = Mappers.getMapper(ShalMapper.class);
 
-    @Mappings({
-            @Mapping(target = "shopStatus", ignore = true)
-    })
+//    @Mappings({
+//            @Mapping(target = "shopStatus", ignore = true)
+//    })
     ShopDto registerShop(Shop Shop);
 
 //    @Mappings({
@@ -90,10 +90,11 @@ public interface ShalMapper {
     QueryProductDto getQueryAllProductDto(Product product);
 
     List<QueryProductDto> getQueryAllProductDto(List<Product> product);
-    
 
-//    @Mapping(target = "shopId" , ignore = true)
+
+//    @Mapping(target = "shopId" , source = "shop.id")
     FailureReasonListDto saveFailureReasonList(FailureReasonList failureReasonLists);
+
 
     List<FailureReasonListDto> getFailureReasonList(List<FailureReasonList> failureReasonLists);
 

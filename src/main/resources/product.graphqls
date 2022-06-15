@@ -253,6 +253,7 @@ input InputAttribute {
     attribute: String
 }
 input InputProductAttribute {
+    id:Int
     text: String
     attribute: InputAttribute
 }

@@ -9,12 +9,18 @@ type Shop{
     email: String
     shopAddress: ShopAddress
     shopStatus: String
+    failureReasonLists: [QueryFailureReasonListDto]
 }
 type FailureReason {
     id:Int
     text: String
     failureReasons: FailureListDto
     shopId:Int
+}
+type QueryFailureReasonListDto {
+    id:Int
+    text: String
+    failureReasons: FailureReasonDto
 }
 type QueryFailureReasonDto {
     id:Int

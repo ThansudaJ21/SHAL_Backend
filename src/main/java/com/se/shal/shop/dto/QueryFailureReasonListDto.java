@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class QueryFailureReasonListDto {
     Long id;
     String text;
-    FailureReason failureReasons;
+    QueryFailureReasonDto failureReasons;
 }

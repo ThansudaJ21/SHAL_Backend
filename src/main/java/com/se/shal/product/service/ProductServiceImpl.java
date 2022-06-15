@@ -46,45 +46,47 @@ public class ProductServiceImpl implements ProductService {
     public Product saveProduct(Long shopId, InputProductDto product) {
         Product newProduct = ShalMapper.INSTANCE.saveProduct(product);
         Shop shop = shopDao.findById(shopId);
+        if (shop != null) {
+            List<Shipment> dsgList = product.getShipments().stream()
+                    .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
+                    .collect(Collectors.toList());
 
-        List<Shipment> dsgList = product.getShipments().stream()
-                .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
-                .collect(Collectors.toList());
+            newProduct.setShipments(dsgList);
+            newProduct.setShop(shop);
+            newProduct.setProductStatus(ProductStatus.ACTIVE);
 
-        newProduct.setShipments(dsgList);
-        newProduct.setShop(shop);
-        newProduct.setProductStatus(ProductStatus.ACTIVE);
+            List<Variations> newVariations = variationDao.save(newProduct.getVariations());
+            List<Variations> variations = new ArrayList<>();
+            for (Variations variations1 : newVariations
+            ) {
+                List<Options> options = optionsDao.save(variations1.getOptions());
+                variations1.setVariationName(variations1.getVariationName());
+                variations1.setOptions(options);
+                variations.add(variations1);
+            }
 
-        List<Variations> newVariations = variationDao.save(newProduct.getVariations());
-        List<Variations> variations = new ArrayList<>();
-        for (Variations variations1 : newVariations
-        ) {
-            List<Options> options = optionsDao.save(variations1.getOptions());
-            variations1.setVariationName(variations1.getVariationName());
-            variations1.setOptions(options);
-            variations.add(variations1);
+            List<ProductAttribute> output = new ArrayList<>();
+            for (ProductAttribute productInput : newProduct.getProductAttribute()) {
+                attributeDao.findByName(productInput.getAttribute().getAttribute())
+                        .ifPresentOrElse(
+                                (attribute) -> {
+                                    output.add(ProductAttribute.builder()
+                                            .attribute(attribute)
+                                            .text(productInput.getText())
+                                            .build());
+                                },
+                                () -> {
+                                    throw new RuntimeException();
+                                }
+                        );
+            }
+            List<ProductAttribute> p = productAttributeDao.save(output);
+            newProduct.setProductAttribute(p);
+            newProduct.setVariations(variations);
+            Product product1 = productDao.saveProduct(newProduct);
+            return product1;
         }
-
-        List<ProductAttribute> output = new ArrayList<>();
-        for (ProductAttribute productInput : newProduct.getProductAttribute()) {
-            attributeDao.findByName(productInput.getAttribute().getAttribute())
-                    .ifPresentOrElse(
-                            (attribute) -> {
-                                output.add(ProductAttribute.builder()
-                                        .attribute(attribute)
-                                        .text(productInput.getText())
-                                        .build());
-                            },
-                            () -> {
-                                throw new RuntimeException();
-                            }
-                    );
-        }
-        List<ProductAttribute> p = productAttributeDao.save(output);
-        newProduct.setProductAttribute(p);
-        newProduct.setVariations(variations);
-        Product product1 = productDao.saveProduct(newProduct);
-        return product1;
+        return null;
     }
 
     @Transactional
@@ -114,7 +116,6 @@ public class ProductServiceImpl implements ProductService {
         }
         return output;
     }
-
 
 
     @Transactional
@@ -147,21 +148,20 @@ public class ProductServiceImpl implements ProductService {
 
         List<ProductAttribute> output = new ArrayList<>();
         for (ProductAttribute productInput : newProduct.getProductAttribute()) {
-            attributeDao.findByName(productInput.getAttribute().getAttribute())
+            ProductAttribute productAttribute = productAttributeDao.findById(productInput.getId());
+            attributeDao.findByName(productAttribute.getAttribute().getAttribute())
                     .ifPresentOrElse(
                             (attribute) -> {
-                                output.add(ProductAttribute.builder()
-                                        .attribute(attribute)
-                                        .text(productInput.getText())
-                                        .build());
+                                productAttribute.setAttribute(attribute);
+                                productAttribute.setText(productInput.getText());
                             },
                             () -> {
                                 throw new RuntimeException();
                             }
                     );
+            output.add(productAttribute);
         }
-        List<ProductAttribute> p = productAttributeDao.save(output);
-        product1.setProductAttribute(p);
+        product1.setProductAttribute(output);
         product1.setVariations(var);
         product1.setShipments(dsgList);
 

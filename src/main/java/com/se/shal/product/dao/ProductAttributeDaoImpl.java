@@ -17,4 +17,9 @@ public class ProductAttributeDaoImpl implements ProductAttributeDao {
     public List<ProductAttribute> save(List<ProductAttribute> productAttributes) {
         return attributeRepository.saveAll(productAttributes);
     }
+
+    @Override
+    public ProductAttribute findById(Long id) {
+        return attributeRepository.findById(id).orElse(null);
+    }
 }
