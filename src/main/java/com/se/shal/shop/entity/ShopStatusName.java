@@ -1,6 +1,9 @@
 package com.se.shal.shop.entity;
 
 public enum ShopStatusName {
+//    NA,
+//    ENABLE,
+//    DISABLE
     NA("None"),
     ENABLE("Enable"),
     DISABLE("Disable");

@@ -54,12 +54,11 @@ public class ShopServiceImpl implements ShopService {
     public Shop updateShopStatus(Shop shop) {
         Shop shop1 = shopDao.findById(shop.getId());
         if (shop1.getShopStatus() == ShopStatusName.ENABLE ) {
-            shop1.setShopStatus(shop1.getShopStatus());
+            shop1.setShopStatus(shop.getShopStatus());
         } else if (shop1.getShopStatus() == ShopStatusName.DISABLE) {
-            shop1.setShopStatus(shop1.getShopStatus());
+            shop1.setShopStatus(shop.getShopStatus());
             shop1.getFailureReasonLists().removeAll(shop1.getFailureReasonLists());
         }
-
         return shopDao.save(shop1);
     }
 
