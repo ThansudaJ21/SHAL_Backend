@@ -37,3 +37,8 @@ graphql:
     corsEnabled: false
 shal:
   postcodeDb: postcodeDb/postcodedb.json
+
+line.bot:
+  channel-token: 'IcGn7acwCB/Bg62RBasZ7CJre+qLkRlUza3lANfUWThjpQIdeABh7mBkSeGoDWxQPYGK03Xh1aLZTg4zWOyNUektMLF1qm7MQV2eJbUbCs0RrP6WIJqPyvqw/NtouQ7iGMyJ2L8iMgKRElF8hB4V2QdB04t89/1O/w1cDnyilFU='
+  channel-secret: '465b7dd6d7fb2c69a29dcdc8f553c88b'
+  handler.path: /callback

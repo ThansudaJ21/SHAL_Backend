@@ -53,7 +53,6 @@ public class User {
 
     @Column(name = "LASTPASSWORDRESETDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     private Date lastPasswordResetDate;
 
 	@Builder.Default

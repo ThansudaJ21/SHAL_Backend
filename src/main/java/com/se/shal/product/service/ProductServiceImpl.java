@@ -124,63 +124,67 @@ public class ProductServiceImpl implements ProductService {
         Product newProduct = ShalMapper.INSTANCE.updateProduct(product);
         Long id = newProduct.getId();
         Product product1 = productDao.findById(id);
+        if (product1 != null) {
 
-        List<Shipment> dsgList = product.getShipments().stream()
-                .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
-                .collect(Collectors.toList());
 
-        List<Variations> updatedVariations = new ArrayList<>();
-        for (Variations variations1 : newProduct.getVariations()
-        ) {
-            Variations variations = variationDao.findById(variations1.getId());
-            for (Options options : variations.getOptions()) {
-                Options options1 = optionsDao.findById(options.getId());
-                options1.setOptionName(options.getOptionName());
-                options1.setPrice(options.getPrice());
-                options1.setStock(options.getStock());
-                options1.setImage(options.getImage());
+            List<Shipment> dsgList = product.getShipments().stream()
+                    .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
+                    .collect(Collectors.toList());
+
+            List<Variations> updatedVariations = new ArrayList<>();
+            for (Variations variations1 : newProduct.getVariations()
+            ) {
+                Variations variations = variationDao.findById(variations1.getId());
+                for (Options options : variations.getOptions()) {
+                    Options options1 = optionsDao.findById(options.getId());
+                    options1.setOptionName(options.getOptionName());
+                    options1.setPrice(options.getPrice());
+                    options1.setStock(options.getStock());
+                    options1.setImage(options.getImage());
+                }
+                variations.setVariationName(variations1.getVariationName());
+                updatedVariations.add(variations);
             }
-            variations.setVariationName(variations1.getVariationName());
-            updatedVariations.add(variations);
-        }
 
-        List<Variations> var = variationDao.save(updatedVariations);
+            List<Variations> var = variationDao.save(updatedVariations);
 
-        List<ProductAttribute> output = new ArrayList<>();
-        for (ProductAttribute productInput : newProduct.getProductAttribute()) {
-            ProductAttribute productAttribute = productAttributeDao.findById(productInput.getId());
-            attributeDao.findByName(productAttribute.getAttribute().getAttribute())
-                    .ifPresentOrElse(
-                            (attribute) -> {
-                                productAttribute.setAttribute(attribute);
-                                productAttribute.setText(productInput.getText());
-                            },
-                            () -> {
-                                throw new RuntimeException();
-                            }
-                    );
-            output.add(productAttribute);
-        }
-        product1.setProductAttribute(output);
-        product1.setVariations(var);
-        product1.setShipments(dsgList);
+            List<ProductAttribute> output = new ArrayList<>();
+            for (ProductAttribute productInput : newProduct.getProductAttribute()) {
+                ProductAttribute productAttribute = productAttributeDao.findById(productInput.getId());
+                attributeDao.findByName(productAttribute.getAttribute().getAttribute())
+                        .ifPresentOrElse(
+                                (attribute) -> {
+                                    productAttribute.setAttribute(attribute);
+                                    productAttribute.setText(productInput.getText());
+                                },
+                                () -> {
+                                    throw new RuntimeException();
+                                }
+                        );
+                output.add(productAttribute);
+            }
+            product1.setProductAttribute(output);
+            product1.setVariations(var);
+            product1.setShipments(dsgList);
 
-        product1.setProductStatus(newProduct.getProductStatus());
-        product1.setProductName(newProduct.getProductName());
-        product1.setDetails(newProduct.getDetails());
-        product1.setImagesPath(newProduct.getImagesPath());
-        product1.setCategory(newProduct.getCategory());
-        product1.setNextAuction(newProduct.getNextAuction());
-        product1.setSalePrice(newProduct.getSalePrice());
-        product1.setStartingBid(newProduct.getStartingBid());
-        product1.setStorage(newProduct.getStorage());
-        product1.setAuctionPeriod(newProduct.getAuctionPeriod());
-        product1.setSaleTypeName(newProduct.getSaleTypeName());
-        product1.setTimeUnitForNextAuction(newProduct.getTimeUnitForNextAuction());
-        product1.setTimeUnitForAuctionPeriod(newProduct.getTimeUnitForAuctionPeriod());
+            product1.setProductStatus(newProduct.getProductStatus());
+            product1.setProductName(newProduct.getProductName());
+            product1.setDetails(newProduct.getDetails());
+            product1.setImagesPath(newProduct.getImagesPath());
+            product1.setCategory(newProduct.getCategory());
+            product1.setNextAuction(newProduct.getNextAuction());
+            product1.setSalePrice(newProduct.getSalePrice());
+            product1.setStartingBid(newProduct.getStartingBid());
+            product1.setStorage(newProduct.getStorage());
+            product1.setAuctionPeriod(newProduct.getAuctionPeriod());
+            product1.setSaleTypeName(newProduct.getSaleTypeName());
+            product1.setTimeUnitForNextAuction(newProduct.getTimeUnitForNextAuction());
+            product1.setTimeUnitForAuctionPeriod(newProduct.getTimeUnitForAuctionPeriod());
 
-        Product product2 = productDao.saveProduct(product1);
-        return product2;
+            Product product2 = productDao.saveProduct(product1);
+
+            return product2;
+        } else return null;
     }
 
     @Transactional

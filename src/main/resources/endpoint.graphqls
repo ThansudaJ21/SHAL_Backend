@@ -29,6 +29,6 @@ type Mutation {
     updateProductStatus(productStatus: ProductStatusInput): UpdateProductStatus
     updateProduct(product: InputUpdateProduct): UpdateProduct
     #   Delete
-    deleteVariations(id:Int): Int
+    deleteVariations(product:Int,id:Int): Int
 }
 
