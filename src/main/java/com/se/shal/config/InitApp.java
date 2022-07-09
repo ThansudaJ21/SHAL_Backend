@@ -68,7 +68,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .authorities(List.of(roleBuyer))
                 .password(encoder.encode("password"))
                 .username("thansuda2010@gmail.com")
-                .email("thansuda2010@gmail.com")
+                .userId("userId")
+//                .email("thansuda2010@gmail.com")
+                .name("thansuda")
                 .enabled(true)
                 .build();
         userRepository.save(user);

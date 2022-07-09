@@ -48,13 +48,17 @@ public class LineInitComponent {
     @SneakyThrows
     public void initLineApp(){
 
-        String pathImageMainMenu = "line/richmenu/richmenu.jpg";
-        String pathMenuJson = "line/richmenu/richmenu.json";
+        String pathImageMainMenu = "line/richmenu/richmenu_shopping.jpg";
+        String pathMenuJson = "line/richmenu/richmenu_shopping.json";
 
+        String pathImageRegisterMenu = "line/richmenu/richmenu_register.jpg";
+        String pathRegisterMenuJson = "line/richmenu/richmenu_shopping.json";
 //         use reset when we need to remove the old one
         resetRichMenu();
         mainMenuId = loadLineMenu(pathMenuJson, pathImageMainMenu);
-        lineMessagingClient.setDefaultRichMenu(mainMenuId);
+        unRegisterMenuId = loadLineMenu(pathRegisterMenuJson,pathImageRegisterMenu);
+
+        lineMessagingClient.setDefaultRichMenu(unRegisterMenuId);
         listRichMenu(); // Show created Rich Menus
 
     }

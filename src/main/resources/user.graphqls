@@ -1,0 +1,18 @@
+type UserDto {
+    username: String
+    userId: String
+    password: String
+    name: String
+    firstname: String
+    lastname: String
+    enabled: Boolean
+}
+input User {
+    username: String
+    userId: String
+    password: String
+    name: String
+    firstname: String
+    lastname: String
+    enabled: Boolean
+}

@@ -30,5 +30,7 @@ type Mutation {
     updateProduct(product: InputUpdateProduct): UpdateProduct
     #   Delete
     deleteVariations(product:Int,id:Int): Int
+
+    registerUser(user: User): UserDto
 }
 

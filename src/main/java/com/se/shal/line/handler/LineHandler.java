@@ -4,6 +4,7 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.*;
 import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.*;
@@ -88,6 +89,21 @@ public class LineHandler {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @EventMapping
+    public void handleFollowEvent(FollowEvent event) {
+        String replyToken = event.getReplyToken();
+        this.replyText(replyToken, "Got followed event");
+    }
+    private void replyText(@NonNull String replyToken, @NonNull String message) {
+        if (replyToken.isEmpty()) {
+            throw new IllegalArgumentException("replyToken must not be empty");
+        }
+        if (message.length() > 1000) {
+            message = message.substring(0, 1000 - 2) + "……";
+        }
+        this.reply(replyToken, new TextMessage(message));
     }
 
     public FlexMessage getMessage(String text){

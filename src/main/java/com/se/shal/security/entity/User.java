@@ -31,9 +31,18 @@ public class User {
     @NotNull
     private String username;
 
+//    Line id
+    @Column(name = "USERID", length = 50, unique = true)
+    @NotNull
+    private String userId;
+
     @Column(name = "PASSWORD", length = 100)
     @NotNull
     private String password;
+
+    @Column(name = "NAME", length = 50)
+    @NotNull
+    private String name;
 
     @Column(name = "FIRSTNAME", length = 50)
     @NotNull
@@ -43,9 +52,6 @@ public class User {
     @NotNull
     private String lastname;
 
-    @Column(name = "EMAIL", length = 50)
-    @NotNull
-    private String email;
 
     @Column(name = "ENABLED")
     @NotNull
@@ -55,11 +61,9 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastPasswordResetDate;
 
-	@Builder.Default
+    @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Authority> authorities = new ArrayList<>();
 
-//    @OneToOne(mappedBy = "user")
-//    Member member;
 
 }
