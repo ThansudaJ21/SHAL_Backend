@@ -52,7 +52,7 @@ public class LineInitComponent {
         String pathMenuJson = "line/richmenu/richmenu_shopping.json";
 
         String pathImageRegisterMenu = "line/richmenu/richmenu_register.jpg";
-        String pathRegisterMenuJson = "line/richmenu/richmenu_shopping.json";
+        String pathRegisterMenuJson = "line/richmenu/richmenu_register.json";
 //         use reset when we need to remove the old one
         resetRichMenu();
         mainMenuId = loadLineMenu(pathMenuJson, pathImageMainMenu);

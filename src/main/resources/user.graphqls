@@ -5,6 +5,7 @@ type UserDto {
     name: String
     firstname: String
     lastname: String
+    phoneNumber: String
     enabled: Boolean
 }
 input User {
@@ -15,4 +16,6 @@ input User {
     firstname: String
     lastname: String
     enabled: Boolean
+    phoneNumber: String
+
 }

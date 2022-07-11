@@ -69,7 +69,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .password(encoder.encode("password"))
                 .username("thansuda2010@gmail.com")
                 .userId("userId")
-//                .email("thansuda2010@gmail.com")
+                .phoneNumber("095-4475249")
                 .name("thansuda")
                 .enabled(true)
                 .build();

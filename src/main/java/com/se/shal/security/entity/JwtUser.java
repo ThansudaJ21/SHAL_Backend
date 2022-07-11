@@ -86,9 +86,6 @@ public class JwtUser implements UserDetails {
         return lastname;
     }
 
-//    public String getEmail() {
-//        return email;
-//    }
 
     @JsonIgnore
     @Override

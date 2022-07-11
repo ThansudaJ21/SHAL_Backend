@@ -1,8 +1,7 @@
-package com.se.shal.line.graphql;
+package com.se.shal.security.graphql;
 
 import com.se.shal.security.entity.User;
 import com.se.shal.security.service.UserService;
-import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

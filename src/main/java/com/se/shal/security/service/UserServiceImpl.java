@@ -24,8 +24,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
     @Autowired
-    UserDetailsService userService;
-    @Autowired
     LineInitComponent lineInitComponent;
     @Autowired
     AuthorityDao authorityDao;
@@ -34,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User registerNewUser(User user) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        Authority buyer = authorityDao.findByUserName(AuthorityName.BUYER);
+        Authority buyer = authorityDao.findByName(AuthorityName.BUYER);
 
         User userDetails = null;
         boolean isUserExist = true;
@@ -58,6 +56,7 @@ public class UserServiceImpl implements UserService {
                     .password(encoder.encode(user.getPassword()))
                     .username(user.getUsername())
                     .userId(user.getUserId())
+                    .phoneNumber(user.getPhoneNumber())
                     .name(user.getName())
                     .enabled(true)
                     .build();

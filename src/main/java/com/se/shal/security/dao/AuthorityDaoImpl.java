@@ -12,7 +12,7 @@ public class AuthorityDaoImpl implements AuthorityDao{
     @Autowired
     AuthorityRepository authorityRepository;
     @Override
-    public Authority findByUserName(AuthorityName userName) {
-        return authorityRepository.findByName(userName);
+    public Authority findByName(AuthorityName authorityName) {
+        return authorityRepository.findByName(authorityName);
     }
 }

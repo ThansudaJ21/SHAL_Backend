@@ -52,6 +52,9 @@ public class User {
     @NotNull
     private String lastname;
 
+    @Column(name = "PHONENUMBER", length = 50)
+    @NotNull
+    private String phoneNumber;
 
     @Column(name = "ENABLED")
     @NotNull

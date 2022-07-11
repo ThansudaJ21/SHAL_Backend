@@ -39,6 +39,6 @@ shal:
   postcodeDb: postcodeDb/postcodedb.json
 
 line.bot:
-  channel-token: 'IcGn7acwCB/Bg62RBasZ7CJre+qLkRlUza3lANfUWThjpQIdeABh7mBkSeGoDWxQPYGK03Xh1aLZTg4zWOyNUektMLF1qm7MQV2eJbUbCs0RrP6WIJqPyvqw/NtouQ7iGMyJ2L8iMgKRElF8hB4V2QdB04t89/1O/w1cDnyilFU='
-  channel-secret: '465b7dd6d7fb2c69a29dcdc8f553c88b'
+  channel-token: 'mamocK9697OSCly7r24ylt6exny6VRN1W0TMFvkhMZubYUvh820rcXRjOPnOjK2O2lmk8nuB6ZFgdW73N71SJ88IfCuDJLTkVXe4fmbxkwu2oRqm8E2skNH6mV4NjAdvdgyYuSEsiu0AAUDXCOGIYgdB04t89/1O/w1cDnyilFU='
+  channel-secret: 'd33b95ab4b2aff4df0d3343b0b75b31c'
   handler.path: /callback
