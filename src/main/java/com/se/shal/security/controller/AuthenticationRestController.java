@@ -61,7 +61,8 @@ public class AuthenticationRestController {
         Map result = new HashMap();
         result.put("token", token);
         User user = userRepository.findById(((JwtUser) userDetails).getId()).orElse(null);
-        result.put("username", user.getUsername());
+        assert user != null;
+        result.put("username", user.getEmail());
         result.put("name" , user.getName());
         result.put("authorities", user.getAuthorities().stream().map(authority -> authority.getName()).collect(Collectors.toList()));
 

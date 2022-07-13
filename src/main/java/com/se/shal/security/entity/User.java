@@ -27,18 +27,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "USERNAME", length = 50, unique = true)
+    @Column(name = "EMAIL", length = 50, unique = true)
     @NotNull
-    private String username;
+    private String email;
 
 //    Line id
     @Column(name = "USERID", length = 50, unique = true)
     @NotNull
     private String userId;
 
-    @Column(name = "PASSWORD", length = 100)
+    @Column(name = "PROFILE", length = 100)
     @NotNull
-    private String password;
+    private String profile;
 
     @Column(name = "NAME", length = 50)
     @NotNull
@@ -52,7 +52,7 @@ public class User {
     @NotNull
     private String lastname;
 
-    @Column(name = "PHONENUMBER", length = 50)
+    @Column(name = "PHONENUMBER", length = 100)
     @NotNull
     private String phoneNumber;
 

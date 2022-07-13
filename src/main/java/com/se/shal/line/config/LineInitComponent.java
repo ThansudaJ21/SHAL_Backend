@@ -124,13 +124,12 @@ public class LineInitComponent {
         RichMenu richMenu = loadYaml(path);
         log.info("{}", richMenu);
 
-        RichMenuIdResponse richMenuResponse = getUnchecked(
-                lineMessagingClient.createRichMenu(richMenu));
+        RichMenuIdResponse richMenuResponse = getUnchecked(lineMessagingClient.createRichMenu(richMenu));
         log.info("Successfully finished.");
         log.info("{}", richMenuResponse);
         return richMenuResponse.getRichMenuId();
-
     }
+
     private List<String> listRichMenu() {
         List<String> listMenuString = new ArrayList<>();
 

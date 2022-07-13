@@ -15,7 +15,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findByUsername(String userName) {
-        return userRepository.findByUsername(userName);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

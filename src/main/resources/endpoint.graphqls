@@ -15,6 +15,8 @@ type Query {
     productFilter(productFilter: InputProductFilter, pageNo:Int, pageSize:Int): PageProduct
 
     getAllProduct(shopId: Int): [QueryProductDto]
+
+    findByEmail(email: String) : UserQuery
 }
 
 

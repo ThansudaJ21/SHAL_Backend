@@ -4,6 +4,8 @@ import com.se.shal.product.dto.*;
 import com.se.shal.product.dto.input.*;
 import com.se.shal.product.dto.query.*;
 import com.se.shal.product.entity.*;
+import com.se.shal.security.entity.User;
+import com.se.shal.security.entity.UserDto;
 import com.se.shal.shop.dto.FailureReasonListDto;
 import com.se.shal.shop.dto.QueryFailureReasonDto;
 import com.se.shal.shop.dto.QueryFailureReasonListDto;
@@ -119,4 +121,6 @@ public interface ShalMapper {
 
     @Mapping(target = "attributes", source = "attributes")
     CategoryDto getCategoryDto(Category category);
+
+    UserDto getUserDto(User user);
 }

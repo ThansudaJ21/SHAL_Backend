@@ -4,4 +4,5 @@ import com.se.shal.security.entity.User;
 
 public interface UserService {
     User registerNewUser(User user);
+    User findByEmail(String email);
 }
