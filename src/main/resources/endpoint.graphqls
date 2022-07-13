@@ -16,7 +16,7 @@ type Query {
 
     getAllProduct(shopId: Int): [QueryProductDto]
 
-    findByEmail(email: String) : UserQuery
+    findByUserId(userId: String) : UserQuery
 }
 
 

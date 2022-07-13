@@ -1,19 +1,27 @@
 package com.se.shal.security.service;
 
 import com.se.shal.line.config.LineInitComponent;
+import com.se.shal.security.JwtTokenUtil;
 import com.se.shal.security.dao.AuthorityDao;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.Authority;
 import com.se.shal.security.entity.AuthorityName;
 import com.se.shal.security.entity.User;
+import com.se.shal.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,7 +31,20 @@ public class UserServiceImpl implements UserService {
     LineInitComponent lineInitComponent;
     @Autowired
     AuthorityDao authorityDao;
+    @Value("${jwt.header}")
+    private String tokenHeader;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    UserRepository userRepository;
     @Override
     @Transactional
     public User registerNewUser(User user) {
@@ -66,7 +87,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User findByEmail(String email) {
-        return userDao.findByEmail(email);
+    public User findByUserId(String userId) {
+        return userDao.findByUserId(userId);
     }
+
 }

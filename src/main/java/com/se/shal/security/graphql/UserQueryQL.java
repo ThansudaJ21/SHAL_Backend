@@ -16,8 +16,8 @@ public class UserQueryQL implements GraphQLQueryResolver {
     UserService userService;
 
     @Transactional
-    UserDto findByEmail(String email) {
-        User user = userService.findByEmail(email);
+    UserDto findByUserId(String userId) {
+        User user = userService.findByUserId(userId);
         return ShalMapper.INSTANCE.getUserDto(user);
     }
 }
