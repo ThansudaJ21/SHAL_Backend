@@ -73,9 +73,9 @@ public class UserServiceImpl implements UserService {
 //                    .password(encoder.encode(user.getPassword()))
                     .email(user.getEmail())
                     .userId(user.getUserId())
-                    .profile(user.getProfile())
+                    .pictureUrl(user.getPictureUrl())
                     .phoneNumber(encoder.encode(user.getPhoneNumber()))
-                    .name(user.getName())
+                    .displayName(user.getDisplayName())
                     .enabled(true)
                     .build();
             userDao.save(newUser);

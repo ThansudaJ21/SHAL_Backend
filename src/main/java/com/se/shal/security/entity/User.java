@@ -36,13 +36,13 @@ public class User {
     @NotNull
     private String userId;
 
-    @Column(name = "PROFILE", length = 100)
+    @Column(name = "PICTURE", length = 100)
     @NotNull
-    private String profile;
+    private String pictureUrl;
 
     @Column(name = "NAME", length = 50)
     @NotNull
-    private String name;
+    private String displayName;
 
     @Column(name = "FIRSTNAME", length = 50)
     @NotNull

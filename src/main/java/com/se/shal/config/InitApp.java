@@ -70,8 +70,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .email("thansuda2010@gmail.com")
                 .userId("userId")
                 .phoneNumber(encoder.encode("0954475249"))
-                .profile("profile")
-                .name("thansuda")
+                .pictureUrl("profile")
+                .displayName("thansuda")
                 .enabled(true)
                 .build();
         userRepository.save(user);

@@ -18,8 +18,8 @@ public class UserDto {
     private Long id;
     private String email;
     private String userId;
-    private String profile;
-    private String name;
+    private String pictureUrl;
+    private String displayName;
     private String firstname;
     private String lastname;
     private String phoneNumber;

@@ -63,7 +63,7 @@ public class AuthenticationRestController {
         User user = userRepository.findById(((JwtUser) userDetails).getId()).orElse(null);
         assert user != null;
         result.put("username", user.getEmail());
-        result.put("name" , user.getName());
+        result.put("name" , user.getDisplayName());
         result.put("authorities", user.getAuthorities().stream().map(authority -> authority.getName()).collect(Collectors.toList()));
 
         return ResponseEntity.ok(result);
