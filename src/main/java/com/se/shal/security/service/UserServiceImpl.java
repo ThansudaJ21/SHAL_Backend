@@ -31,20 +31,7 @@ public class UserServiceImpl implements UserService {
     LineInitComponent lineInitComponent;
     @Autowired
     AuthorityDao authorityDao;
-    @Value("${jwt.header}")
-    private String tokenHeader;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    UserRepository userRepository;
     @Override
     @Transactional
     public User registerNewUser(User user) {
@@ -54,7 +41,7 @@ public class UserServiceImpl implements UserService {
         User userDetails = null;
         boolean isUserExist = true;
         try {
-            userDetails = userDao.findByEmail(user.getEmail());
+            userDetails = userDao.findByUserId(user.getUserId());
             if (userDetails == null) {
                 isUserExist = false;
             }
