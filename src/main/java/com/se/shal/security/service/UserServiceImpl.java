@@ -8,6 +8,7 @@ import com.se.shal.security.entity.Authority;
 import com.se.shal.security.entity.AuthorityName;
 import com.se.shal.security.entity.User;
 import com.se.shal.security.repository.UserRepository;
+import com.se.shal.shop.entity.ShopStatusName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,7 +38,6 @@ public class UserServiceImpl implements UserService {
     public User registerNewUser(User user) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         Authority buyer = authorityDao.findByName(AuthorityName.BUYER);
-
         User userDetails = null;
         boolean isUserExist = true;
         try {
@@ -57,18 +57,16 @@ public class UserServiceImpl implements UserService {
                     .firstname(user.getFirstname())
                     .lastname(user.getLastname())
                     .authorities(List.of(buyer))
-//                    .password(encoder.encode(user.getPassword()))
                     .email(user.getEmail())
                     .userId(user.getUserId())
                     .pictureUrl(user.getPictureUrl())
-                    .phoneNumber(encoder.encode(user.getPhoneNumber()))
+                    .phoneNumber(user.getPhoneNumber())
                     .displayName(user.getDisplayName())
                     .enabled(true)
                     .build();
             userDao.save(newUser);
             lineInitComponent.setMainMenuToUser(user.getUserId());
             return newUser;
-
         }
     }
 
@@ -78,4 +76,14 @@ public class UserServiceImpl implements UserService {
         return userDao.findByUserId(userId);
     }
 
+    @Transactional
+    @Override
+    public User setRoleUser(User user) {
+        Authority seller = authorityDao.findByName(AuthorityName.SELLER);
+        User existUser = userDao.findByUserId(user.getUserId());
+//        if (existUser.getShop().getShopStatus().equals(ShopStatusName.ENABLE)){
+//            existUser.setAuthorities(List.of(seller));
+//        }
+        return existUser;
+    }
 }

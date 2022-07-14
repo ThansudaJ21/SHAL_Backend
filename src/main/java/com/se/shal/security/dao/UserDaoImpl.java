@@ -23,4 +23,9 @@ public class UserDaoImpl implements UserDao {
     public User findByUserId(String userId) {
         return userRepository.findByUserId(userId);
     }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

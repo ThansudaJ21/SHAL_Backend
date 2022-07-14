@@ -21,8 +21,8 @@ type Query {
 
 
 type Mutation {
-    registerShop(shop: ShopInput): Shop
-    updateShopStatus(shopStatus: ShopStatusInput): Shop
+    registerShop( userId: Int,shop: ShopInput): Shop
+    updateShopStatus(shopStatus: ShopStatusInput , userId: Int): Shop
     shopFailureReason(shopId: Int, failure:[InputFailureReason]):[FailureReason]
 
     #    Save Product

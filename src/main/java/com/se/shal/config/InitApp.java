@@ -69,7 +69,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 //                .password(encoder.encode("password"))
                 .email("thansuda2010@gmail.com")
                 .userId("userId")
-                .phoneNumber(encoder.encode("0954475249"))
+                .phoneNumber("0954475249")
                 .pictureUrl("profile")
                 .displayName("thansuda")
                 .enabled(true)
@@ -180,7 +180,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .email("Thansuda2010@gmail.com")
                 .promptPay("0954475249")
                 .idCard("1234567891234")
-                .shopStatus(ShopStatusName.ENABLE)
+                .shopStatus(ShopStatusName.DISABLE)
                 .shopLogoImagePath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20215820811-shopLogo1.png?generation=1655305100953281&alt=media")
                 .selfiePhotoWithIdCardPath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20215941465-selfiePhotoWithIdCardPath1.png?generation=1655305181566480&alt=media")
                 .shopAddress(ShopAddress.builder()
@@ -191,6 +191,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                         .province("chiang rai")
                         .build())
                 .build());
+        shop.setUser(user);
         Shop shop2 = shopRepository.save(Shop.builder()
                 .shopName("Patteeda shop")
                 .email("Patteera@gmail.com")

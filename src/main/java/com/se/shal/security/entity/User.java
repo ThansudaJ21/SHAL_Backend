@@ -2,6 +2,7 @@ package com.se.shal.security.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.se.shal.shop.entity.Shop;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,15 +33,15 @@ public class User {
     private String email;
 
 //    Line id
-    @Column(name = "USERID", length = 50, unique = true)
+    @Column(name = "USER_ID", length = 50, unique = true)
     @NotNull
     private String userId;
 
-    @Column(name = "PICTURE", length = 100)
+    @Column(name = "PICTURE_URL", length = 100)
     @NotNull
     private String pictureUrl;
 
-    @Column(name = "NAME", length = 50)
+    @Column(name = "DISPLAY_NAME", length = 50)
     @NotNull
     private String displayName;
 
@@ -65,8 +66,6 @@ public class User {
     private Date lastPasswordResetDate;
 
     @Builder.Default
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Authority> authorities = new ArrayList<>();
-
-
 }

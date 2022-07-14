@@ -10,9 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface ShopService {
-    Shop registerShop(Shop shop);
+    Shop registerShop(Long userId, Shop shop);
     Shop getRegisterShop(Long id);
-    Shop updateShopStatus(Shop shop);
+    Shop updateShopStatus(Shop shop,Long userId);
     Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, PageRequest pageRequest);
     List<FailureReasonList> saveFailureReason(Long shopId, List<FailureReasonList> failureReason);
     List<FailureReason> getFailureReason();

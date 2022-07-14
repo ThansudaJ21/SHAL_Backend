@@ -25,4 +25,5 @@ public class ShopDto {
     ShopAddress shopAddress;
     String shopStatus;
     List<QueryFailureReasonListDto> failureReasonLists;
+    Long userId;
 }

@@ -26,14 +26,11 @@ import java.util.stream.Collectors;
 public interface ShalMapper {
     ShalMapper INSTANCE = Mappers.getMapper(ShalMapper.class);
 
-//    @Mappings({
-//            @Mapping(target = "shopStatus", ignore = true)
-//    })
+
+    @Mapping(target = "userId", source = "user.id")
     ShopDto registerShop(Shop Shop);
 
-//    @Mappings({
-//            @Mapping(target = "shopStatus", ignore = true)
-//    })
+    @Mapping(target = "userId", source = "user.id")
     ShopDto updateShopStatus(Shop shop);
 
     @Mappings({

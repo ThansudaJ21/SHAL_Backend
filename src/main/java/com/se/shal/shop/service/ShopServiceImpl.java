@@ -1,10 +1,16 @@
 package com.se.shal.shop.service;
 
+import com.se.shal.security.dao.AuthorityDao;
+import com.se.shal.security.dao.UserDao;
+import com.se.shal.security.entity.Authority;
+import com.se.shal.security.entity.AuthorityName;
+import com.se.shal.security.entity.User;
 import com.se.shal.shop.dao.FailureReasonDao;
 import com.se.shal.shop.dao.FailureReasonListDao;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.*;
 import com.se.shal.shop.graphql.entity.ShopQueryFilter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +20,6 @@ import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 @Service
@@ -26,10 +31,15 @@ public class ShopServiceImpl implements ShopService {
     FailureReasonListDao failureReasonListDao;
     @Autowired
     FailureReasonDao failureReasonDao;
+    @Autowired
+    UserDao userDao;
+    @Autowired
+    AuthorityDao authorityDao;
 
     @Transactional
     @Override
-    public Shop registerShop(Shop shop) {
+    public Shop registerShop(Long userId, Shop shop) {
+        User user = userDao.findById(userId);
         Shop newShop = Shop.builder()
                 .shopName(shop.getShopName())
                 .idCard(shop.getIdCard())
@@ -37,6 +47,7 @@ public class ShopServiceImpl implements ShopService {
                 .selfiePhotoWithIdCardPath(shop.getSelfiePhotoWithIdCardPath())
                 .promptPay(shop.getPromptPay())
                 .email(shop.getEmail())
+                .user(user)
                 .shopStatus(ShopStatusName.DISABLE)
                 .shopAddress(shop.getShopAddress())
                 .build();
@@ -46,17 +57,22 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Shop getRegisterShop(Long id) {
-        return shopDao.findById(id);
+        Shop shop =shopDao.findById(id);
+        Hibernate.initialize(shop.getUser());
+        return shop;
     }
 
     @Transactional
     @Override
-    public Shop updateShopStatus(Shop shop) {
+    public Shop updateShopStatus(Shop shop, Long userId) {
+        Authority seller = authorityDao.findByName(AuthorityName.SELLER);
+        User user = userDao.findById(userId);
         Shop shop1 = shopDao.findById(shop.getId());
-        if (shop1.getShopStatus() == ShopStatusName.ENABLE ) {
+        if (shop1.getShopStatus() == ShopStatusName.ENABLE) {
             shop1.setShopStatus(shop.getShopStatus());
         } else if (shop1.getShopStatus() == ShopStatusName.DISABLE) {
             shop1.setShopStatus(shop.getShopStatus());
+            user.getAuthorities().add(0, seller);
             shop1.getFailureReasonLists().removeAll(shop1.getFailureReasonLists());
         }
         return shopDao.save(shop1);
