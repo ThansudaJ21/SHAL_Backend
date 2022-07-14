@@ -36,7 +36,7 @@ public class User {
     @NotNull
     private String userId;
 
-    @Column(name = "PICTURE", length = 100)
+    @Column(name = "PICTURE", length = 256)
     @NotNull
     private String pictureUrl;
 
