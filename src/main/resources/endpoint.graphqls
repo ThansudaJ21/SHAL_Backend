@@ -6,16 +6,13 @@ type Query {
     getRegisterShop(id: Int): ShopQuery
     shopQueryFilter(queryText: ShopQueryFilter, pageNo:Int, pageSize:Int): PageShop
     getFailureReason: [FailureReasonDto]
-
     getAddressFromPostCode(postCode: String): PostCodeProvinceDto
     #    Product
     getCategory(id: Int): CategoryDto
     getAllCategory: [Category]
     getProduct(id: Int):ProductDto
     productFilter(productFilter: InputProductFilter, pageNo:Int, pageSize:Int): PageProduct
-
     getAllProduct(shopId: Int): [QueryProductDto]
-
     findByUserId(userId: String) : UserQuery
 }
 
@@ -34,5 +31,8 @@ type Mutation {
     deleteVariations(product:Int,id:Int): Int
 
     registerUser(user: User): UserDto
+
+    buyProduct(userId: Int,productId: Int, quantity:Int): Product
+
 }
 
