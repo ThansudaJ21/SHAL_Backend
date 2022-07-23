@@ -14,4 +14,5 @@ public interface ProductDao {
     Product getProduct(Long id);
     List<Product> findAll();
     Page<Product> filterProduct(ProductFilter productFilter, PageRequest pageRequest);
+    List<Product> findByShopId(Long shopId);
 }

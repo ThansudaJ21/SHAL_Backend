@@ -5,6 +5,8 @@ import com.se.shal.trading.repository.TradingHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class TradingHistoryDaoImpl implements TradingHistoryDao{
 
@@ -14,5 +16,10 @@ public class TradingHistoryDaoImpl implements TradingHistoryDao{
     @Override
     public TradingHistory save(TradingHistory tradingHistory) {
         return tradingHistoryRepository.save(tradingHistory);
+    }
+
+    @Override
+    public List<TradingHistory> getTradingHistoryByProductId(Long id) {
+        return tradingHistoryRepository.findTradingHistoryByProductsId(id);
     }
 }

@@ -39,12 +39,18 @@ public class TradingServiceImpl implements TradingService {
             finalStorage = storage - quantity;
             product.setStorage(finalStorage);
             TradingHistory tradingHistory = TradingHistory.builder()
-                    .products(List.of(product))
+                    .products(product)
                     .dateTime(LocalDateTime.now())
-                    .users(List.of(user))
+                    .users(user)
                     .build();
             tradingHistoryDao.save(tradingHistory);
         }
         return productDao.saveProduct(product);
+    }
+
+    @Transactional
+    @Override
+    public List<TradingHistory> getTradingHistoryByProductId(Long productId) {
+        return tradingHistoryDao.getTradingHistoryByProductId(productId);
     }
 }

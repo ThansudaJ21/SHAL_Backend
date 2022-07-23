@@ -1,11 +1,13 @@
 package com.se.shal.product.service;
 
+import com.google.common.base.Strings;
 import com.se.shal.product.dao.*;
 
 import com.se.shal.product.dto.input.InputProductDto;
 import com.se.shal.product.dto.input.InputUpdateProductDto;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.graphql.entity.ProductFilter;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
@@ -207,5 +209,31 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> productFilter(ProductFilter productFilter, PageRequest pageRequest) {
         return productDao.filterProduct(productFilter, pageRequest);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> getProductAuctionType(Long shopId) {
+        List<Product> productList = productDao.findByShopId(shopId);
+        List<Product> productsAuction = new ArrayList<>();
+        Shop shop = shopDao.findById(shopId);
+        List<Product> output = new ArrayList<>();
+
+        for (Product product : productList) {
+            try {
+                if (Objects.equals(product.getShop().getId(), shop.getId())) {
+                    if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
+                        Hibernate.initialize(product.getVariations());
+                        Hibernate.initialize(product.getProductAttribute());
+                        Hibernate.initialize(product.getShipments());
+                        output.add(product);
+                    }
+                }
+            } catch (NullPointerException e) {
+                throw new NullPointerException();
+            }
+        }
+
+        return output;
     }
 }

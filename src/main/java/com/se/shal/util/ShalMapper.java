@@ -13,6 +13,10 @@ import com.se.shal.shop.dto.ShopDto;
 import com.se.shal.shop.entity.FailureReason;
 import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
+import com.se.shal.trading.dto.AuctionDto;
+import com.se.shal.trading.dto.TradingHistoryQueryDto;
+import com.se.shal.trading.entity.Auction;
+import com.se.shal.trading.entity.TradingHistory;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -58,7 +62,6 @@ public interface ShalMapper {
                             ".map(d -> d.getShipmentName().getShipmentName())" +
                             ".collect(Collectors.toList()))"),
             @Mapping(target = "shopId", source = "shop.id"),
-
     })
     InputUpdateProductDto updateProduct(Product product);
 
@@ -79,6 +82,7 @@ public interface ShalMapper {
             @Mapping(target = "shopId", source = "shop.id")
     })
     ProductDto saveProductDto(Product product);
+
     @Mappings({
             @Mapping(target = "shipments",
                     expression = "java(product.getShipments().stream()" +
@@ -90,16 +94,12 @@ public interface ShalMapper {
 
     List<QueryProductDto> getQueryAllProductDto(List<Product> product);
 
-
-//    @Mapping(target = "shopId" , source = "shop.id")
     FailureReasonListDto saveFailureReasonList(FailureReasonList failureReasonLists);
-
 
     List<FailureReasonListDto> getFailureReasonList(List<FailureReasonList> failureReasonLists);
 
     List<QueryFailureReasonDto> getAllFailureReasonList(List<FailureReason> failureReasonLists);
 
-//    @Mapping(target = "shopId", ignore = true)
     QueryFailureReasonListDto getFailureReasonListByShopId(FailureReasonList failureReasonLists);
 
     List<QueryFailureReasonListDto> getFailureReasonListByShopId(List<FailureReasonList> failureReasonLists);
@@ -120,4 +120,18 @@ public interface ShalMapper {
     CategoryDto getCategoryDto(Category category);
 
     UserDto getUserDto(User user);
+
+    List<TradingHistoryQueryDto> getTradingHistoryByProductId(List<TradingHistory> tradingHistories);
+
+    @Mappings({
+            @Mapping(target = "users", source = "users"),
+            @Mapping(target = "products", source = "products")
+
+    })
+    TradingHistoryQueryDto getTradingHistoryByProductId(TradingHistory tradingHistories);
+    @Mappings({
+            @Mapping(target = "userId", source = "user.id"),
+            @Mapping(target = "productId", source = "product.id")
+    })
+    AuctionDto saveAuction(Auction auction);
 }

@@ -80,4 +80,9 @@ public class ProductDaoDbImpl implements ProductDao{
             return cb.and(predicates.toArray(new Predicate[0]));
         };
     }
+
+    @Override
+    public List<Product> findByShopId(Long shopId) {
+        return productRepository.findByShopId(shopId);
+    }
 }

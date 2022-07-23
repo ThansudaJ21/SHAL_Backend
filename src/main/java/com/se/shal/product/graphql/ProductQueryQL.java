@@ -41,5 +41,11 @@ public class ProductQueryQL implements GraphQLQueryResolver {
     Page<Product> productFilter(ProductFilter filter, int pageNo, int pageSize){
         return productService.productFilter(filter, PageRequest.of(pageNo,pageSize));
     }
+
+    @Transactional
+    List<QueryProductDto> getProductAuctionType(Long shopId){
+        List<Product> products = productService.getProductAuctionType(shopId);
+        return ShalMapper.INSTANCE.getQueryAllProductDto(products);
+    }
 }
 

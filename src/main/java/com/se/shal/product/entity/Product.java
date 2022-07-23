@@ -63,4 +63,5 @@ public class Product {
     //     shop
     @ManyToOne
     Shop shop;
+
 }

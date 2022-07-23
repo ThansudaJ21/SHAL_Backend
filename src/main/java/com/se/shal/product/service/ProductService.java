@@ -17,4 +17,6 @@ public interface ProductService {
     Product updateProduct(InputUpdateProductDto product);
     Product updateProductStatus(Product product);
     Page<Product> productFilter(ProductFilter productFilter, PageRequest pageRequest);
+
+    List<Product> getProductAuctionType(Long shopId);
 }

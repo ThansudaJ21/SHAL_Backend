@@ -14,6 +14,9 @@ type Query {
     productFilter(productFilter: InputProductFilter, pageNo:Int, pageSize:Int): PageProduct
     getAllProduct(shopId: Int): [QueryProductDto]
     findByUserId(userId: String) : UserQuery
+
+    getTradingHistoryByProductId(productId: Int) :[TradingHistory]
+    getProductAuctionType(shopId: Int ):[QueryProductDto]
 }
 
 
@@ -34,5 +37,6 @@ type Mutation {
 
     buyProduct(userId: Int,productId: Int, quantity:Int): Product
 
+    saveAuction(auction: inputAuction): AuctionDto
 }
 

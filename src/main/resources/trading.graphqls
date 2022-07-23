@@ -1,0 +1,62 @@
+type TradingHistory {
+    id: Int
+    dateTime:String
+    products:ProductQueryTradingHistory
+    users: UserQueryTradingHistory
+}
+
+type  ProductQueryTradingHistory {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    shopId: Int
+    productStatus: String
+    imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+#    shipments: [String]
+    variations: [VariationsDto]
+    productAttribute: [QueryProductAttributeDto]
+}
+type UserQueryTradingHistory {
+    id: Int
+    #    username: String
+    userId: String
+    email: String
+    displayName: String
+    firstname: String
+    lastname: String
+    pictureUrl:String
+    phoneNumber: String
+    enabled: Boolean
+    authorities: [Authorities]
+}
+
+type AuctionDto {
+     id:Int
+     localDateTime:String
+     bid:Float
+     times: String
+     bidAmount:Float
+     auctionResult:String
+     userId: Int
+     productId:Int
+}
+
+input inputAuction {
+    id:Int
+    localDateTime:String
+    bid:Float
+    times: String
+    bidAmount:Float
+    auctionResult:String
+    userId: Int
+    productId:Int
+}
