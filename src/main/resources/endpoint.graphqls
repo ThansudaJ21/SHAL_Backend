@@ -17,6 +17,7 @@ type Query {
 
     getTradingHistoryByProductId(productId: Int) :[TradingHistory]
     getProductAuctionType(shopId: Int ):[QueryProductDto]
+    getAuctionByProductId(productId: Int) :[AuctionQueryDto]
 }
 
 

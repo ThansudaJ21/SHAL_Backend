@@ -10,5 +10,6 @@ public interface AuctionService {
 
     List<Auction> checkBidAmount(Long productId, Double bidAmount);
 
+    List<Auction> getAuctionByProductId(Long productId);
 
 }

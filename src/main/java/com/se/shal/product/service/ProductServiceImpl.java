@@ -217,7 +217,6 @@ public class ProductServiceImpl implements ProductService {
         List<Product> productList = productDao.findByShopId(shopId);
         List<Product> productsAuction = new ArrayList<>();
         Shop shop = shopDao.findById(shopId);
-        List<Product> output = new ArrayList<>();
 
         for (Product product : productList) {
             try {
@@ -226,14 +225,13 @@ public class ProductServiceImpl implements ProductService {
                         Hibernate.initialize(product.getVariations());
                         Hibernate.initialize(product.getProductAttribute());
                         Hibernate.initialize(product.getShipments());
-                        output.add(product);
+                        productsAuction.add(product);
                     }
                 }
             } catch (NullPointerException e) {
                 throw new NullPointerException();
             }
         }
-
-        return output;
+        return productsAuction;
     }
 }

@@ -14,6 +14,7 @@ import com.se.shal.shop.entity.FailureReason;
 import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.dto.AuctionDto;
+import com.se.shal.trading.dto.AuctionQueryDto;
 import com.se.shal.trading.dto.TradingHistoryQueryDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.TradingHistory;
@@ -129,9 +130,17 @@ public interface ShalMapper {
 
     })
     TradingHistoryQueryDto getTradingHistoryByProductId(TradingHistory tradingHistories);
+
     @Mappings({
             @Mapping(target = "userId", source = "user.id"),
             @Mapping(target = "productId", source = "product.id")
     })
     AuctionDto saveAuction(Auction auction);
+
+    List<AuctionQueryDto> getAuctionByProductId(List<Auction> auctions);
+    @Mappings({
+            @Mapping(target = "user", source = "user"),
+            @Mapping(target = "product", source = "product.id")
+    })
+    AuctionQueryDto getAuctionByProductId(Auction auctions);
 }

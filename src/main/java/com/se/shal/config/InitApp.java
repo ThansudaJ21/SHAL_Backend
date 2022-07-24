@@ -60,7 +60,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         setAuthority();
-        lineInitComponent.initLineApp();
+//        lineInitComponent.initLineApp();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = User.builder()
                 .firstname("thansuda")

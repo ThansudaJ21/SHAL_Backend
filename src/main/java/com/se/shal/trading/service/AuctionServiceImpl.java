@@ -1,6 +1,7 @@
 package com.se.shal.trading.service;
 
 import com.se.shal.product.entity.Product;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.User;
 import com.se.shal.trading.Dao.AuctionDao;
@@ -33,23 +34,31 @@ public class AuctionServiceImpl implements AuctionService {
 
 //        Long countTime = examResultDao.countByPatientId(patientId);
 //        examResult.setTimes(Math.toIntExact(countTime) +1 );
-
-        Auction newAuction = Auction.builder()
-                .auctionResult(AuctionResult.WINNER)
-                .bid(auction.getBid())
-                .localDateTime(LocalDateTime.now())
-                .times(1)
-                .product(product)
-                .bidAmount(auction.getBidAmount())
-                .user(user)
-                .build();
-
-        return auctionDao.save(newAuction);
+        if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
+            Auction newAuction = Auction.builder()
+                    .auctionResult(AuctionResult.WINNER)
+                    .bid(auction.getBid())
+                    .localDateTime(LocalDateTime.now())
+                    .times(1)
+                    .product(product)
+                    .bidAmount(auction.getBidAmount())
+                    .user(user)
+                    .build();
+            return auctionDao.save(newAuction);
+        } else {
+            return null;
+        }
     }
 
     @Transactional
     @Override
     public List<Auction> checkBidAmount(Long productId, Double bidAmount) {
+        return auctionDao.findByProductId(productId);
+    }
+
+    @Transactional
+    @Override
+    public List<Auction> getAuctionByProductId(Long productId) {
         return auctionDao.findByProductId(productId);
     }
 }

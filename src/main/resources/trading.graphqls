@@ -49,7 +49,16 @@ type AuctionDto {
      userId: Int
      productId:Int
 }
-
+type AuctionQueryDto {
+    id:Int
+    localDateTime:String
+    bid:Float
+    times: String
+    bidAmount:Float
+    auctionResult:String
+    user: UserQueryTradingHistory
+    product:Int
+}
 input inputAuction {
     id:Int
     localDateTime:String
