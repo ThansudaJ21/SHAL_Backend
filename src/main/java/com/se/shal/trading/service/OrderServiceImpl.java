@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
                     .dateTime(LocalDateTime.now())
                     .Quantity(orderInputDto.getQuantity())
                     .totalPrice(product.getSalePrice() * orderInputDto.getQuantity())
-                    .orderStatus(OrderStatus.BUY)
+                    .orderStatus(OrderStatus.ADD_TO_CART)
                     .variationsList(variationDao.findByIds(variationsList))
                     .optionsList(optionsDao.findByIds(optionsList))
                     .paymentStatus(PaymentStatus.UNPAID)
@@ -68,5 +68,31 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<ProductOrder> getOrderByProductId(Long productId) {
         return orderDao.getOrderByProductId(productId);
+    }
+
+    @Transactional
+    @Override
+    public ProductOrder addToCart(OrderInputDto orderInputDto) {
+        User user = userDao.findById(orderInputDto.getUsers());
+        Product product = productDao.getProduct(orderInputDto.getProducts());
+        List<Long> variationsList = orderInputDto.getVariationsList();
+        List<Long> optionsList = orderInputDto.getOptionsList();
+        Integer storage = product.getStorage();
+        if (orderInputDto.getQuantity() <= storage && orderInputDto.getQuantity() > 0) {
+            ProductOrder productOrder = ProductOrder.builder()
+                    .products(product)
+                    .dateTime(LocalDateTime.now())
+                    .Quantity(orderInputDto.getQuantity())
+                    .totalPrice(product.getSalePrice() * orderInputDto.getQuantity())
+                    .orderStatus(OrderStatus.BUY)
+                    .variationsList(variationDao.findByIds(variationsList))
+                    .optionsList(optionsDao.findByIds(optionsList))
+                    .paymentStatus(PaymentStatus.UNPAID)
+                    .users(user)
+                    .build();
+            return orderDao.save(productOrder);
+        } else {
+            return null;
+        }
     }
 }
