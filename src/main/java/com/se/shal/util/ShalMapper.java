@@ -133,7 +133,15 @@ public interface ShalMapper {
 
     @Mappings({
             @Mapping(target = "userId", source = "user.id"),
-            @Mapping(target = "productId", source = "product.id")
+            @Mapping(target = "productId", source = "product.id"),
+            @Mapping(target = "variationsList",
+                    expression = "java(auction.getVariationsList().stream()" +
+                            ".map(variationsList -> variationsList.getId())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "optionsList",
+                    expression = "java(auction.getOptionsList().stream()" +
+                            ".map(optionsList -> optionsList.getId())" +
+                            ".collect(Collectors.toList()))")
     })
     AuctionDto saveAuction(Auction auction);
 

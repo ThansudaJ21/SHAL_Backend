@@ -16,8 +16,8 @@ public class AuctionMutationQL implements GraphQLMutationResolver {
     AuctionService auctionService;
 
     @Transactional
-    public AuctionDto saveAuction(AuctionDto auction) {
-        Auction newAuction = auctionService.saveAuction(auction);
+    public AuctionDto auction(AuctionDto auction) {
+        Auction newAuction = auctionService.auction(auction);
         return ShalMapper.INSTANCE.saveAuction(newAuction);
     }
 }

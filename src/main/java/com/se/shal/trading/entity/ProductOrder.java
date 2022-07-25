@@ -24,7 +24,7 @@ public class ProductOrder {
     Long id;
     LocalDateTime dateTime;
     Double totalPrice;
-    Integer Quantity;
+    Integer quantity;
     PaymentStatus paymentStatus;
     OrderStatus orderStatus;
 

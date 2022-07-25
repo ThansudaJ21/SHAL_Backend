@@ -124,6 +124,8 @@ type AuctionDto {
     auctionResult:String
     userId: Int
     productId:Int
+    variationsList: [Int]
+    optionsList: [Int]
 }
 type AuctionQueryDto {
     id:Int
@@ -142,4 +144,6 @@ input inputAuction {
     auctionResult:String
     userId: Int
     productId:Int
+    variationsList: [Int]
+    optionsList: [Int]
 }

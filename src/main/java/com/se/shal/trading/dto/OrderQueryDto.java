@@ -23,7 +23,7 @@ public class OrderQueryDto {
     Long id;
     LocalDateTime dateTime;
     Double totalPrice;
-    Integer Quantity;
+    Integer quantity;
     String paymentStatus;
     String orderStatus;
 

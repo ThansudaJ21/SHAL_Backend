@@ -1,5 +1,7 @@
 package com.se.shal.trading.service;
 
+import com.se.shal.product.dao.OptionsDao;
+import com.se.shal.product.dao.VariationDao;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.security.dao.UserDao;
@@ -25,15 +27,19 @@ public class AuctionServiceImpl implements AuctionService {
     ProductDao productDao;
     @Autowired
     UserDao userDao;
+    @Autowired
+    VariationDao variationDao;
+    @Autowired
+    OptionsDao optionsDao;
 
     @Transactional
     @Override
-    public Auction saveAuction(AuctionDto auction) {
+    public Auction auction(AuctionDto auction) {
         Product product = productDao.getProduct(auction.getProductId());
         User user = userDao.findById(auction.getUserId());
-
         Long countTime = auctionDao.countByProductIdAndUserId(auction.getProductId(), auction.getUserId());
-
+        List<Long> variationsList = auction.getVariationsList();
+        List<Long> optionsList = auction.getOptionsList();
         if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
             Auction newAuction = Auction.builder()
                     .auctionResult(AuctionResult.WINNER)
@@ -42,6 +48,8 @@ public class AuctionServiceImpl implements AuctionService {
                     .product(product)
                     .bidAmount(auction.getBidAmount())
                     .user(user)
+                    .variationsList(variationDao.findByIds(variationsList))
+                    .optionsList(optionsDao.findByIds(optionsList))
                     .build();
             return auctionDao.save(newAuction);
         } else {

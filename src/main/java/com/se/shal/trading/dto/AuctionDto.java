@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,6 +19,9 @@ public class AuctionDto {
     Integer times;
     Double bidAmount;
     AuctionResult auctionResult;
+
     Long userId;
     Long productId;
+    List<Long> variationsList;
+    List<Long> optionsList;
 }
