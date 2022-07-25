@@ -15,10 +15,10 @@ import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.dto.AuctionDto;
 import com.se.shal.trading.dto.AuctionQueryDto;
-import com.se.shal.trading.dto.TradingHistoryQueryDto;
+import com.se.shal.trading.dto.OrderInputDto;
+import com.se.shal.trading.dto.OrderQueryDto;
 import com.se.shal.trading.entity.Auction;
-import com.se.shal.trading.entity.TradingHistory;
-import org.mapstruct.InheritInverseConfiguration;
+import com.se.shal.trading.entity.ProductOrder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -122,14 +122,14 @@ public interface ShalMapper {
 
     UserDto getUserDto(User user);
 
-    List<TradingHistoryQueryDto> getTradingHistoryByProductId(List<TradingHistory> tradingHistories);
+    List<OrderQueryDto> getOrderByProductId(List<ProductOrder> productProductOrderList);
 
     @Mappings({
             @Mapping(target = "users", source = "users"),
             @Mapping(target = "products", source = "products")
 
     })
-    TradingHistoryQueryDto getTradingHistoryByProductId(TradingHistory tradingHistories);
+    OrderQueryDto getOrderByProductId(ProductOrder tradingHistories);
 
     @Mappings({
             @Mapping(target = "userId", source = "user.id"),
@@ -143,4 +143,18 @@ public interface ShalMapper {
             @Mapping(target = "product", source = "product.id")
     })
     AuctionQueryDto getAuctionByProductId(Auction auctions);
+
+    @Mappings({
+            @Mapping(target = "users", source = "users.id"),
+            @Mapping(target = "products", source = "products.id"),
+            @Mapping(target = "variationsList",
+                    expression = "java(productOrder.getVariationsList().stream()" +
+                            ".map(variationsList -> variationsList.getId())" +
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "optionsList",
+                    expression = "java(productOrder.getOptionsList().stream()" +
+                            ".map(optionsList -> optionsList.getId())" +
+                            ".collect(Collectors.toList()))")
+    })
+    OrderInputDto buyProduct(ProductOrder productOrder);
 }

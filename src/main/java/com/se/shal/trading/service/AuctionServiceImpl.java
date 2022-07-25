@@ -8,7 +8,7 @@ import com.se.shal.trading.Dao.AuctionDao;
 import com.se.shal.trading.dto.AuctionDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.product.dao.ProductDao;
-import com.se.shal.trading.entity.AuctionResult;
+import com.se.shal.trading.entity.enumeration.AuctionResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,14 +32,13 @@ public class AuctionServiceImpl implements AuctionService {
         Product product = productDao.getProduct(auction.getProductId());
         User user = userDao.findById(auction.getUserId());
 
-//        Long countTime = examResultDao.countByPatientId(patientId);
-//        examResult.setTimes(Math.toIntExact(countTime) +1 );
+        Long countTime = auctionDao.countByProductIdAndUserId(auction.getProductId(), auction.getUserId());
+
         if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
             Auction newAuction = Auction.builder()
                     .auctionResult(AuctionResult.WINNER)
-                    .bid(auction.getBid())
                     .localDateTime(LocalDateTime.now())
-                    .times(1)
+                    .times(Math.toIntExact(countTime) +1 )
                     .product(product)
                     .bidAmount(auction.getBidAmount())
                     .user(user)

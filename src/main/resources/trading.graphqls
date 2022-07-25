@@ -1,16 +1,40 @@
-type TradingHistory {
+type SaveOrder {
     id: Int
     dateTime:String
-    products:ProductQueryTradingHistory
-    users: UserQueryTradingHistory
+    totalPrice: Float
+    paymentStatus:String
+    Quantity: Int
+    orderStatus: String
+#TODO error use product ซ้ำ
+    products:Int
+    users: Int
+    variationsList: [Int]
+    optionsList: [Int]
 }
 
-type  ProductQueryTradingHistory {
+input OrderInput {
+    variationsList: [Int],
+    optionsList: [Int],
+    users: Int,
+    products: Int,
+    quantity:Int,
+}
+type SaveOrderVariations {
+    id:Int
+    variationName: String
+}
+type SaveOrderOptions {
+    id: Int
+    optionName:String
+    price: Int
+    stock: Int
+    image:String
+}
+type  SaveProductOrder {
     id:Int
     productName: String
     details: String
     category: String
-    shopId: Int
     productStatus: String
     imagesPath: [String]
     salePrice: Float
@@ -21,13 +45,9 @@ type  ProductQueryTradingHistory {
     saleTypeName: String
     timeUnitForAuctionPeriod: String
     timeUnitForNextAuction:String
-#    shipments: [String]
-    variations: [VariationsDto]
-    productAttribute: [QueryProductAttributeDto]
 }
-type UserQueryTradingHistory {
+type SaveUserOrder {
     id: Int
-    #    username: String
     userId: String
     email: String
     displayName: String
@@ -39,30 +59,84 @@ type UserQueryTradingHistory {
     authorities: [Authorities]
 }
 
+#--------------------------------------Query---------------------------------
+type Order {
+    id: Int
+    dateTime:String
+    totalPrice: Float
+    paymentStatus:String
+    Quantity: Int
+    orderStatus: String
+    products:ProductQueryOrder
+    users: UserQueryOrder
+    variationsList: [QueryOrderVariations]
+    optionsList: [QueryOrderOptions]
+}
+type QueryOrderVariations {
+    id:Int
+    variationName: String
+}
+
+type QueryOrderOptions {
+    id: Int
+    optionName:String
+    price: Int
+    stock: Int
+    image:String
+}
+
+type  ProductQueryOrder {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    productStatus: String
+    imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+}
+type UserQueryOrder {
+    id: Int
+    userId: String
+    email: String
+    displayName: String
+    firstname: String
+    lastname: String
+    pictureUrl:String
+    phoneNumber: String
+    enabled: Boolean
+    authorities: [Authorities]
+}
+
+
+#--------------------------------Auction----------------------------------------
 type AuctionDto {
-     id:Int
-     localDateTime:String
-     bid:Float
-     times: String
-     bidAmount:Float
-     auctionResult:String
-     userId: Int
-     productId:Int
+    id:Int
+    localDateTime:String
+    times: String
+    bidAmount:Float
+    auctionResult:String
+    userId: Int
+    productId:Int
 }
 type AuctionQueryDto {
     id:Int
     localDateTime:String
-    bid:Float
     times: String
     bidAmount:Float
     auctionResult:String
-    user: UserQueryTradingHistory
+    user: UserQueryOrder
     product:Int
 }
 input inputAuction {
     id:Int
     localDateTime:String
-    bid:Float
     times: String
     bidAmount:Float
     auctionResult:String

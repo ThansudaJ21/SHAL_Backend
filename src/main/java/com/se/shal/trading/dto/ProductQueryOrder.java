@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductQueryTradingHistory {
+public class ProductQueryOrder {
     Long id;
     String productName;
     String details;
@@ -36,7 +36,7 @@ public class ProductQueryTradingHistory {
     //    shipments
 //    List<String> shipments;
     //    variations
-    List<QueryVariationsDto> variations;
+//    List<QueryVariationsDto> variations;
     //    productAttribute
-    List<ProductAttributeDto> productAttribute;
+//    List<ProductAttributeDto> productAttribute;
 }

@@ -2,8 +2,6 @@ package com.se.shal.security.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.se.shal.shop.entity.Shop;
-import com.se.shal.trading.entity.TradingHistory;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,6 @@
 package com.se.shal.trading.dto;
 
-import com.se.shal.product.dto.query.QueryProductDto;
-import com.se.shal.trading.entity.AuctionResult;
+import com.se.shal.trading.entity.enumeration.AuctionResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,10 +15,9 @@ import java.time.LocalDateTime;
 public class AuctionQueryDto {
     Long id;
     LocalDateTime localDateTime;
-    Double bid;
     Integer times;
     Double bidAmount;
     AuctionResult auctionResult;
-    UserQueryTradingHistory user;
+    UserQueryOrder user;
     Long product;
 }

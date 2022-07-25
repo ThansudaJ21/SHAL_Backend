@@ -2,6 +2,7 @@ package com.se.shal.trading.entity;
 
 import com.se.shal.product.entity.Product;
 import com.se.shal.security.entity.User;
+import com.se.shal.trading.entity.enumeration.AuctionResult;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,7 +19,6 @@ public class Auction {
     @EqualsAndHashCode.Exclude
     Long id;
     LocalDateTime localDateTime;
-    Double bid;
     Integer times;
 
     Double bidAmount;

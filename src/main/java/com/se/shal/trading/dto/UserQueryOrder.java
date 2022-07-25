@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserQueryTradingHistory {
+public class UserQueryOrder {
     private Long id;
     private String email;
     private String userId;

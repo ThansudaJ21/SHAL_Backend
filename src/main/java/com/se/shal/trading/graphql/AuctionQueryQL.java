@@ -1,11 +1,8 @@
 package com.se.shal.trading.graphql;
 
 import com.se.shal.trading.dto.AuctionQueryDto;
-import com.se.shal.trading.dto.TradingHistoryQueryDto;
 import com.se.shal.trading.entity.Auction;
-import com.se.shal.trading.entity.TradingHistory;
 import com.se.shal.trading.service.AuctionService;
-import com.se.shal.trading.service.TradingService;
 import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
