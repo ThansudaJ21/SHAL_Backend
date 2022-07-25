@@ -7,8 +7,9 @@ import com.se.shal.product.entity.Product;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.User;
 import com.se.shal.shop.dao.ShopDao;
-import com.se.shal.trading.Dao.OrderDao;
-import com.se.shal.trading.dto.OrderInputDto;
+import com.se.shal.shop.entity.Shop;
+import com.se.shal.trading.Dao.ProductOrderDao;
+import com.se.shal.trading.dto.ProductOrderInputDto;
 import com.se.shal.trading.entity.ProductOrder;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.trading.entity.enumeration.PaymentStatus;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class ProductOrderServiceImpl implements ProductOrderService {
 
     @Autowired
     ProductDao productDao;
@@ -31,34 +32,37 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     VariationDao variationDao;
     @Autowired
-    OrderDao orderDao;
+    ProductOrderDao productOrderDao;
     @Autowired
     OptionsDao optionsDao;
 
+
     @Transactional
     @Override
-    public ProductOrder buyProduct(OrderInputDto orderInputDto) {
-        User user = userDao.findById(orderInputDto.getUsers());
-        Product product = productDao.getProduct(orderInputDto.getProducts());
-        List<Long> variationsList = orderInputDto.getVariationsList();
-        List<Long> optionsList = orderInputDto.getOptionsList();
+    public ProductOrder buyProduct(ProductOrderInputDto productOrderInputDto) {
+        User user = userDao.findById(productOrderInputDto.getUsers());
+        Product product = productDao.getProduct(productOrderInputDto.getProducts());
+        List<Long> variationsList = productOrderInputDto.getVariationsList();
+        List<Long> optionsList = productOrderInputDto.getOptionsList();
+        Shop shop = shopDao.findById(productOrderInputDto.getShop());
         Integer storage = product.getStorage();
-        if (orderInputDto.getQuantity() <= storage && orderInputDto.getQuantity() > 0) {
+        if (productOrderInputDto.getQuantity() <= storage && productOrderInputDto.getQuantity() > 0) {
             int finalStorage = 0;
-            finalStorage = storage - orderInputDto.getQuantity();
+            finalStorage = storage - productOrderInputDto.getQuantity();
             product.setStorage(finalStorage);
             ProductOrder productOrder = ProductOrder.builder()
                     .products(product)
                     .dateTime(LocalDateTime.now())
-                    .quantity(orderInputDto.getQuantity())
-                    .totalPrice(product.getSalePrice() * orderInputDto.getQuantity())
+                    .quantity(productOrderInputDto.getQuantity())
+                    .totalPrice(product.getSalePrice() * productOrderInputDto.getQuantity())
                     .orderStatus(OrderStatus.ADD_TO_CART)
                     .variationsList(variationDao.findByIds(variationsList))
                     .optionsList(optionsDao.findByIds(optionsList))
                     .paymentStatus(PaymentStatus.UNPAID)
+                    .shop(shop)
                     .users(user)
                     .build();
-            return orderDao.save(productOrder);
+            return productOrderDao.save(productOrder);
         } else {
             return null;
         }
@@ -66,31 +70,39 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public List<ProductOrder> getOrderByProductId(Long productId) {
-        return orderDao.getOrderByProductId(productId);
+    public List<ProductOrder> getProductOrderByProductsId(Long productId) {
+        return productOrderDao.findProductOrderByProductsId(productId);
     }
 
     @Transactional
     @Override
-    public ProductOrder addToCart(OrderInputDto orderInputDto) {
-        User user = userDao.findById(orderInputDto.getUsers());
-        Product product = productDao.getProduct(orderInputDto.getProducts());
-        List<Long> variationsList = orderInputDto.getVariationsList();
-        List<Long> optionsList = orderInputDto.getOptionsList();
+    public List<ProductOrder> getProductOrderByShopId(Long shopId) {
+        return productOrderDao.findProductOrderByShopId(shopId);
+    }
+
+    @Transactional
+    @Override
+    public ProductOrder addToCart(ProductOrderInputDto productOrderInputDto) {
+        User user = userDao.findById(productOrderInputDto.getUsers());
+        Product product = productDao.getProduct(productOrderInputDto.getProducts());
+        Shop shop = shopDao.findById(productOrderInputDto.getShop());
+        List<Long> variationsList = productOrderInputDto.getVariationsList();
+        List<Long> optionsList = productOrderInputDto.getOptionsList();
         Integer storage = product.getStorage();
-        if (orderInputDto.getQuantity() <= storage && orderInputDto.getQuantity() > 0) {
+        if (productOrderInputDto.getQuantity() <= storage && productOrderInputDto.getQuantity() > 0) {
             ProductOrder productOrder = ProductOrder.builder()
                     .products(product)
                     .dateTime(LocalDateTime.now())
-                    .quantity(orderInputDto.getQuantity())
-                    .totalPrice(product.getSalePrice() * orderInputDto.getQuantity())
+                    .quantity(productOrderInputDto.getQuantity())
+                    .totalPrice(product.getSalePrice() * productOrderInputDto.getQuantity())
                     .orderStatus(OrderStatus.BUY)
                     .variationsList(variationDao.findByIds(variationsList))
                     .optionsList(optionsDao.findByIds(optionsList))
                     .paymentStatus(PaymentStatus.UNPAID)
                     .users(user)
+                    .shop(shop)
                     .build();
-            return orderDao.save(productOrder);
+            return productOrderDao.save(productOrder);
         } else {
             return null;
         }

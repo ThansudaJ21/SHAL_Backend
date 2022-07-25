@@ -15,7 +15,9 @@ type Query {
     getAllProduct(shopId: Int): [QueryProductDto]
     findByUserId(userId: String) : UserQuery
 
-    getOrderByProductId(productId: Int) :[Order]
+    getProductOrderByProductId(productId: Int) :[Order]
+    getProductOrderByShopId(shopId: Int) :[Order]
+
     getProductAuctionType(shopId: Int ):[QueryProductDto]
     getAuctionByProductId(productId: Int) :[AuctionQueryDto]
 }

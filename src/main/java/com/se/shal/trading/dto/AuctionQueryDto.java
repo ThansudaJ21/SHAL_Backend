@@ -19,5 +19,6 @@ public class AuctionQueryDto {
     Double bidAmount;
     AuctionResult auctionResult;
     UserQueryOrder user;
+    Long shop;
     Long product;
 }

@@ -4,6 +4,7 @@ import com.se.shal.product.entity.Options;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.Variations;
 import com.se.shal.security.entity.User;
+import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.trading.entity.enumeration.PaymentStatus;
 import lombok.*;
@@ -33,6 +34,9 @@ public class ProductOrder {
 
     @ManyToMany
     List<Options> optionsList;
+
+    @ManyToOne
+    Shop shop;
 
     @ManyToOne
     Product products;

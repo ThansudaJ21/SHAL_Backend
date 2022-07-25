@@ -6,6 +6,8 @@ import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.User;
+import com.se.shal.shop.dao.ShopDao;
+import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.Dao.AuctionDao;
 import com.se.shal.trading.dto.AuctionDto;
 import com.se.shal.trading.entity.Auction;
@@ -31,6 +33,8 @@ public class AuctionServiceImpl implements AuctionService {
     VariationDao variationDao;
     @Autowired
     OptionsDao optionsDao;
+    @Autowired
+    ShopDao shopDao;
 
     @Transactional
     @Override
@@ -39,6 +43,7 @@ public class AuctionServiceImpl implements AuctionService {
         User user = userDao.findById(auction.getUserId());
         Long countTime = auctionDao.countByProductIdAndUserId(auction.getProductId(), auction.getUserId());
         List<Long> variationsList = auction.getVariationsList();
+        Shop shop = shopDao.findById(auction.getShop());
         List<Long> optionsList = auction.getOptionsList();
         if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
             Auction newAuction = Auction.builder()
@@ -50,6 +55,7 @@ public class AuctionServiceImpl implements AuctionService {
                     .user(user)
                     .variationsList(variationDao.findByIds(variationsList))
                     .optionsList(optionsDao.findByIds(optionsList))
+                    .shop(shop)
                     .build();
             return auctionDao.save(newAuction);
         } else {

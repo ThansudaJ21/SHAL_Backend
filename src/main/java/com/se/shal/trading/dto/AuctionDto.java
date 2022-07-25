@@ -19,7 +19,7 @@ public class AuctionDto {
     Integer times;
     Double bidAmount;
     AuctionResult auctionResult;
-
+    Long shop;
     Long userId;
     Long productId;
     List<Long> variationsList;

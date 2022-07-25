@@ -4,6 +4,7 @@ import com.se.shal.product.entity.Options;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.Variations;
 import com.se.shal.security.entity.User;
+import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
 import lombok.*;
 
@@ -28,6 +29,9 @@ public class Auction {
 
     @ManyToOne
     User user;
+
+    @ManyToOne
+    Shop shop;
 
     @ManyToMany
     List<Variations> variationsList;

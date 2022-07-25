@@ -10,6 +10,7 @@ type SaveOrder {
     users: Int
     variationsList: [Int]
     optionsList: [Int]
+    shop:Int
 }
 
 input OrderInput {
@@ -18,6 +19,7 @@ input OrderInput {
     users: Int,
     products: Int,
     quantity:Int,
+    shop:Int
 }
 type SaveOrderVariations {
     id:Int
@@ -124,6 +126,7 @@ type AuctionDto {
     auctionResult:String
     userId: Int
     productId:Int
+    shop:Int
     variationsList: [Int]
     optionsList: [Int]
 }
@@ -146,4 +149,5 @@ input inputAuction {
     productId:Int
     variationsList: [Int]
     optionsList: [Int]
+    shop:Int
 }

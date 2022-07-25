@@ -19,7 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderQueryDto {
+public class ProductOrderQueryDto {
     Long id;
     LocalDateTime dateTime;
     Double totalPrice;
@@ -29,6 +29,7 @@ public class OrderQueryDto {
 
     ProductQueryOrder products;
     UserQueryOrder users;
+    Long shop;
     List<VariationsQueryDto> variationsList;
     List<OptionsQueryDto> optionsList;
 }

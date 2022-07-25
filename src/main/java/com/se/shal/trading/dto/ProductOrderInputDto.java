@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderInputDto {
+public class ProductOrderInputDto {
     Long id;
     LocalDateTime dateTime;
     Double totalPrice;
@@ -21,6 +21,7 @@ public class OrderInputDto {
     String orderStatus;
 
     Long products;
+    Long shop;
     Long users;
     List<Long> variationsList;
     List<Long> optionsList;

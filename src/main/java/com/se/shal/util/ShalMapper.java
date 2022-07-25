@@ -15,8 +15,8 @@ import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.dto.AuctionDto;
 import com.se.shal.trading.dto.AuctionQueryDto;
-import com.se.shal.trading.dto.OrderInputDto;
-import com.se.shal.trading.dto.OrderQueryDto;
+import com.se.shal.trading.dto.ProductOrderInputDto;
+import com.se.shal.trading.dto.ProductOrderQueryDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.ProductOrder;
 import org.mapstruct.Mapper;
@@ -122,18 +122,19 @@ public interface ShalMapper {
 
     UserDto getUserDto(User user);
 
-    List<OrderQueryDto> getOrderByProductId(List<ProductOrder> productProductOrderList);
+    List<ProductOrderQueryDto> getOrderByProductId(List<ProductOrder> productProductOrderList);
 
     @Mappings({
             @Mapping(target = "users", source = "users"),
-            @Mapping(target = "products", source = "products")
-
+            @Mapping(target = "products", source = "products"),
+            @Mapping(target = "shop", source = "shop.id")
     })
-    OrderQueryDto getOrderByProductId(ProductOrder tradingHistories);
+    ProductOrderQueryDto getOrderByProductId(ProductOrder tradingHistories);
 
     @Mappings({
             @Mapping(target = "userId", source = "user.id"),
             @Mapping(target = "productId", source = "product.id"),
+            @Mapping(target = "shop", source = "shop.id"),
             @Mapping(target = "variationsList",
                     expression = "java(auction.getVariationsList().stream()" +
                             ".map(variationsList -> variationsList.getId())" +
@@ -148,7 +149,8 @@ public interface ShalMapper {
     List<AuctionQueryDto> getAuctionByProductId(List<Auction> auctions);
     @Mappings({
             @Mapping(target = "user", source = "user"),
-            @Mapping(target = "product", source = "product.id")
+            @Mapping(target = "product", source = "product.id"),
+            @Mapping(target = "shop", source = "shop.id")
     })
     AuctionQueryDto getAuctionByProductId(Auction auctions);
 
@@ -162,7 +164,8 @@ public interface ShalMapper {
             @Mapping(target = "optionsList",
                     expression = "java(productOrder.getOptionsList().stream()" +
                             ".map(optionsList -> optionsList.getId())" +
-                            ".collect(Collectors.toList()))")
+                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "shop", source = "shop.id")
     })
-    OrderInputDto buyProduct(ProductOrder productOrder);
+    ProductOrderInputDto buyProduct(ProductOrder productOrder);
 }
