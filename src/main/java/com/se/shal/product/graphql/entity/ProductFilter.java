@@ -13,4 +13,5 @@ public class ProductFilter {
     String productName;
     String category;
     String productStatus;
+    String saleTypeName;
 }

@@ -6,6 +6,7 @@ import com.se.shal.product.entity.Product_;
 import com.se.shal.product.entity.Variations;
 import com.se.shal.product.entity.enumeration.CategoryName;
 import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.graphql.entity.ProductFilter;
 import com.se.shal.product.repository.ProductRepository;
 import com.se.shal.shop.entity.Shop;
@@ -76,6 +77,10 @@ public class ProductDaoDbImpl implements ProductDao{
             if (!Strings.isNullOrEmpty(filter.getCategory())) {
                 CategoryName enumResult = CategoryName.valueOf(filter.getCategory());
                 predicates.add(cb.equal(root.get(Product_.CATEGORY), enumResult));
+            }
+            if (!Strings.isNullOrEmpty(filter.getSaleTypeName())) {
+                SaleTypeName enumResult = SaleTypeName.valueOf(filter.getSaleTypeName());
+                predicates.add(cb.equal(root.get(Product_.SALE_TYPE_NAME), enumResult));
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };

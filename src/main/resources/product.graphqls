@@ -283,6 +283,7 @@ input InputProductFilter{
     productName: String
     category: String
     productStatus: String
+    saleTypeName:String
 }
 
 type PageProduct {
