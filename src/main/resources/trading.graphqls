@@ -67,7 +67,7 @@ type Order {
     dateTime:String
     totalPrice: Float
     paymentStatus:String
-    Quantity: Int
+    quantity: Int
     orderStatus: String
     products:ProductQueryOrder
     users: UserQueryOrder

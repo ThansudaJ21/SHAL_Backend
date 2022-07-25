@@ -6,6 +6,7 @@ import com.se.shal.product.entity.Variations;
 import com.se.shal.security.entity.User;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
+import com.se.shal.trading.entity.enumeration.OrderStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Auction {
     Integer times;
     Double bidAmount;
     AuctionResult auctionResult;
+    OrderStatus orderStatus;
 
     @ManyToOne
     User user;

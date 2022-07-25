@@ -19,6 +19,12 @@ public class ProductOrderQueryQL implements GraphQLQueryResolver {
     @Transactional
     public List<ProductOrderQueryDto> findProductOrderByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
         List<ProductOrder> productOrderByShopId = productOrderService.findByUsersIdOrProductsIdOrShopId(userId, productId, shopId);
-        return ShalMapper.INSTANCE.getOrderByProductId(productOrderByShopId);
+        return ShalMapper.INSTANCE.getProductOrder(productOrderByShopId);
+    }
+
+    @Transactional
+    public List<ProductOrderQueryDto> getAddToCartProduct(Long userId) {
+        List<ProductOrder> addToCartProduct = productOrderService.getAddToCartProduct(userId);
+        return ShalMapper.INSTANCE.getProductOrder(addToCartProduct);
     }
 }

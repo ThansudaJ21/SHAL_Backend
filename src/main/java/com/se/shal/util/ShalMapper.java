@@ -122,14 +122,14 @@ public interface ShalMapper {
 
     UserDto getUserDto(User user);
 
-    List<ProductOrderQueryDto> getOrderByProductId(List<ProductOrder> productProductOrderList);
+    List<ProductOrderQueryDto> getProductOrder(List<ProductOrder> productProductOrderList);
 
     @Mappings({
             @Mapping(target = "users", source = "users"),
             @Mapping(target = "products", source = "products"),
             @Mapping(target = "shop", source = "shop.id")
     })
-    ProductOrderQueryDto getOrderByProductId(ProductOrder tradingHistories);
+    ProductOrderQueryDto getProductOrder(ProductOrder tradingHistories);
 
     @Mappings({
             @Mapping(target = "userId", source = "user.id"),

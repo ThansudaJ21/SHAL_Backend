@@ -13,6 +13,7 @@ import com.se.shal.trading.dto.AuctionDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.product.dao.ProductDao;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
+import com.se.shal.trading.entity.enumeration.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +57,7 @@ public class AuctionServiceImpl implements AuctionService {
                     .variationsList(variationDao.findByIds(variationsList))
                     .optionsList(optionsDao.findByIds(optionsList))
                     .shop(shop)
+                    .orderStatus(OrderStatus.AUCTION)
                     .build();
             return auctionDao.save(newAuction);
         } else {

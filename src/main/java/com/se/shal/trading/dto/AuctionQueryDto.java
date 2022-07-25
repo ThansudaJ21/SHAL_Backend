@@ -17,7 +17,8 @@ public class AuctionQueryDto {
     LocalDateTime localDateTime;
     Integer times;
     Double bidAmount;
-    AuctionResult auctionResult;
+    String auctionResult;
+    String orderStatus;
     UserQueryOrder user;
     Long shop;
     Long product;
