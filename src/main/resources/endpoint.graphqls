@@ -3,6 +3,7 @@ schema {
     query: Query
 }
 type Query {
+    #    Shop
     getRegisterShop(id: Int): ShopQuery
     shopQueryFilter(queryText: ShopQueryFilter, pageNo:Int, pageSize:Int): PageShop
     getFailureReason: [FailureReasonDto]
@@ -13,14 +14,13 @@ type Query {
     getProduct(id: Int):ProductDto
     productFilter(productFilter: InputProductFilter, pageNo:Int, pageSize:Int): PageProduct
     getAllProduct(shopId: Int): [QueryProductDto]
+    #    Authentication
     findByUserId(userId: String) : UserQuery
-
-    getProductOrderByProductId(productId: Int) :[Order]
-    getProductOrderByShopId(shopId: Int) :[Order]
+    #    Trading
+    findProductOrderByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [Order]
+    findAuctionByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [AuctionQueryDto]
 
     getProductAuctionType(shopId: Int ):[QueryProductDto]
-    getAuctionByProductId(productId: Int) :[AuctionQueryDto]
-    getAuctionByShopId(shopId: Int) : [AuctionQueryDto]
 }
 
 
@@ -28,7 +28,6 @@ type Mutation {
     registerShop( userId: Int,shop: ShopInput): Shop
     updateShopStatus(shopStatus: ShopStatusInput , userId: Int): Shop
     shopFailureReason(shopId: Int, failure:[InputFailureReason]):[FailureReason]
-
     #    Save Product
     saveProduct(shopId: Int,product: InputProduct): Product
     #    Update Product
@@ -36,9 +35,9 @@ type Mutation {
     updateProduct(product: InputUpdateProduct): UpdateProduct
     #   Delete
     deleteVariations(product:Int,id:Int): Int
-
+    #    Authentication
     registerUser(user: User): UserDto
-
+    #    Trading
     buyProduct(orderInput: OrderInput): SaveOrder
     addToCart(orderInput: OrderInput): SaveOrder
     auction(auction: inputAuction): AuctionDto

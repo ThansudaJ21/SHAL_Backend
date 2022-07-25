@@ -8,8 +8,6 @@ public interface AuctionDao {
     Auction findById(Long id);
     Auction save(Auction auction);
     List<Auction> findAll();
-    List<Auction> findByProductId(Long productId);
-    List<Auction> findByShopId(Long shopId);
-
+    List<Auction> findByUserIdOrProductIdOrShopId(Long userId,Long productId,Long shopId);
     Long countByProductIdAndUserId(Long productId, Long userId);
 }

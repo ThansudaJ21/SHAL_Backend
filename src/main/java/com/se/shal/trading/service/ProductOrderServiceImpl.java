@@ -70,18 +70,6 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
     @Transactional
     @Override
-    public List<ProductOrder> getProductOrderByProductsId(Long productId) {
-        return productOrderDao.findProductOrderByProductsId(productId);
-    }
-
-    @Transactional
-    @Override
-    public List<ProductOrder> getProductOrderByShopId(Long shopId) {
-        return productOrderDao.findProductOrderByShopId(shopId);
-    }
-
-    @Transactional
-    @Override
     public ProductOrder addToCart(ProductOrderInputDto productOrderInputDto) {
         User user = userDao.findById(productOrderInputDto.getUsers());
         Product product = productDao.getProduct(productOrderInputDto.getProducts());
@@ -106,5 +94,11 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         } else {
             return null;
         }
+    }
+
+    @Transactional
+    @Override
+    public List<ProductOrder> findByUsersIdOrProductsIdOrShopId(Long userId, Long productId, Long shopId) {
+        return productOrderDao.findByUsersIdOrProductsIdOrShopId(userId,productId,shopId);
     }
 }

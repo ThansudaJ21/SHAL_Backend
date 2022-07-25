@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AuctionService {
     Auction auction(AuctionDto auction);
-    List<Auction> checkBidAmount(Long productId, Double bidAmount);
-    List<Auction> getAuctionByProductId(Long productId);
-    List<Auction> getAuctionByShopId(Long shopId);
+//    List<Auction> checkBidAmount(Long productId, Double bidAmount);
+
+    List<Auction> findByUserIdOrProductIdOrShopId(Long userId,Long productId,Long shopId);
 }

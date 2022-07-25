@@ -63,20 +63,14 @@ public class AuctionServiceImpl implements AuctionService {
         }
     }
 
-    @Transactional
-    @Override
-    public List<Auction> checkBidAmount(Long productId, Double bidAmount) {
-        return auctionDao.findByProductId(productId);
-    }
+//    @Transactional
+//    @Override
+//    public List<Auction> checkBidAmount(Long productId, Double bidAmount) {
+//        return auctionDao.findByProductId(productId);
+//    }
 
-    @Transactional
     @Override
-    public List<Auction> getAuctionByProductId(Long productId) {
-        return auctionDao.findByProductId(productId);
-    }
-    @Transactional
-    @Override
-    public List<Auction> getAuctionByShopId(Long shopId) {
-        return auctionDao.findByShopId(shopId);
+    public List<Auction> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
+        return auctionDao.findByUserIdOrProductIdOrShopId(userId,productId,shopId);
     }
 }

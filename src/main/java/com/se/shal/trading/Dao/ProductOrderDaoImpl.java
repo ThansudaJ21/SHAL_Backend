@@ -19,12 +19,7 @@ public class ProductOrderDaoImpl implements ProductOrderDao {
     }
 
     @Override
-    public List<ProductOrder> findProductOrderByProductsId(Long productId) {
-        return productOrderRepository.findProductOrderByProductsId(productId);
-    }
-
-    @Override
-    public List<ProductOrder> findProductOrderByShopId(Long shopId) {
-        return productOrderRepository.findProductOrderByShopId(shopId);
+    public List<ProductOrder> findByUsersIdOrProductsIdOrShopId(Long userId, Long productId, Long shopId) {
+        return productOrderRepository.findByUsersIdOrProductsIdOrShopId(userId,productId,shopId);
     }
 }
