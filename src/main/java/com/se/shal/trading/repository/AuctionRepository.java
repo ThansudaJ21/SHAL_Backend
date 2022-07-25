@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
     List<Auction> findByProductId(Long productId);
+    List<Auction> findByShopId(Long shopId);
     Long countByProductIdAndUserId(Long patientId, Long userId);
 }

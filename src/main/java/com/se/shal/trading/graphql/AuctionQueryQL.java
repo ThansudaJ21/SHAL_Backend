@@ -19,7 +19,13 @@ public class AuctionQueryQL implements GraphQLQueryResolver {
     @Transactional
     public List<AuctionQueryDto> getAuctionByProductId(Long productId) {
         List<Auction> auctions =auctionService.getAuctionByProductId(productId);
-        return ShalMapper.INSTANCE.getAuctionByProductId(auctions);
+        return ShalMapper.INSTANCE.getAuction(auctions);
     }
 
+
+    @Transactional
+    public List<AuctionQueryDto> getAuctionByShopId(Long shopId) {
+        List<Auction> auctions =auctionService.getAuctionByShopId(shopId);
+        return ShalMapper.INSTANCE.getAuction(auctions);
+    }
 }

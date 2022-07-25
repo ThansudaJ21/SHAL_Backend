@@ -74,4 +74,9 @@ public class AuctionServiceImpl implements AuctionService {
     public List<Auction> getAuctionByProductId(Long productId) {
         return auctionDao.findByProductId(productId);
     }
+    @Transactional
+    @Override
+    public List<Auction> getAuctionByShopId(Long shopId) {
+        return auctionDao.findByShopId(shopId);
+    }
 }

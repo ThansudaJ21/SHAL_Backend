@@ -33,6 +33,11 @@ public class AuctionDaoImpl implements AuctionDao{
     }
 
     @Override
+    public List<Auction> findByShopId(Long shopId) {
+        return auctionRepository.findByShopId(shopId);
+    }
+
+    @Override
     public Long countByProductIdAndUserId(Long productId, Long userId) {
         return auctionRepository.countByProductIdAndUserId(productId,userId);
     }

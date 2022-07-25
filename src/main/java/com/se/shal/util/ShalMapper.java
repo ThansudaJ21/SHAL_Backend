@@ -146,7 +146,7 @@ public interface ShalMapper {
     })
     AuctionDto saveAuction(Auction auction);
 
-    List<AuctionQueryDto> getAuctionByProductId(List<Auction> auctions);
+    List<AuctionQueryDto> getAuction(List<Auction> auctions);
     @Mappings({
             @Mapping(target = "user", source = "user"),
             @Mapping(target = "product", source = "product.id"),
