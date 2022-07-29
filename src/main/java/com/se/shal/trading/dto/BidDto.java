@@ -17,7 +17,8 @@ public class BidDto {
     LocalDateTime localDateTime;
     Integer times;
     AuctionResult auctionResult;
+    Double bidAmount;
     Long userId;
     Long shopId;
-
+    Long productId;
 }

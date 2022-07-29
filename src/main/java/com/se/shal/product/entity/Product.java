@@ -6,6 +6,7 @@ import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.entity.Auction;
+import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.util.hibernate.StringListConverter;
 import lombok.*;
@@ -65,4 +66,9 @@ public class Product {
     @ManyToOne
     Auction auction;
 
+    @OneToOne
+    Bid currentBid;
+
+    @ManyToMany
+    List<Bid> bids;
 }

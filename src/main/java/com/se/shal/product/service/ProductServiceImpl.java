@@ -100,8 +100,8 @@ public class ProductServiceImpl implements ProductService {
                         .timeUnitForNextAuction(newProduct.getAuction().getTimeUnitForNextAuction())
                         .startingBid(newProduct.getAuction().getStartingBid())
                         .build();
-                auctionDao.save(auction);
                 product1.setAuction(auction);
+                auctionDao.save(auction);
             }
             return product1;
         }

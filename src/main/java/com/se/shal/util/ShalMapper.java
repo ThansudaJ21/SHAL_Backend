@@ -13,11 +13,9 @@ import com.se.shal.shop.dto.ShopDto;
 import com.se.shal.shop.entity.FailureReason;
 import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
-import com.se.shal.trading.dto.AuctionDto;
-import com.se.shal.trading.dto.AuctionQueryDto;
-import com.se.shal.trading.dto.ProductOrderInputDto;
-import com.se.shal.trading.dto.ProductOrderQueryDto;
+import com.se.shal.trading.dto.*;
 import com.se.shal.trading.entity.Auction;
+import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.ProductOrder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -131,7 +129,7 @@ public interface ShalMapper {
     })
     ProductOrderQueryDto getProductOrder(ProductOrder tradingHistories);
 
-//    @Mappings({
+    //    @Mappings({
 //            @Mapping(target = "userId", source = "user.id"),
 //            @Mapping(target = "productId", source = "product.id"),
 //            @Mapping(target = "shop", source = "shop.id"),
@@ -144,15 +142,23 @@ public interface ShalMapper {
 //                            ".map(optionsList -> optionsList.getId())" +
 //                            ".collect(Collectors.toList()))")
 //    })
-    AuctionDto saveAuction(Auction auction);
+//    AuctionDto saveAuction(Auction auction);
 
-    List<AuctionQueryDto> getAuction(List<Auction> auctions);
-//    @Mappings({
+    @Mappings({
+            @Mapping(target = "userId", source = "user.id"),
+            @Mapping(target = "productId", source = "product.id"),
+            @Mapping(target = "shopId", source = "shop.id")
+    })
+    BidDto getBidDto(Bid bid);
+
+//    List<AuctionQueryDto> getAuction(List<Auction> auctions);
+
+//        @Mappings({
 //            @Mapping(target = "user", source = "user"),
 //            @Mapping(target = "product", source = "product.id"),
 //            @Mapping(target = "shop", source = "shop.id")
 //    })
-    AuctionQueryDto getAuctionByProductId(Auction auctions);
+//    AuctionQueryDto getAuctionByProductId(Auction auctions);
 
     @Mappings({
             @Mapping(target = "users", source = "users.id"),

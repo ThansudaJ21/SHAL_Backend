@@ -36,9 +36,9 @@ public class AuctionDaoImpl implements AuctionDao{
 //    public List<Auction> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
 //        return auctionRepository.findByUserIdOrProductIdOrShopId(userId,productId,shopId);
 //    }
-//
+////
 //    @Override
-//    public List<Auction> findByProductId(Long productId) {
+//    public Auction findByProductId(Long productId) {
 //        return auctionRepository.findByProductId(productId);
 //    }
 }

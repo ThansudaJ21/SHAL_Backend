@@ -23,10 +23,10 @@ public class Bid {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    LocalDateTime localDateTime;
     Integer times;
+    Double bidAmount;
     AuctionResult auctionResult;
-
+    LocalDateTime localDateTime;
     @ManyToOne
     User user;
 
@@ -35,6 +35,4 @@ public class Bid {
 
     @ManyToOne
     Product product;
-
-
 }

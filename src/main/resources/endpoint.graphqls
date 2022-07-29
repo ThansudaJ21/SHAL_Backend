@@ -41,6 +41,6 @@ type Mutation {
     #    Trading
     buyProduct(orderInput: OrderInput): SaveOrder
     addToCart(orderInput: OrderInput): SaveOrder
-#    addAuction(auction: inputAuction): AuctionDto
+    addBid(bid: InputBid): BidDto
 }
 

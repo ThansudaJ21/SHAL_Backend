@@ -5,7 +5,7 @@ type SaveOrder {
     paymentStatus:String
     Quantity: Int
     orderStatus: String
-#TODO error use product ซ้ำ
+    #TODO error use product ซ้ำ
     products:Int
     users: Int
     variationsList: [Int]
@@ -120,21 +120,23 @@ type UserQueryOrder {
 #--------------------------------Auction----------------------------------------
 type AuctionDto {
     id:Int
-     nextAuction:Int
-     startingBid:Float
-     auctionPeriod:Int
-     timeUnitForAuctionPeriod:String
-     timeUnitForNextAuction:String
+    nextAuction:Int
+    startingBid:Float
+    auctionPeriod:Int
+    timeUnitForAuctionPeriod:String
+    timeUnitForNextAuction:String
     bids:[BidDto]
 
 }
 type BidDto {
-     id:Int
-     localDateTime:String
-     times:Int
-     auctionResult:String
-     userId:Int
-     shopId:Int
+    id:Int
+    localDateTime:String
+    times:Int
+    auctionResult:String
+    bidAmount:Float
+    userId:Int
+    shopId:Int
+    productId:Int
 }
 type AuctionQueryDto {
     id:Int
@@ -156,4 +158,15 @@ input inputAuction {
     variationsList: [Int]
     optionsList: [Int]
     shop:Int
+}
+
+input InputBid{
+    id:Int
+    localDateTime:String
+    times:Int
+    auctionResult:String
+    bidAmount:Float
+    userId:Int
+    shopId:Int
+    productId:Int
 }

@@ -23,6 +23,4 @@ public class Auction {
     TimeUnit timeUnitForAuctionPeriod;
     TimeUnit timeUnitForNextAuction;
 
-    @ManyToMany
-    List<Bid> bids;
 }

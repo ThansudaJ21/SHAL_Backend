@@ -6,9 +6,12 @@ import java.util.List;
 
 public interface AuctionDao {
     Auction findById(Long id);
+
     Auction save(Auction auction);
+
     List<Auction> findAll();
-//    List<Auction> findByUserIdOrProductIdOrShopId(Long userId,Long productId,Long shopId);
-//    List<Auction> findByProductId(Long productId);
+
+    //    List<Auction> findByUserIdOrProductIdOrShopId(Long userId,Long productId,Long shopId);
+//    Auction findByProductId(Long productId);
 //    Long countByProductIdAndUserId(Long productId, Long userId);
 }
