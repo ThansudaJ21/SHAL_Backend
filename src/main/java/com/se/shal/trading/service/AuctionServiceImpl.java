@@ -39,40 +39,46 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Transactional
     @Override
-    public Auction auction(AuctionDto auction) {
-        Product product = productDao.getProduct(auction.getProductId());
-        User user = userDao.findById(auction.getUserId());
-        Long countTime = auctionDao.countByProductIdAndUserId(auction.getProductId(), auction.getUserId());
-        List<Long> variationsList = auction.getVariationsList();
-        Shop shop = shopDao.findById(auction.getShop());
-        List<Long> optionsList = auction.getOptionsList();
-        if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
+    public Auction addAuction(AuctionDto auction) {
+//        Product product = productDao.getProduct(auction.getProductId());
+//        User user = userDao.findById(auction.getUserId());
+//        Long countTime = auctionDao.countByProductIdAndUserId(auction.getProductId(), auction.getUserId());
+//        List<Long> variationsList = auction.getVariationsList();
+//        Shop shop = shopDao.findById(auction.getShop());
+//        List<Long> optionsList = auction.getOptionsList();
+//        if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
             Auction newAuction = Auction.builder()
-                    .auctionResult(AuctionResult.WINNER)
-                    .localDateTime(LocalDateTime.now())
-                    .times(Math.toIntExact(countTime) +1 )
-                    .product(product)
-                    .bidAmount(auction.getBidAmount())
-                    .user(user)
-                    .variationsList(variationDao.findByIds(variationsList))
-                    .optionsList(optionsDao.findByIds(optionsList))
-                    .shop(shop)
-                    .orderStatus(OrderStatus.AUCTION)
+//                    .auctionResult(AuctionResult.WINNER)
+//                    .localDateTime(LocalDateTime.now())
+//                    .times(Math.toIntExact(countTime) + 1)
+//                    .product(product)
+//                    .bidAmount(auction.getBidAmount())
+//                    .user(user)
+//                    .variationsList(variationDao.findByIds(variationsList))
+//                    .optionsList(optionsDao.findByIds(optionsList))
+//                    .shop(shop)
+//                    .orderStatus(O/rderStatus.AUCTION)
+                    .auctionPeriod(auction.getAuctionPeriod())
                     .build();
             return auctionDao.save(newAuction);
-        } else {
-            return null;
-        }
+//        } else {
+//            return null;
+//        }
     }
 
 //    @Transactional
 //    @Override
-//    public List<Auction> checkBidAmount(Long productId, Double bidAmount) {
-//        return auctionDao.findByProductId(productId);
+//    public Auction checkCurrentBid(Long productId, Double bidAmount) {
+//        List<Auction> auctionList = auctionDao.findByProductId(productId);
+//        for (Auction auction : auctionList) {
+//
+//        }
+//        return null;
 //    }
-
-    @Override
-    public List<Auction> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
-        return auctionDao.findByUserIdOrProductIdOrShopId(userId,productId,shopId);
-    }
+//
+//    @Transactional
+//    @Override
+//    public List<Auction> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
+//        return auctionDao.findByUserIdOrProductIdOrShopId(userId, productId, shopId);
+//    }
 }

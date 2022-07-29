@@ -120,15 +120,21 @@ type UserQueryOrder {
 #--------------------------------Auction----------------------------------------
 type AuctionDto {
     id:Int
-    localDateTime:String
-    times: String
-    bidAmount:Float
-    auctionResult:String
-    userId: Int
-    productId:Int
-    shop:Int
-    variationsList: [Int]
-    optionsList: [Int]
+     nextAuction:Int
+     startingBid:Float
+     auctionPeriod:Int
+     timeUnitForAuctionPeriod:String
+     timeUnitForNextAuction:String
+    bids:[BidDto]
+
+}
+type BidDto {
+     id:Int
+     localDateTime:String
+     times:Int
+     auctionResult:String
+     userId:Int
+     shopId:Int
 }
 type AuctionQueryDto {
     id:Int

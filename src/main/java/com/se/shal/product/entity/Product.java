@@ -5,6 +5,8 @@ import com.se.shal.product.entity.enumeration.ProductStatus;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.shop.entity.Shop;
+import com.se.shal.trading.entity.Auction;
+import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.util.hibernate.StringListConverter;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
@@ -37,13 +39,9 @@ public class Product {
 
     //    sale information
     Double salePrice;
-    Double startingBid;
     Integer storage;
-    Integer auctionPeriod;
-    Integer nextAuction;
     SaleTypeName saleTypeName;
-    TimeUnit timeUnitForAuctionPeriod;
-    TimeUnit timeUnitForNextAuction;
+
 
     //    shipment
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -63,5 +61,8 @@ public class Product {
     //     shop
     @ManyToOne
     Shop shop;
+
+    @ManyToOne
+    Auction auction;
 
 }

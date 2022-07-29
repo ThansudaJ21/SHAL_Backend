@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 //    List<Auction> findByProductId(Long productId);
-//    List<Auction> findByShopId(Long shopId);
-//    List<Auction> findByUserId(Long userId);
-    List<Auction> findByUserIdOrProductIdOrShopId(Long userId,Long productId,Long shopId);
-    Long countByProductIdAndUserId(Long patientId, Long userId);
+//    List<Auction> findByUserIdOrProductIdOrShopId(Long userId,Long productId,Long shopId);
+//    Long countByProductIdAndUserId(Long patientId, Long userId);
 }

@@ -11,6 +11,8 @@ import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.graphql.entity.ProductFilter;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
+import com.se.shal.trading.Dao.AuctionDao;
+import com.se.shal.trading.entity.Auction;
 import com.se.shal.util.ShalMapper;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,8 @@ public class ProductServiceImpl implements ProductService {
     AttributeDao attributeDao;
     @Autowired
     ProductAttributeDao productAttributeDao;
+    @Autowired
+    AuctionDao auctionDao;
 
     @Transactional
     @Override
@@ -85,7 +89,20 @@ public class ProductServiceImpl implements ProductService {
             List<ProductAttribute> p = productAttributeDao.save(output);
             newProduct.setProductAttribute(p);
             newProduct.setVariations(variations);
+
             Product product1 = productDao.saveProduct(newProduct);
+
+            if (product1.getSaleTypeName().equals(SaleTypeName.AUCTION) || product1.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
+                Auction auction = Auction.builder()
+                        .auctionPeriod(newProduct.getAuction().getAuctionPeriod())
+                        .nextAuction(newProduct.getAuction().getNextAuction())
+                        .timeUnitForAuctionPeriod(newProduct.getAuction().getTimeUnitForAuctionPeriod())
+                        .timeUnitForNextAuction(newProduct.getAuction().getTimeUnitForNextAuction())
+                        .startingBid(newProduct.getAuction().getStartingBid())
+                        .build();
+                auctionDao.save(auction);
+                product1.setAuction(auction);
+            }
             return product1;
         }
         return null;
@@ -168,20 +185,14 @@ public class ProductServiceImpl implements ProductService {
             product1.setProductAttribute(output);
             product1.setVariations(var);
             product1.setShipments(dsgList);
-
             product1.setProductStatus(newProduct.getProductStatus());
             product1.setProductName(newProduct.getProductName());
             product1.setDetails(newProduct.getDetails());
             product1.setImagesPath(newProduct.getImagesPath());
             product1.setCategory(newProduct.getCategory());
-            product1.setNextAuction(newProduct.getNextAuction());
             product1.setSalePrice(newProduct.getSalePrice());
-            product1.setStartingBid(newProduct.getStartingBid());
             product1.setStorage(newProduct.getStorage());
-            product1.setAuctionPeriod(newProduct.getAuctionPeriod());
             product1.setSaleTypeName(newProduct.getSaleTypeName());
-            product1.setTimeUnitForNextAuction(newProduct.getTimeUnitForNextAuction());
-            product1.setTimeUnitForAuctionPeriod(newProduct.getTimeUnitForAuctionPeriod());
 
             Product product2 = productDao.saveProduct(product1);
 

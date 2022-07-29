@@ -14,10 +14,10 @@ import javax.transaction.Transactional;
 public class AuctionMutationQL implements GraphQLMutationResolver {
     @Autowired
     AuctionService auctionService;
-
-    @Transactional
-    public AuctionDto auction(AuctionDto auction) {
-        Auction newAuction = auctionService.auction(auction);
-        return ShalMapper.INSTANCE.saveAuction(newAuction);
-    }
+//
+//    @Transactional
+//    public AuctionDto addAuction(AuctionDto auction) {
+//        Auction newAuction = auctionService.addAuction(auction);
+//        return ShalMapper.INSTANCE.saveAuction(newAuction);
+//    }
 }

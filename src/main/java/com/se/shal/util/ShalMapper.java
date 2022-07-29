@@ -131,27 +131,27 @@ public interface ShalMapper {
     })
     ProductOrderQueryDto getProductOrder(ProductOrder tradingHistories);
 
-    @Mappings({
-            @Mapping(target = "userId", source = "user.id"),
-            @Mapping(target = "productId", source = "product.id"),
-            @Mapping(target = "shop", source = "shop.id"),
-            @Mapping(target = "variationsList",
-                    expression = "java(auction.getVariationsList().stream()" +
-                            ".map(variationsList -> variationsList.getId())" +
-                            ".collect(Collectors.toList()))"),
-            @Mapping(target = "optionsList",
-                    expression = "java(auction.getOptionsList().stream()" +
-                            ".map(optionsList -> optionsList.getId())" +
-                            ".collect(Collectors.toList()))")
-    })
+//    @Mappings({
+//            @Mapping(target = "userId", source = "user.id"),
+//            @Mapping(target = "productId", source = "product.id"),
+//            @Mapping(target = "shop", source = "shop.id"),
+//            @Mapping(target = "variationsList",
+//                    expression = "java(auction.getVariationsList().stream()" +
+//                            ".map(variationsList -> variationsList.getId())" +
+//                            ".collect(Collectors.toList()))"),
+//            @Mapping(target = "optionsList",
+//                    expression = "java(auction.getOptionsList().stream()" +
+//                            ".map(optionsList -> optionsList.getId())" +
+//                            ".collect(Collectors.toList()))")
+//    })
     AuctionDto saveAuction(Auction auction);
 
     List<AuctionQueryDto> getAuction(List<Auction> auctions);
-    @Mappings({
-            @Mapping(target = "user", source = "user"),
-            @Mapping(target = "product", source = "product.id"),
-            @Mapping(target = "shop", source = "shop.id")
-    })
+//    @Mappings({
+//            @Mapping(target = "user", source = "user"),
+//            @Mapping(target = "product", source = "product.id"),
+//            @Mapping(target = "shop", source = "shop.id")
+//    })
     AuctionQueryDto getAuctionByProductId(Auction auctions);
 
     @Mappings({

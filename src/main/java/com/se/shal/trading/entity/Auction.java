@@ -1,16 +1,10 @@
 package com.se.shal.trading.entity;
 
-import com.se.shal.product.entity.Options;
 import com.se.shal.product.entity.Product;
-import com.se.shal.product.entity.Variations;
-import com.se.shal.security.entity.User;
-import com.se.shal.shop.entity.Shop;
-import com.se.shal.trading.entity.enumeration.AuctionResult;
-import com.se.shal.trading.entity.enumeration.OrderStatus;
+import com.se.shal.product.entity.enumeration.TimeUnit;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -23,24 +17,12 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    LocalDateTime localDateTime;
-    Integer times;
-    Double bidAmount;
-    AuctionResult auctionResult;
-    OrderStatus orderStatus;
-
-    @ManyToOne
-    User user;
-
-    @ManyToOne
-    Shop shop;
+    Integer nextAuction;
+    Double startingBid;
+    Integer auctionPeriod;
+    TimeUnit timeUnitForAuctionPeriod;
+    TimeUnit timeUnitForNextAuction;
 
     @ManyToMany
-    List<Variations> variationsList;
-
-    @ManyToMany
-    List<Options> optionsList;
-
-    @ManyToOne
-    Product product;
+    List<Bid> bids;
 }

@@ -17,8 +17,8 @@ type Query {
     #    Authentication
     findByUserId(userId: String) : UserQuery
     #    Trading
-    findProductOrderByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [Order]
-    findAuctionByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [AuctionQueryDto]
+#    findProductOrderByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [Order]
+#    findAuctionByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [AuctionQueryDto]
     getAddToCartProduct(userId: Int ):[Order]
 
     getProductAuctionType(shopId: Int ):[QueryProductDto]
@@ -41,6 +41,6 @@ type Mutation {
     #    Trading
     buyProduct(orderInput: OrderInput): SaveOrder
     addToCart(orderInput: OrderInput): SaveOrder
-    auction(auction: inputAuction): AuctionDto
+#    addAuction(auction: inputAuction): AuctionDto
 }
 

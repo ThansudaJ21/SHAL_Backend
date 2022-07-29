@@ -27,13 +27,18 @@ public class AuctionDaoImpl implements AuctionDao{
         return auctionRepository.save(auction);
     }
 
-    @Override
-    public Long countByProductIdAndUserId(Long productId, Long userId) {
-        return auctionRepository.countByProductIdAndUserId(productId,userId);
-    }
+//    @Override
+//    public Long countByProductIdAndUserId(Long productId, Long userId) {
+//        return auctionRepository.countByProductIdAndUserId(productId,userId);
+//    }
 
-    @Override
-    public List<Auction> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
-        return auctionRepository.findByUserIdOrProductIdOrShopId(userId,productId,shopId);
-    }
+//    @Override
+//    public List<Auction> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
+//        return auctionRepository.findByUserIdOrProductIdOrShopId(userId,productId,shopId);
+//    }
+//
+//    @Override
+//    public List<Auction> findByProductId(Long productId) {
+//        return auctionRepository.findByProductId(productId);
+//    }
 }
