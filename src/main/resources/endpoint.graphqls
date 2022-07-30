@@ -20,7 +20,7 @@ type Query {
 #    findProductOrderByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [Order]
 #    findAuctionByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [AuctionQueryDto]
     getAddToCartProduct(userId: Int ):[Order]
-
+    getCurrentBid( productId: Int):BidQueryDto
     getProductAuctionType(shopId: Int ):[QueryProductDto]
 }
 

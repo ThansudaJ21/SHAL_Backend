@@ -15,11 +15,14 @@ import com.se.shal.trading.dto.BidDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 
 import static com.se.shal.product.entity.Product_.auction;
 
@@ -43,12 +46,12 @@ public class BidServiceImpl implements BidService {
 
     @Transactional
     @Override
-    public Bid addBid(BidDto bid) {
-        User user = userDao.findById(bid.getUserId());
-//        Auction auction = auctionDao.findByProductId(bid.getProductId());
-        Product product = productDao.getProduct(bid.getProductId());
-        Long countTime = bidDao.countByUserId(bid.getUserId());
-        Shop shop = shopDao.findById(bid.getShopId());
+    public Bid addBid(BidDto bidDto) {
+        User user = userDao.findById(bidDto.getUserId());
+        Product product = productDao.getProduct(bidDto.getProductId());
+        Long countTime = bidDao.countByUserId(bidDto.getUserId());
+        List<Bid> bidList = bidDao.findByProductId(bidDto.getUserId());
+        Shop shop = shopDao.findById(bidDto.getShopId());
         if (user != null) {
             if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
                 Bid newBiding = Bid.builder()
@@ -57,7 +60,7 @@ public class BidServiceImpl implements BidService {
                         .times(Math.toIntExact(countTime) + 1)
                         .user(user)
                         .product(product)
-                        .bidAmount(bid.getBidAmount())
+                        .bidAmount(bidDto.getBidAmount())
                         .shop(shop)
                         .build();
                 bidDao.saveBid(newBiding);
@@ -69,49 +72,21 @@ public class BidServiceImpl implements BidService {
         return null;
     }
 
+    @Transactional
+    @Override
+    public Bid getCurrentBid(Long productId) {
+        Product product = productDao.getProduct(productId);
+        Hibernate.initialize(product.getCurrentBid());
+        return product.getCurrentBid();
+    }
 
-    //    @Transactional
-//    @Override
-//    public Auction addAuction(AuctionDto auction) {
-//        Product product = productDao.getProduct(auction.getProductId());
-//        User user = userDao.findById(auction.getUserId());
-//        Long countTime = auctionDao.countByProductIdAndUserId(auction.getProductId(), auction.getUserId());
-//        List<Long> variationsList = auction.getVariationsList();
-//        Shop shop = shopDao.findById(auction.getShop());
-//        List<Long> optionsList = auction.getOptionsList();
-//        if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
-//            Auction newAuction = Auction.builder()
-//                    .auctionResult(AuctionResult.WINNER)
-//                    .localDateTime(LocalDateTime.now())
-//                    .times(Math.toIntExact(countTime) + 1)
-//                    .product(product)
-//                    .bidAmount(auction.getBidAmount())
-//                    .user(user)
-//                    .variationsList(variationDao.findByIds(variationsList))
-//                    .optionsList(optionsDao.findByIds(optionsList))
-//                    .shop(shop)
-//                    .orderStatus(O/rderStatus.AUCTION)
-//                    .auctionPeriod(auction.getAuctionPeriod())
-//                    .build();
-//            return auctionDao.save(newAuction);
-//        } else {
-//            return null;
-//        }
-//    }
-
-//    @Transactional
-//    @Override
-//    public Auction checkCurrentBid(Long productId, Double bidAmount) {
-//        List<Auction> auctionList = auctionDao.findByProductId(productId);
-//        for (Auction auction : auctionList) {
-//
-//        }
-//        return null;
-//    }
-//
-//    @Transactional
-//    @Override
-//    public List<Auction> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
-//        return auctionDao.findByUserIdOrProductIdOrShopId(userId, productId, shopId);
-//    }
+    public List<Bid> setLoserStatus(List<Bid> bidList, Double currentBid) {
+        for (Bid bid : bidList) {
+            if (currentBid > bid.getBidAmount()) {
+                bid.setAuctionResult(AuctionResult.LOSER);
+                bidDao.saveBid(bid);
+            }
+        }
+        return bidList;
+    }
 }

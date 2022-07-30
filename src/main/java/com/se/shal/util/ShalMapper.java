@@ -150,7 +150,12 @@ public interface ShalMapper {
             @Mapping(target = "shopId", source = "shop.id")
     })
     BidDto getBidDto(Bid bid);
-
+    @Mappings({
+            @Mapping(target = "user", source = "user"),
+            @Mapping(target = "product", source = "product"),
+            @Mapping(target = "shop", source = "shop")
+    })
+    BidQueryDto getCurrentBid(Bid bid);
 //    List<AuctionQueryDto> getAuction(List<Auction> auctions);
 
 //        @Mappings({

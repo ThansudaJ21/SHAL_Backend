@@ -170,3 +170,26 @@ input InputBid{
     shopId:Int
     productId:Int
 }
+
+type BidQueryDto {
+    id:Int
+    localDateTime:String
+    times:Int
+    auctionResult:String
+    bidAmount:Float
+    product:ProductQueryOrder
+    user: UserQueryOrder
+    shop:ShopQueryBid
+}
+
+type ShopQueryBid{
+    id: Int
+    shopName:String
+    idCard:String
+    shopLogoImagePath: String
+    selfiePhotoWithIdCardPath: String
+    promptPay: String
+    email: String
+    shopAddress: ShopAddress
+    shopStatus: String
+}

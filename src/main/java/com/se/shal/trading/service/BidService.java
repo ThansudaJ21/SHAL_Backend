@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface BidService {
     Bid addBid( BidDto bid);
+    Bid getCurrentBid(Long productId);
 }
