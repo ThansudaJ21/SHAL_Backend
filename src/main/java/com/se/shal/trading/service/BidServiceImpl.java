@@ -15,6 +15,7 @@ import com.se.shal.trading.dto.BidDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
+import com.se.shal.trading.exception.BidAmountException;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,23 +51,27 @@ public class BidServiceImpl implements BidService {
         User user = userDao.findById(bidDto.getUserId());
         Product product = productDao.getProduct(bidDto.getProductId());
         Long countTime = bidDao.countByUserId(bidDto.getUserId());
-        List<Bid> bidList = bidDao.findByProductId(bidDto.getUserId());
         Shop shop = shopDao.findById(bidDto.getShopId());
+        Double maxBidding = getMaxBidding(bidDto.getProductId());
         if (user != null) {
             if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
-                Bid newBiding = Bid.builder()
-                        .auctionResult(AuctionResult.WINNER)
-                        .localDateTime(LocalDateTime.now())
-                        .times(Math.toIntExact(countTime) + 1)
-                        .user(user)
-                        .product(product)
-                        .bidAmount(bidDto.getBidAmount())
-                        .shop(shop)
-                        .build();
-                bidDao.saveBid(newBiding);
-                product.setCurrentBid(newBiding);
-                productDao.saveProduct(product);
-                return newBiding;
+                if (maxBidding <= bidDto.getBidAmount()) {
+                    Bid newBiding = Bid.builder()
+                            .auctionResult(AuctionResult.WINNER)
+                            .localDateTime(LocalDateTime.now())
+                            .times(Math.toIntExact(countTime) + 1)
+                            .user(user)
+                            .product(product)
+                            .bidAmount(bidDto.getBidAmount())
+                            .shop(shop)
+                            .build();
+                    bidDao.saveBid(newBiding);
+                    product.setCurrentBid(newBiding);
+                    productDao.saveProduct(product);
+                    return newBiding;
+                } else {
+                    throw new BidAmountException(bidDto.getBidAmount());
+                }
             }
         }
         return null;
@@ -88,5 +93,15 @@ public class BidServiceImpl implements BidService {
             }
         }
         return bidList;
+    }
+
+
+    private Double getMaxBidding(Long productId) {
+        double max = Double.MIN_VALUE;
+        List<Bid> bidList = bidDao.findByProductId(productId);
+        for (Bid bid : bidList) {
+            max = Double.max(bid.getBidAmount(), max);
+        }
+        return max;
     }
 }

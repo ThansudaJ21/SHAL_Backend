@@ -9,4 +9,5 @@ import java.util.List;
 public interface BidRepository extends JpaRepository<Bid, Long> {
     Long countByUserId(Long userId);
     List<Bid> findByProductId(Long productId);
+    Bid findByProductIdAndBidAmountIsLessThan(Long productId, Double bidAmount);
 }
