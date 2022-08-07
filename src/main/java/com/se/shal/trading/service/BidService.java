@@ -10,4 +10,7 @@ import java.util.List;
 public interface BidService {
     Bid addBid( BidDto bid);
     Bid getCurrentBid(Long productId);
+    List<Bid> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId);
+
+
 }

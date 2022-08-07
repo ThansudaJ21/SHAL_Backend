@@ -30,7 +30,7 @@ public class Bid {
     @ManyToOne
     User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     Shop shop;
 
     @ManyToOne

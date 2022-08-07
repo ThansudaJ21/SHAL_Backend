@@ -29,7 +29,7 @@ public class BidDaoImpl implements BidDao {
     }
 
     @Override
-    public Bid findByProductIdAndBidAmountIsLessThan(Long productId, Double bidAmount) {
-        return bidRepository.findByProductIdAndBidAmountIsLessThan(productId, bidAmount);
+    public List<Bid> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
+        return bidRepository.findBidsByUserIdOrProductIdOrShopId(userId,productId,shopId);
     }
 }

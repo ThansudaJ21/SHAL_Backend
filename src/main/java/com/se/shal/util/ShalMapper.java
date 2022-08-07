@@ -129,41 +129,21 @@ public interface ShalMapper {
     })
     ProductOrderQueryDto getProductOrder(ProductOrder tradingHistories);
 
-    //    @Mappings({
-//            @Mapping(target = "userId", source = "user.id"),
-//            @Mapping(target = "productId", source = "product.id"),
-//            @Mapping(target = "shop", source = "shop.id"),
-//            @Mapping(target = "variationsList",
-//                    expression = "java(auction.getVariationsList().stream()" +
-//                            ".map(variationsList -> variationsList.getId())" +
-//                            ".collect(Collectors.toList()))"),
-//            @Mapping(target = "optionsList",
-//                    expression = "java(auction.getOptionsList().stream()" +
-//                            ".map(optionsList -> optionsList.getId())" +
-//                            ".collect(Collectors.toList()))")
-//    })
-//    AuctionDto saveAuction(Auction auction);
-
     @Mappings({
             @Mapping(target = "userId", source = "user.id"),
             @Mapping(target = "productId", source = "product.id"),
             @Mapping(target = "shopId", source = "shop.id")
     })
     BidDto getBidDto(Bid bid);
+
     @Mappings({
             @Mapping(target = "user", source = "user"),
             @Mapping(target = "product", source = "product"),
             @Mapping(target = "shop", source = "shop")
     })
-    BidQueryDto getCurrentBid(Bid bid);
-//    List<AuctionQueryDto> getAuction(List<Auction> auctions);
+    BidQueryDto getBidQueryDto(Bid bid);
 
-//        @Mappings({
-//            @Mapping(target = "user", source = "user"),
-//            @Mapping(target = "product", source = "product.id"),
-//            @Mapping(target = "shop", source = "shop.id")
-//    })
-//    AuctionQueryDto getAuctionByProductId(Auction auctions);
+    List<BidQueryDto> getBidQueryDto(List<Bid> bid);
 
     @Mappings({
             @Mapping(target = "users", source = "users.id"),

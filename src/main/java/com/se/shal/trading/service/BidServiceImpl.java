@@ -12,7 +12,6 @@ import com.se.shal.trading.Dao.AuctionDao;
 import com.se.shal.product.dao.ProductDao;
 import com.se.shal.trading.Dao.BidDao;
 import com.se.shal.trading.dto.BidDto;
-import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
 import com.se.shal.trading.exception.BidAmountException;
@@ -25,9 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
-
-import static com.se.shal.product.entity.Product_.auction;
 
 @Service
 public class BidServiceImpl implements BidService {
@@ -92,17 +88,6 @@ public class BidServiceImpl implements BidService {
     }
 
 
-    public List<Bid> setLoserStatus(List<Bid> bidList, Double currentBid) {
-        for (Bid bid : bidList) {
-            if (currentBid > bid.getBidAmount()) {
-                bid.setAuctionResult(AuctionResult.LOSER);
-                bidDao.saveBid(bid);
-            }
-        }
-        return bidList;
-    }
-
-
     private Double getMaxBidding(Long productId) {
         double max = Double.MIN_VALUE;
         List<Bid> bidList = bidDao.findByProductId(productId);
@@ -110,5 +95,11 @@ public class BidServiceImpl implements BidService {
             max = Double.max(bid.getBidAmount(), max);
         }
         return max;
+    }
+
+    @Transactional
+    @Override
+    public List<Bid> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
+        return bidDao.findByUserIdOrProductIdOrShopId(userId, productId, shopId);
     }
 }

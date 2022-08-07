@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface BidDao {
     Long countByUserId(Long userId);
+
     Bid saveBid(Bid bid);
+
     List<Bid> findByProductId(Long productId);
-    Bid findByProductIdAndBidAmountIsLessThan(Long productId, Double bidAmount);
+
+    List<Bid> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId);
 }
