@@ -74,6 +74,7 @@ type  ProductDto {
 #    auctionPeriod:Int
 #    nextAuction:Int
     saleTypeName: String
+    currentBid: BidQueryDto
 #    timeUnitForAuctionPeriod: String
 #    timeUnitForNextAuction:String
     shipments: [String]

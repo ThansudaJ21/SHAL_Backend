@@ -22,6 +22,7 @@ type Query {
     getAddToCartProduct(userId: Int ):[Order]
     getCurrentBid( productId: Int):BidQueryDto
     getProductAuctionType(shopId: Int ):[QueryProductDto]
+    getAuctionWinner(id: Int) : ProductDto
 }
 
 
