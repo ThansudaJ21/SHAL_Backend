@@ -1,5 +1,6 @@
 package com.se.shal.trading.dto;
 
+import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,12 +15,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AuctionQueryDto {
     Long id;
-    LocalDateTime localDateTime;
-    Integer times;
-    Double bidAmount;
-    String auctionResult;
-    String orderStatus;
-    UserQueryOrder user;
-    Long shop;
-    Long product;
+    Integer nextAuction;
+    Double startingBid;
+    Integer auctionPeriod;
+    TimeUnit timeUnitForAuctionPeriod;
+    TimeUnit timeUnitForNextAuction;
 }

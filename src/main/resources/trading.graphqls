@@ -95,13 +95,13 @@ type  ProductQueryOrder {
     productStatus: String
     imagesPath: [String]
     salePrice: Float
-    startingBid: Float
+#    startingBid: Float
     storage:Int
-    auctionPeriod:Int
-    nextAuction:Int
+#    auctionPeriod:Int
+#    nextAuction:Int
     saleTypeName: String
-    timeUnitForAuctionPeriod: String
-    timeUnitForNextAuction:String
+#    timeUnitForAuctionPeriod: String
+#    timeUnitForNextAuction:String
 }
 type UserQueryOrder {
     id: Int
@@ -140,12 +140,11 @@ type BidDto {
 }
 type AuctionQueryDto {
     id:Int
-    localDateTime:String
-    times: String
-    bidAmount:Float
-    auctionResult:String
-    user: UserQueryOrder
-    product:Int
+    nextAuction:Int
+    startingBid:Float
+    auctionPeriod:Int
+    timeUnitForAuctionPeriod:String
+    timeUnitForNextAuction:String
 }
 input inputAuction {
     id:Int

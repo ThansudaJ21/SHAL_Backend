@@ -26,17 +26,9 @@ public class ProductQueryOrder {
     Long shopId;
     //    sale information
     Double salePrice;
-    Double startingBid;
     Integer storage;
-    Integer auctionPeriod;
-    Integer nextAuction;
     SaleTypeName saleTypeName;
-    TimeUnit timeUnitForAuctionPeriod;
-    TimeUnit timeUnitForNextAuction;
-    //    shipments
-//    List<String> shipments;
-    //    variations
-//    List<QueryVariationsDto> variations;
-    //    productAttribute
-//    List<ProductAttributeDto> productAttribute;
+//    AuctionQueryDto auction;
+//    BidQueryDto currentBid;
+
 }

@@ -76,6 +76,7 @@ type  ProductDto {
     shipments: [String]
     variations: [VariationsDto]
     productAttribute: [QueryProductAttributeDto]
+    auction: AuctionQueryDto
 }
 type  QueryProductDto {
     id:Int
@@ -86,16 +87,12 @@ type  QueryProductDto {
     productStatus: String
     imagesPath: [String]
     salePrice: Float
-    #    startingBid: Float
     storage:Int
-    #    auctionPeriod:Int
-    #    nextAuction:Int
     saleTypeName: String
-    #    timeUnitForAuctionPeriod: String
-    #    timeUnitForNextAuction:String
     shipments: [String]
     variations: [VariationsDto]
     productAttribute: [QueryProductAttributeDto]
+    auction: AuctionQueryDto
 }
 type  FilterProductDto {
     id:Int
