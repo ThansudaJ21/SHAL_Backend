@@ -4,7 +4,9 @@ import com.se.shal.product.dto.ProductAttributeDto;
 import com.se.shal.product.entity.enumeration.ProductStatus;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.entity.enumeration.TimeUnit;
+import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.dto.BidQueryDto;
+import com.se.shal.trading.dto.ShopQueryDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,4 +42,5 @@ public class ProductQuery {
     List<QueryVariationsDto> variations;
     //    productAttribute
     List<ProductAttributeDto> productAttribute;
+    Shop shop;
 }
