@@ -16,6 +16,8 @@ import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
 import com.se.shal.trading.exception.BidAmountException;
+import com.se.shal.trading.exception.ProductTypeException;
+import com.se.shal.trading.exception.UserExistException;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,9 +55,10 @@ public class BidServiceImpl implements BidService {
         Long countTime = bidDao.countByUserId(bidDto.getUserId());
         Shop shop = shopDao.findById(bidDto.getShopId());
         Double maxBidding = getMaxBidding(bidDto.getProductId());
+        List<Bid> bidList = bidDao.findByProductId(bidDto.getProductId());
         if (user != null) {
             if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
-                if (maxBidding <= bidDto.getBidAmount()) {
+                if (bidDto.getBidAmount() > maxBidding) {
                     Bid newBiding = Bid.builder()
                             .auctionResult(AuctionResult.WINNER)
                             .localDateTime(LocalDateTime.now())
@@ -68,13 +71,16 @@ public class BidServiceImpl implements BidService {
                     bidDao.saveBid(newBiding);
                     product.setCurrentBid(newBiding);
                     productDao.saveProduct(product);
+                    for (Bid bid : bidList) {
+                        bid.setAuctionResult(AuctionResult.LOSER);
+                    }
                     return newBiding;
-                } else {
-                    throw new BidAmountException(bidDto.getBidAmount());
                 }
+                throw new BidAmountException(maxBidding);
             }
+            throw new ProductTypeException(product.getProductName());
         }
-        return null;
+        throw new UserExistException();
     }
 
     @Transactional
@@ -84,6 +90,7 @@ public class BidServiceImpl implements BidService {
         Hibernate.initialize(product.getCurrentBid());
         return product.getCurrentBid();
     }
+
 
     public List<Bid> setLoserStatus(List<Bid> bidList, Double currentBid) {
         for (Bid bid : bidList) {

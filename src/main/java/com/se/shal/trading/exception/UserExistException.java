@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BidAmountException extends RuntimeException implements GraphQLError {
-    Double bidAmount;
+public class UserExistException extends RuntimeException implements GraphQLError {
 
-    public BidAmountException(Double bidAmount) {
-        super(String.format("Bid has to be greater than max bid %s THB.", bidAmount));
-        this.bidAmount = bidAmount;
+
+    public UserExistException() {
+        super(String.format("No such user exists"));
+
     }
 
     @Override
@@ -32,8 +32,8 @@ public class BidAmountException extends RuntimeException implements GraphQLError
         Map<String, Object> extension = new HashMap<>();
 
         extension.put("error_code", 520);
-        extension.put("message", String.format("Bid has to be greater than max bid %s THB.", bidAmount));
-        extension.put("displayMessage", String.format("Bid has to be greater than max bid %s THB.", bidAmount));
+        extension.put("message", String.format("No such user exists"));
+        extension.put("displayMessage", String.format("No such user exists"));
         return extension;
     }
 }
