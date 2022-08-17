@@ -71,7 +71,7 @@ type Order {
     orderStatus: String
     products:ProductQueryOrder
     users: UserQueryOrder
-#    shop: ShopQuery
+    #    shop: ShopQuery
     variationsList: [QueryOrderVariations]
     optionsList: [QueryOrderOptions]
 }
@@ -96,13 +96,13 @@ type  ProductQueryOrder {
     productStatus: String
     imagesPath: [String]
     salePrice: Float
-#    startingBid: Float
+    #    startingBid: Float
     storage:Int
-#    auctionPeriod:Int
-#    nextAuction:Int
+    #    auctionPeriod:Int
+    #    nextAuction:Int
     saleTypeName: String
-#    timeUnitForAuctionPeriod: String
-#    timeUnitForNextAuction:String
+    #    timeUnitForAuctionPeriod: String
+    #    timeUnitForNextAuction:String
 }
 type UserQueryOrder {
     id: Int
@@ -126,8 +126,6 @@ type AuctionDto {
     auctionPeriod:Int
     timeUnitForAuctionPeriod:String
     timeUnitForNextAuction:String
-    bids:[BidDto]
-
 }
 type BidDto {
     id:Int
@@ -137,7 +135,7 @@ type BidDto {
     bidAmount:Float
     userId:Int
     shopId:Int
-#    productId:Int
+    #    productId:Int
 }
 type AuctionQueryDto {
     id:Int
@@ -146,6 +144,8 @@ type AuctionQueryDto {
     auctionPeriod:Int
     timeUnitForAuctionPeriod:String
     timeUnitForNextAuction:String
+    product: ProductQueryOrder
+
 }
 input inputAuction {
     id:Int
@@ -177,7 +177,8 @@ type BidQueryDto {
     times:Int
     auctionResult:String
     bidAmount:Float
-#    product:ProductQueryOrder
+    #    product:ProductQueryOrder
+    auction: AuctionQueryDto
     user: UserQueryOrder
     shop:ShopQueryBid
 }

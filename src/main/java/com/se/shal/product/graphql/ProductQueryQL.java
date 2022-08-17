@@ -1,7 +1,6 @@
 package com.se.shal.product.graphql;
 
 
-
 import com.se.shal.product.dto.query.ProductQuery;
 import com.se.shal.product.dto.query.QueryProductDto;
 import com.se.shal.product.entity.*;
@@ -32,28 +31,20 @@ public class ProductQueryQL implements GraphQLQueryResolver {
     }
 
     @Transactional
-    List<QueryProductDto> getAllProduct(Long shopId){
+    List<QueryProductDto> getAllProduct(Long shopId) {
         List<Product> products = productService.getAllProduct(shopId);
         return ShalMapper.INSTANCE.getQueryAllProductDto(products);
     }
 
     @Transactional
-    Page<Product> productFilter(ProductFilter filter, int pageNo, int pageSize){
-        return productService.productFilter(filter, PageRequest.of(pageNo,pageSize));
+    Page<Product> productFilter(ProductFilter filter, int pageNo, int pageSize) {
+        return productService.productFilter(filter, PageRequest.of(pageNo, pageSize));
     }
 
     @Transactional
-    List<QueryProductDto> getProductAuctionType(Long shopId){
+    List<QueryProductDto> getProductAuctionType(Long shopId) {
         List<Product> products = productService.getProductAuctionType(shopId);
         return ShalMapper.INSTANCE.getQueryAllProductDto(products);
     }
-
-    @Transactional
-    public ProductQuery getAuctionWinner(Long id) {
-        Product product = productService.getProduct(id);
-        Hibernate.initialize(product.getProductStatus());
-        return ShalMapper.INSTANCE.getProductDto(product);
-    }
-
 }
 

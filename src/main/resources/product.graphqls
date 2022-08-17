@@ -18,7 +18,7 @@ type  Product {
     shipments: [String]
     variations: [QueryVariationsDto]
     productAttribute: [QueryProductAttributeDto]
-    auction: AuctionProductDto
+#    auction: AuctionProductDto
 }
 type  UpdateProductStatus {
     id:Int
@@ -76,7 +76,7 @@ type  ProductDto {
     shipments: [String]
     variations: [VariationsDto]
     productAttribute: [QueryProductAttributeDto]
-    auction: AuctionQueryDto
+#    auction: AuctionQueryDto
 }
 type  QueryProductDto {
     id:Int
@@ -92,7 +92,7 @@ type  QueryProductDto {
     shipments: [String]
     variations: [VariationsDto]
     productAttribute: [QueryProductAttributeDto]
-    auction: AuctionQueryDto
+#    auction: AuctionQueryDto
 }
 type  FilterProductDto {
     id:Int
@@ -217,7 +217,7 @@ input InputProduct {
     shipments: [String]
     variations: [InputVariations]
     productAttribute: [InputProductAttribute]
-    auction: AuctionProduct
+#    auction: AuctionProduct
 }
 
 type AuctionProductDto {

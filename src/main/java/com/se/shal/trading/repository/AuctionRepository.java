@@ -10,5 +10,4 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
     Auction findByProductId(Long productId);
 
     List<Auction> findByMaxBiddingId(Long maxBiddingId);
-//    List<Auction> findByProductId(Long productId);
 }

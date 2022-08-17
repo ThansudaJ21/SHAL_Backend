@@ -20,4 +20,6 @@ public class AuctionQueryDto {
     Integer auctionPeriod;
     TimeUnit timeUnitForAuctionPeriod;
     TimeUnit timeUnitForNextAuction;
+    ProductQueryOrder product;
+
 }

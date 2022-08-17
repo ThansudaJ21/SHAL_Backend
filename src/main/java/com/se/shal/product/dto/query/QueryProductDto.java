@@ -35,6 +35,6 @@ public class QueryProductDto {
     //    productAttribute
     List<ProductAttributeDto> productAttribute;
 
-    AuctionQueryDto auction;
+//    AuctionQueryDto auction;
 
 }

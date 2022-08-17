@@ -18,11 +18,11 @@ type Query {
     findByUserId(userId: String) : UserQuery
     #    Trading
     findProductOrderByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [Order]
-    findAuctionByUserIdOrProductIdOrShopId(userId: Int,shopId: Int) : [BidQueryDto]
+    findAuctionByUserIdOrAuctionIdOrShopId(userId: Int,shopId: Int,auctionId: Int) : [BidQueryDto]
     getAddToCartProduct(userId: Int ):[Order]
-    getCurrentBid( productId: Int):BidQueryDto
+    getAuctionWinner(productId: Int):BidQueryDto
     getProductAuctionType(shopId: Int ):[QueryProductDto]
-    getAuctionWinner(id: Int) : ProductDto
+    #    getAuctionWinner(id: Int) : ProductDto
 }
 
 

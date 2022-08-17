@@ -14,8 +14,8 @@ public class BidDaoImpl implements BidDao {
     BidRepository bidRepository;
 
     @Override
-    public Long countByUserId(Long userId) {
-        return bidRepository.countByUserId(userId);
+    public Long countByUserIdAndAuctionId(Long userId,Long auctionId) {
+        return bidRepository.countByUserIdAndAuctionId(userId,auctionId);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class BidDaoImpl implements BidDao {
     }
 
     @Override
-    public List<Bid> findByUserIdOrShopId(Long userId, Long shopId) {
-        return bidRepository.findBidsByUserIdOrShopId(userId, shopId);
+    public List<Bid> findBidsByUserIdOrShopIdOrAuctionId(Long userId, Long shopId, Long auctionId) {
+        return bidRepository.findByUserIdOrShopIdOrAuctionIdOrderByLocalDateTimeDesc(userId, shopId, auctionId);
     }
 }

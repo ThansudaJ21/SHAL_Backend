@@ -7,8 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BidRepository extends JpaRepository<Bid, Long> {
-    Long countByUserId(Long userId);
+    Long countByUserIdAndAuctionId(Long userId, Long auctionId);
+
     List<Bid> findByAuctionId(Long auctionId);
 
-    List<Bid> findBidsByUserIdOrShopId(Long userId,Long shopId);
+    List<Bid> findByUserIdOrShopIdOrAuctionIdOrderByLocalDateTimeDesc(Long userId, Long shopId, Long auctionId);
+
 }

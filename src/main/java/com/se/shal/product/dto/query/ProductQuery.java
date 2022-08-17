@@ -43,6 +43,6 @@ public class ProductQuery {
     List<QueryVariationsDto> variations;
     //    productAttribute
     List<ProductAttributeDto> productAttribute;
-    AuctionQueryDto auction;
+//    AuctionQueryDto auction;
     Shop shop;
 }

@@ -45,7 +45,7 @@ public class BidServiceImpl implements BidService {
     public Bid addBid(BidDto bidDto) {
         User user = userDao.findById(bidDto.getUserId());
         Auction auction = auctionDao.findByProductId(bidDto.getProductId());
-        Long countTime = bidDao.countByUserId(bidDto.getUserId());
+        Long countTime = bidDao.countByUserIdAndAuctionId(bidDto.getUserId(), auction.getId());
         Shop shop = shopDao.findById(bidDto.getShopId());
         Double maxBidding = auction.getMaxBidding() == null ? 0.0 : auction.getMaxBidding().getBidAmount();
         List<Bid> bidList = bidDao.findByAuctionId(auction.getId());
@@ -70,9 +70,7 @@ public class BidServiceImpl implements BidService {
                         }
                         auction.setMaxBidding(newBiding);
                         return newBiding;
-
                     }
-
                     throw new BidAmountException(maxBidding);
                 }
                 throw new ProductTypeException(auction.getProduct().getProductName());
@@ -84,26 +82,19 @@ public class BidServiceImpl implements BidService {
 
     @Transactional
     @Override
-    public Bid getCurrentBid(Long productId) {
-        Product product = productDao.getProduct(productId);
-//        Hibernate.initialize(product.getCurrentBid());
-        return null;
+    public Bid getAuctionWinner(Long auctionId) {
+        List<Bid> bidList = bidDao.findByAuctionId(auctionId);
+        Bid winner = bidList.get(bidList.size() - 1);
+        Hibernate.initialize(winner.getUser());
+        Hibernate.initialize(winner.getAuction());
+        return winner;
     }
 
-
-    private Double getMaxBidding(Long productId) {
-        double max = Double.MIN_VALUE;
-//        List<Bid> bidList = bidDao.findByProductId(productId);
-//        for (Bid bid : bidList) {
-//            max = Double.max(bid.getBidAmount(), max);
-//        }
-        return max;
-    }
 
     @Transactional
     @Override
-    public List<Bid> findByUserIdOrShopId(Long userId, Long shopId) {
-        return bidDao.findByUserIdOrShopId(userId, shopId);
+    public List<Bid> findByUserIdOrShopIdOrAuctionId(Long userId, Long shopId, Long auctionId) {
+        return bidDao.findBidsByUserIdOrShopIdOrAuctionId(userId, shopId, auctionId);
     }
 }
 
