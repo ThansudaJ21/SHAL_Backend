@@ -1,4 +1,4 @@
-package com.se.shal.trading.Dao;
+package com.se.shal.trading.dao;
 
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.repository.BidRepository;
@@ -19,17 +19,18 @@ public class BidDaoImpl implements BidDao {
     }
 
     @Override
-    public Bid saveBid(Bid bid) {
+    public Bid save(Bid bid) {
         return bidRepository.save(bid);
     }
 
+
     @Override
-    public List<Bid> findByProductId(Long productId) {
-        return bidRepository.findByProductId(productId);
+    public List<Bid> findByAuctionId(Long auctionId) {
+        return bidRepository.findByAuctionId(auctionId);
     }
 
     @Override
-    public List<Bid> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
-        return bidRepository.findBidsByUserIdOrProductIdOrShopId(userId,productId,shopId);
+    public List<Bid> findByUserIdOrShopId(Long userId, Long shopId) {
+        return bidRepository.findBidsByUserIdOrShopId(userId, shopId);
     }
 }

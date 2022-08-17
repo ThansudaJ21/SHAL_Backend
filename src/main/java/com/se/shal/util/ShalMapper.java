@@ -131,14 +131,12 @@ public interface ShalMapper {
 
     @Mappings({
             @Mapping(target = "userId", source = "user.id"),
-            @Mapping(target = "productId", source = "product.id"),
             @Mapping(target = "shopId", source = "shop.id")
     })
     BidDto getBidDto(Bid bid);
 
     @Mappings({
             @Mapping(target = "user", source = "user"),
-            @Mapping(target = "product", source = "product"),
             @Mapping(target = "shop", source = "shop")
     })
     BidQueryDto getBidQueryDto(Bid bid);

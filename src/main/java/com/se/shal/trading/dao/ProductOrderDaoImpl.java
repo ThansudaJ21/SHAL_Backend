@@ -1,4 +1,4 @@
-package com.se.shal.trading.Dao;
+package com.se.shal.trading.dao;
 
 import com.se.shal.trading.entity.ProductOrder;
 import com.se.shal.trading.repository.ProductOrderRepository;

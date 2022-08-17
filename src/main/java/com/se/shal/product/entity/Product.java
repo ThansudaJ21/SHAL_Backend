@@ -63,12 +63,12 @@ public class Product {
     @ManyToOne
     Shop shop;
 
-    @ManyToOne
-    Auction auction;
-
-    @OneToOne
-    Bid currentBid;
-
-    @ManyToMany
-    List<Bid> bids;
+//    @ManyToOne
+//    Auction auction;
+//
+//    @OneToOne
+//    Bid currentBid;
+//
+//    @ManyToMany
+//    List<Bid> bids;
 }

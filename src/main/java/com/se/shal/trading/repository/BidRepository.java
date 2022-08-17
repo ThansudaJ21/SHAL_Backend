@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BidRepository extends JpaRepository<Bid, Long> {
     Long countByUserId(Long userId);
-    List<Bid> findByProductId(Long productId);
+    List<Bid> findByAuctionId(Long auctionId);
 
-    List<Bid> findBidsByUserIdOrProductIdOrShopId(Long userId,Long productId,Long shopId);
+    List<Bid> findBidsByUserIdOrShopId(Long userId,Long shopId);
 }

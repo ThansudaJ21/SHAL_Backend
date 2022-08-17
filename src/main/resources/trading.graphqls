@@ -71,6 +71,7 @@ type Order {
     orderStatus: String
     products:ProductQueryOrder
     users: UserQueryOrder
+#    shop: ShopQuery
     variationsList: [QueryOrderVariations]
     optionsList: [QueryOrderOptions]
 }
@@ -136,7 +137,7 @@ type BidDto {
     bidAmount:Float
     userId:Int
     shopId:Int
-    productId:Int
+#    productId:Int
 }
 type AuctionQueryDto {
     id:Int
@@ -176,7 +177,7 @@ type BidQueryDto {
     times:Int
     auctionResult:String
     bidAmount:Float
-    product:ProductQueryOrder
+#    product:ProductQueryOrder
     user: UserQueryOrder
     shop:ShopQueryBid
 }

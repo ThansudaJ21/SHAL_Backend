@@ -1,4 +1,4 @@
-package com.se.shal.trading.Dao;
+package com.se.shal.trading.dao;
 
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.repository.AuctionRepository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AuctionDaoImpl implements AuctionDao{
+public class AuctionDaoImpl implements AuctionDao {
     @Autowired
     AuctionRepository auctionRepository;
 
@@ -27,18 +27,15 @@ public class AuctionDaoImpl implements AuctionDao{
         return auctionRepository.save(auction);
     }
 
-//    @Override
-//    public Long countByProductIdAndUserId(Long productId, Long userId) {
-//        return auctionRepository.countByProductIdAndUserId(productId,userId);
-//    }
+    @Override
+    public List<Auction> findByMaxBiddingId(Long maxBiddingId) {
+        return auctionRepository.findByMaxBiddingId(maxBiddingId);
+    }
 
-//    @Override
-//    public List<Auction> findByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
-//        return auctionRepository.findByUserIdOrProductIdOrShopId(userId,productId,shopId);
-//    }
-////
-//    @Override
-//    public Auction findByProductId(Long productId) {
-//        return auctionRepository.findByProductId(productId);
-//    }
+    @Override
+    public Auction findByProductId(Long productId) {
+        return auctionRepository.findByProductId(productId);
+    }
+
+
 }

@@ -4,12 +4,11 @@ import com.se.shal.product.dao.OptionsDao;
 import com.se.shal.product.dao.ProductDao;
 import com.se.shal.product.dao.VariationDao;
 import com.se.shal.product.entity.Product;
-import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.User;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
-import com.se.shal.trading.Dao.ProductOrderDao;
+import com.se.shal.trading.dao.ProductOrderDao;
 import com.se.shal.trading.dto.ProductOrderInputDto;
 import com.se.shal.trading.entity.ProductOrder;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
@@ -57,7 +56,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .dateTime(LocalDateTime.now())
                     .quantity(productOrderInputDto.getQuantity())
                     .totalPrice(product.getSalePrice() * productOrderInputDto.getQuantity())
-                    .orderStatus(OrderStatus.ADD_TO_CART)
+                    .orderStatus(OrderStatus.BUY)
                     .variationsList(variationDao.findByIds(variationsList))
                     .optionsList(optionsDao.findByIds(optionsList))
                     .paymentStatus(PaymentStatus.UNPAID)
@@ -109,8 +108,8 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     public List<ProductOrder> getAddToCartProduct(Long userId) {
         List<ProductOrder> productOrderList = productOrderDao.findByUsersId(userId);
         List<ProductOrder> addToCartList = new ArrayList<>();
-        for (ProductOrder productOrder: productOrderList) {
-            if (productOrder.getOrderStatus().equals(OrderStatus.ADD_TO_CART)){
+        for (ProductOrder productOrder : productOrderList) {
+            if (productOrder.getOrderStatus().equals(OrderStatus.ADD_TO_CART)) {
                 addToCartList.add(productOrder);
             }
         }

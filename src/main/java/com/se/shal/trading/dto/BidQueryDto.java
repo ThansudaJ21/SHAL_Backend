@@ -20,5 +20,5 @@ public class BidQueryDto {
     Double bidAmount;
     UserQueryOrder user;
     ShopQueryDto shop;
-    ProductQueryOrder product;
+//    ProductQueryOrder product;
 }

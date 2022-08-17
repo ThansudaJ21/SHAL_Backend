@@ -24,8 +24,8 @@ public class BidQueryQL implements GraphQLQueryResolver {
     }
 
     @Transactional
-    public List<BidQueryDto> findAuctionByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
-        List<Bid> bids = bidService.findByUserIdOrProductIdOrShopId(userId, productId, shopId);
+    public List<BidQueryDto> findAuctionByUserIdOrProductIdOrShopId(Long userId, Long shopId) {
+        List<Bid> bids = bidService.findByUserIdOrShopId(userId, shopId);
         return ShalMapper.INSTANCE.getBidQueryDto(bids);
     }
 }

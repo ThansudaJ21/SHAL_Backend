@@ -27,12 +27,13 @@ public class Bid {
     Double bidAmount;
     AuctionResult auctionResult;
     LocalDateTime localDateTime;
+
     @ManyToOne
     User user;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Shop shop;
 
     @ManyToOne
-    Product product;
+    Auction auction;
 }

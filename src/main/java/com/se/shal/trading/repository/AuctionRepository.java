@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
-//    Auction findByProductId(Long productId);
-//    List<Auction> findByUserIdOrProductIdOrShopId(Long userId,Long productId,Long shopId);
-//    Long countByProductIdAndUserId(Long patientId, Long userId);
+    Auction findByProductId(Long productId);
+
+    List<Auction> findByMaxBiddingId(Long maxBiddingId);
+//    List<Auction> findByProductId(Long productId);
 }

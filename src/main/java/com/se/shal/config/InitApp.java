@@ -293,14 +293,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .text("China")
                 .attribute(materialCountry)
                 .build());
-        Auction auction_product = Auction.builder()
-                .auctionPeriod(1)
-                .nextAuction(1)
-                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
-                .timeUnitForNextAuction(TimeUnit.HOUR)
-                .startingBid(20000.0)
-                .build();
-        auctionRepository.save(auction_product);
+
         Product product = productRepository.save(Product.builder()
                 .productName("IPhone13")
                 .details("IPhone13 128 GB")
@@ -313,12 +306,19 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .productAttribute(Arrays.asList(att1, att2, att3, att4, att5))
                 .variations(Arrays.asList(variations, variations1))
                 .shipments(List.of(dhl, kerry, flash))
-                        .auction(auction_product)
                 .imagesPath(Arrays.asList("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20230114117-iphone-13.jpg?generation=1655308874417771&alt=media",
                         "https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20230153663-iphone-13-2.jpg?generation=1655308913808125&alt=media"))
                 .build());
 
-
+        Auction auction_product = Auction.builder()
+                .auctionPeriod(1)
+                .nextAuction(1)
+                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
+                .timeUnitForNextAuction(TimeUnit.HOUR)
+                .startingBid(20000.0)
+                .product(product)
+                .build();
+        auctionRepository.save(auction_product);
         Options options_dior = optionsRepository.save(Options.builder()
                 .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20012651809-lip-dior-1.jpg?generation=1655317611606883&alt=media")
                 .optionName("01")
@@ -502,14 +502,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .attribute(material)
                 .build());
 
-        Auction auction_bodycon_Dress = Auction.builder()
-                .auctionPeriod(5)
-                .nextAuction(2)
-                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
-                .timeUnitForNextAuction(TimeUnit.HOUR)
-                .startingBid(20000.0)
-                .build();
-        auctionRepository.save(auction_bodycon_Dress);
+
         Product bodycon_Dress = productRepository.save(Product.builder()
                 .productName("Twist Front Cut Out Ruched Bodycon Dress")
                 .details("Twist Front Cut Out Ruched Bodycon Dress")
@@ -523,12 +516,19 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .productAttribute(Arrays.asList(att_bodycon_Dress1, att_bodycon_Dress2, att_bodycon_Dress3, att_bodycon_Dress4, att_bodycon_Dress5))
                 .variations(List.of(var_bodycon_Dress_color, var_bodycon_Dress_size))
                 .shipments(Arrays.asList(kerry, ninja, dhl))
-                .auction(auction_bodycon_Dress)
                 .imagesPath(Arrays.asList("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20015405902-twis-2.jpg?generation=1655319245728525&alt=media",
                         "https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20232305548-twis.jpg?generation=1655310185606336&alt=media"))
                 .build());
 
-
+        Auction auction_bodycon_Dress = Auction.builder()
+                .auctionPeriod(5)
+                .nextAuction(2)
+                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
+                .timeUnitForNextAuction(TimeUnit.HOUR)
+                .startingBid(20000.0)
+                .product(bodycon_Dress)
+                .build();
+        auctionRepository.save(auction_bodycon_Dress);
         Options opt_floral_Dress_s = optionsRepository.save(Options.builder()
                 .optionName("S")
                 .stock(2)

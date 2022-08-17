@@ -1,6 +1,5 @@
 package com.se.shal.product.service;
 
-import com.google.common.base.Strings;
 import com.se.shal.product.dao.*;
 
 import com.se.shal.product.dto.input.InputProductDto;
@@ -11,7 +10,7 @@ import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.graphql.entity.ProductFilter;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
-import com.se.shal.trading.Dao.AuctionDao;
+import com.se.shal.trading.dao.AuctionDao;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.util.ShalMapper;
 import org.hibernate.Hibernate;
@@ -94,13 +93,13 @@ public class ProductServiceImpl implements ProductService {
 
             if (product1.getSaleTypeName().equals(SaleTypeName.AUCTION) || product1.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
                 Auction auction = Auction.builder()
-                        .auctionPeriod(newProduct.getAuction().getAuctionPeriod())
-                        .nextAuction(newProduct.getAuction().getNextAuction())
-                        .timeUnitForAuctionPeriod(newProduct.getAuction().getTimeUnitForAuctionPeriod())
-                        .timeUnitForNextAuction(newProduct.getAuction().getTimeUnitForNextAuction())
-                        .startingBid(newProduct.getAuction().getStartingBid())
+                        .auctionPeriod(product.getAuction().getAuctionPeriod())
+                        .nextAuction(product.getAuction().getNextAuction())
+                        .timeUnitForAuctionPeriod(product.getAuction().getTimeUnitForAuctionPeriod())
+                        .timeUnitForNextAuction(product.getAuction().getTimeUnitForNextAuction())
+                        .startingBid(product.getAuction().getStartingBid())
+                        .product(product1)
                         .build();
-                product1.setAuction(auction);
                 auctionDao.save(auction);
             }
             return product1;

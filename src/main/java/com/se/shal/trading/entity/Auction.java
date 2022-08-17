@@ -23,4 +23,12 @@ public class Auction {
     TimeUnit timeUnitForAuctionPeriod;
     TimeUnit timeUnitForNextAuction;
 
+//    @OneToMany
+//    List<Bid> bids;
+
+    @OneToOne
+    Product product;
+
+    @OneToOne
+    Bid maxBidding;
 }
