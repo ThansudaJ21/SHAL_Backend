@@ -1,6 +1,8 @@
 package com.se.shal.shop.graphql;
 
+import com.se.shal.shop.dto.FailureReasonListDto;
 import com.se.shal.shop.dto.ShopDto;
+import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.service.ShopService;
 import com.se.shal.util.ShalMapper;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Component
 public class ShopMutationQL implements GraphQLMutationResolver {
@@ -16,13 +19,20 @@ public class ShopMutationQL implements GraphQLMutationResolver {
     ShopService shopService;
 
     @Transactional
-    ShopDto registerShop(Shop shop){
-        Shop newShop = shopService.registerShop(shop);
+    ShopDto registerShop(Long userId, Shop shop){
+        Shop newShop = shopService.registerShop(userId,shop);
         return ShalMapper.INSTANCE.registerShop(newShop);
     }
 
-    ShopDto updateShopStatus(Shop shop){
-        Shop newShop = shopService.updateShopStatus(shop);
+    @Transactional
+    ShopDto updateShopStatus(Shop shop,Long userId){
+        Shop newShop = shopService.updateShopStatus(shop,userId);
         return ShalMapper.INSTANCE.updateShopStatus(newShop);
+    }
+
+    @Transactional
+    List<FailureReasonListDto> shopFailureReason(Long shopId, List<FailureReasonList> failureReasonList){
+       List<FailureReasonList> failureReasonLists = shopService.saveFailureReason(shopId, failureReasonList);
+        return ShalMapper.INSTANCE.getFailureReasonList(failureReasonLists);
     }
 }

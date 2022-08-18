@@ -1,5 +1,6 @@
 package com.se.shal.product.entity;
 
+import com.se.shal.product.entity.enumeration.CategoryName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

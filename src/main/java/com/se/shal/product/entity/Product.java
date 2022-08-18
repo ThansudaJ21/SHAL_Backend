@@ -1,8 +1,17 @@
 package com.se.shal.product.entity;
 
+import com.se.shal.product.entity.enumeration.CategoryName;
+import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
+import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.shop.entity.Shop;
+import com.se.shal.trading.entity.Auction;
+import com.se.shal.trading.entity.Bid;
+import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.util.hibernate.StringListConverter;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,7 +27,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    //    page1
+
     @Convert(converter = StringListConverter.class)
     @Builder.Default
     @Column(columnDefinition = "TEXT")
@@ -26,23 +35,40 @@ public class Product {
 
     String productName;
     String details;
-//    @OneToOne
     CategoryName category;
+    ProductStatus productStatus;
 
-    //  page2
-    @OneToMany(mappedBy = "product")
-    List<ProductAttribute> productAttributes;
-    //    page3 option
-    @OneToMany(mappedBy = "product")
-    List<Variations> variations;
-    //    page 4
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "salesInformation_id", referencedColumnName = "id")
-    SalesInformation salesInformation;
-    //    page 5
-    @ManyToMany(mappedBy="products")
+    //    sale information
+    Double salePrice;
+    Integer storage;
+    SaleTypeName saleTypeName;
+
+
+    //    shipment
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     List<Shipment> shipments;
 
+    //    variations
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    List<Variations> variations;
+
+    //    productAttributes
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    List<ProductAttribute> productAttribute;
+
+    //     shop
     @ManyToOne
     Shop shop;
+
+//    @ManyToOne
+//    Auction auction;
+//
+//    @OneToOne
+//    Bid currentBid;
+//
+//    @ManyToMany
+//    List<Bid> bids;
 }

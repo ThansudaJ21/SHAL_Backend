@@ -3,19 +3,45 @@ schema {
     query: Query
 }
 type Query {
+    #    Shop
     getRegisterShop(id: Int): ShopQuery
-    getAllShop: [ShopQuery]
-    shopQueryFilterByShopName(shopName: ShopQueryFilterByShopName, pageNo:Int, pageSize:Int): PageShop
-    ShopQueryFilterByShopStatus(shopStatus: ShopQueryFilterByShopStatus, pageNo:Int, pageSize:Int): PageShop
-
-#    Product
-
+    shopQueryFilter(queryText: ShopQueryFilter, pageNo:Int, pageSize:Int): PageShop
+    getFailureReason: [FailureReasonDto]
+    getAddressFromPostCode(postCode: String): PostCodeProvinceDto
+    #    Product
+    getCategory(id: Int): CategoryDto
+    getAllCategory: [Category]
+    getProduct(id: Int):ProductDto
+    productFilter(productFilter: InputProductFilter, pageNo:Int, pageSize:Int): PageProduct
+    getAllProduct(shopId: Int): [QueryProductDto]
+    #    Authentication
+    findByUserId(userId: String) : UserQuery
+    #    Trading
+    findProductOrderByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [Order]
+    findAuctionByUserIdOrAuctionIdOrShopId(userId: Int,shopId: Int,auctionId: Int) : [BidQueryDto]
+    getAddToCartProduct(userId: Int ):[Order]
+    getAuctionWinner(productId: Int):BidQueryDto
+    getProductAuctionType(shopId: Int ):[QueryProductDto]
+    #    getAuctionWinner(id: Int) : ProductDto
 }
-type Mutation {
-    registerShop(shop: ShopInput): Shop
-    updateShopStatus(shopStatus: ShopStatusInput): Shop
 
-#    Product
+
+type Mutation {
+    registerShop( userId: Int,shop: ShopInput): Shop
+    updateShopStatus(shopStatus: ShopStatusInput , userId: Int): Shop
+    shopFailureReason(shopId: Int, failure:[InputFailureReason]):[FailureReason]
+    #    Save Product
     saveProduct(shopId: Int,product: InputProduct): Product
+    #    Update Product
+    updateProductStatus(productStatus: ProductStatusInput): UpdateProductStatus
+    updateProduct(product: InputUpdateProduct): UpdateProduct
+    #   Delete
+    deleteVariations(product:Int,id:Int): Int
+    #    Authentication
+    registerUser(user: User): UserDto
+    #    Trading
+    buyProduct(orderInput: OrderInput): SaveOrder
+    addToCart(orderInput: OrderInput): SaveOrder
+    addBid(bid: InputBid): BidDto
 }
 

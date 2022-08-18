@@ -1,7 +1,7 @@
 package com.se.shal.product.dao;
 
 import com.se.shal.product.entity.Shipment;
-import com.se.shal.product.entity.ShipmentName;
+import com.se.shal.product.entity.enumeration.ShipmentName;
 import com.se.shal.product.repository.ShipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

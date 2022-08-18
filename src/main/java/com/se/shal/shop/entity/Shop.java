@@ -1,6 +1,7 @@
 package com.se.shal.shop.entity;
 
 import com.se.shal.product.entity.Product;
+import com.se.shal.security.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,12 +25,14 @@ public class Shop {
     String promptPay;
     String email;
 
-    @OneToMany(mappedBy = "shop")
-    @Builder.Default
-    List<Product> products = new ArrayList<>();
-
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shopAddress_id", referencedColumnName = "id")
     ShopAddress shopAddress;
-
     ShopStatusName shopStatus;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<FailureReasonList> failureReasonLists;
+
+    @OneToOne
+    User user;
 }

@@ -9,6 +9,40 @@ type Shop{
     email: String
     shopAddress: ShopAddress
     shopStatus: String
+    failureReasonLists: [QueryFailureReasonListDto]
+    userId: Int
+}
+type FailureReason {
+    id:Int
+    text: String
+    failureReasons: FailureListDto
+    shopId:Int
+}
+type QueryFailureReasonListDto {
+    id:Int
+    text: String
+    failureReasons: FailureReasonDto
+}
+type QueryFailureReasonDto {
+    id:Int
+    text: String
+    failureReasons: FailureListDto
+}
+type FailureReasonDto {
+    id: Int
+    reason: String
+}
+type FailureListDto {
+    reason: String
+}
+
+input InputFailureReason {
+    id: Int
+    text: String
+    failureReasons: InputReason
+}
+input InputReason {
+    reason: String
 }
 
 input ShopInput {
@@ -19,6 +53,7 @@ input ShopInput {
     promptPay: String
     email: String
     shopStatus: String
+    userId: Int
     shopAddress: ShopAddressInput
 }
 
@@ -48,16 +83,20 @@ type ShopQuery{
     promptPay: String
     email: String
     shopAddress: ShopAddress
+    user: Int
     shopStatus: String
+    failureReasonLists: [QueryFailureReasonDto]
 }
 
 input ShopStatusInput {
     id: Int
+    userId : Int
     shopStatus: String
 }
 
-input ShopQueryFilterByShopName {
-    shopName: String
+input ShopQueryFilter {
+     shopName:String
+     shopStatus:String
 }
 
 input ShopQueryFilterByShopStatus{
@@ -70,4 +109,12 @@ type PageShop {
     totalElements: Int
     content: [ShopQuery]
 }
+type PostCodeProvinceDto{
+    province: String
+    amphoes: [PostCodeAmphoeDto]
+}
 
+type PostCodeAmphoeDto{
+    amphoe: String
+    tumbons: [String]
+}

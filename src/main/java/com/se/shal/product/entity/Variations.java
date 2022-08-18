@@ -15,12 +15,9 @@ public class Variations {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    String name;
+    String variationName;
 
-    @OneToMany
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Options> options;
-
-    @ManyToOne
-    Product product;
-
 }

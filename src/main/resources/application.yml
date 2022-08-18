@@ -35,3 +35,10 @@ graphql:
     # Sets the path where GraphQL servlet will be exposed. If not specified defaults to "/graphql"
     mapping: /graphql
     corsEnabled: false
+shal:
+  postcodeDb: postcodeDb/postcodedb.json
+
+line.bot:
+  channel-token: 'mamocK9697OSCly7r24ylt6exny6VRN1W0TMFvkhMZubYUvh820rcXRjOPnOjK2O2lmk8nuB6ZFgdW73N71SJ88IfCuDJLTkVXe4fmbxkwu2oRqm8E2skNH6mV4NjAdvdgyYuSEsiu0AAUDXCOGIYgdB04t89/1O/w1cDnyilFU='
+  channel-secret: 'd33b95ab4b2aff4df0d3343b0b75b31c'
+  handler.path: /callback

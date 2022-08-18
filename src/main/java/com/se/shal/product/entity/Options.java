@@ -17,8 +17,8 @@ public class Options {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
+    String optionName;
     Integer price;
     Integer stock;
     String image;
-
 }

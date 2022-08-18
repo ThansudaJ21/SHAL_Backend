@@ -3,6 +3,7 @@ package com.se.shal.security.controller;
 
 import com.se.shal.security.JwtTokenUtil;
 import com.se.shal.security.entity.JwtUser;
+import com.se.shal.security.entity.User;
 import com.se.shal.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,16 +60,11 @@ public class AuthenticationRestController {
         final String token = jwtTokenUtil.generateToken(userDetails, device);
         Map result = new HashMap();
         result.put("token", token);
-//        Member member = ((JwtUser) userDetails).getMember();
-//        result.put("username",member.getUser().getUsername());
-//        result.put("role",member.getUser().getAuthorities().stream().map(authority -> authority.getName()).collect(Collectors.toList()));
-//        if (member instanceof CareOfficer careOfficer){
-//            result.put("careOfficerRole",careOfficer.getRole());
-//        }
-//        User user = userRepository.findById(((JwtUser) userDetails).getId()).orElse(null);
-//        if (user.getOrganizer() != null) {
-//            result.put("user", LabMapper.INSTANCE.getOrganizerAuthDTO( user.getOrganizer()));
-//        }
+        User user = userRepository.findById(((JwtUser) userDetails).getId()).orElse(null);
+        assert user != null;
+        result.put("username", user.getEmail());
+        result.put("name" , user.getDisplayName());
+        result.put("authorities", user.getAuthorities().stream().map(authority -> authority.getName()).collect(Collectors.toList()));
 
         return ResponseEntity.ok(result);
     }

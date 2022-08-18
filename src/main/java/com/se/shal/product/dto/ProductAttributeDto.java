@@ -1,6 +1,5 @@
 package com.se.shal.product.dto;
 
-import com.se.shal.product.entity.Attribute;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductAttributeDto {
+    Long id;
     String text;
     AttributeDto attribute;
+
 }
