@@ -10,6 +10,7 @@ type Shop{
     shopAddress: ShopAddress
     shopStatus: String
     failureReasonLists: [QueryFailureReasonListDto]
+    userId: Int
 }
 type FailureReason {
     id:Int
@@ -52,6 +53,7 @@ input ShopInput {
     promptPay: String
     email: String
     shopStatus: String
+    userId: Int
     shopAddress: ShopAddressInput
 }
 
@@ -81,12 +83,14 @@ type ShopQuery{
     promptPay: String
     email: String
     shopAddress: ShopAddress
+    user: Int
     shopStatus: String
     failureReasonLists: [QueryFailureReasonDto]
 }
 
 input ShopStatusInput {
     id: Int
+    userId : Int
     shopStatus: String
 }
 

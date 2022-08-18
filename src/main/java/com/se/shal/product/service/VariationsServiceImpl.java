@@ -7,6 +7,7 @@ import com.se.shal.product.entity.Options;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.ProductAttribute;
 import com.se.shal.product.entity.Variations;
+import com.se.shal.product.repository.VariationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,15 @@ import java.util.Objects;
 public class VariationsServiceImpl implements VariationsService {
     @Autowired
     VariationDao variationDao;
+    @Autowired
+    ProductDao productDao;
+
+    @Autowired
+    VariationRepository variationRepository;
 
     @Transactional
     @Override
-    public void deleteVariations(Long id) {
-        variationDao.deleteVariationsById(id);
+    public void deleteVariations(Long product,Long id) {
+        Product p = productDao.getProduct(product);
     }
 }

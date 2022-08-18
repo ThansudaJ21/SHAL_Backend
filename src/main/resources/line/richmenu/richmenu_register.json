@@ -1,0 +1,23 @@
+{
+  "size": {
+    "width": 2500,
+    "height": 1686
+  },
+  "selected": true,
+  "name": "Rich Menu 1",
+  "chatBarText": "Bulletin",
+  "areas": [
+    {
+      "bounds": {
+        "x": 4,
+        "y": 856,
+        "width": 2496,
+        "height": 830
+      },
+      "action": {
+        "type": "uri",
+        "uri": "https://liff.line.me/1657281642-5MQ4kdx3"
+      }
+    }
+  ]
+}

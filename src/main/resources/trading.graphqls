@@ -1,0 +1,196 @@
+type SaveOrder {
+    id: Int
+    dateTime:String
+    totalPrice: Float
+    paymentStatus:String
+    Quantity: Int
+    orderStatus: String
+    #TODO error use product ซ้ำ
+    products:Int
+    users: Int
+    variationsList: [Int]
+    optionsList: [Int]
+    shop:Int
+}
+
+input OrderInput {
+    variationsList: [Int],
+    optionsList: [Int],
+    users: Int,
+    products: Int,
+    quantity:Int,
+    shop:Int
+}
+type SaveOrderVariations {
+    id:Int
+    variationName: String
+}
+type SaveOrderOptions {
+    id: Int
+    optionName:String
+    price: Int
+    stock: Int
+    image:String
+}
+type  SaveProductOrder {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    productStatus: String
+    imagesPath: [String]
+    salePrice: Float
+    startingBid: Float
+    storage:Int
+    auctionPeriod:Int
+    nextAuction:Int
+    saleTypeName: String
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+}
+type SaveUserOrder {
+    id: Int
+    userId: String
+    email: String
+    displayName: String
+    firstname: String
+    lastname: String
+    pictureUrl:String
+    phoneNumber: String
+    enabled: Boolean
+    authorities: [Authorities]
+}
+
+#--------------------------------------Query---------------------------------
+type Order {
+    id: Int
+    dateTime:String
+    totalPrice: Float
+    paymentStatus:String
+    quantity: Int
+    orderStatus: String
+    products:ProductQueryOrder
+    users: UserQueryOrder
+    #    shop: ShopQuery
+    variationsList: [QueryOrderVariations]
+    optionsList: [QueryOrderOptions]
+}
+type QueryOrderVariations {
+    id:Int
+    variationName: String
+}
+
+type QueryOrderOptions {
+    id: Int
+    optionName:String
+    price: Int
+    stock: Int
+    image:String
+}
+
+type  ProductQueryOrder {
+    id:Int
+    productName: String
+    details: String
+    category: String
+    productStatus: String
+    imagesPath: [String]
+    salePrice: Float
+    #    startingBid: Float
+    storage:Int
+    #    auctionPeriod:Int
+    #    nextAuction:Int
+    saleTypeName: String
+    #    timeUnitForAuctionPeriod: String
+    #    timeUnitForNextAuction:String
+}
+type UserQueryOrder {
+    id: Int
+    userId: String
+    email: String
+    displayName: String
+    firstname: String
+    lastname: String
+    pictureUrl:String
+    phoneNumber: String
+    enabled: Boolean
+    authorities: [Authorities]
+}
+
+
+#--------------------------------Auction----------------------------------------
+type AuctionDto {
+    id:Int
+    nextAuction:Int
+    startingBid:Float
+    auctionPeriod:Int
+    timeUnitForAuctionPeriod:String
+    timeUnitForNextAuction:String
+}
+type BidDto {
+    id:Int
+    localDateTime:String
+    times:Int
+    auctionResult:String
+    bidAmount:Float
+    userId:Int
+    shopId:Int
+    #    productId:Int
+}
+type AuctionQueryDto {
+    id:Int
+    nextAuction:Int
+    startingBid:Float
+    auctionPeriod:Int
+    timeUnitForAuctionPeriod:String
+    timeUnitForNextAuction:String
+    product: ProductQueryOrder
+
+}
+input inputAuction {
+    id:Int
+    localDateTime:String
+    times: String
+    bidAmount:Float
+    auctionResult:String
+    userId: Int
+    productId:Int
+    variationsList: [Int]
+    optionsList: [Int]
+    shop:Int
+}
+
+input InputBid{
+    id:Int
+    localDateTime:String
+    times:Int
+    auctionResult:String
+    bidAmount:Float
+    userId:Int
+    shopId:Int
+    productId:Int
+}
+
+type BidQueryDto {
+    id:Int
+    localDateTime:String
+    times:Int
+    auctionResult:String
+    bidAmount:Float
+    #    product:ProductQueryOrder
+    auction: AuctionQueryDto
+    user: UserQueryOrder
+    shop:ShopQueryBid
+}
+
+type ShopQueryBid{
+    id: Int
+    shopName:String
+    idCard:String
+    shopLogoImagePath: String
+    selfiePhotoWithIdCardPath: String
+    promptPay: String
+    email: String
+    shopAddress: ShopAddress
+    shopStatus: String
+}

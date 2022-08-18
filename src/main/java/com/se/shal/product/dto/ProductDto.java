@@ -5,6 +5,7 @@ import com.se.shal.product.dto.query.QueryVariationsDto;
 import com.se.shal.product.entity.enumeration.ProductStatus;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.entity.enumeration.TimeUnit;
+import com.se.shal.trading.dto.AuctionDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,4 +39,5 @@ public class ProductDto {
     List<InputVariationsDto> variations;
     //    productAttribute
     List<ProductAttributeDto> productAttribute;
+    AuctionDto auction;
 }

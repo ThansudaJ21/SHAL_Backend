@@ -11,8 +11,8 @@ public enum CategoryName {
     HOME("Home Appliances",7),
     PETS("Pets",8);
 
-    private String category;
-    private Integer order;
+    private final String category;
+    private final Integer order;
 
     CategoryName(String category, Integer order){
         this.category = category;

@@ -1,0 +1,42 @@
+type UserDto {
+    id: Int
+#    username: String
+    userId: String
+    email: String
+    displayName: String
+    firstname: String
+    lastname: String
+    phoneNumber: String
+    enabled: Boolean
+    pictureUrl:String
+    authorities: [Authorities]
+}
+
+type UserQuery {
+    id: Int
+#    username: String
+    userId: String
+    email: String
+    displayName: String
+    firstname: String
+    lastname: String
+    pictureUrl:String
+    phoneNumber: String
+    enabled: Boolean
+    authorities: [Authorities]
+}
+type Authorities {
+    name: String
+}
+input User {
+    id: Int
+#    username: String
+    userId: String
+    email: String
+    pictureUrl:String
+    displayName: String
+    firstname: String
+    lastname: String
+    enabled: Boolean
+    phoneNumber: String
+}

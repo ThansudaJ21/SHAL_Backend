@@ -27,13 +27,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "USERNAME", length = 50, unique = true)
+    @Column(name = "EMAIL", length = 50, unique = true)
     @NotNull
-    private String username;
+    private String email;
 
-    @Column(name = "PASSWORD", length = 100)
+//    Line id
+    @Column(name = "USER_ID", length = 50, unique = true)
     @NotNull
-    private String password;
+    private String userId;
+
+    @Column(name = "PICTURE", length = 256)
+    @NotNull
+    private String pictureUrl;
+
+    @Column(name = "DISPLAY_NAME", length = 50)
+    @NotNull
+    private String displayName;
 
     @Column(name = "FIRSTNAME", length = 50)
     @NotNull
@@ -43,9 +52,9 @@ public class User {
     @NotNull
     private String lastname;
 
-    @Column(name = "EMAIL", length = 50)
+    @Column(name = "PHONENUMBER", length = 100)
     @NotNull
-    private String email;
+    private String phoneNumber;
 
     @Column(name = "ENABLED")
     @NotNull
@@ -53,14 +62,9 @@ public class User {
 
     @Column(name = "LASTPASSWORDRESETDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     private Date lastPasswordResetDate;
 
-	@Builder.Default
-    @ManyToMany(fetch = FetchType.EAGER)
+    @Builder.Default
+    @ManyToMany
     private List<Authority> authorities = new ArrayList<>();
-
-//    @OneToOne(mappedBy = "user")
-//    Member member;
-
 }

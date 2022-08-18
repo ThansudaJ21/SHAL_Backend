@@ -21,5 +21,4 @@ public class Options {
     Integer price;
     Integer stock;
     String image;
-
 }

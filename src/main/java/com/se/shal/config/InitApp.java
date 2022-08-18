@@ -1,16 +1,28 @@
 package com.se.shal.config;
 
+import com.se.shal.line.config.LineInitComponent;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.entity.enumeration.*;
 import com.se.shal.product.repository.*;
+import com.se.shal.security.entity.Authority;
+import com.se.shal.security.entity.AuthorityName;
+import com.se.shal.security.entity.User;
+import com.se.shal.security.repository.AuthorityRepository;
+import com.se.shal.security.repository.UserRepository;
 import com.se.shal.shop.entity.*;
 import com.se.shal.shop.repository.FailureReasonListRepository;
 import com.se.shal.shop.repository.FailureReasonRepository;
 import com.se.shal.shop.repository.ShopRepository;
 import com.se.shal.shop.repository.ShopStatusRepository;
+import com.se.shal.trading.dto.AuctionDto;
+import com.se.shal.trading.entity.Auction;
+import com.se.shal.trading.repository.AuctionRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -18,6 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@Slf4j
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     CategoryRepository categoryRepository;
@@ -41,17 +54,32 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     FailureReasonListRepository failureReasonListRepository;
     @Autowired
     ProductAttributeRepository productAttributeRepository;
+    @Autowired
+    LineInitComponent lineInitComponent;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    AuctionRepository auctionRepository;
 
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-
-        ShopStatus disable = shopStatusRepository.save(ShopStatus.builder()
-                .shopStatusName(ShopStatusName.DISABLE)
-                .build());
-        ShopStatus enable = shopStatusRepository.save(ShopStatus.builder()
-                .shopStatusName(ShopStatusName.ENABLE)
-                .build());
+        setAuthority();
+//        lineInitComponent.initLineApp();
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        User user = User.builder()
+                .firstname("thansuda")
+                .lastname("janthakham")
+                .authorities(List.of(roleBuyer))
+//                .password(encoder.encode("password"))
+                .email("thansuda2010@gmail.com")
+                .userId("userId")
+                .phoneNumber("0954475249")
+                .pictureUrl("profile")
+                .displayName("thansuda")
+                .enabled(true)
+                .build();
+        userRepository.save(user);
 
         FailureReason not_clear = FailureReason.builder().reason("Selfie Photo with ID card does not clear").build();
         FailureReason logo = FailureReason.builder().reason("Inappropriate shop logo").build();
@@ -157,9 +185,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .email("Thansuda2010@gmail.com")
                 .promptPay("0954475249")
                 .idCard("1234567891234")
-                .shopStatus(ShopStatusName.ENABLE)
-                .shopLogoImagePath("shop image")
-                .selfiePhotoWithIdCardPath("selfie")
+                .shopStatus(ShopStatusName.DISABLE)
+                .shopLogoImagePath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20215820811-shopLogo1.png?generation=1655305100953281&alt=media")
+                .selfiePhotoWithIdCardPath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20215941465-selfiePhotoWithIdCardPath1.png?generation=1655305181566480&alt=media")
                 .shopAddress(ShopAddress.builder()
                         .district("meachan")
                         .houseNumber("322")
@@ -168,14 +196,15 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                         .province("chiang rai")
                         .build())
                 .build());
+        shop.setUser(user);
         Shop shop2 = shopRepository.save(Shop.builder()
                 .shopName("Patteeda shop")
                 .email("Patteera@gmail.com")
                 .promptPay("0953348895")
                 .idCard("1234567891234")
                 .shopStatus(ShopStatusName.ENABLE)
-                .shopLogoImagePath("shop image")
-                .selfiePhotoWithIdCardPath("selfie")
+                .shopLogoImagePath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20220538725-shopLogo2.png?generation=1655305538800881&alt=media")
+                .selfiePhotoWithIdCardPath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20220520826-selfiePhotoWithIdCardPath2.png?generation=1655305520955480&alt=media")
                 .shopAddress(ShopAddress.builder()
                         .district("Fang")
                         .houseNumber("322")
@@ -190,8 +219,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .promptPay("0885558125")
                 .idCard("1111111111111")
                 .shopStatus(ShopStatusName.DISABLE)
-                .shopLogoImagePath("shop image")
-                .selfiePhotoWithIdCardPath("selfie")
+                .shopLogoImagePath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20220146496-shopLogo3.png?generation=1655305306554049&alt=media")
+                .selfiePhotoWithIdCardPath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20220131035-selfiePhotoWithIdCardPath3.jpg?generation=1655305291158439&alt=media")
                 .shopAddress(ShopAddress.builder()
                         .district("San kam pang")
                         .houseNumber("56")
@@ -202,11 +231,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                         .build())
                 .build());
         shop3.setFailureReasonLists(Arrays.asList(failureReasonListRepository.save(FailureReasonList.builder()
-                .failureReasons(logo)
-                .build()),
+                        .failureReasons(logo)
+                        .build()),
                 failureReasonListRepository.save(FailureReasonList.builder()
-                .failureReasons(name)
-                .build())));
+                        .failureReasons(name)
+                        .build())));
 
         Options options = optionsRepository.save(Options.builder()
                 .optionName("128GB")
@@ -221,14 +250,14 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
 
         Options options2 = optionsRepository.save(Options.builder()
-                .image("Iphone-green.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20230345195-iphone-13-green.jpg?generation=1655309025198821&alt=media")
                 .optionName("Green")
                 .stock(20)
                 .price(29000)
                 .build());
 
         Options options3 = optionsRepository.save(Options.builder()
-                .image("Iphone-red.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20230400845-iphone-13-red.jpg?generation=1655309040876595&alt=media")
                 .optionName("Red")
                 .stock(20)
                 .price(39000)
@@ -270,44 +299,49 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .details("IPhone13 128 GB")
                 .category(CategoryName.ELECTRONIC)
                 .productStatus(ProductStatus.ACTIVE)
-                .auctionPeriod(1)
-                .nextAuction(1)
                 .shop(shop)
-                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
-                .timeUnitForNextAuction(TimeUnit.HOUR)
                 .salePrice(35000.0)
                 .saleTypeName(SaleTypeName.AUCTIONANDSALE)
                 .storage(40)
-                .startingBid(20000.0)
                 .productAttribute(Arrays.asList(att1, att2, att3, att4, att5))
                 .variations(Arrays.asList(variations, variations1))
                 .shipments(List.of(dhl, kerry, flash))
-                .imagesPath(Arrays.asList("Image1", "Image2"))
+                .imagesPath(Arrays.asList("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20230114117-iphone-13.jpg?generation=1655308874417771&alt=media",
+                        "https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20230153663-iphone-13-2.jpg?generation=1655308913808125&alt=media"))
                 .build());
 
+        Auction auction_product = Auction.builder()
+                .auctionPeriod(1)
+                .nextAuction(1)
+                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
+                .timeUnitForNextAuction(TimeUnit.HOUR)
+                .startingBid(20000.0)
+                .product(product)
+                .build();
+        auctionRepository.save(auction_product);
         Options options_dior = optionsRepository.save(Options.builder()
-                .image("lipstick_dior01.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20012651809-lip-dior-1.jpg?generation=1655317611606883&alt=media")
                 .optionName("01")
                 .stock(10)
                 .price(3500)
                 .build());
 
         Options options_dior1 = optionsRepository.save(Options.builder()
-                .image("lipstick_dior02.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20012706879-lip-dior-2.jpg?generation=1655317626665394&alt=media")
                 .optionName("02")
                 .stock(10)
                 .price(3500)
                 .build());
 
         Options options_dior2 = optionsRepository.save(Options.builder()
-                .image("lipstick_dior03.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20012721835-lip-dior-3.jpg?generation=1655317641592829&alt=media")
                 .optionName("03")
                 .stock(10)
                 .price(3500)
                 .build());
 
         Options options_dior3 = optionsRepository.save(Options.builder()
-                .image("lipstick_dior04.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20012739870-lip-dior-4.jpg?generation=1655317659632874&alt=media")
                 .optionName("04")
                 .stock(10)
                 .price(3500)
@@ -341,17 +375,21 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .productAttribute(Arrays.asList(att_dior1, att_dior2))
                 .variations(List.of(variations_dior))
                 .shipments(Arrays.asList(ninja, dhl))
-                .imagesPath(Arrays.asList("lip-dior-all.jpg"))
+                .imagesPath(Arrays.asList("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20011424660-lip-dior-all.jpg?generation=1655316866602294&alt=media",
+                        "https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20012454363-lip-dior-all2.jpg?generation=1655317495096511&alt=media",
+                        "https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20012511949-lip-dior-all3.jpg?generation=1655317511876856&alt=media",
+                        "https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20012526565-lip-dior-all4.jpg?generation=1655317526386419&alt=media",
+                        "https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20012544539-lip-dior-all5.jpg?generation=1655317544410245&alt=media"))
                 .build());
 
         Options options_chanel = optionsRepository.save(Options.builder()
-                .image("Black.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20014531610-dress-chanel-black.jpg?generation=1655318731518850&alt=media")
                 .optionName("Black")
                 .stock(2)
                 .build());
 
         Options options_chanel1 = optionsRepository.save(Options.builder()
-                .image("White.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20014550961-dress-chanel-white.jpg?generation=1655318750807129&alt=media")
                 .optionName("White")
                 .stock(5)
                 .build());
@@ -406,12 +444,12 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .productAttribute(Arrays.asList(att_chanel1, att_chanel2, att_chanel3, att_chanel4))
                 .variations(List.of(variations_chanel_size, variations_chanel_color))
                 .shipments(Arrays.asList(kerry, ninja, dhl))
-                .imagesPath(Arrays.asList("dress-chanel.jpg"))
+                .imagesPath(Arrays.asList("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20014513944-dress-chanel.jpg?generation=1655318713825088&alt=media"))
                 .build());
 
 
         Options opt_bodycon_Dress = optionsRepository.save(Options.builder()
-                .image("Multicolor.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20014938169-twis-multicolor.png?generation=1655318978027907&alt=media")
                 .optionName("Multicolor")
                 .stock(2)
                 .build());
@@ -464,6 +502,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .attribute(material)
                 .build());
 
+
         Product bodycon_Dress = productRepository.save(Product.builder()
                 .productName("Twist Front Cut Out Ruched Bodycon Dress")
                 .details("Twist Front Cut Out Ruched Bodycon Dress")
@@ -471,22 +510,25 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .productStatus(ProductStatus.ACTIVE)
                 .shop(shop)
                 .saleTypeName(SaleTypeName.AUCTION)
-                .auctionPeriod(5)
-                .nextAuction(2)
                 .shop(shop2)
-                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
-                .timeUnitForNextAuction(TimeUnit.HOUR)
                 .salePrice(200.0)
                 .storage(10)
-                .startingBid(20000.0)
                 .productAttribute(Arrays.asList(att_bodycon_Dress1, att_bodycon_Dress2, att_bodycon_Dress3, att_bodycon_Dress4, att_bodycon_Dress5))
                 .variations(List.of(var_bodycon_Dress_color, var_bodycon_Dress_size))
                 .shipments(Arrays.asList(kerry, ninja, dhl))
-                .imagesPath(Arrays.asList("https://img.ltwebstatic.com/images3_pi/2022/04/22/16506075404a2c35a3844fa81fb45c921921613c48_thumbnail_600x.webp",
-                        "https://img.ltwebstatic.com/images3_pi/2022/04/22/16506075410d79db9ae971d8d35b6af5ec5f5e31cc_thumbnail_600x.webp"))
+                .imagesPath(Arrays.asList("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20015405902-twis-2.jpg?generation=1655319245728525&alt=media",
+                        "https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20232305548-twis.jpg?generation=1655310185606336&alt=media"))
                 .build());
 
-
+        Auction auction_bodycon_Dress = Auction.builder()
+                .auctionPeriod(5)
+                .nextAuction(2)
+                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
+                .timeUnitForNextAuction(TimeUnit.HOUR)
+                .startingBid(20000.0)
+                .product(bodycon_Dress)
+                .build();
+        auctionRepository.save(auction_bodycon_Dress);
         Options opt_floral_Dress_s = optionsRepository.save(Options.builder()
                 .optionName("S")
                 .stock(2)
@@ -545,20 +587,20 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .productAttribute(Arrays.asList(att_floral_Dress1, att_floral_Dress2, att_floral_Dress3, att_floral_Dress4, att_floral_Dress5))
                 .variations(List.of(var_floral_Dress_size))
                 .shipments(List.of(jandt))
-                .imagesPath(Arrays.asList("https://img.ltwebstatic.com/images3_pi/2022/04/18/16502517601737269fc448aa97a14810be3d41fccc_thumbnail_600x.webp",
-                        "https://img.ltwebstatic.com/images3_pi/2022/04/18/16502517703654c7f1593e30f5b085e2deb3e4b5a0_thumbnail_600x.webp"))
+                .imagesPath(Arrays.asList("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20015634517-daisy-1.jpg?generation=1655319394390071&alt=media",
+                        "https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20015654048-daisy-2.jpg?generation=1655319413913978&alt=media"))
                 .build());
 
 
         Options opt_LIP_GLOW1 = optionsRepository.save(Options.builder()
-                .image("opt_LIP_GLOW0134.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20020400152-lip-glow-012.jpg?generation=1655319839952333&alt=media")
                 .optionName("012")
                 .stock(10)
                 .price(3500)
                 .build());
 
         Options opt_LIP_GLOW2 = optionsRepository.save(Options.builder()
-                .image("opt_LIP_GLOW013.png")
+                .image("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20020528495-lip-glow-013.jpg?generation=1655319928569653&alt=media")
                 .optionName("013")
                 .stock(10)
                 .price(3500)
@@ -592,10 +634,27 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .productAttribute(Arrays.asList(att_LIP_GLOW1, att_LIP_GLOW2))
                 .variations(List.of(var_LIP_GLOW))
                 .shipments(Arrays.asList(ninja))
-                .imagesPath(List.of("https://cdn.shopify.com/s/files/1/0463/7432/2326/products/Y0996214_C021400015_E01_GHC_400x.jpg?v=1643651016"))
+                .imagesPath(List.of("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20020156160-lip-glow.jpg?generation=1655319715951935&alt=media"))
                 .build());
 
     }
 
+    @Autowired
+    AuthorityRepository authorityRepository;
+    Authority roleAdmin, roleBuyer, roleSeller, roleUser;
 
+    private void setAuthority() {
+        roleAdmin = authorityRepository.save(Authority.builder()
+                .name(AuthorityName.ADMIN)
+                .build());
+        roleBuyer = authorityRepository.save(Authority.builder()
+                .name(AuthorityName.BUYER)
+                .build());
+        roleSeller = authorityRepository.save(Authority.builder()
+                .name(AuthorityName.SELLER)
+                .build());
+        roleUser = authorityRepository.save(Authority.builder()
+                .name(AuthorityName.USER)
+                .build());
+    }
 }

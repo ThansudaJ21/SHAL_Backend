@@ -41,7 +41,7 @@ public class ProductMutationQL implements GraphQLMutationResolver {
     }
 
     @Transactional
-    void deleteVariations(Long id){
-        variationsService.deleteVariations(id);
+    void deleteVariations(Long product, Long id){
+        variationsService.deleteVariations(product,id);
     }
 }

@@ -12,9 +12,16 @@ import java.util.List;
 
 public interface ProductService {
     Product saveProduct(Long shopId, InputProductDto product);
+
     Product getProduct(Long id);
-    List<Product> getAllProduct(Long shopId);
+
     Product updateProduct(InputUpdateProductDto product);
+
     Product updateProductStatus(Product product);
+
+    List<Product> getAllProduct(Long shopId);
+
     Page<Product> productFilter(ProductFilter productFilter, PageRequest pageRequest);
+
+    List<Product> getProductAuctionType(Long shopId);
 }

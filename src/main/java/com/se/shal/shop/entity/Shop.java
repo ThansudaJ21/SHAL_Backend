@@ -1,6 +1,7 @@
 package com.se.shal.shop.entity;
 
 import com.se.shal.product.entity.Product;
+import com.se.shal.security.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,4 +32,7 @@ public class Shop {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<FailureReasonList> failureReasonLists;
+
+    @OneToOne
+    User user;
 }

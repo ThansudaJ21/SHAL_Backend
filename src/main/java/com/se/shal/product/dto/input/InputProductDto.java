@@ -3,6 +3,7 @@ package com.se.shal.product.dto.input;
 import com.se.shal.product.entity.enumeration.ProductStatus;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.entity.enumeration.TimeUnit;
+import com.se.shal.trading.dto.AuctionDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,15 +23,10 @@ public class InputProductDto {
     ProductStatus productStatus;
     String category;
     Long shopId;
-    //    sale information
+    AuctionDto auction;
     Double salePrice;
-    Double startingBid;
     Integer storage;
-    Integer auctionPeriod;
-    Integer nextAuction;
     SaleTypeName saleTypeName;
-    TimeUnit timeUnitForAuctionPeriod;
-    TimeUnit timeUnitForNextAuction;
     //    shipments
     List<String> shipments;
     //    variations

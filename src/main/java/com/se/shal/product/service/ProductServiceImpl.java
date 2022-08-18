@@ -6,9 +6,12 @@ import com.se.shal.product.dto.input.InputProductDto;
 import com.se.shal.product.dto.input.InputUpdateProductDto;
 import com.se.shal.product.entity.*;
 import com.se.shal.product.entity.enumeration.ProductStatus;
+import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.graphql.entity.ProductFilter;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
+import com.se.shal.trading.dao.AuctionDao;
+import com.se.shal.trading.entity.Auction;
 import com.se.shal.util.ShalMapper;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,8 @@ public class ProductServiceImpl implements ProductService {
     AttributeDao attributeDao;
     @Autowired
     ProductAttributeDao productAttributeDao;
+    @Autowired
+    AuctionDao auctionDao;
 
     @Transactional
     @Override
@@ -83,7 +88,20 @@ public class ProductServiceImpl implements ProductService {
             List<ProductAttribute> p = productAttributeDao.save(output);
             newProduct.setProductAttribute(p);
             newProduct.setVariations(variations);
+
             Product product1 = productDao.saveProduct(newProduct);
+
+            if (product1.getSaleTypeName().equals(SaleTypeName.AUCTION) || product1.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
+                Auction auction = Auction.builder()
+                        .auctionPeriod(product.getAuction().getAuctionPeriod())
+                        .nextAuction(product.getAuction().getNextAuction())
+                        .timeUnitForAuctionPeriod(product.getAuction().getTimeUnitForAuctionPeriod())
+                        .timeUnitForNextAuction(product.getAuction().getTimeUnitForNextAuction())
+                        .startingBid(product.getAuction().getStartingBid())
+                        .product(product1)
+                        .build();
+                auctionDao.save(auction);
+            }
             return product1;
         }
         return null;
@@ -124,63 +142,61 @@ public class ProductServiceImpl implements ProductService {
         Product newProduct = ShalMapper.INSTANCE.updateProduct(product);
         Long id = newProduct.getId();
         Product product1 = productDao.findById(id);
+        if (product1 != null) {
 
-        List<Shipment> dsgList = product.getShipments().stream()
-                .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
-                .collect(Collectors.toList());
 
-        List<Variations> updatedVariations = new ArrayList<>();
-        for (Variations variations1 : newProduct.getVariations()
-        ) {
-            Variations variations = variationDao.findById(variations1.getId());
-            for (Options options : variations.getOptions()) {
-                Options options1 = optionsDao.findById(options.getId());
-                options1.setOptionName(options.getOptionName());
-                options1.setPrice(options.getPrice());
-                options1.setStock(options.getStock());
-                options1.setImage(options.getImage());
+            List<Shipment> dsgList = product.getShipments().stream()
+                    .map(dsdName -> shipmentDao.findShipmentByName(dsdName))
+                    .collect(Collectors.toList());
+
+            List<Variations> updatedVariations = new ArrayList<>();
+            for (Variations variations1 : newProduct.getVariations()
+            ) {
+                Variations variations = variationDao.findById(variations1.getId());
+                for (Options options : variations.getOptions()) {
+                    Options options1 = optionsDao.findById(options.getId());
+                    options1.setOptionName(options.getOptionName());
+                    options1.setPrice(options.getPrice());
+                    options1.setStock(options.getStock());
+                    options1.setImage(options.getImage());
+                }
+                variations.setVariationName(variations1.getVariationName());
+                updatedVariations.add(variations);
             }
-            variations.setVariationName(variations1.getVariationName());
-            updatedVariations.add(variations);
-        }
 
-        List<Variations> var = variationDao.save(updatedVariations);
+            List<Variations> var = variationDao.save(updatedVariations);
 
-        List<ProductAttribute> output = new ArrayList<>();
-        for (ProductAttribute productInput : newProduct.getProductAttribute()) {
-            ProductAttribute productAttribute = productAttributeDao.findById(productInput.getId());
-            attributeDao.findByName(productAttribute.getAttribute().getAttribute())
-                    .ifPresentOrElse(
-                            (attribute) -> {
-                                productAttribute.setAttribute(attribute);
-                                productAttribute.setText(productInput.getText());
-                            },
-                            () -> {
-                                throw new RuntimeException();
-                            }
-                    );
-            output.add(productAttribute);
-        }
-        product1.setProductAttribute(output);
-        product1.setVariations(var);
-        product1.setShipments(dsgList);
+            List<ProductAttribute> output = new ArrayList<>();
+            for (ProductAttribute productInput : newProduct.getProductAttribute()) {
+                ProductAttribute productAttribute = productAttributeDao.findById(productInput.getId());
+                attributeDao.findByName(productAttribute.getAttribute().getAttribute())
+                        .ifPresentOrElse(
+                                (attribute) -> {
+                                    productAttribute.setAttribute(attribute);
+                                    productAttribute.setText(productInput.getText());
+                                },
+                                () -> {
+                                    throw new RuntimeException();
+                                }
+                        );
+                output.add(productAttribute);
+            }
+            product1.setProductAttribute(output);
+            product1.setVariations(var);
+            product1.setShipments(dsgList);
+            product1.setProductStatus(newProduct.getProductStatus());
+            product1.setProductName(newProduct.getProductName());
+            product1.setDetails(newProduct.getDetails());
+            product1.setImagesPath(newProduct.getImagesPath());
+            product1.setCategory(newProduct.getCategory());
+            product1.setSalePrice(newProduct.getSalePrice());
+            product1.setStorage(newProduct.getStorage());
+            product1.setSaleTypeName(newProduct.getSaleTypeName());
 
-        product1.setProductStatus(newProduct.getProductStatus());
-        product1.setProductName(newProduct.getProductName());
-        product1.setDetails(newProduct.getDetails());
-        product1.setImagesPath(newProduct.getImagesPath());
-        product1.setCategory(newProduct.getCategory());
-        product1.setNextAuction(newProduct.getNextAuction());
-        product1.setSalePrice(newProduct.getSalePrice());
-        product1.setStartingBid(newProduct.getStartingBid());
-        product1.setStorage(newProduct.getStorage());
-        product1.setAuctionPeriod(newProduct.getAuctionPeriod());
-        product1.setSaleTypeName(newProduct.getSaleTypeName());
-        product1.setTimeUnitForNextAuction(newProduct.getTimeUnitForNextAuction());
-        product1.setTimeUnitForAuctionPeriod(newProduct.getTimeUnitForAuctionPeriod());
+            Product product2 = productDao.saveProduct(product1);
 
-        Product product2 = productDao.saveProduct(product1);
-        return product2;
+            return product2;
+        } else return null;
     }
 
     @Transactional
@@ -203,5 +219,29 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> productFilter(ProductFilter productFilter, PageRequest pageRequest) {
         return productDao.filterProduct(productFilter, pageRequest);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> getProductAuctionType(Long shopId) {
+        List<Product> productList = productDao.findByShopId(shopId);
+        List<Product> productsAuction = new ArrayList<>();
+        Shop shop = shopDao.findById(shopId);
+
+        for (Product product : productList) {
+            try {
+                if (Objects.equals(product.getShop().getId(), shop.getId())) {
+                    if (product.getSaleTypeName().equals(SaleTypeName.AUCTION) || product.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
+                        Hibernate.initialize(product.getVariations());
+                        Hibernate.initialize(product.getProductAttribute());
+                        Hibernate.initialize(product.getShipments());
+                        productsAuction.add(product);
+                    }
+                }
+            } catch (NullPointerException e) {
+                throw new NullPointerException();
+            }
+        }
+        return productsAuction;
     }
 }

@@ -27,4 +27,9 @@ public class VariationDaoImpl implements VariationDao {
     public Variations findById(Long id) {
         return variationRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Variations> findByIds(List<Long> ids) {
+        return variationRepository.findByIdIn(ids);
+    }
 }
