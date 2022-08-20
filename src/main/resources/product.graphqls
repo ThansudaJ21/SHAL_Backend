@@ -103,7 +103,7 @@ type  QueryProductDto {
     shipments: [String]
     variations: [VariationsDto]
     productAttribute: [QueryProductAttributeDto]
-#    auction: AuctionQueryDto
+    auction: AuctionForProductDto
 }
 type  FilterProductDto {
     id:Int
