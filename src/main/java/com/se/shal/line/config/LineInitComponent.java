@@ -45,8 +45,9 @@ public class LineInitComponent {
 
     String unRegisterMenuId = null;
     String mainMenuId = null;
+
     @SneakyThrows
-    public void initLineApp(){
+    public void initLineApp() {
 
         String pathImageMainMenu = "line/richmenu/richmenu_shopping.jpg";
         String pathMenuJson = "line/richmenu/richmenu_shopping.json";
@@ -56,18 +57,18 @@ public class LineInitComponent {
 //         use reset when we need to remove the old one
         resetRichMenu();
         mainMenuId = loadLineMenu(pathMenuJson, pathImageMainMenu);
-        unRegisterMenuId = loadLineMenu(pathRegisterMenuJson,pathImageRegisterMenu);
+        unRegisterMenuId = loadLineMenu(pathRegisterMenuJson, pathImageRegisterMenu);
 
         lineMessagingClient.setDefaultRichMenu(unRegisterMenuId);
         listRichMenu(); // Show created Rich Menus
 
     }
 
-    public void setMainMenuToUser(String userId){
-        lineMessagingClient.linkRichMenuIdToUser(userId,mainMenuId);
+    public void setMainMenuToUser(String userId) {
+        lineMessagingClient.linkRichMenuIdToUser(userId, mainMenuId);
     }
 
-    public void changeMenu(int index){
+    public void changeMenu(int index) {
         // use for new customer without creating a new menu
         RichMenuListResponse richMenuListResponse = getUnchecked(
                 lineMessagingClient.getRichMenuList());
@@ -75,6 +76,7 @@ public class LineInitComponent {
         LineMenuIdSingleton.getInstance().setHomeId(listMenus.get(index).getRichMenuId());
         lineMessagingClient.setDefaultRichMenu(listMenus.get(index).getRichMenuId());
     }
+
     private String loadLineMenu(String pathMenuJson, String pathMenuImage) throws IOException {
         String richMenuId;
         richMenuId = createRichMenu(pathMenuJson);
@@ -83,7 +85,7 @@ public class LineInitComponent {
         return richMenuId;
     }
 
-    public void resetRichMenu(){
+    public void resetRichMenu() {
         RichMenuListResponse richMenuListResponse = getUnchecked(
                 lineMessagingClient.getRichMenuList());
 
@@ -99,6 +101,7 @@ public class LineInitComponent {
                 }
         );
     }
+
     private void imageUploadRichMenu(String richMenuId, String path) throws IOException {
         val imageClassPath = new ClassPathResource(path);
         String contentType = //getDefaultFileTypeMap().getContentType(imageClassPath.getFile());
@@ -112,8 +115,8 @@ public class LineInitComponent {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + channelAccessToken);
-        headers.set("content-type","image/jpeg");
-        HttpEntity<String> entity = new HttpEntity(bytes,headers);
+        headers.set("content-type", "image/jpeg");
+        HttpEntity<String> entity = new HttpEntity(bytes, headers);
         String url = "https://api-data.line.me/v2/bot/richmenu/" + richMenuId + "/content";
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
         log.info("Successfully finished.");
