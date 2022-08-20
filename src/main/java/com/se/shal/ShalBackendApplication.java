@@ -25,7 +25,7 @@ public class ShalBackendApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000", "https://shal.loca.lt/")
+                        .allowedOrigins("http://localhost:3000", "https://shal.loca.lt/","https://shal-fdc49.web.app/")
                         .exposedHeaders("x-total-count");
             }
         };
