@@ -51,7 +51,7 @@ public class PostCodeUtilService {
 
     }
 
-    @Cacheable(value = "postData")
+//    @Cacheable(value = "postData")
     public PostCodeProvinceDto getPostCodeDto(String postCode){
         List<PostCodeData> pcData = this.postCode.get(postCode);
         if (pcData.size() == 0){

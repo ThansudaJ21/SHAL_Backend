@@ -67,7 +67,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         setAuthority();
-//        removeRedisCache();
         lineInitComponent.initLineApp();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = User.builder()
