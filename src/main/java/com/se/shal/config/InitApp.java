@@ -75,7 +75,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .lastname("janthakham")
                 .authorities(List.of(roleBuyer))
 //                .password(encoder.encode("password"))
-                .email("thansuda2010@gmail.com")
+                .email("thansuda@gmail.com")
                 .userId("userId")
                 .phoneNumber("0954475249")
                 .pictureUrl("profile")
