@@ -23,6 +23,11 @@ type QueryFailureReasonListDto {
     text: String
     failureReasons: FailureReasonDto
 }
+type QueryFailureReasonForUserIdDto {
+    id:Int
+    text: String
+    failureReasons: FailureListForUserIdDto
+}
 type QueryFailureReasonDto {
     id:Int
     text: String
@@ -30,6 +35,9 @@ type QueryFailureReasonDto {
 }
 type FailureReasonDto {
     id: Int
+    reason: String
+}
+type FailureListForUserIdDto {
     reason: String
 }
 type FailureListDto {
@@ -74,6 +82,19 @@ input ShopAddressInput {
     subDistrict: String
     province: String
 }
+type ShopQueryByUserId{
+    id: Int
+    shopName:String
+    idCard:String
+    shopLogoImagePath: String
+    selfiePhotoWithIdCardPath: String
+    promptPay: String
+    email: String
+    shopAddress: ShopAddress
+#    user: UserQueryShop
+    shopStatus: String
+    failureReasonLists: [QueryFailureReasonForUserIdDto]
+}
 type ShopQuery{
     id: Int
     shopName:String
@@ -87,7 +108,18 @@ type ShopQuery{
     shopStatus: String
     failureReasonLists: [QueryFailureReasonDto]
 }
-
+type UserQueryShop {
+    id: Int
+    userId: String
+    email: String
+    displayName: String
+    firstname: String
+    lastname: String
+    pictureUrl:String
+    phoneNumber: String
+    enabled: Boolean
+    authorities: [Authorities]
+}
 input ShopStatusInput {
     id: Int
     userId : Int
@@ -95,8 +127,8 @@ input ShopStatusInput {
 }
 
 input ShopQueryFilter {
-     shopName:String
-     shopStatus:String
+    shopName:String
+    shopStatus:String
 }
 
 input ShopQueryFilterByShopStatus{

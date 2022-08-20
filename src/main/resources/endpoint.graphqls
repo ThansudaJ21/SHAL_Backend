@@ -5,6 +5,7 @@ schema {
 type Query {
     #    Shop
     getRegisterShop(id: Int): ShopQuery
+    getShopByUserId(userId: Int): ShopQueryByUserId
     shopQueryFilter(queryText: ShopQueryFilter, pageNo:Int, pageSize:Int): PageShop
     getFailureReason: [FailureReasonDto]
     getAddressFromPostCode(postCode: String): PostCodeProvinceDto

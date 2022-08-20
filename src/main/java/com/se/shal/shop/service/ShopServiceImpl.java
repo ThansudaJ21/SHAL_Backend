@@ -57,7 +57,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Shop getRegisterShop(Long id) {
-        Shop shop =shopDao.findById(id);
+        Shop shop = shopDao.findById(id);
         Hibernate.initialize(shop.getUser());
         return shop;
     }
@@ -114,4 +114,9 @@ public class ShopServiceImpl implements ShopService {
         return failureReasonDao.findAll();
     }
 
+    @Transactional
+    @Override
+    public Shop findByUserId(Long userId) {
+        return shopDao.findByUserId(userId);
+    }
 }

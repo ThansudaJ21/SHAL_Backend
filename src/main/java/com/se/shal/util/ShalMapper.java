@@ -6,15 +6,12 @@ import com.se.shal.product.dto.query.*;
 import com.se.shal.product.entity.*;
 import com.se.shal.security.entity.User;
 import com.se.shal.security.entity.UserDto;
-import com.se.shal.shop.dto.FailureReasonListDto;
-import com.se.shal.shop.dto.QueryFailureReasonDto;
-import com.se.shal.shop.dto.QueryFailureReasonListDto;
-import com.se.shal.shop.dto.ShopDto;
+import com.se.shal.shop.dto.*;
+import com.se.shal.shop.dto.ShopQueryResultDto;
 import com.se.shal.shop.entity.FailureReason;
 import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.dto.*;
-import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.ProductOrder;
 import org.mapstruct.Mapper;
@@ -158,4 +155,7 @@ public interface ShalMapper {
             @Mapping(target = "shop", source = "shop.id")
     })
     ProductOrderInputDto buyProduct(ProductOrder productOrder);
+
+//    @Mapping(target = "userId", source = "user.id")
+    ShopQueryResultDto getShopQueryDto(Shop shop);
 }

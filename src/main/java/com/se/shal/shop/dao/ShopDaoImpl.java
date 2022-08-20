@@ -40,7 +40,7 @@ public class ShopDaoImpl implements ShopDao {
         Specification<Shop> specification = getShopPredicate(filter);
         try {
             return shopRepository.findAll(specification, pageRequest);
-        } catch (IllegalArgumentException  | InvalidDataAccessApiUsageException ex) {
+        } catch (IllegalArgumentException | InvalidDataAccessApiUsageException ex) {
             return null;
         }
     }
@@ -66,5 +66,10 @@ public class ShopDaoImpl implements ShopDao {
     @Override
     public Shop findById(Long id) {
         return shopRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Shop findByUserId(Long userId) {
+        return shopRepository.findByUserId(userId);
     }
 }

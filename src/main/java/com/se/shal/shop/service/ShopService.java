@@ -11,9 +11,16 @@ import java.util.List;
 
 public interface ShopService {
     Shop registerShop(Long userId, Shop shop);
+
     Shop getRegisterShop(Long id);
-    Shop updateShopStatus(Shop shop,Long userId);
+
+    Shop updateShopStatus(Shop shop, Long userId);
+
     Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, PageRequest pageRequest);
+
     List<FailureReasonList> saveFailureReason(Long shopId, List<FailureReasonList> failureReason);
+
     List<FailureReason> getFailureReason();
+
+    Shop findByUserId(Long userId);
 }
