@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -65,6 +67,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         setAuthority();
+        removeRedisCache();
 //        lineInitComponent.initLineApp();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = User.builder()
@@ -643,6 +646,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     AuthorityRepository authorityRepository;
     Authority roleAdmin, roleBuyer, roleSeller, roleUser;
 
+    @Autowired
+    RedisTemplate redisTemplate;
+
     private void setAuthority() {
         roleAdmin = authorityRepository.save(Authority.builder()
                 .name(AuthorityName.ADMIN)
@@ -657,4 +663,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .name(AuthorityName.USER)
                 .build());
     }
-}
+
+
+    void removeRedisCache() {
+        Set<String> keys = redisTemplate.keys(String.format("%s::*", "postData"));
+        redisTemplate.delete(keys);
+    }}
