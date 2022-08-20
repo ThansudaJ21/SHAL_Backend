@@ -50,23 +50,23 @@ public class LineHandler {
     @EventMapping
     public Message handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         String inputText = event.getMessage().getText();
-        switch (inputText){
-            case "Tracking" ->{
-                    List<QuickReplyItem> items = Arrays.<QuickReplyItem>asList(
-                            QuickReplyItem.builder()
-                                    .action(LocationAction.withLabel("Tracking"))
-                                    .build()
-                    );
-
-                    final QuickReply quickReply = QuickReply.items(items);
-
-                    return TextMessage
-                            .builder()
-                            .text("Tracking")
-                            .quickReply(quickReply)
-                            .build();
-            }
-        }
+//        switch (inputText){
+//            case "Tracking" ->{
+//                    List<QuickReplyItem> items = Arrays.<QuickReplyItem>asList(
+//                            QuickReplyItem.builder()
+//                                    .action(LocationAction.withLabel("Tracking"))
+//                                    .build()
+//                    );
+//
+//                    final QuickReply quickReply = QuickReply.items(items);
+//
+//                    return TextMessage
+//                            .builder()
+//                            .text("Tracking")
+//                            .quickReply(quickReply)
+//                            .build();
+//            }
+//        }
         return TextMessage.builder().text(
                 String.format("%d: %s",counter++, event.getMessage().getText())).build();
     }

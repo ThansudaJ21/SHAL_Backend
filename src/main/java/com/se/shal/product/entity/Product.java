@@ -63,8 +63,8 @@ public class Product {
     @ManyToOne
     Shop shop;
 
-//    @ManyToOne
-//    Auction auction;
+    @OneToOne(mappedBy = "product")
+    Auction auction;
 //
 //    @OneToOne
 //    Bid currentBid;

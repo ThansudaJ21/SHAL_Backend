@@ -39,5 +39,4 @@ public class ProductDto {
     List<InputVariationsDto> variations;
     //    productAttribute
     List<ProductAttributeDto> productAttribute;
-    AuctionDto auction;
 }

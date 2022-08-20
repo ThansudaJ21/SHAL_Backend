@@ -45,4 +45,5 @@ public class ProductQuery {
     List<ProductAttributeDto> productAttribute;
 //    AuctionQueryDto auction;
     Shop shop;
+    AuctionDto auction;
 }

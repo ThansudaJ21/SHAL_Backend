@@ -24,9 +24,10 @@ public class ProductQueryQL implements GraphQLQueryResolver {
 
 
     @Transactional
-    ProductQuery getProduct(Long id) {
+    public ProductQuery getProduct(Long id) {
         Product product = productService.getProduct(id);
         Hibernate.initialize(product.getProductStatus());
+        Hibernate.initialize(product.getAuction());
         return ShalMapper.INSTANCE.getProductDto(product);
     }
 

@@ -76,7 +76,18 @@ type  ProductDto {
     shipments: [String]
     variations: [VariationsDto]
     productAttribute: [QueryProductAttributeDto]
-#    auction: AuctionQueryDto
+    auction: AuctionForProductDto
+}
+
+type AuctionForProductDto {
+    id:Int
+    nextAuction:Int
+    startingBid:Float
+    auctionPeriod:Int
+    timeUnitForAuctionPeriod:String
+    timeUnitForNextAuction:String
+#    product: ProductQueryOrder
+
 }
 type  QueryProductDto {
     id:Int

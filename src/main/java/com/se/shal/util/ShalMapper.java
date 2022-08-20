@@ -111,7 +111,8 @@ public interface ShalMapper {
                     expression = "java(product.getShipments().stream()" +
                             ".map(d -> d.getShipmentName().getShipmentName())" +
                             ".collect(Collectors.toList()))"),
-            @Mapping(target = "shopId", source = "shop.id")
+            @Mapping(target = "shopId", source = "shop.id"),
+            @Mapping(target = "auction", source = "auction"),
     })
     ProductQuery getProductDto(Product product);
 

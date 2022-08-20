@@ -4,6 +4,7 @@ import com.se.shal.product.dto.ProductAttributeDto;
 import com.se.shal.product.entity.enumeration.ProductStatus;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.entity.enumeration.TimeUnit;
+import com.se.shal.trading.dto.AuctionDto;
 import com.se.shal.trading.dto.AuctionQueryDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,5 @@ public class QueryProductDto {
     //    productAttribute
     List<ProductAttributeDto> productAttribute;
 
-//    AuctionQueryDto auction;
-
+    AuctionDto auction;
 }
