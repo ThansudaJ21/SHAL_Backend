@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BidDao {
     Long countByUserIdAndAuctionId(Long userId, Long auctionId);
-
+    List<Bid> findAllBid();
     Bid save(Bid bid);
 
     List<Bid> findBidsByUserIdOrShopIdOrAuctionId(Long userId, Long shopId, Long auctionId);
