@@ -184,7 +184,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Shop shop = shopRepository.save(Shop.builder()
                 .shopName("Thansuda shop")
-                .email("Thansuda2010@gmail.com")
+                .email("Thansuda@gmail.com")
                 .promptPay("0954475249")
                 .idCard("1234567891234")
                 .shopStatus(ShopStatusName.DISABLE)
