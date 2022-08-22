@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShopQueryResultDto {
+public class ShopQueryForRegisterShopDto {
     Long id;
     String shopName;
     String idCard;
@@ -23,5 +23,5 @@ public class ShopQueryResultDto {
     ShopAddress shopAddress;
     String shopStatus;
     List<QueryFailureReasonLisForUserIdtDto> failureReasonLists;
-    UserQueryShop user;
+//    UserQueryShop user;
 }

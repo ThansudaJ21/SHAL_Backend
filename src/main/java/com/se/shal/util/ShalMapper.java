@@ -156,6 +156,8 @@ public interface ShalMapper {
     })
     ProductOrderInputDto buyProduct(ProductOrder productOrder);
 
-//    @Mapping(target = "userId", source = "user.id")
+    //    @Mapping(target = "userId", source = "user.id")
     ShopQueryResultDto getShopQueryDto(Shop shop);
+
+    ShopQueryForRegisterShopDto getShopQueryForRegisterShopDto(Shop shop);
 }

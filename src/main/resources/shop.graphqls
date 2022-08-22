@@ -91,7 +91,7 @@ type ShopQueryByUserId{
     promptPay: String
     email: String
     shopAddress: ShopAddress
-#    user: UserQueryShop
+    user: UserQueryShop
     shopStatus: String
     failureReasonLists: [QueryFailureReasonForUserIdDto]
 }
@@ -104,7 +104,35 @@ type ShopQuery{
     promptPay: String
     email: String
     shopAddress: ShopAddress
-    user: Int
+#    user: User
+    shopStatus: String
+    failureReasonLists: [QueryFailureReasonDto]
+}
+type User {
+    id: Int
+    userId: String
+    email: String
+    displayName: String
+    firstname: String
+    lastname: String
+    phoneNumber: String
+    enabled: Boolean
+    pictureUrl:String
+    authorities: [Authorities]
+}
+type UserAuthorities {
+    name: String
+}
+type ShopQueryForRegisterShop{
+    id: Int
+    shopName:String
+    idCard:String
+    shopLogoImagePath: String
+    selfiePhotoWithIdCardPath: String
+    promptPay: String
+    email: String
+    shopAddress: ShopAddress
+#    user: UserQueryShop
     shopStatus: String
     failureReasonLists: [QueryFailureReasonDto]
 }
@@ -119,6 +147,9 @@ type UserQueryShop {
     phoneNumber: String
     enabled: Boolean
     authorities: [Authorities]
+}
+type  AuthoritiesForUserQueryShop {
+    name:String
 }
 input ShopStatusInput {
     id: Int

@@ -26,9 +26,9 @@ public class ShopQueryQL implements GraphQLQueryResolver {
 
 
     @Transactional
-    Shop getRegisterShop(Long id) {
+    public ShopQueryResultDto getRegisterShop(Long id) {
         Shop shop = shopService.getRegisterShop(id);
-        return shop;
+        return ShalMapper.INSTANCE.getShopQueryDto(shop);
     }
 
 

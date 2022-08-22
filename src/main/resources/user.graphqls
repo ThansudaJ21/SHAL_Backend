@@ -28,7 +28,7 @@ type UserQuery {
 type Authorities {
     name: String
 }
-input User {
+input UserInput {
     id: Int
 #    username: String
     userId: String

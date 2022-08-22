@@ -4,7 +4,7 @@ schema {
 }
 type Query {
     #    Shop
-    getRegisterShop(id: Int): ShopQuery
+    getRegisterShop(id: Int): ShopQueryByUserId
     getShopByUserId(userId: Int): ShopQueryByUserId
     shopQueryFilter(queryText: ShopQueryFilter, pageNo:Int, pageSize:Int): PageShop
     getFailureReason: [FailureReasonDto]
@@ -39,7 +39,7 @@ type Mutation {
     #   Delete
     deleteVariations(product:Int,id:Int): Int
     #    Authentication
-    registerUser(user: User): UserDto
+    registerUser(user: UserInput): UserDto
     #    Trading
     buyProduct(orderInput: OrderInput): SaveOrder
     addToCart(orderInput: OrderInput): SaveOrder
