@@ -15,12 +15,12 @@ pipeline {
             }
 
             steps {
-              sh '''
-                 mvn  clean install  -DskipTests -B
-                 apt-get install -y unzip
-                 mkdir -p target/dependency && (cd target/dependency; unzip ../*.jar)
-                 docker build -t shal/dev .
-              '''
+                        sh 'mvn  clean install  -DskipTests -B'
+                            sh  'apt-get install -y unzip'
+                            sh 'mkdir -p target/dependency'
+                            sh 'cd target/dependency'
+                            sh 'unzip ..//*.jar'
+                            sh 'docker build -t shal/dev .'
             }
 
         }
