@@ -30,6 +30,6 @@ public class ProductOrderQueryDto {
     ProductQueryOrder products;
     UserQueryOrder users;
     Long shop;
-    List<VariationsQueryDto> variationsList;
+
     List<OptionsQueryDto> optionsList;
 }

@@ -13,6 +13,7 @@ import com.se.shal.trading.dto.ProductOrderInputDto;
 import com.se.shal.trading.entity.ProductOrder;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.trading.entity.enumeration.PaymentStatus;
+import com.se.shal.trading.exception.StorageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,6 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     public ProductOrder buyProduct(ProductOrderInputDto productOrderInputDto) {
         User user = userDao.findById(productOrderInputDto.getUsers());
         Product product = productDao.getProduct(productOrderInputDto.getProducts());
-        List<Long> variationsList = productOrderInputDto.getVariationsList();
         List<Long> optionsList = productOrderInputDto.getOptionsList();
         Shop shop = shopDao.findById(productOrderInputDto.getShop());
         Integer storage = product.getStorage();
@@ -57,7 +57,6 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .quantity(productOrderInputDto.getQuantity())
                     .totalPrice(product.getSalePrice() * productOrderInputDto.getQuantity())
                     .orderStatus(OrderStatus.BUY)
-                    .variationsList(variationDao.findByIds(variationsList))
                     .optionsList(optionsDao.findByIds(optionsList))
                     .paymentStatus(PaymentStatus.UNPAID)
                     .shop(shop)
@@ -65,7 +64,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .build();
             return productOrderDao.save(productOrder);
         } else {
-            return null;
+            throw new StorageException();
         }
     }
 
@@ -75,7 +74,6 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         User user = userDao.findById(productOrderInputDto.getUsers());
         Product product = productDao.getProduct(productOrderInputDto.getProducts());
         Shop shop = shopDao.findById(productOrderInputDto.getShop());
-        List<Long> variationsList = productOrderInputDto.getVariationsList();
         List<Long> optionsList = productOrderInputDto.getOptionsList();
         Integer storage = product.getStorage();
         if (productOrderInputDto.getQuantity() <= storage && productOrderInputDto.getQuantity() > 0) {
@@ -85,7 +83,6 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .quantity(productOrderInputDto.getQuantity())
                     .totalPrice(product.getSalePrice() * productOrderInputDto.getQuantity())
                     .orderStatus(OrderStatus.ADD_TO_CART)
-                    .variationsList(variationDao.findByIds(variationsList))
                     .optionsList(optionsDao.findByIds(optionsList))
                     .paymentStatus(PaymentStatus.UNPAID)
                     .users(user)
@@ -93,7 +90,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .build();
             return productOrderDao.save(productOrder);
         } else {
-            return null;
+            throw new StorageException();
         }
     }
 

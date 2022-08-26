@@ -21,5 +21,4 @@ public class AuctionQueryDto {
     TimeUnit timeUnitForAuctionPeriod;
     TimeUnit timeUnitForNextAuction;
     ProductQueryOrder product;
-
 }

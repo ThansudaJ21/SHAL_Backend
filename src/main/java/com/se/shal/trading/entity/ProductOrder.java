@@ -29,8 +29,6 @@ public class ProductOrder {
     PaymentStatus paymentStatus;
     OrderStatus orderStatus;
 
-    @ManyToMany
-    List<Variations> variationsList;
 
     @ManyToMany
     List<Options> optionsList;

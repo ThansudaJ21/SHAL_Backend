@@ -8,13 +8,11 @@ type SaveOrder {
     #TODO error use product ซ้ำ
     products:Int
     users: Int
-    variationsList: [Int]
     optionsList: [Int]
     shop:Int
 }
 
 input OrderInput {
-    variationsList: [Int],
     optionsList: [Int],
     users: Int,
     products: Int,
@@ -71,8 +69,6 @@ type Order {
     orderStatus: String
     products:ProductQueryOrder
     users: UserQueryOrder
-    #    shop: ShopQuery
-    variationsList: [QueryOrderVariations]
     optionsList: [QueryOrderOptions]
 }
 type QueryOrderVariations {
@@ -145,7 +141,6 @@ type AuctionQueryDto {
     timeUnitForAuctionPeriod:String
     timeUnitForNextAuction:String
     product: ProductQueryOrder
-
 }
 input inputAuction {
     id:Int
@@ -177,7 +172,6 @@ type BidQueryDto {
     times:Int
     auctionResult:String
     bidAmount:Float
-    #    product:ProductQueryOrder
     auction: AuctionQueryDto
     user: UserQueryOrder
     shop:ShopQueryBid

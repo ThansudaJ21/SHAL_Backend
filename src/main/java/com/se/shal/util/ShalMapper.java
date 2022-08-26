@@ -144,10 +144,6 @@ public interface ShalMapper {
     @Mappings({
             @Mapping(target = "users", source = "users.id"),
             @Mapping(target = "products", source = "products.id"),
-            @Mapping(target = "variationsList",
-                    expression = "java(productOrder.getVariationsList().stream()" +
-                            ".map(variationsList -> variationsList.getId())" +
-                            ".collect(Collectors.toList()))"),
             @Mapping(target = "optionsList",
                     expression = "java(productOrder.getOptionsList().stream()" +
                             ".map(optionsList -> optionsList.getId())" +

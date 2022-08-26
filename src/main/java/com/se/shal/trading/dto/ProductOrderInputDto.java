@@ -23,6 +23,6 @@ public class ProductOrderInputDto {
     Long products;
     Long shop;
     Long users;
-    List<Long> variationsList;
+
     List<Long> optionsList;
 }

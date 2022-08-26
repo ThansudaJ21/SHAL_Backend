@@ -70,19 +70,29 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         lineInitComponent.initLineApp();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = User.builder()
-                .firstname("thansuda")
-                .lastname("janthakham")
+                .firstname("Thananya")
+                .lastname("Keawchoi")
                 .authorities(List.of(roleBuyer))
-//                .password(encoder.encode("password"))
-                .email("thansuda@gmail.com")
-                .userId("userId")
-                .phoneNumber("0954475249")
-                .pictureUrl("profile")
-                .displayName("thansuda")
+                .email("thananya53@gmail.com")
+                .userId("U6f88235e56c155f9ae2223b0109d7e67")
+                .phoneNumber("095-4535854")
+                .pictureUrl("https://profile.line-scdn.net/0hAeMwTCdcHkpgDjfCgmVgNRBeHSBDf0dYTm1YKFRcR39VPlAZRWtQKAUKQnJfaVtLGGFTfgELE3tsHWksfljifmc-QH1ZPF0aSG9Vrg")
+                .displayName("Nong.53")
                 .enabled(true)
                 .build();
         userRepository.save(user);
-
+        User user2 = User.builder()
+                .firstname("Great")
+                .lastname("Jelo")
+                .authorities(List.of(roleSeller))
+                .email("greateNa@gmail.com")
+                .userId("U6f88fghe5e56c155f9aee23b0109d7e67")
+                .phoneNumber("098-5478547")
+                .pictureUrl("https://profile.line-scdn.net/0hAeMwTCdcHkpgDjfCgmVgNRBeHSBDf0dYTm1YKFRcR39VPlAZRWtQKAUKQnJfaVtLGGFTfgELE3tsHWksfljifmc-REQV89218448")
+                .displayName("great")
+                .enabled(true)
+                .build();
+        userRepository.save(user2);
         FailureReason not_clear = FailureReason.builder().reason("Selfie Photo with ID card does not clear").build();
         FailureReason logo = FailureReason.builder().reason("Inappropriate shop logo").build();
         FailureReason name = FailureReason.builder().reason("Inappropriate shop name").build();
