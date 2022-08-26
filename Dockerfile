@@ -12,7 +12,7 @@ COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
 #ENV JAVA_OPTS="-server --add-exports java.desktop/sun.font=ALL-UNNAMED"
 ENTRYPOINT ["java",   "-Dspring.profiles.active=${JAVA_PROFILE}",\
-            "-cp","app:app/lib/*","cmu.se.poddline.stroke.StrokeApplication"]
+            "-cp","app:app/lib/*","com.se.shal.ShalBackendApplication"]
 #ADD target/autopair-maincontroller.jar app.jar
 #
 #ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom",\

@@ -13,16 +13,17 @@ pipeline {
 
                 }
             }
-          steps {
+
+            steps {
               sh '''
                  mvn  clean install  -DskipTests -B
                  apt-get install -y unzip
                  mkdir -p target/dependency && (cd target/dependency; unzip ../*.jar)
                  docker build -t shal/dev .
               '''
-          }
-        }
+            }
 
+        }
         stage('run app demo'){
           when{
              branch 'demo'
@@ -39,5 +40,8 @@ pipeline {
               '''
           }
         }
+
+
 ่   }
 }
+
