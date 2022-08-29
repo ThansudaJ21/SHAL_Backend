@@ -13,7 +13,7 @@ public class StorageException extends RuntimeException implements GraphQLError {
 
 
     public StorageException() {
-        super(String.format("The product is sold out"));
+        super("The product is sold out");
     }
 
     @Override
@@ -31,8 +31,8 @@ public class StorageException extends RuntimeException implements GraphQLError {
         Map<String, Object> extension = new HashMap<>();
 
         extension.put("error_code", 520);
-        extension.put("message", String.format("The product is sold out"));
-        extension.put("displayMessage", String.format("The product is sold out"));
+        extension.put("message", "The product is sold out");
+        extension.put("displayMessage", "The product is sold out");
         return extension;
     }
 }

@@ -74,7 +74,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .lastname("Keawchoi")
                 .authorities(List.of(roleBuyer))
                 .email("thananya53@gmail.com")
-                .userId("U6f88235e56c155f9ae2223b0109d7e67")
+                .userId("Ub247a87cc31371da082fa8452b1b12c0")
                 .phoneNumber("095-4535854")
                 .pictureUrl("https://profile.line-scdn.net/0hAeMwTCdcHkpgDjfCgmVgNRBeHSBDf0dYTm1YKFRcR39VPlAZRWtQKAUKQnJfaVtLGGFTfgELE3tsHWksfljifmc-QH1ZPF0aSG9Vrg")
                 .displayName("Nong.53")
@@ -325,8 +325,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Auction auction_product = Auction.builder()
                 .auctionPeriod(1)
                 .nextAuction(1)
-                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
-                .timeUnitForNextAuction(TimeUnit.HOUR)
+                .timeUnitForAuctionPeriod(TimeUnit.MINUTE)
+                .timeUnitForNextAuction(TimeUnit.MINUTE)
                 .startingBid(20000.0)
                 .product(product)
                 .build();
@@ -533,10 +533,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
 
         Auction auction_bodycon_Dress = Auction.builder()
-                .auctionPeriod(5)
-                .nextAuction(2)
-                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
-                .timeUnitForNextAuction(TimeUnit.HOUR)
+                .auctionPeriod(1)
+                .nextAuction(1)
+                .timeUnitForAuctionPeriod(TimeUnit.MINUTE)
+                .timeUnitForNextAuction(TimeUnit.MINUTE)
                 .startingBid(20000.0)
                 .product(bodycon_Dress)
                 .build();
