@@ -13,7 +13,6 @@ pipeline {
 
                 }
             }
-
             steps {
                         sh 'mvn  clean install  -DskipTests -B'
                             sh  'apt-get install -y unzip'
@@ -34,7 +33,6 @@ pipeline {
                   mkdir shal-dev && cp  deploy/dev-release/docker-compose.yml shal-dev/docker-compose.yml
                   cd shal-dev
                   cat docker-compose.yml
-
                   docker-compose down  --remove-orphans
                   docker-compose up -d
               '''
