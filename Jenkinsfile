@@ -30,7 +30,7 @@ pipeline {
           steps{
               sh '''
                   rm -rf shal-dev
-                  mkdir shal-dev && cp  deploy/dev-release/docker-compose.yml shal-dev/docker-compose.yml
+                  # mkdir shal-dev && cp  deploy/dev-release/docker-compose.yml shal-dev/docker-compose.yml
                   cd shal-dev
                   cat docker-compose.yml
                   docker-compose down  --remove-orphans
@@ -38,8 +38,6 @@ pipeline {
               '''
           }
         }
-
-
 ่   }
 }
 
