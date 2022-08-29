@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages{
-        stage('Build demo') {
+        stage('Build-dev') {
             when{
                 branch 'demo'
             }
@@ -13,31 +13,37 @@ pipeline {
 
                 }
             }
-            steps {
-                        sh 'mvn  clean install  -DskipTests -B'
-                            sh  'apt-get install -y unzip'
-                            sh 'mkdir -p target/dependency'
-                            sh 'cd target/dependency'
-                            sh 'unzip ..//*.jar'
-                            sh 'docker build -t shal/dev .'
-            }
-
+          steps {
+              sh '''
+                 mvn  clean install  -DskipTests -B
+                 apt-get install -y unzip
+                 mkdir -p target/dependency && (cd target/dependency; unzip ../*.jar)
+                 docker build -t shal/dev .
+              '''
+          }
         }
-        stage('run app demo'){
+
+        stage('run app dev'){
           when{
              branch 'demo'
           }
           steps{
               sh '''
                   rm -rf shal-dev
-                  # mkdir shal-dev && cp  deploy/dev-release/docker-compose.yml shal-dev/docker-compose.yml
+                  mkdir shal-dev && cp  deploy/dev-release/docker-compose.yml shal-dev/docker-compose.yml
                   cd shal-dev
                   cat docker-compose.yml
+
                   docker-compose down  --remove-orphans
                   docker-compose up -d
               '''
           }
         }
-่   }
-}
 
+
+
+
+
+
+    }
+}
