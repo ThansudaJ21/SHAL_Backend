@@ -2,9 +2,13 @@ package com.se.shal.line.handler;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
-import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.FlexMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+import com.se.shal.line.component.LoserFlexMessageSupplier;
+import com.se.shal.line.component.OverTakenFlexMessageSupplier;
+import com.se.shal.line.component.SellerFlexMessageSupplier;
+import com.se.shal.line.component.WinnerFlexMessageSupplier;
 import com.se.shal.line.config.LineInitComponent;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.User;
@@ -33,10 +37,10 @@ public class LineHandler {
     @Value("${line.bot.channel-token}")
     String channelAccessToken;
 
-    private void pushMessage(Bid bid, TextMessage textMessage) {
+    private void pushMessage(Bid bid, FlexMessage flexMessage) {
         final PushMessage pushMessage = new PushMessage(
                 bid.getUser().getUserId(),
-                textMessage);
+                flexMessage);
 
         BotApiResponse botApiResponse = null;
         try {
@@ -48,10 +52,10 @@ public class LineHandler {
         System.out.println(botApiResponse);
     }
 
-    private void pushMessage(User user, TextMessage textMessage) {
+    private void pushMessage(User user, FlexMessage flexMessage) {
         final PushMessage pushMessage = new PushMessage(
                 user.getUserId(),
-                textMessage);
+                flexMessage);
 
         BotApiResponse botApiResponse = null;
         try {
@@ -62,28 +66,26 @@ public class LineHandler {
         System.out.println(botApiResponse);
     }
 
+    //
     public void pushMessageForAuctionWinner(Bid winner) {
-        final TextMessage textMessage = new TextMessage(
-                String.format("You win %s THB \n %s", winner.getBidAmount(), winner.getAuction().getProduct().getProductName()));
-        pushMessage(winner, textMessage);
+        final FlexMessage flexMessage = new WinnerFlexMessageSupplier().get(winner);
+        pushMessage(winner, flexMessage);
     }
 
     public void pushMessageForAuctionLoser(Bid loser) {
-        final TextMessage textMessage = new TextMessage(
-                String.format("You lose auction for %s", loser.getAuction().getProduct().getProductName()));
-        pushMessage(loser, textMessage);
+        final FlexMessage flexMessage = new LoserFlexMessageSupplier().get(loser);
+        pushMessage(loser, flexMessage);
     }
 
     public void pushMessageForSeller(User seller, Bid bid) {
-        final TextMessage textMessage = new TextMessage(
-                String.format("%s wins %s THB for \n %s", bid.getUser().getFirstname(), bid.getBidAmount(), bid.getAuction().getProduct().getProductName()));
-        pushMessage(seller, textMessage);
+        final FlexMessage flexMessage = new SellerFlexMessageSupplier().get(bid);
+        pushMessage(seller, flexMessage);
     }
 
 
     public void pushMessageForOverTaken(Bid overtaken) {
-        final TextMessage textMessage = new TextMessage(
-                String.format("You were overtaken for %s", overtaken.getAuction().getProduct().getProductName()));
-        pushMessage(overtaken, textMessage);
+        final FlexMessage flexMessage = new OverTakenFlexMessageSupplier().get(overtaken);
+        pushMessage(overtaken, flexMessage);
     }
+
 }

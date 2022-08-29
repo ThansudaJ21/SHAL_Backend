@@ -1,10 +1,7 @@
 package com.se.shal.trading.service;
 
-import com.se.shal.line.component.UserAuctionResultFlexSupplier;
 import com.se.shal.line.handler.LineHandler;
-import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
-import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.User;
 import com.se.shal.shop.dao.ShopDao;
@@ -26,9 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class BidServiceImpl implements BidService {
