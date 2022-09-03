@@ -33,7 +33,8 @@ public class LineHandler {
     final UserDao userDao;
     final AuctionDao auctionDao;
     final BidDao bidDao;
-
+    @Value("${liff.frontendProductUrl}")
+    String productDetailsUrl;
     @Value("${line.bot.channel-token}")
     String channelAccessToken;
 
@@ -84,7 +85,7 @@ public class LineHandler {
 
 
     public void pushMessageForOverTaken(Bid overtaken) {
-        final FlexMessage flexMessage = new OverTakenFlexMessageSupplier().get(overtaken);
+        final FlexMessage flexMessage = new OverTakenFlexMessageSupplier().get(overtaken, productDetailsUrl);
         pushMessage(overtaken, flexMessage);
     }
 

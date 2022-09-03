@@ -9,11 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StorageException extends RuntimeException implements GraphQLError {
+public class ProductTypeNotMatchException extends RuntimeException implements GraphQLError {
+    String productName;
 
-
-    public StorageException() {
-        super("The product is sold out");
+    public ProductTypeNotMatchException(String productName) {
+        super(String.format("No such Auction exists with Product name: %s", productName));
+        this.productName = productName;
     }
 
     @Override
@@ -31,8 +32,8 @@ public class StorageException extends RuntimeException implements GraphQLError {
         Map<String, Object> extension = new HashMap<>();
 
         extension.put("error_code", 520);
-        extension.put("message", "The product is sold out");
-        extension.put("displayMessage", "The product is sold out");
+        extension.put("message", String.format("No such Auction exists with Product name: %s", productName));
+        extension.put("displayMessage", String.format("No such Auction exists with Product name: %s", productName));
         return extension;
     }
 }

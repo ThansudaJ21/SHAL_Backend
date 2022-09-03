@@ -13,7 +13,7 @@ import com.se.shal.trading.dto.ProductOrderInputDto;
 import com.se.shal.trading.entity.ProductOrder;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.trading.entity.enumeration.PaymentStatus;
-import com.se.shal.trading.exception.StorageException;
+import com.se.shal.trading.exception.ProductSoldOutException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +64,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .build();
             return productOrderDao.save(productOrder);
         } else {
-            throw new StorageException();
+            throw new ProductSoldOutException();
         }
     }
 
@@ -90,7 +90,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .build();
             return productOrderDao.save(productOrder);
         } else {
-            throw new StorageException();
+            throw new ProductSoldOutException();
         }
     }
 

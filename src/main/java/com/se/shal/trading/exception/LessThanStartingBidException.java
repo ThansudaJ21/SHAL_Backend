@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductTypeException extends RuntimeException implements GraphQLError {
-    String productName;
+public class LessThanStartingBidException extends RuntimeException implements GraphQLError {
+    Double startingBid;
 
-    public ProductTypeException(String productName) {
-        super(String.format("No such Auction exists with Product name: %s", productName));
-        this.productName = productName;
+    public LessThanStartingBidException(Double startingBid) {
+        super(String.format("Bid has to be greater than starting bid %s THB.", startingBid));
+        this.startingBid = startingBid;
     }
 
     @Override
@@ -32,8 +32,8 @@ public class ProductTypeException extends RuntimeException implements GraphQLErr
         Map<String, Object> extension = new HashMap<>();
 
         extension.put("error_code", 520);
-        extension.put("message", String.format("No such Auction exists with Product name: %s", productName));
-        extension.put("displayMessage", String.format("No such Auction exists with Product name: %s", productName));
+        extension.put("message", String.format("Bid has to be greater than starting bid %s THB.", startingBid));
+        extension.put("displayMessage", String.format("Bid has to be greater than starting bid %s THB.", startingBid));
         return extension;
     }
 }

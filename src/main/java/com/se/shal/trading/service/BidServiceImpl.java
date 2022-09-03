@@ -13,12 +13,13 @@ import com.se.shal.trading.dto.BidDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
-import com.se.shal.trading.exception.BidAmountException;
-import com.se.shal.trading.exception.ProductTypeException;
-import com.se.shal.trading.exception.StartingBidException;
-import com.se.shal.trading.exception.UserExistException;
+import com.se.shal.trading.exception.BidAmountLessThanMaxBiddingException;
+import com.se.shal.trading.exception.ProductTypeNotMatchException;
+import com.se.shal.trading.exception.LessThanStartingBidException;
+import com.se.shal.trading.exception.UserNotExistException;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,16 +74,17 @@ public class BidServiceImpl implements BidService {
                         auction.setMaxBidding(newBiding);
                         return newBiding;
                     }
-                    throw new BidAmountException(maxBidding);
+                    throw new BidAmountLessThanMaxBiddingException(maxBidding);
                 }
-                throw new ProductTypeException(auction.getProduct().getProductName());
+                throw new ProductTypeNotMatchException(auction.getProduct().getProductName());
             }
-            throw new StartingBidException(auction.getStartingBid());
+            throw new LessThanStartingBidException(auction.getStartingBid());
         }
-        throw new UserExistException();
+        throw new UserNotExistException();
     }
 
     @Transactional
+    @Scheduled()
     @Override
     public Bid getAuctionWinner(Long auctionId) {
         List<Bid> bidList = bidDao.findByAuctionId(auctionId);

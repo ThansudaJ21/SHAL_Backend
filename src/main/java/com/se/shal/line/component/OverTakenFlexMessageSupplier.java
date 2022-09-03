@@ -21,27 +21,25 @@ import static java.util.Arrays.asList;
 
 public class OverTakenFlexMessageSupplier {
 
-    public FlexMessage get(Bid bid) {
-        Bubble bubble = createBubble(bid);
+    public FlexMessage get(Bid bid, String lineFlexUrl) {
+        Bubble bubble = createBubble(bid, lineFlexUrl);
         return FlexMessage.builder()
                 .altText("YOU WERE OVERTAKEN")
                 .contents(bubble)
                 .build();
     }
 
-    private static Bubble createBubble(Bid bid) {
+    private static Bubble createBubble(Bid bid, String lineFlexUrl) {
         final Image heroBlock =
                 Image.builder()
                         .url(URI.create(bid.getAuction().getProduct().getImagesPath().get(0)))
                         .size(ImageSize.FULL_WIDTH)
                         .aspectRatio(ImageAspectRatio.R20TO13)
                         .aspectMode(ImageAspectMode.Cover)
-                        .action(new URIAction("label", URI.create("https://example.com"),
-                                new AltUri(URI.create("https://example.com/desktop"))))
                         .build();
 
         final Box bodyBlock = createBodyBlock(bid);
-        final Box footerBlock = createFooterBlock();
+        final Box footerBlock = createFooterBlock(bid, lineFlexUrl);
         return Bubble.builder()
                 .hero(heroBlock)
                 .body(bodyBlock)
@@ -126,15 +124,16 @@ public class OverTakenFlexMessageSupplier {
                 .build();
     }
 
-    private static Box createFooterBlock() {
+    private static Box createFooterBlock(Bid bid, String lineFlexUrl) {
         final Spacer spacer = Spacer.builder().size(FlexMarginSize.SM).build();
+        String url = String.format("%s/product/:%d", lineFlexUrl, bid.getAuction().getProduct().getId());
+
         final Button callAction = Button
                 .builder()
                 .style(Button.ButtonStyle.PRIMARY)
                 .color("#cf2f48")
                 .height(Button.ButtonHeight.SMALL)
-                .action(new URIAction("CONTINUE AUCTION", URI.create("https://www.google.com"),
-                        new URIAction.AltUri(URI.create("https://www.google.com"))))
+                .action(new URIAction("CONTINUE AUCTION", URI.create(url), null))
                 .build();
         final Separator separator = Separator.builder().build();
 

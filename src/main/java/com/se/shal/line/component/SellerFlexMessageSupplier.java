@@ -21,7 +21,7 @@ public class SellerFlexMessageSupplier {
     public FlexMessage get(Bid bid) {
         Bubble bubble = createBubble(bid);
         return FlexMessage.builder()
-                .altText("YOU LOSE AUCTION")
+                .altText("AUCTION DETAILS")
                 .contents(bubble)
                 .build();
     }
@@ -120,7 +120,7 @@ public class SellerFlexMessageSupplier {
     }
     private static Box createFooterBlock() {
         final Text text = Text.builder()
-                .text("PLEASE PAY FOR YOUR ITEM")
+                .text("WAITING FOR PAYMENT")
                 .color("#f99e07")
                 .size(FlexFontSize.Md)
                 .style(Text.TextStyle.ITALIC)

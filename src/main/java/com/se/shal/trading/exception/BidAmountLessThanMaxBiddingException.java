@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BidAmountException extends RuntimeException implements GraphQLError {
+public class BidAmountLessThanMaxBiddingException extends RuntimeException implements GraphQLError {
     Double bidAmount;
 
-    public BidAmountException(Double bidAmount) {
+    public BidAmountLessThanMaxBiddingException(Double bidAmount) {
         super(String.format("Bid has to be greater than max bid %s THB.", bidAmount));
         this.bidAmount = bidAmount;
     }
