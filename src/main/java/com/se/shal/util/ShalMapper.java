@@ -123,7 +123,7 @@ public interface ShalMapper {
     @Mappings({
             @Mapping(target = "users", source = "users"),
             @Mapping(target = "products", source = "products"),
-            @Mapping(target = "shop", source = "shop.id")
+            @Mapping(target = "shop", source = "shop")
     })
     ProductOrderQueryDto getProductOrder(ProductOrder tradingHistories);
 
