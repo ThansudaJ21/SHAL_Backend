@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserExistException extends RuntimeException implements GraphQLError {
+public class UserNotExistException extends RuntimeException implements GraphQLError {
 
 
-    public UserExistException() {
+    public UserNotExistException() {
         super(String.format("No such user exists"));
 
     }

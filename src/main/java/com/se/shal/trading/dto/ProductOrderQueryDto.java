@@ -29,7 +29,6 @@ public class ProductOrderQueryDto {
 
     ProductQueryOrder products;
     UserQueryOrder users;
-    Long shop;
-
+    ShopQueryDto shop;
     List<OptionsQueryDto> optionsList;
 }

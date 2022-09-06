@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductTypeException extends RuntimeException implements GraphQLError {
+public class ProductTypeNotMatchException extends RuntimeException implements GraphQLError {
     String productName;
 
-    public ProductTypeException(String productName) {
+    public ProductTypeNotMatchException(String productName) {
         super(String.format("No such Auction exists with Product name: %s", productName));
         this.productName = productName;
     }

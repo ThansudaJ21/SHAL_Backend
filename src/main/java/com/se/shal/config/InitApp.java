@@ -325,8 +325,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Auction auction_product = Auction.builder()
                 .auctionPeriod(1)
                 .nextAuction(1)
-                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
-                .timeUnitForNextAuction(TimeUnit.HOUR)
+                .timeUnitForAuctionPeriod(TimeUnit.MINUTE)
+                .timeUnitForNextAuction(TimeUnit.MINUTE)
                 .startingBid(20000.0)
                 .product(product)
                 .build();
@@ -533,10 +533,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
 
         Auction auction_bodycon_Dress = Auction.builder()
-                .auctionPeriod(5)
-                .nextAuction(2)
-                .timeUnitForAuctionPeriod(TimeUnit.HOUR)
-                .timeUnitForNextAuction(TimeUnit.HOUR)
+                .auctionPeriod(1)
+                .nextAuction(1)
+                .timeUnitForAuctionPeriod(TimeUnit.MINUTE)
+                .timeUnitForNextAuction(TimeUnit.MINUTE)
                 .startingBid(20000.0)
                 .product(bodycon_Dress)
                 .build();

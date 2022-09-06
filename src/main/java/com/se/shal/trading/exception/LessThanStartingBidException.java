@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StartingBidException extends RuntimeException implements GraphQLError {
+public class LessThanStartingBidException extends RuntimeException implements GraphQLError {
     Double startingBid;
 
-    public StartingBidException(Double startingBid) {
+    public LessThanStartingBidException(Double startingBid) {
         super(String.format("Bid has to be greater than starting bid %s THB.", startingBid));
         this.startingBid = startingBid;
     }

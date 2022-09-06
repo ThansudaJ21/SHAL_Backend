@@ -69,6 +69,7 @@ type Order {
     orderStatus: String
     products:ProductQueryOrder
     users: UserQueryOrder
+    shop:ShopQueryBid
     optionsList: [QueryOrderOptions]
 }
 type QueryOrderVariations {
@@ -92,13 +93,8 @@ type  ProductQueryOrder {
     productStatus: String
     imagesPath: [String]
     salePrice: Float
-    #    startingBid: Float
     storage:Int
-    #    auctionPeriod:Int
-    #    nextAuction:Int
     saleTypeName: String
-    #    timeUnitForAuctionPeriod: String
-    #    timeUnitForNextAuction:String
 }
 type UserQueryOrder {
     id: Int
@@ -112,7 +108,6 @@ type UserQueryOrder {
     enabled: Boolean
     authorities: [Authorities]
 }
-
 
 #--------------------------------Auction----------------------------------------
 type AuctionDto {
