@@ -21,7 +21,7 @@ type Query {
     findProductOrderByUserIdOrProductIdOrShopId(userId: Int,productId: Int,shopId: Int) : [Order]
     findAuctionByUserIdOrAuctionIdOrShopId(userId: Int,shopId: Int,auctionId: Int) : [BidQueryDto]
     getAddToCartProduct(userId: Int ):[Order]
-    getAuctionWinner(productId: Int):BidQueryDto
+    getAuctionWinner(auctionId: Int):BidQueryDto
     getProductAuctionType(shopId: Int ):[QueryProductDto]
     #    getAuctionWinner(id: Int) : ProductDto
 }

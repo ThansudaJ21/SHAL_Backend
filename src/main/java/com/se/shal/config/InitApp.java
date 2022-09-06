@@ -74,7 +74,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .lastname("Keawchoi")
                 .authorities(List.of(roleBuyer))
                 .email("thananya53@gmail.com")
-                .userId("Ub247a87cc31371da082fa8452b1b12c0")
+                .userId("U6f88235e56c155f9ae2223b0109d7e67")
                 .phoneNumber("095-4535854")
                 .pictureUrl("https://profile.line-scdn.net/0hAeMwTCdcHkpgDjfCgmVgNRBeHSBDf0dYTm1YKFRcR39VPlAZRWtQKAUKQnJfaVtLGGFTfgELE3tsHWksfljifmc-QH1ZPF0aSG9Vrg")
                 .displayName("Nong.53")
