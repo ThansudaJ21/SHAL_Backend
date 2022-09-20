@@ -24,6 +24,7 @@ type Query {
     getAuctionWinner(auctionId: Int):BidQueryDto
     getProductAuctionType(shopId: Int ):[QueryProductDto]
     #    getAuctionWinner(id: Int) : ProductDto
+#    auctionList()
 }
 
 

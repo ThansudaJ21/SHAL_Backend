@@ -5,6 +5,7 @@ import com.se.shal.trading.repository.AuctionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -37,5 +38,14 @@ public class AuctionDaoImpl implements AuctionDao {
         return auctionRepository.findByProductId(productId);
     }
 
+    @Override
+    public List<Auction> findEndAuctionWithoutNotification(LocalDateTime currentDate) {
+        return auctionRepository.findByEndBiddingTimeBeforeAndIsNotification(currentDate,false);
+    }
+
+    @Override
+    public List<Auction> getNonEndBidTimeAuction(){
+        return auctionRepository.findByEndBiddingTimeIsNull();
+    }
 
 }

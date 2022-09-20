@@ -39,4 +39,9 @@ public class BidDaoImpl implements BidDao {
     public List<Bid> findAllBid() {
         return bidRepository.findAll();
     }
+
+    @Override
+    public Bid findById(Long id) {
+        return bidRepository.findById(id).orElse(null);
+    }
 }
