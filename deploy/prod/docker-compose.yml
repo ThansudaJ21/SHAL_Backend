@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  maincontroller:
+    image: cmu-line-patient/prod
+    ports:
+      - 8889:8080
+    environment:
+      - JAVA_PROFILE=prod,db,elk
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  redis:
+    image: redis
+    volumes:
+      - redis_data:/data
+#  db:
+#    image: mysql
+#    command: --default-authentication-plugin=mysql_native_password
+#    ports:
+#      - 33306:3306
+#    environment:
+#      MYSQL_ROOT_PASSWORD: podd
+#    volumes:
+#      - db_data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 9002:80
+    environment:
+      PMA_HOST: podd-tracing.cf8nwxhdv3iz.ap-southeast-1.rds.amazonaws.com
+
+volumes:
+  redis_data:
+  db_data:

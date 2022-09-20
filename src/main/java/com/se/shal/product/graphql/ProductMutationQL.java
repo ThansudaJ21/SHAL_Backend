@@ -23,7 +23,7 @@ public class ProductMutationQL implements GraphQLMutationResolver {
 
 
     @Transactional
-    ProductDto saveProduct(Long shopId, InputProductDto product) {
+    public ProductDto saveProduct(Long shopId, InputProductDto product) {
         Product newProduct = productService.saveProduct(shopId, product);
         return ShalMapper.INSTANCE.saveProductDto(newProduct);
     }

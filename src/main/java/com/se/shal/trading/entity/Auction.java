@@ -5,6 +5,9 @@ import com.se.shal.product.entity.enumeration.TimeUnit;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
 
 @Data
@@ -20,9 +23,11 @@ public class Auction {
     Integer nextAuction;
     Double startingBid;
     Integer auctionPeriod;
-    TimeUnit timeUnitForAuctionPeriod;
-    TimeUnit timeUnitForNextAuction;
-
+    ChronoUnit timeUnitForAuctionPeriod;
+    ChronoUnit timeUnitForNextAuction;
+    LocalDateTime endBiddingTime;
+    Boolean isNotification = false;
+    Integer auctionTimes;
 //    @OneToMany
 //    List<Bid> bids;
 
