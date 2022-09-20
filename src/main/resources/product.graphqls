@@ -18,7 +18,7 @@ type  Product {
     shipments: [String]
     variations: [QueryVariationsDto]
     productAttribute: [QueryProductAttributeDto]
-#    auction: AuctionProductDto
+    auction: AuctionProductDto
 }
 type  UpdateProductStatus {
     id:Int
@@ -228,7 +228,7 @@ input InputProduct {
     shipments: [String]
     variations: [InputVariations]
     productAttribute: [InputProductAttribute]
-#    auction: AuctionProduct
+    auction: AuctionProduct
 }
 
 type AuctionProductDto {

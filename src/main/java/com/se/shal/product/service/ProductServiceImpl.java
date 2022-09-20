@@ -88,20 +88,22 @@ public class ProductServiceImpl implements ProductService {
             List<ProductAttribute> p = productAttributeDao.save(output);
             newProduct.setProductAttribute(p);
             newProduct.setVariations(variations);
+//            if (product1.getSaleTypeName().equals(SaleTypeName.AUCTION) || product1.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
+            Auction auction = Auction.builder()
+                    .auctionPeriod(product.getAuction().getAuctionPeriod())
+                    .nextAuction(product.getAuction().getNextAuction())
+                    .timeUnitForAuctionPeriod(product.getAuction().getTimeUnitForAuctionPeriod())
+                    .timeUnitForNextAuction(product.getAuction().getTimeUnitForNextAuction())
+                    .startingBid(product.getAuction().getStartingBid())
+                    .auctionTimes(product.getStorage())
+                    .isNotification(false)
+                    .build();
 
+//            }
+            newProduct.setAuction(auction);
             Product product1 = productDao.saveProduct(newProduct);
-
-            if (product1.getSaleTypeName().equals(SaleTypeName.AUCTION) || product1.getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
-                Auction auction = Auction.builder()
-                        .auctionPeriod(product.getAuction().getAuctionPeriod())
-                        .nextAuction(product.getAuction().getNextAuction())
-                        .timeUnitForAuctionPeriod(product.getAuction().getTimeUnitForAuctionPeriod())
-                        .timeUnitForNextAuction(product.getAuction().getTimeUnitForNextAuction())
-                        .startingBid(product.getAuction().getStartingBid())
-                        .product(product1)
-                        .build();
-                auctionDao.save(auction);
-            }
+            auction.setProduct(product1);
+            auctionDao.save(auction);
             return product1;
         }
         return null;
