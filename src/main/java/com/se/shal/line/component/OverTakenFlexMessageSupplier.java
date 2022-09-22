@@ -126,7 +126,7 @@ public class OverTakenFlexMessageSupplier {
 
     private static Box createFooterBlock(Bid bid, String lineFlexUrl) {
         final Spacer spacer = Spacer.builder().size(FlexMarginSize.SM).build();
-        String url = String.format("%s/product/:%d", lineFlexUrl, bid.getAuction().getProduct().getId());
+        String url = String.format("%s/product/%d", lineFlexUrl, bid.getAuction().getProduct().getId());
 
         final Button callAction = Button
                 .builder()
