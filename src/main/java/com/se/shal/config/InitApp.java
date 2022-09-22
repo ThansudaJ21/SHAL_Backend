@@ -67,6 +67,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        removeRedisCache();
         setAuthority();
         lineInitComponent.initLineApp();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -679,8 +680,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     }
 
 
-//    void removeRedisCache() {
-//        Set<String> keys = redisTemplate.keys(String.format("%s::*", "postData"));
-//        redisTemplate.delete(keys);
-//    }
+    void removeRedisCache() {
+        Set<String> keys = redisTemplate.keys(String.format("%s::*", "postData"));
+        redisTemplate.delete(keys);
+    }
 }
