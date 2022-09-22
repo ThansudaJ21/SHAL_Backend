@@ -12,5 +12,6 @@ public interface BidService {
 
     List<Bid> findByUserIdOrShopIdOrAuctionId(Long userId, Long shopId, Long auctionId);
 
+    void auctionList();
 
 }

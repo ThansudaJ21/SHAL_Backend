@@ -1,8 +1,8 @@
 package com.se.shal.trading.service;
 
 import com.se.shal.line.handler.LineHandler;
+import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
-import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.User;
 import com.se.shal.shop.dao.ShopDao;
@@ -18,17 +18,18 @@ import com.se.shal.trading.exception.BidAmountLessThanMaxBiddingException;
 import com.se.shal.trading.exception.ProductTypeNotMatchException;
 import com.se.shal.trading.exception.LessThanStartingBidException;
 import com.se.shal.trading.exception.UserNotExistException;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
+
+@Slf4j
 public class BidServiceImpl implements BidService {
 
     @Autowired
@@ -70,9 +71,9 @@ public class BidServiceImpl implements BidService {
                         auction.setMaxBidding(newBiding);
                         for (Bid bid : bidList) {
                             bid.setAuctionResult(AuctionResult.LOSER);
-                            if (bid.getAuctionResult().equals(AuctionResult.LOSER)) {
-                                lineHandler.pushMessageForOverTaken(auction.getMaxBidding());
-                            }
+//                            if (bid.getAuctionResult().equals(AuctionResult.LOSER)) {
+                            lineHandler.pushMessageForOverTaken(bidList.get(bidList.size() - 1));
+//                            }
                         }
                         return newBiding;
                     }
@@ -96,38 +97,53 @@ public class BidServiceImpl implements BidService {
         return winner;
     }
 
-    @Scheduled(cron = "* * * * *")
-    private void auctionList() {
-        List<Auction> auctions = auctionDao.findAll();
+    @Transactional
+    @Override
+    public void auctionList() {
+//  set end time at the first time when run server
+        List<Auction> noEndBidDateAuctions = auctionDao.getNonEndBidTimeAuction();
+        noEndBidDateAuctions.forEach(auction -> {
+            int time = auction.getNextAuction() + auction.getAuctionPeriod();
+            auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
+        });
+
+//   get auction list by have end time and notification is false
+        List<Auction> auctions = auctionDao.findEndAuctionWithoutNotification(LocalDateTime.now());
         auctions.forEach(auction -> {
-            LocalTime localTime = null;
-            if (auction.getTimeUnitForNextAuction().equals(TimeUnit.HOUR)) {
-                localTime = LocalTime.now().plusHours(auction.getNextAuction()); //get time for start next auction e.g. 13.30 pm
-            }
-            if (auction.getTimeUnitForNextAuction().equals(TimeUnit.MINUTE)) {
-                localTime = LocalTime.now().plusMinutes(auction.getNextAuction()); //get time for start next auction e.g. 14.30 pm
-            }
-//            start auction add 13.30 pm
-            if (LocalTime.now().equals(localTime)) {
-                if (auction.getTimeUnitForAuctionPeriod().equals(TimeUnit.MINUTE)) {
-                    LocalTime time = localTime.plusMinutes(auction.getAuctionPeriod()); // plus minute 13.30 pm + 1 minute = 13.31 pm
-                    if (LocalTime.now().equals(time)) { // if now = 13.31 pm
-                        lineHandler.pushMessageForAuctionWinner(auction.getMaxBidding()); // send message
-                        lineHandler.pushMessageForSeller(auction.getMaxBidding().getShop().getUser(), auction.getMaxBidding()); // send message
-                    }
-                } else if (auction.getTimeUnitForAuctionPeriod().equals(TimeUnit.HOUR)) {
-                    LocalTime time = localTime.plusHours(auction.getAuctionPeriod()); // plus hour 13.30 pm + 1 minute = 14.31 pm
-                    if (LocalTime.now().equals(time)) { // if now = 14.31 pm
-                        lineHandler.pushMessageForAuctionWinner(auction.getMaxBidding()); // send message
-                        lineHandler.pushMessageForSeller(auction.getMaxBidding().getShop().getUser(), auction.getMaxBidding()); // send message
-                    }
+            if (auction.getAuctionTimes() > 0) {
+                if (!auction.getIsNotification() && auction.getMaxBidding() != null) {
+                    // if auction.getIsNotification() == false and max bidding != NULL
+                    lineHandler.pushMessageForAuctionWinner(auction.getMaxBidding());
+                    lineHandler.pushMessageForSeller(auction.getMaxBidding().getShop().getUser(), auction.getMaxBidding());
+                    List<Bid> bidList = bidDao.findByAuctionId(auction.getId());
+                    bidList.forEach(bid -> {
+                        if (bid.getAuctionResult().equals(AuctionResult.LOSER)) {
+                            lineHandler.pushMessageForAuctionLoser(bidList.get(bidList.size() - 1));
+                        }
+                    });
+
+                    Auction updateAuction = auctionDao.findById(auction.getId());
+                    updateAuction.getMaxBidding().setAuction(null);
+                    updateAuction.setMaxBidding(null);
+                    updateAuction.setAuctionTimes(auction.getAuctionTimes() - 1);
+
+                    auctionDao.save(updateAuction);
+
+                    Product product = productDao.getProduct(auction.getProduct().getId());
+                    product.setStorage(auction.getProduct().getStorage() - 1);
+
+                    auctionDao.save(updateAuction);
+                    productDao.saveProduct(product);
+                    log.info("Save auction");
+                    log.info("Send message");
+
+                    int time = auction.getNextAuction() + auction.getAuctionPeriod();
+                    auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
+
+                } else if (auction.getMaxBidding() == null) {
+                    int time = auction.getNextAuction() + auction.getAuctionPeriod();
+                    auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
                 }
-                List<Bid> bidList = bidDao.findByAuctionId(auction.getId());
-                bidList.forEach(bid -> {
-                    if (bid.getAuctionResult().equals(AuctionResult.LOSER)) {
-                        lineHandler.pushMessageForAuctionLoser(bid);
-                    }
-                });
             }
         });
     }
