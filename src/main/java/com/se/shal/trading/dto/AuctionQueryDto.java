@@ -19,6 +19,7 @@ public class AuctionQueryDto {
     Integer nextAuction;
     Double startingBid;
     Integer auctionPeriod;
+    LocalDateTime endBiddingTime;
     ChronoUnit timeUnitForAuctionPeriod;
     ChronoUnit timeUnitForNextAuction;
     ProductQueryOrder product;
