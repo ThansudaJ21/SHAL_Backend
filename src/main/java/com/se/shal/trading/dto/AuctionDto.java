@@ -21,6 +21,7 @@ public class AuctionDto {
     Integer nextAuction;
     Double startingBid;
     Integer auctionPeriod;
+    LocalDateTime endBiddingTime;
     ChronoUnit timeUnitForAuctionPeriod;
     ChronoUnit timeUnitForNextAuction;
     List<BidDto> bids;
