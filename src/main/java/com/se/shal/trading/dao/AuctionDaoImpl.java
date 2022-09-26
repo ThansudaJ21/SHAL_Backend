@@ -40,12 +40,17 @@ public class AuctionDaoImpl implements AuctionDao {
 
     @Override
     public List<Auction> findEndAuctionWithoutNotification(LocalDateTime currentDate) {
-        return auctionRepository.findByEndBiddingTimeBeforeAndIsNotification(currentDate,false);
+        return auctionRepository.findByEndBiddingTimeBeforeAndIsNotification(currentDate, false);
     }
 
     @Override
-    public List<Auction> getNonEndBidTimeAuction(){
+    public List<Auction> getNonEndBidTimeAuction() {
         return auctionRepository.findByEndBiddingTimeIsNull();
     }
 
+
+    @Override
+    public List<Auction> findNextAuction(LocalDateTime currentDate) {
+        return auctionRepository.findByNextBiddingTimeBefore(LocalDateTime.now());
+    }
 }

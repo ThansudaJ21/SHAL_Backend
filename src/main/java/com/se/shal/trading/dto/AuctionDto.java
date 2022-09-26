@@ -3,6 +3,7 @@ package com.se.shal.trading.dto;
 import com.se.shal.product.entity.enumeration.TimeUnit;
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
+import com.se.shal.trading.entity.enumeration.AuctionState;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class AuctionDto {
     Double startingBid;
     Integer auctionPeriod;
     LocalDateTime endBiddingTime;
+    LocalDateTime nextBiddingTime;
     ChronoUnit timeUnitForAuctionPeriod;
     ChronoUnit timeUnitForNextAuction;
     List<BidDto> bids;

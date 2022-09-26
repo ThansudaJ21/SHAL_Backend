@@ -14,6 +14,7 @@ import com.se.shal.trading.dto.BidDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.enumeration.AuctionResult;
+import com.se.shal.trading.entity.enumeration.AuctionState;
 import com.se.shal.trading.exception.BidAmountLessThanMaxBiddingException;
 import com.se.shal.trading.exception.ProductTypeNotMatchException;
 import com.se.shal.trading.exception.LessThanStartingBidException;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -105,7 +107,14 @@ public class BidServiceImpl implements BidService {
         noEndBidDateAuctions.forEach(auction -> {
             int time = auction.getNextAuction() + auction.getAuctionPeriod();
             auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
+            auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
+            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
+                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
+            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
+                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
+            }
         });
+
 
 //   get auction list by have end time and notification is false
         List<Auction> auctions = auctionDao.findEndAuctionWithoutNotification(LocalDateTime.now());
@@ -139,11 +148,31 @@ public class BidServiceImpl implements BidService {
 
                     int time = auction.getNextAuction() + auction.getAuctionPeriod();
                     auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
-
+                    auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
+                    if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
+                        auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
+                    } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
+                        auction.setCurrentAuctionState(AuctionState.AUCTIONING);
+                    }
                 } else if (auction.getMaxBidding() == null) {
                     int time = auction.getNextAuction() + auction.getAuctionPeriod();
                     auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
+                    auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
+                    if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
+                        auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
+                    } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
+                        auction.setCurrentAuctionState(AuctionState.AUCTIONING);
+                    }
                 }
+            }
+        });
+
+        List<Auction> auctions1 = auctionDao.findNextAuction(LocalDateTime.now());
+        auctions1.forEach(auction -> {
+            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
+                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
+            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
+                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
             }
         });
     }
