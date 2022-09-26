@@ -14,7 +14,6 @@ import com.se.shal.shop.repository.FailureReasonListRepository;
 import com.se.shal.shop.repository.FailureReasonRepository;
 import com.se.shal.shop.repository.ShopRepository;
 import com.se.shal.shop.repository.ShopStatusRepository;
-import com.se.shal.trading.dto.AuctionDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.repository.AuctionRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -74,7 +73,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         User user = User.builder()
                 .firstname("Thananya")
                 .lastname("Keawchoi")
-                .authorities(List.of(roleBuyer))
+                .authorities(List.of(roleBuyer, roleAdmin))
                 .email("thananya53@gmail.com")
                 .userId("U6f88235e56c155f9ae2223b0109d7e67")
                 .phoneNumber("095-4535854")
@@ -316,7 +315,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .shop(shop)
                 .salePrice(35000.0)
                 .saleTypeName(SaleTypeName.AUCTIONANDSALE)
-                .storage(40)
+                .storage(options.getStock() + options1.getStock() + options2.getStock() + options3.getStock())
                 .productAttribute(Arrays.asList(att1, att2, att3, att4, att5))
                 .variations(Arrays.asList(variations, variations1))
                 .shipments(List.of(dhl, kerry, flash))
@@ -325,7 +324,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
 
         Auction auction_product = Auction.builder()
-                .auctionPeriod(1)
+                .auctionPeriod(3)
                 .nextAuction(1)
                 .timeUnitForAuctionPeriod(ChronoUnit.MINUTES)
                 .timeUnitForNextAuction(ChronoUnit.MINUTES)
@@ -387,7 +386,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .shop(shop)
                 .salePrice(3500.0)
                 .saleTypeName(SaleTypeName.SALE)
-                .storage(5)
+                .storage(options_dior.getStock() + options_dior2.getStock() + options_dior1.getStock() + options_dior3.getStock())
                 .productAttribute(Arrays.asList(att_dior1, att_dior2))
                 .variations(List.of(variations_dior))
                 .shipments(Arrays.asList(ninja, dhl))
@@ -456,7 +455,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .shop(shop)
                 .salePrice(3500.0)
                 .saleTypeName(SaleTypeName.SALE)
-                .storage(5)
+                .storage(options_chanel.getStock() + options_chanel1.getStock() + options_chanel2.getStock() + options_chanel3.getStock())
                 .productAttribute(Arrays.asList(att_chanel1, att_chanel2, att_chanel3, att_chanel4))
                 .variations(List.of(variations_chanel_size, variations_chanel_color))
                 .shipments(Arrays.asList(kerry, ninja, dhl))
@@ -528,7 +527,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .saleTypeName(SaleTypeName.AUCTION)
                 .shop(shop2)
                 .salePrice(200.0)
-                .storage(10)
+                .storage(opt_bodycon_Dress.getStock() + opt_bodycon_Dress_s.getStock() + opt_bodycon_Dress_m.getStock() + opt_bodycon_Dress_l.getStock())
                 .productAttribute(Arrays.asList(att_bodycon_Dress1, att_bodycon_Dress2, att_bodycon_Dress3, att_bodycon_Dress4, att_bodycon_Dress5))
                 .variations(List.of(var_bodycon_Dress_color, var_bodycon_Dress_size))
                 .shipments(Arrays.asList(kerry, ninja, dhl))
@@ -537,7 +536,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
 
         Auction auction_bodycon_Dress = Auction.builder()
-                .auctionPeriod(1)
+                .auctionPeriod(3)
                 .nextAuction(1)
                 .timeUnitForAuctionPeriod(ChronoUnit.MINUTES)
                 .isNotification(false)
@@ -593,15 +592,14 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Product floral_Dress = productRepository.save(Product.builder()
                 .productName("SHEIN Notched Neck Lettuce Trim Daisy Floral Dress")
-                .details("Lettuce Trim" +
-                        "Color: Black")
+                .details("Lettuce Trim Color: Black")
                 .category(CategoryName.FASHION)
                 .productStatus(ProductStatus.ACTIVE)
                 .shop(shop)
                 .saleTypeName(SaleTypeName.SALE)
                 .shop(shop2)
                 .salePrice(200.0)
-                .storage(10)
+                .storage(opt_floral_Dress_s.getStock() + opt_floral_Dress_m.getStock() + opt_floral_Dress_l.getStock())
                 .productAttribute(Arrays.asList(att_floral_Dress1, att_floral_Dress2, att_floral_Dress3, att_floral_Dress4, att_floral_Dress5))
                 .variations(List.of(var_floral_Dress_size))
                 .shipments(List.of(jandt))
@@ -648,7 +646,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .shop(shop)
                 .salePrice(1200.0)
                 .saleTypeName(SaleTypeName.SALE)
-                .storage(2)
+                .storage(opt_LIP_GLOW1.getStock() + opt_LIP_GLOW2.getStock())
                 .productAttribute(Arrays.asList(att_LIP_GLOW1, att_LIP_GLOW2))
                 .variations(List.of(var_LIP_GLOW))
                 .shipments(Arrays.asList(ninja))

@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -19,6 +20,8 @@ public class AuctionQueryDto {
     Integer nextAuction;
     Double startingBid;
     Integer auctionPeriod;
+    LocalDateTime endBiddingTime;
+    LocalDateTime nextBiddingTime;
     ChronoUnit timeUnitForAuctionPeriod;
     ChronoUnit timeUnitForNextAuction;
     ProductQueryOrder product;

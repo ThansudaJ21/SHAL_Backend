@@ -20,11 +20,21 @@ public class ProductOrderDaoImpl implements ProductOrderDao {
 
     @Override
     public List<ProductOrder> findByUsersIdOrProductsIdOrShopId(Long userId, Long productId, Long shopId) {
-        return productOrderRepository.findByUsersIdOrProductsIdOrShopId(userId,productId,shopId);
+        return productOrderRepository.findByUsersIdOrProductsIdOrShopId(userId, productId, shopId);
     }
 
     @Override
     public List<ProductOrder> findByUsersId(Long userId) {
         return productOrderRepository.findByUsersId(userId);
+    }
+
+    @Override
+    public List<ProductOrder> findAll() {
+        return productOrderRepository.findAll();
+    }
+
+    @Override
+    public ProductOrder findById(Long id) {
+        return productOrderRepository.findById(id).orElse(null);
     }
 }

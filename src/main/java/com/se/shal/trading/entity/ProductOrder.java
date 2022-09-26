@@ -30,8 +30,8 @@ public class ProductOrder {
     OrderStatus orderStatus;
 
 
-    @ManyToMany
-    List<Options> optionsList;
+    @ManyToOne
+    Options options;
 
     @ManyToOne
     Shop shop;

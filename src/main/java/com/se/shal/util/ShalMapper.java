@@ -123,7 +123,9 @@ public interface ShalMapper {
     @Mappings({
             @Mapping(target = "users", source = "users"),
             @Mapping(target = "products", source = "products"),
-            @Mapping(target = "shop", source = "shop")
+            @Mapping(target = "shop", source = "shop"),
+            @Mapping(target = "option", source = "options"),
+
     })
     ProductOrderQueryDto getProductOrder(ProductOrder tradingHistories);
 
@@ -144,10 +146,7 @@ public interface ShalMapper {
     @Mappings({
             @Mapping(target = "users", source = "users.id"),
             @Mapping(target = "products", source = "products.id"),
-            @Mapping(target = "optionsList",
-                    expression = "java(productOrder.getOptionsList().stream()" +
-                            ".map(optionsList -> optionsList.getId())" +
-                            ".collect(Collectors.toList()))"),
+            @Mapping(target = "option", source = "options.id"),
             @Mapping(target = "shop", source = "shop.id")
     })
     ProductOrderInputDto buyProduct(ProductOrder productOrder);

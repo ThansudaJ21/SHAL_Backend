@@ -9,8 +9,12 @@ import java.util.List;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
     Auction findByProductId(Long productId);
+
     List<Auction> findByEndBiddingTimeBeforeAndIsNotification(LocalDateTime currentTime, Boolean isNotification);
 
     List<Auction> findByMaxBiddingId(Long maxBiddingId);
+
     List<Auction> findByEndBiddingTimeIsNull();
+
+    List<Auction> findByNextBiddingTimeBefore(LocalDateTime currentTime);
 }

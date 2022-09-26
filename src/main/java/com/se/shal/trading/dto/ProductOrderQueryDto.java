@@ -30,5 +30,5 @@ public class ProductOrderQueryDto {
     ProductQueryOrder products;
     UserQueryOrder users;
     ShopQueryDto shop;
-    List<OptionsQueryDto> optionsList;
+    OptionsQueryDto option;
 }

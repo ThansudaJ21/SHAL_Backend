@@ -19,4 +19,6 @@ public interface AuctionDao {
     List<Auction> findEndAuctionWithoutNotification(LocalDateTime currentDate);
 
     List<Auction> getNonEndBidTimeAuction();
+
+    List<Auction> findNextAuction(LocalDateTime currentDate);
 }

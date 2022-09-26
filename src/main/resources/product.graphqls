@@ -84,10 +84,10 @@ type AuctionForProductDto {
     nextAuction:Int
     startingBid:Float
     auctionPeriod:Int
+    endBiddingTime:String
+    nextBiddingTime:String
     timeUnitForAuctionPeriod:String
     timeUnitForNextAuction:String
-#    product: ProductQueryOrder
-
 }
 type  QueryProductDto {
     id:Int

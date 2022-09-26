@@ -2,6 +2,7 @@ package com.se.shal.trading.entity;
 
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.enumeration.TimeUnit;
+import com.se.shal.trading.entity.enumeration.AuctionState;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,8 +29,9 @@ public class Auction {
     LocalDateTime endBiddingTime;
     Boolean isNotification = false;
     Integer auctionTimes;
-//    @OneToMany
-//    List<Bid> bids;
+
+    AuctionState currentAuctionState;
+    LocalDateTime nextBiddingTime;
 
     @OneToOne
     Product product;

@@ -24,5 +24,5 @@ public class ProductOrderInputDto {
     Long shop;
     Long users;
 
-    List<Long> optionsList;
+    Long option;
 }
