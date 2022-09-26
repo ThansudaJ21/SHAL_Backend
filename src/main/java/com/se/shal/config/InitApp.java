@@ -73,7 +73,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         User user = User.builder()
                 .firstname("Thananya")
                 .lastname("Keawchoi")
-                .authorities(List.of(roleBuyer))
+                .authorities(List.of(roleBuyer, roleAdmin))
                 .email("thananya53@gmail.com")
                 .userId("U6f88235e56c155f9ae2223b0109d7e67")
                 .phoneNumber("095-4535854")
