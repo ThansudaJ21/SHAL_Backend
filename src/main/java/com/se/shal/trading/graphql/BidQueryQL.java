@@ -30,7 +30,7 @@ public class BidQueryQL implements GraphQLQueryResolver {
         return ShalMapper.INSTANCE.getBidQueryDto(bids);
     }
 
-    @Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "* * * * * *")
     @Transactional
     public void auctionList() {
         bidService.auctionList();

@@ -108,11 +108,11 @@ public class BidServiceImpl implements BidService {
             int time = auction.getNextAuction() + auction.getAuctionPeriod();
             auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
             auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
-            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
-                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
-            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
-                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
-            }
+//            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
+//                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
+//            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
+//                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
+//            }
         });
 
 
@@ -149,32 +149,24 @@ public class BidServiceImpl implements BidService {
                     int time = auction.getNextAuction() + auction.getAuctionPeriod();
                     auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
                     auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
-                    if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
-                        auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
-                    } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
-                        auction.setCurrentAuctionState(AuctionState.AUCTIONING);
-                    }
+
                 } else if (auction.getMaxBidding() == null) {
                     int time = auction.getNextAuction() + auction.getAuctionPeriod();
                     auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
                     auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
-                    if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
-                        auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
-                    } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
-                        auction.setCurrentAuctionState(AuctionState.AUCTIONING);
-                    }
+
                 }
             }
         });
 
-        List<Auction> auctions1 = auctionDao.findNextAuction(LocalDateTime.now());
-        auctions1.forEach(auction -> {
-            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
-                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
-            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
-                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
-            }
-        });
+//        List<Auction> auctions1 = auctionDao.findNextAuction(LocalDateTime.now());
+//        auctions1.forEach(auction -> {
+//            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
+//                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
+//            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
+//                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
+//            }
+//        });
     }
 
     @Transactional
