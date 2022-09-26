@@ -8,12 +8,12 @@ type SaveOrder {
     #TODO error use product ซ้ำ
     products:Int
     users: Int
-    optionsList: [Int]
+    option: Int
     shop:Int
 }
 
 input OrderInput {
-    optionsList: [Int],
+    option: Int,
     users: Int,
     products: Int,
     quantity:Int,
@@ -70,7 +70,7 @@ type Order {
     products:ProductQueryOrder
     users: UserQueryOrder
     shop:ShopQueryBid
-    optionsList: [QueryOrderOptions]
+    option: QueryOrderOptions
 }
 type QueryOrderVariations {
     id:Int

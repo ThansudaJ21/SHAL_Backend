@@ -3,7 +3,9 @@ package com.se.shal.trading.service;
 import com.se.shal.product.dao.OptionsDao;
 import com.se.shal.product.dao.ProductDao;
 import com.se.shal.product.dao.VariationDao;
+import com.se.shal.product.entity.Options;
 import com.se.shal.product.entity.Product;
+import com.se.shal.product.entity.Variations;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.User;
 import com.se.shal.shop.dao.ShopDao;
@@ -13,14 +15,17 @@ import com.se.shal.trading.dto.ProductOrderInputDto;
 import com.se.shal.trading.entity.ProductOrder;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.trading.entity.enumeration.PaymentStatus;
+import com.se.shal.trading.exception.MaximumQuantityException;
 import com.se.shal.trading.exception.ProductSoldOutException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductOrderServiceImpl implements ProductOrderService {
@@ -44,7 +49,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     public ProductOrder buyProduct(ProductOrderInputDto productOrderInputDto) {
         User user = userDao.findById(productOrderInputDto.getUsers());
         Product product = productDao.getProduct(productOrderInputDto.getProducts());
-        List<Long> optionsList = productOrderInputDto.getOptionsList();
+
         Shop shop = shopDao.findById(productOrderInputDto.getShop());
         Integer storage = product.getStorage();
         if (productOrderInputDto.getQuantity() <= storage && productOrderInputDto.getQuantity() > 0) {
@@ -57,7 +62,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .quantity(productOrderInputDto.getQuantity())
                     .totalPrice(product.getSalePrice() * productOrderInputDto.getQuantity())
                     .orderStatus(OrderStatus.BUY)
-                    .optionsList(optionsDao.findByIds(optionsList))
+                    .options(optionsDao.findById(productOrderInputDto.getOption()))
                     .paymentStatus(PaymentStatus.UNPAID)
                     .shop(shop)
                     .users(user)
@@ -74,21 +79,30 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         User user = userDao.findById(productOrderInputDto.getUsers());
         Product product = productDao.getProduct(productOrderInputDto.getProducts());
         Shop shop = shopDao.findById(productOrderInputDto.getShop());
-        List<Long> optionsList = productOrderInputDto.getOptionsList();
+
         Integer storage = product.getStorage();
+        List<ProductOrder> productOrderList = productOrderDao.findAll();
+        if (!productOrderList.isEmpty()) {
+            productOrderList.forEach(productOrder -> {
+                Options options = optionsDao.findById(productOrderInputDto.getOption());
+                if (Objects.equals(productOrder.getQuantity(), options.getStock()) && Objects.equals(productOrder.getOptions(), options)) {
+                    throw new MaximumQuantityException();
+                }
+            });
+        }
         if (productOrderInputDto.getQuantity() <= storage && productOrderInputDto.getQuantity() > 0) {
-            ProductOrder productOrder = ProductOrder.builder()
+            ProductOrder newProductOrder = ProductOrder.builder()
                     .products(product)
                     .dateTime(LocalDateTime.now())
                     .quantity(productOrderInputDto.getQuantity())
                     .totalPrice(product.getSalePrice() * productOrderInputDto.getQuantity())
                     .orderStatus(OrderStatus.ADD_TO_CART)
-                    .optionsList(optionsDao.findByIds(optionsList))
+                    .options(optionsDao.findById(productOrderInputDto.getOption()))
                     .paymentStatus(PaymentStatus.UNPAID)
                     .users(user)
                     .shop(shop)
                     .build();
-            return productOrderDao.save(productOrder);
+            return productOrderDao.save(newProductOrder);
         } else {
             throw new ProductSoldOutException();
         }
