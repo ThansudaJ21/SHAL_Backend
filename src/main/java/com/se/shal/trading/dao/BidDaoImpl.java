@@ -27,8 +27,8 @@ public class BidDaoImpl implements BidDao {
 
 
     @Override
-    public List<Bid> findByAuctionId(Long auctionId) {
-        return bidRepository.findByAuctionId(auctionId);
+    public List<Bid> findByAuctionIdAndTimes(Long auctionId, Integer time) {
+        return bidRepository.findByAuctionIdAndTimes(auctionId, time);
     }
 
     @Override
@@ -49,5 +49,10 @@ public class BidDaoImpl implements BidDao {
     @Override
     public Bid findByAuctionIdAndAuctionResult(Long auctionId) {
         return bidRepository.findByAuctionIdAndAuctionResult(auctionId, AuctionResult.WINNER);
+    }
+
+    @Override
+    public List<Bid> findByAuctionId(Long auctionId) {
+        return bidRepository.findByAuctionId(auctionId);
     }
 }

@@ -10,11 +10,13 @@ import java.util.List;
 public interface BidRepository extends JpaRepository<Bid, Long> {
     Long countByUserIdAndAuctionId(Long userId, Long auctionId);
 
-    List<Bid> findByAuctionId(Long auctionId);
+    List<Bid> findByAuctionIdAndTimes(Long auctionId, Integer time);
 
     Bid findByAuctionIdAndAuctionResult(Long auctionId, AuctionResult auctionResult);
 
     List<Bid> findByUser(Long auctionId);
+
+    List<Bid> findByAuctionId(Long auctionId);
 
     List<Bid> findByUserIdOrShopIdOrAuctionIdOrderByLocalDateTimeDesc(Long userId, Long shopId, Long auctionId);
 

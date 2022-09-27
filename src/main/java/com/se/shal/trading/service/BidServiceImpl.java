@@ -55,7 +55,7 @@ public class BidServiceImpl implements BidService {
         Long countTime = bidDao.countByUserIdAndAuctionId(bidDto.getUserId(), auction.getId());
         Shop shop = shopDao.findById(bidDto.getShopId());
         Double maxBidding = auction.getMaxBidding() == null ? 0.0 : auction.getMaxBidding().getBidAmount();
-        List<Bid> bidList = bidDao.findByAuctionId(auction.getId());
+        List<Bid> bidList = bidDao.findByAuctionIdAndTimes(auction.getId(), Math.toIntExact(countTime));
         if (user != null) {
             if (bidDto.getBidAmount() > auction.getStartingBid()) {
                 if (auction.getProduct().getSaleTypeName().equals(SaleTypeName.AUCTION) || auction.getProduct().getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
@@ -92,10 +92,7 @@ public class BidServiceImpl implements BidService {
     @Transactional
     @Override
     public Bid getAuctionWinner(Long auctionId) {
-        Bid winner = bidDao.findByAuctionIdAndAuctionResult(auctionId);
-//        Hibernate.initialize(winner.getUser());
-//        Hibernate.initialize(winner.getAuction());
-        return winner;
+        return bidDao.findByAuctionIdAndAuctionResult(auctionId);
     }
 
     @Transactional
