@@ -108,11 +108,6 @@ public class BidServiceImpl implements BidService {
             int time = auction.getNextAuction() + auction.getAuctionPeriod();
             auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
             auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
-//            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
-//                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
-//            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
-//                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
-//            }
         });
 
 
@@ -135,26 +130,22 @@ public class BidServiceImpl implements BidService {
                     updateAuction.getMaxBidding().setAuction(null);
                     updateAuction.setMaxBidding(null);
                     updateAuction.setAuctionTimes(auction.getAuctionTimes() - 1);
-
                     auctionDao.save(updateAuction);
 
                     Product product = productDao.getProduct(auction.getProduct().getId());
                     product.setStorage(auction.getProduct().getStorage() - 1);
-
-                    auctionDao.save(updateAuction);
                     productDao.saveProduct(product);
+
                     log.info("Save auction");
                     log.info("Send message");
 
                     int time = auction.getNextAuction() + auction.getAuctionPeriod();
                     auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
                     auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
-
                 } else if (auction.getMaxBidding() == null) {
                     int time = auction.getNextAuction() + auction.getAuctionPeriod();
                     auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
                     auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
-
                 }
             }
         });
