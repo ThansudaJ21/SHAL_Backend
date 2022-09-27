@@ -44,4 +44,9 @@ public class BidDaoImpl implements BidDao {
     public Bid findById(Long id) {
         return bidRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Bid findByAuctionIdOrderByLocalDateTimeDesc(Long auctionId) {
+        return bidRepository.findByAuctionIdOrderByLocalDateTimeDesc(auctionId);
+    }
 }

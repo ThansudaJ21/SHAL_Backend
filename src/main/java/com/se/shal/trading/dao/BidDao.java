@@ -16,4 +16,6 @@ public interface BidDao {
     List<Bid> findBidsByUserIdOrShopIdOrAuctionId(Long userId, Long shopId, Long auctionId);
 
     List<Bid> findByAuctionId(Long auctionId);
+
+    Bid findByAuctionIdOrderByLocalDateTimeDesc(Long auctionId);
 }
