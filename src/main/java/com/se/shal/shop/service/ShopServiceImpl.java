@@ -71,13 +71,23 @@ public class ShopServiceImpl implements ShopService {
         User user = userDao.findById(userId);
         Shop shop = shopDao.findById(shopStatusInputDto.getId());
         if (shop.getShopStatus() == ShopStatusName.ENABLE) {
-            user.getAuthorities().remove(seller);
-            shop.setShopStatus(ShopStatusName.DISABLE);
+            if (shopStatusInputDto.getShopStatus().equals(ShopStatusName.ENABLE.name())) {
+                shop.setShopStatus(ShopStatusName.ENABLE);
+            } else {
+                user.getAuthorities().remove(seller);
+                shop.setShopStatus(ShopStatusName.DISABLE);
+            }
         } else if (shop.getShopStatus() == ShopStatusName.DISABLE) {
-            shop.setShopStatus(ShopStatusName.ENABLE);
-            user.getAuthorities().add(seller);
-            userDao.save(user);
-            shop.getFailureReasonLists().removeAll(shop.getFailureReasonLists());
+            if (shopStatusInputDto.getShopStatus().equals(ShopStatusName.ENABLE.name())) {
+                shop.setShopStatus(ShopStatusName.ENABLE);
+                user.getAuthorities().add(seller);
+                userDao.save(user);
+                shop.getFailureReasonLists().removeAll(shop.getFailureReasonLists());
+            } else {
+                user.getAuthorities().remove(seller);
+                shop.setShopStatus(ShopStatusName.DISABLE);
+            }
+
         }
         return shopDao.save(shop);
     }
