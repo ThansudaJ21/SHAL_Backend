@@ -226,6 +226,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                         .province("chiang mai")
                         .build())
                 .build());
+        shop2.setUser(user2);
         Shop shop3 = shopRepository.save(Shop.builder()
                 .shopName("GameZa shop")
                 .email("GameZa@gmail.com")
@@ -243,6 +244,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                         .province("chiang mai")
                         .build())
                 .build());
+        shop3.setUser(user2);
         shop3.setFailureReasonLists(Arrays.asList(failureReasonListRepository.save(FailureReasonList.builder()
                         .failureReasons(logo)
                         .build()),
