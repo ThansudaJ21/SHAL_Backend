@@ -93,8 +93,8 @@ public class BidServiceImpl implements BidService {
     @Override
     public Bid getAuctionWinner(Long auctionId) {
         Bid winner = bidDao.findByAuctionIdAndAuctionResult(auctionId);
-        Hibernate.initialize(winner.getUser());
-        Hibernate.initialize(winner.getAuction());
+//        Hibernate.initialize(winner.getUser());
+//        Hibernate.initialize(winner.getAuction());
         return winner;
     }
 
