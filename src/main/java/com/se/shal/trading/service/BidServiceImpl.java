@@ -130,13 +130,15 @@ public class BidServiceImpl implements BidService {
                     updateAuction.getMaxBidding().setAuction(null);
                     updateAuction.setMaxBidding(null);
                     updateAuction.setAuctionTimes(auction.getAuctionTimes() - 1);
+                    auctionDao.save(updateAuction);
 
                     Product product = productDao.getProduct(auction.getProduct().getId());
                     product.setStorage(auction.getProduct().getStorage() - 1);
 
-                    productDao.saveProduct(product);
                     auctionDao.save(updateAuction);
-                    
+                    productDao.saveProduct(product);
+
+
                     log.info("Save auction");
                     log.info("Send message");
 
