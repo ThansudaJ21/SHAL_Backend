@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 
@@ -110,12 +111,13 @@ public class BidServiceImpl implements BidService {
 //   get auction list by have end time and notification is false
         List<Auction> auctions = auctionDao.findEndAuctionWithoutNotification(LocalDateTime.now());
         auctions.forEach(auction -> {
+            Long countTime = bidDao.countByUserIdAndAuctionId(auction.getMaxBidding().getUser().getId(), auction.getId());
             if (auction.getAuctionTimes() > 0) {
-                if (!auction.getIsNotification() && auction.getMaxBidding() != null) {
+                if (!auction.getIsNotification() && auction.getMaxBidding() != null && Objects.equals(auction.getMaxBidding().getTimes(), Math.toIntExact(countTime))) {
                     // if auction.getIsNotification() == false and max bidding != NULL
                     lineHandler.pushMessageForAuctionWinner(auction.getMaxBidding());
                     lineHandler.pushMessageForSeller(auction.getMaxBidding().getShop().getUser(), auction.getMaxBidding());
-                    List<Bid> bidList = bidDao.findByAuctionId(auction.getId());
+                    List<Bid> bidList = bidDao.findByAuctionIdAndTimes(auction.getId(), Math.toIntExact(countTime));
                     bidList.forEach(bid -> {
                         if (bid.getAuctionResult().equals(AuctionResult.LOSER)) {
                             lineHandler.pushMessageForAuctionLoser(bid);
