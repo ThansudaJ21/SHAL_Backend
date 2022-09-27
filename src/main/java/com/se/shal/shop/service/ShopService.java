@@ -1,5 +1,6 @@
 package com.se.shal.shop.service;
 
+import com.se.shal.shop.dto.ShopStatusInputDto;
 import com.se.shal.shop.entity.FailureReason;
 import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
@@ -14,7 +15,7 @@ public interface ShopService {
 
     Shop getRegisterShop(Long id);
 
-    Shop updateShopStatus(Shop shop, Long userId);
+    Shop updateShopStatus(ShopStatusInputDto shop, Long userId);
 
     Page<Shop> findShopByFilterByShopNameOrShopStatus(ShopQueryFilter filter, PageRequest pageRequest);
 

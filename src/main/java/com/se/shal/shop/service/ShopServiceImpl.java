@@ -8,6 +8,7 @@ import com.se.shal.security.entity.User;
 import com.se.shal.shop.dao.FailureReasonDao;
 import com.se.shal.shop.dao.FailureReasonListDao;
 import com.se.shal.shop.dao.ShopDao;
+import com.se.shal.shop.dto.ShopStatusInputDto;
 import com.se.shal.shop.entity.*;
 import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import org.hibernate.Hibernate;
@@ -20,6 +21,7 @@ import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -64,19 +66,20 @@ public class ShopServiceImpl implements ShopService {
 
     @Transactional
     @Override
-    public Shop updateShopStatus(Shop shop, Long userId) {
+    public Shop updateShopStatus(ShopStatusInputDto shopStatusInputDto, Long userId) {
         Authority seller = authorityDao.findByName(AuthorityName.SELLER);
         User user = userDao.findById(userId);
-        Shop shop1 = shopDao.findById(shop.getId());
-        if (shop1.getShopStatus() == ShopStatusName.ENABLE) {
-            shop1.setShopStatus(shop.getShopStatus());
-        } else if (shop1.getShopStatus() == ShopStatusName.DISABLE) {
-            shop1.setShopStatus(shop.getShopStatus());
+        Shop shop = shopDao.findById(shopStatusInputDto.getId());
+        if (shop.getShopStatus() == ShopStatusName.ENABLE) {
+            user.getAuthorities().remove(seller);
+            shop.setShopStatus(ShopStatusName.DISABLE);
+        } else if (shop.getShopStatus() == ShopStatusName.DISABLE) {
+            shop.setShopStatus(ShopStatusName.ENABLE);
             user.getAuthorities().add(seller);
-            shop1.getFailureReasonLists().removeAll(shop1.getFailureReasonLists());
             userDao.save(user);
+            shop.getFailureReasonLists().removeAll(shop.getFailureReasonLists());
         }
-        return shopDao.save(shop1);
+        return shopDao.save(shop);
     }
 
 
