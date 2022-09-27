@@ -126,16 +126,17 @@ public class BidServiceImpl implements BidService {
                         }
                     });
 
-                    Auction updateAuction = auctionDao.findById(auction.getId());
-                    updateAuction.getMaxBidding().setAuction(null);
-                    updateAuction.setMaxBidding(null);
-                    updateAuction.setAuctionTimes(auction.getAuctionTimes() - 1);
-                    auctionDao.save(updateAuction);
+//                    Auction updateAuction = auctionDao.findById(auction.getId());
+                    auction.getMaxBidding().setAuction(null);
+                    auction.setMaxBidding(null);
+                    auction.setAuctionTimes(auction.getAuctionTimes() - 1);
+
+                    auctionDao.save(auction);
 
                     Product product = productDao.getProduct(auction.getProduct().getId());
                     product.setStorage(auction.getProduct().getStorage() - 1);
 
-                    auctionDao.save(updateAuction);
+                    auctionDao.save(auction);
                     productDao.saveProduct(product);
 
 
