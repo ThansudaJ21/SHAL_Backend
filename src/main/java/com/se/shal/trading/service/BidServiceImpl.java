@@ -56,7 +56,7 @@ public class BidServiceImpl implements BidService {
         Long countTime = bidDao.countByUserIdAndAuctionId(bidDto.getUserId(), auction.getId());
         Shop shop = shopDao.findById(bidDto.getShopId());
         Double maxBidding = auction.getMaxBidding() == null ? 0.0 : auction.getMaxBidding().getBidAmount();
-        List<Bid> bidList = bidDao.findByAuctionIdAndTimes(auction.getId(), Math.toIntExact(countTime));
+        List<Bid> bidList = bidDao.findByAuctionId(auction.getId());
         if (user != null) {
             if (bidDto.getBidAmount() > auction.getStartingBid()) {
                 if (auction.getProduct().getSaleTypeName().equals(SaleTypeName.AUCTION) || auction.getProduct().getSaleTypeName().equals(SaleTypeName.AUCTIONANDSALE)) {
@@ -74,9 +74,7 @@ public class BidServiceImpl implements BidService {
                         auction.setMaxBidding(newBiding);
                         for (Bid bid : bidList) {
                             bid.setAuctionResult(AuctionResult.LOSER);
-//                            if (bid.getAuctionResult().equals(AuctionResult.LOSER)) {
                             lineHandler.pushMessageForOverTaken(bidList.get(bidList.size() - 1));
-//                            }
                         }
                         return newBiding;
                     }
@@ -111,20 +109,18 @@ public class BidServiceImpl implements BidService {
 //   get auction list by have end time and notification is false
         List<Auction> auctions = auctionDao.findEndAuctionWithoutNotification(LocalDateTime.now());
         auctions.forEach(auction -> {
-            Long countTime = bidDao.countByUserIdAndAuctionId(auction.getMaxBidding().getUser().getId(), auction.getId());
             if (auction.getAuctionTimes() > 0) {
-                if (!auction.getIsNotification() && auction.getMaxBidding() != null && Objects.equals(auction.getMaxBidding().getTimes(), Math.toIntExact(countTime))) {
+                if (!auction.getIsNotification() && auction.getMaxBidding() != null) {
                     // if auction.getIsNotification() == false and max bidding != NULL
                     lineHandler.pushMessageForAuctionWinner(auction.getMaxBidding());
                     lineHandler.pushMessageForSeller(auction.getMaxBidding().getShop().getUser(), auction.getMaxBidding());
-                    List<Bid> bidList = bidDao.findByAuctionIdAndTimes(auction.getId(), Math.toIntExact(countTime));
+                    List<Bid> bidList = bidDao.findByAuctionId(auction.getId());
                     bidList.forEach(bid -> {
                         if (bid.getAuctionResult().equals(AuctionResult.LOSER)) {
                             lineHandler.pushMessageForAuctionLoser(bid);
                         }
                     });
 
-//                    Auction updateAuction = auctionDao.findById(auction.getId());
                     auction.getMaxBidding().setAuction(null);
                     auction.setMaxBidding(null);
                     auction.setAuctionTimes(auction.getAuctionTimes() - 1);
@@ -151,15 +147,6 @@ public class BidServiceImpl implements BidService {
                 }
             }
         });
-
-//        List<Auction> auctions1 = auctionDao.findNextAuction(LocalDateTime.now());
-//        auctions1.forEach(auction -> {
-//            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
-//                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
-//            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
-//                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
-//            }
-//        });
     }
 
     @Transactional
