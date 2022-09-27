@@ -38,7 +38,7 @@ public class ProductQueryQL implements GraphQLQueryResolver {
     }
 
     @Transactional
-    Page<Product> productFilter(ProductFilter filter, int pageNo, int pageSize) {
+    public Page<Product> productFilter(ProductFilter filter, int pageNo, int pageSize) {
         return productService.productFilter(filter, PageRequest.of(pageNo, pageSize));
     }
 

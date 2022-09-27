@@ -322,18 +322,20 @@ type  ProductFilter {
     productStatus: String
     imagesPath: [String]
     salePrice: Float
-    #    startingBid: Float
     storage:Int
-    #    auctionPeriod:Int
-    #    nextAuction:Int
     saleTypeName: String
-    #    timeUnitForAuctionPeriod: String
-    #    timeUnitForNextAuction:String
     shipments: [String]
     variations: [VariationsDtoFilter]
     productAttribute: [QueryProductAttributeDtoFilter]
+    auction: AuctionProductFilter
 }
-
+type AuctionProductFilter {
+    auctionPeriod:Int
+    nextAuction:Int
+    startingBid: Float
+    timeUnitForAuctionPeriod: String
+    timeUnitForNextAuction:String
+}
 type VariationsDtoFilter {
     id:Int
     variationName: String
