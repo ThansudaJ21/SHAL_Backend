@@ -1,6 +1,7 @@
 package com.se.shal.trading.dao;
 
 import com.se.shal.trading.entity.Bid;
+import com.se.shal.trading.entity.enumeration.AuctionResult;
 import com.se.shal.trading.repository.BidRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -25,8 +26,8 @@ public class BidDaoImpl implements BidDao {
 
 
     @Override
-    public List<Bid> findByAuctionId(Long auctionId) {
-        return bidRepository.findByAuctionId(auctionId);
+    public List<Bid> findByAuctionIdAndTimes(Long auctionId, Integer time) {
+        return bidRepository.findByAuctionIdAndTimes(auctionId, time);
     }
 
     @Override
@@ -42,5 +43,15 @@ public class BidDaoImpl implements BidDao {
     @Override
     public Bid findById(Long id) {
         return bidRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Bid findByAuctionIdAndAuctionResult(Long auctionId) {
+        return bidRepository.findByAuctionIdAndAuctionResult(auctionId, AuctionResult.WINNER);
+    }
+
+    @Override
+    public List<Bid> findByAuctionId(Long auctionId) {
+        return bidRepository.findByAuctionId(auctionId);
     }
 }

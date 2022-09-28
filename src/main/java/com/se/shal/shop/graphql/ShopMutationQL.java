@@ -2,6 +2,7 @@ package com.se.shal.shop.graphql;
 
 import com.se.shal.shop.dto.FailureReasonListDto;
 import com.se.shal.shop.dto.ShopDto;
+import com.se.shal.shop.dto.ShopStatusInputDto;
 import com.se.shal.shop.entity.FailureReasonList;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.service.ShopService;
@@ -25,7 +26,7 @@ public class ShopMutationQL implements GraphQLMutationResolver {
     }
 
     @Transactional
-    ShopDto updateShopStatus(Shop shop,Long userId){
+    ShopDto updateShopStatus(ShopStatusInputDto shop, Long userId){
         Shop newShop = shopService.updateShopStatus(shop,userId);
         return ShalMapper.INSTANCE.updateShopStatus(newShop);
     }

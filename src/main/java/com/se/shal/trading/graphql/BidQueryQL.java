@@ -5,6 +5,7 @@ import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.service.BidService;
 import com.se.shal.util.ShalMapper;
 import graphql.kickstart.tools.GraphQLQueryResolver;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ public class BidQueryQL implements GraphQLQueryResolver {
         return ShalMapper.INSTANCE.getBidQueryDto(bids);
     }
 
-    @Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "0/30 * * * * *")
     @Transactional
     public void auctionList() {
         bidService.auctionList();

@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 
@@ -73,9 +74,7 @@ public class BidServiceImpl implements BidService {
                         auction.setMaxBidding(newBiding);
                         for (Bid bid : bidList) {
                             bid.setAuctionResult(AuctionResult.LOSER);
-//                            if (bid.getAuctionResult().equals(AuctionResult.LOSER)) {
                             lineHandler.pushMessageForOverTaken(bidList.get(bidList.size() - 1));
-//                            }
                         }
                         return newBiding;
                     }
@@ -92,11 +91,7 @@ public class BidServiceImpl implements BidService {
     @Transactional
     @Override
     public Bid getAuctionWinner(Long auctionId) {
-        List<Bid> bidList = bidDao.findByAuctionId(auctionId);
-        Bid winner = bidList.get(bidList.size() - 1);
-        Hibernate.initialize(winner.getUser());
-        Hibernate.initialize(winner.getAuction());
-        return winner;
+        return bidDao.findByAuctionIdAndAuctionResult(auctionId);
     }
 
     @Transactional
@@ -108,11 +103,6 @@ public class BidServiceImpl implements BidService {
             int time = auction.getNextAuction() + auction.getAuctionPeriod();
             auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
             auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
-//            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
-//                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
-//            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
-//                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
-//            }
         });
 
 
@@ -127,46 +117,36 @@ public class BidServiceImpl implements BidService {
                     List<Bid> bidList = bidDao.findByAuctionId(auction.getId());
                     bidList.forEach(bid -> {
                         if (bid.getAuctionResult().equals(AuctionResult.LOSER)) {
-                            lineHandler.pushMessageForAuctionLoser(bidList.get(bidList.size() - 1));
+                            lineHandler.pushMessageForAuctionLoser(bid);
                         }
                     });
 
-                    Auction updateAuction = auctionDao.findById(auction.getId());
-                    updateAuction.getMaxBidding().setAuction(null);
-                    updateAuction.setMaxBidding(null);
-                    updateAuction.setAuctionTimes(auction.getAuctionTimes() - 1);
+                    auction.getMaxBidding().setAuction(null);
+                    auction.setMaxBidding(null);
+                    auction.setAuctionTimes(auction.getAuctionTimes() - 1);
 
-                    auctionDao.save(updateAuction);
+                    auctionDao.save(auction);
 
                     Product product = productDao.getProduct(auction.getProduct().getId());
                     product.setStorage(auction.getProduct().getStorage() - 1);
 
-                    auctionDao.save(updateAuction);
+                    auctionDao.save(auction);
                     productDao.saveProduct(product);
+
+
                     log.info("Save auction");
                     log.info("Send message");
 
                     int time = auction.getNextAuction() + auction.getAuctionPeriod();
                     auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
                     auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
-
                 } else if (auction.getMaxBidding() == null) {
                     int time = auction.getNextAuction() + auction.getAuctionPeriod();
                     auction.setEndBiddingTime(LocalDateTime.now().plus(time, auction.getTimeUnitForNextAuction()));
                     auction.setNextBiddingTime(LocalDateTime.now().plus(auction.getNextAuction(), auction.getTimeUnitForNextAuction()));
-
                 }
             }
         });
-
-//        List<Auction> auctions1 = auctionDao.findNextAuction(LocalDateTime.now());
-//        auctions1.forEach(auction -> {
-//            if (LocalDateTime.now().isBefore(auction.getNextBiddingTime())) {
-//                auction.setCurrentAuctionState(AuctionState.WAITING_FOR_AUCTION);
-//            } else if (LocalDateTime.now().isEqual(auction.getNextBiddingTime())) {
-//                auction.setCurrentAuctionState(AuctionState.AUCTIONING);
-//            }
-//        });
     }
 
     @Transactional
