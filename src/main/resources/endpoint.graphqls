@@ -23,6 +23,9 @@ type Query {
     getAddToCartProduct(userId: Int ):[Order]
     getAuctionWinner(auctionId: Int):BidQueryDto
     getProductAuctionType(shopId: Int ):[QueryProductDto]
+
+    getUserAddressList(userId: Int): [UserAddressQueryDto]
+    getUserAddress(userId: Int):UserAddressQueryDto
 }
 
 
@@ -43,5 +46,9 @@ type Mutation {
     buyProduct(orderInput: OrderInput): SaveOrder
     addToCart(orderInput: OrderInput): SaveOrder
     addBid(bid: InputBid): BidDto
+    # User Address
+    saveUserAddress(address: InputUserAddress): UserAddress
+    updateUserAddress(address: InputUserAddress): UserAddress
+
 }
 

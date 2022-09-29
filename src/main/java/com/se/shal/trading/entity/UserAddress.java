@@ -1,5 +1,6 @@
-package com.se.shal.security.entity;
+package com.se.shal.trading.entity;
 
+import com.se.shal.security.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class UserAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
+    String addressName;
     String houseNumber;
     String mooName;
     String moo;
@@ -21,4 +23,7 @@ public class UserAddress {
     String district;
     String subDistrict;
     String province;
+
+    @ManyToOne
+    User user;
 }

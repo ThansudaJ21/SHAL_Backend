@@ -1,0 +1,38 @@
+input InputUserAddress{
+    id: Int
+    addressName: String
+    houseNumber: String
+    moo: String
+    mooName: String
+    postalCode: String
+    district: String
+    subDistrict: String
+    province: String
+    user: Int
+}
+
+type UserAddress {
+    id: Int
+    addressName: String
+    houseNumber: String
+    moo: String
+    mooName: String
+    postalCode: String
+    district: String
+    subDistrict: String
+    province: String
+    user: Int
+}
+
+type  UserAddressQueryDto{
+    id: Int
+    addressName: String
+    houseNumber: String
+    moo: String
+    mooName: String
+    postalCode: String
+    district: String
+    subDistrict: String
+    province: String
+    user: Int
+}

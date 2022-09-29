@@ -14,6 +14,7 @@ import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.dto.*;
 import com.se.shal.trading.entity.Bid;
 import com.se.shal.trading.entity.ProductOrder;
+import com.se.shal.trading.entity.UserAddress;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -155,4 +156,12 @@ public interface ShalMapper {
     ShopQueryResultDto getShopQueryDto(Shop shop);
 
     ShopQueryForRegisterShopDto getShopQueryForRegisterShopDto(Shop shop);
+
+    @Mapping(target = "user", source = "user.id")
+    QuerySaveUserAddressDto saveUserAddress(UserAddress userAddress);
+
+    List<QueryUserAddressDto> getUserAddress(List<UserAddress> userAddressList);
+
+    @Mapping(target = "user", source = "user.id")
+    QueryUserAddressDto getUserAddress(UserAddress tradingHistories);
 }
