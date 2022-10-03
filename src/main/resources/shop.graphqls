@@ -11,6 +11,7 @@ type Shop{
     shopStatus: String
     failureReasonLists: [QueryFailureReasonListDto]
     userId: Int
+    promptPayType : String
 }
 type FailureReason {
     id:Int
@@ -63,6 +64,7 @@ input ShopInput {
     shopStatus: String
     userId: Int
     shopAddress: ShopAddressInput
+    promptPayType : String
 }
 
 type ShopAddress {
@@ -94,6 +96,7 @@ type ShopQueryByUserId{
     user: UserQueryShop
     shopStatus: String
     failureReasonLists: [QueryFailureReasonForUserIdDto]
+    promptPayType : String
 }
 type ShopQuery{
     id: Int
@@ -104,7 +107,7 @@ type ShopQuery{
     promptPay: String
     email: String
     shopAddress: ShopAddress
-#    user: User
+    #    user: User
     shopStatus: String
     failureReasonLists: [QueryFailureReasonDto]
 }
@@ -132,7 +135,7 @@ type ShopQueryForRegisterShop{
     promptPay: String
     email: String
     shopAddress: ShopAddress
-#    user: UserQueryShop
+    #    user: UserQueryShop
     shopStatus: String
     failureReasonLists: [QueryFailureReasonDto]
 }

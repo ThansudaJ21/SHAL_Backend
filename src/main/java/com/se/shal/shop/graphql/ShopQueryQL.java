@@ -1,8 +1,10 @@
 package com.se.shal.shop.graphql;
 
+import com.se.shal.product.entity.enumeration.CategoryName;
 import com.se.shal.shop.dto.QueryFailureReasonDto;
 import com.se.shal.shop.dto.ShopQueryResultDto;
 import com.se.shal.shop.entity.FailureReason;
+import com.se.shal.shop.entity.PromptPayType;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import com.se.shal.shop.service.ShopService;
@@ -16,7 +18,9 @@ import org.springframework.stereotype.Component;
 
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ShopQueryQL implements GraphQLQueryResolver {
@@ -48,5 +52,11 @@ public class ShopQueryQL implements GraphQLQueryResolver {
     public ShopQueryResultDto getShopByUserId(Long userId) {
         Shop shopByUserId = shopService.findByUserId(userId);
         return ShalMapper.INSTANCE.getShopQueryDto(shopByUserId);
+    }
+
+    List<PromptPayType> getAllPromptPayType() {
+        List<PromptPayType> categoryNames = Arrays.asList(PromptPayType.values()).stream()
+                .sorted((c1, c2) -> c1.getOrder().compareTo(c2.getOrder())).collect(Collectors.toList());
+        return categoryNames;
     }
 }
