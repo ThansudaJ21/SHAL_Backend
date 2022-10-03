@@ -24,6 +24,7 @@ public class Shop {
     String selfiePhotoWithIdCardPath;
     String promptPay;
     String email;
+    PromptPayType promptPayType;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shopAddress_id", referencedColumnName = "id")

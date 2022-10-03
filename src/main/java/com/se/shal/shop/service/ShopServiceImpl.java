@@ -49,6 +49,7 @@ public class ShopServiceImpl implements ShopService {
                 .selfiePhotoWithIdCardPath(shop.getSelfiePhotoWithIdCardPath())
                 .promptPay(shop.getPromptPay())
                 .email(shop.getEmail())
+                .promptPayType(shop.getPromptPayType())
                 .user(user)
                 .shopStatus(ShopStatusName.DISABLE)
                 .shopAddress(shop.getShopAddress())
