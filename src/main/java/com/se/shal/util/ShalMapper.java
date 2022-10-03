@@ -148,7 +148,9 @@ public interface ShalMapper {
             @Mapping(target = "users", source = "users.id"),
             @Mapping(target = "products", source = "products.id"),
             @Mapping(target = "option", source = "options.id"),
-            @Mapping(target = "shop", source = "shop.id")
+            @Mapping(target = "shop", source = "shop.id"),
+            @Mapping(target = "userAddress", source = "userAddress.id")
+
     })
     ProductOrderInputDto buyProduct(ProductOrder productOrder);
 
