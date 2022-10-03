@@ -10,7 +10,7 @@ type SaveOrder {
     users: Int
     option: Int
     shop:Int
-    userAddress:UserAddress
+    userAddress: Int
 }
 
 input OrderInput {
