@@ -26,6 +26,7 @@ public class ProductOrderQueryDto {
     Integer quantity;
     String paymentStatus;
     String orderStatus;
+    String trackingNumber;
 
     QueryUserAddressDto userAddress;
 

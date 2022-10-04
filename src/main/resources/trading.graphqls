@@ -5,6 +5,7 @@ type SaveOrder {
     paymentStatus:String
     Quantity: Int
     orderStatus: String
+    trackingNumber: String
     #TODO error use product ซ้ำ
     products:Int
     users: Int
@@ -69,6 +70,7 @@ type Order {
     paymentStatus:String
     quantity: Int
     orderStatus: String
+    trackingNumber: String
     products:ProductQueryOrder
     users: UserQueryOrder
     shop:ShopQueryBid

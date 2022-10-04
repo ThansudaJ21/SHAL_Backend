@@ -16,13 +16,26 @@ public class ProductOrderMutationQL implements GraphQLMutationResolver {
     ProductOrderService productOrderService;
 
     @Transactional
-     public ProductOrderInputDto buyProduct(ProductOrderInputDto productOrderInputDto) {
+    public ProductOrderInputDto buyProduct(ProductOrderInputDto productOrderInputDto) {
         ProductOrder newProductOrder = productOrderService.buyProduct(productOrderInputDto);
         return ShalMapper.INSTANCE.buyProduct(newProductOrder);
     }
+
     @Transactional
     public ProductOrderInputDto addToCart(ProductOrderInputDto productOrderInputDto) {
         ProductOrder addToCartOrder = productOrderService.addToCart(productOrderInputDto);
+        return ShalMapper.INSTANCE.buyProduct(addToCartOrder);
+    }
+
+    @Transactional
+    public ProductOrderInputDto updatePaymentStatusToPaid(Long productOrderId) {
+        ProductOrder addToCartOrder = productOrderService.updatePaymentStatusToPaid(productOrderId);
+        return ShalMapper.INSTANCE.buyProduct(addToCartOrder);
+    }
+
+    @Transactional
+    public ProductOrderInputDto updatePaymentStatusToDelivered(Long productOrderId, String trackingNumber) {
+        ProductOrder addToCartOrder = productOrderService.updatePaymentStatusToDelivered(productOrderId, trackingNumber);
         return ShalMapper.INSTANCE.buyProduct(addToCartOrder);
     }
 

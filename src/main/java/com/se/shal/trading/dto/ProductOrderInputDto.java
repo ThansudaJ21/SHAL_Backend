@@ -20,7 +20,7 @@ public class ProductOrderInputDto {
     Integer quantity;
     String paymentStatus;
     String orderStatus;
-
+String trackingNumber;
     Long userAddress;
 
     Long products;
