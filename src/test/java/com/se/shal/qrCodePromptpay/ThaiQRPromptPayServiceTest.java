@@ -1,7 +1,7 @@
 package com.se.shal.qrCodePromptpay;
 
 import com.google.zxing.WriterException;
-import com.se.shal.util.qrPromptPay.service.ThaiQRPromptPayService;
+import com.se.shal.util.qrPromptPay.service.ThaiQRPromptPay;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ThaiQRPromptPayServiceTest {
     @Autowired
-    ThaiQRPromptPayService thaiQRPromptPay;
+    ThaiQRPromptPay thaiQRPromptPay;
 
     @Test
     public void testDraw_thenSuccess() throws IOException, WriterException {
 
-        ThaiQRPromptPayService qr = new ThaiQRPromptPayService.Builder()
+        ThaiQRPromptPay qr = new ThaiQRPromptPay.Builder()
                 .staticQR()
                 .creditTransfer()
                 .nationalId("0123456789123")
@@ -27,7 +27,6 @@ class ThaiQRPromptPayServiceTest {
                 .build();
 
         File tmpFile = new File("tmp/qr-tmp-file.png");
-        qr.draw(100, 100, tmpFile);
-        assertTrue(tmpFile.exists());
+        qr.draw( 100, 100,tmpFile);
     }
 }

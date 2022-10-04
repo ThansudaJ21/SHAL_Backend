@@ -28,6 +28,7 @@ public class ProductOrder {
     Integer quantity;
     PaymentStatus paymentStatus;
     OrderStatus orderStatus;
+    String trackingNumber;
 
     @OneToOne
     UserAddress userAddress;

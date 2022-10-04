@@ -2,11 +2,15 @@ package com.se.shal.util.qrPromptPay.service;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.se.shal.util.qrPromptPay.OutputType;
+import lombok.SneakyThrows;
 import org.apache.commons.codec.binary.Base64;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +20,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 
-public class ThaiQRPromptPayService {
+public class ThaiQRPromptPay {
     private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("0.00");
 
     private final Integer paymentField;
@@ -34,7 +38,7 @@ public class ThaiQRPromptPayService {
     private String ref3;
     private OutputType outputType;
 
-    private ThaiQRPromptPayService(Builder builder) {
+    private ThaiQRPromptPay(Builder builder) {
         if (builder.selectPromptPayTypeBuilder.selectPromptPayType instanceof Builder.SelectPromptPayTypeBuilder.CreditTransferBuilder) {
             this.paymentField = Constants.CREDIT_TRANSFER_DATA_FIELD_ID;
             this.acquirerId = Constants.CREDIT_TRANSFER_ACQUIRER_ID;
@@ -74,6 +78,8 @@ public class ThaiQRPromptPayService {
                 return generatePromptPayQR();
         }
     }
+
+
 
     private static ByteArrayOutputStream generateQRCodeImage(String text, int width, int height)
             throws IOException, WriterException {
@@ -145,9 +151,6 @@ public class ThaiQRPromptPayService {
         return stringBuilder.toString();
     }
 
-    public enum OutputType {
-        BOT3, PROMPTPAY
-    }
 
     /**
      * Return the content for later QR generation
@@ -168,7 +171,6 @@ public class ThaiQRPromptPayService {
      *
      * @param width  the width of QR code in pixels
      * @param height the height of QR code in pixels
-     * @param file   the path which QR code image would be written to (PNG format)
      * @throws IOException     if the path to write QR code is invalid.
      * @throws WriterException if the content of QR code is malformed.
      */
@@ -285,7 +287,7 @@ public class ThaiQRPromptPayService {
         }
 
         public interface BuildReady {
-            ThaiQRPromptPayService build();
+            ThaiQRPromptPay build();
         }
 
         interface SelectPromptPayType {
@@ -367,15 +369,17 @@ public class ThaiQRPromptPayService {
                     return this;
                 }
 
+                @Override
+                public ThaiQRPromptPay build() {
+                    return new ThaiQRPromptPay(Builder.this);
+                }
+
                 /**
                  * Construct ThaiQRPromptPay object
                  *
                  * @return Returns an instance of ThaiQRPromptPay created from the fields set on this builder.
                  */
-                @Override
-                public ThaiQRPromptPayService build() {
-                    return new ThaiQRPromptPayService(Builder.this);
-                }
+
             }
 
             private class BillPaymentBuilder implements SelectPromptPayType, BillPaymentBuilderBillerId, BillPaymentBuilderRef1, BillPaymentBuilderOptionalDetail {
@@ -462,8 +466,8 @@ public class ThaiQRPromptPayService {
                  * @return Returns an instance of ThaiQRPromptPay created from the fields set on this builder.
                  */
                 @Override
-                public ThaiQRPromptPayService build() {
-                    return new ThaiQRPromptPayService(Builder.this);
+                public ThaiQRPromptPay build() {
+                    return new ThaiQRPromptPay(Builder.this);
                 }
             }
         }
