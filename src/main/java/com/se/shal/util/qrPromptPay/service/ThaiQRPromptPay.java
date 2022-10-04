@@ -6,10 +6,19 @@ import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.se.shal.shop.dao.ShopDao;
+import com.se.shal.shop.entity.PromptPayType;
+import com.se.shal.shop.entity.Shop;
+import com.se.shal.trading.dao.ProductOrderDao;
+import com.se.shal.trading.entity.ProductOrder;
 import com.se.shal.util.qrPromptPay.OutputType;
 import lombok.SneakyThrows;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -22,7 +31,10 @@ import java.text.DecimalFormat;
 
 public class ThaiQRPromptPay {
     private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("0.00");
-
+    @Autowired
+    ShopDao shopDao;
+    @Autowired
+    ProductOrderDao productOrderDao;
     private final Integer paymentField;
     private final String usageType;
     private final String acquirerId;
@@ -37,6 +49,7 @@ public class ThaiQRPromptPay {
     private String ref2;
     private String ref3;
     private OutputType outputType;
+
 
     private ThaiQRPromptPay(Builder builder) {
         if (builder.selectPromptPayTypeBuilder.selectPromptPayType instanceof Builder.SelectPromptPayTypeBuilder.CreditTransferBuilder) {
@@ -64,6 +77,7 @@ public class ThaiQRPromptPay {
         this.countryCode = builder.countryCode;
     }
 
+
     /**
      * Returns the content for later QR generation
      *
@@ -80,15 +94,13 @@ public class ThaiQRPromptPay {
     }
 
 
-
-    private static ByteArrayOutputStream generateQRCodeImage(String text, int width, int height)
+    private static BufferedImage generateQRCodeImage(String text, int width, int height)
             throws IOException, WriterException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
-
-        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", byteArrayOutputStream);
-        return byteArrayOutputStream;
+        MatrixToImageConfig config = new MatrixToImageConfig(MatrixToImageConfig.BLACK, MatrixToImageConfig.WHITE);
+        BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix, config);
+        return qrImage;
     }
 
     private String generateBOT() {
@@ -174,10 +186,13 @@ public class ThaiQRPromptPay {
      * @throws IOException     if the path to write QR code is invalid.
      * @throws WriterException if the content of QR code is malformed.
      */
-    public void draw(int width, int height, File file) throws IOException, WriterException {
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-            fileOutputStream.write(generateQRCodeImage(generateContent(), width, height).toByteArray());
-        }
+//    public void draw(int width, int height, File file) throws IOException, WriterException {
+//        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+//            fileOutputStream.write(generateQRCodeImage(generateContent(), width, height).toByteArray());
+//        }
+//    }
+    public BufferedImage draw(int width, int height) throws IOException, WriterException {
+        return generateQRCodeImage(generateContent(), width, height);
     }
 
     /**
@@ -189,23 +204,24 @@ public class ThaiQRPromptPay {
      * @throws IOException     if the path to write QR code is invalid.
      * @throws WriterException if the content of QR code is malformed.
      */
-    public String drawToBase64(int width, int height) throws IOException, WriterException {
-        byte[] imageData = generateQRCodeImage(generateContent(), width, height).toByteArray();
-        return new String(Base64.encodeBase64(imageData));
-    }
+//    public String drawToBase64(int width, int height) throws IOException, WriterException {
+//        byte[] imageData = generateQRCodeImage(generateContent(), width, height);
+//        return new String(Base64.encodeBase64(imageData));
+//    }
 
     /**
      * Draw the QR code image to byte array.
+     * <p>
+     * //     * @param width  the width of QR code in pixels
+     * //     * @param height the height of QR code in pixels
      *
-     * @param width  the width of QR code in pixels
-     * @param height the height of QR code in pixels
      * @return the byte array of QR code image
      * @throws IOException     if the path to write QR code is invalid.
      * @throws WriterException if the content of QR code is malformed.
      */
-    public byte[] drawToByteArray(int width, int height) throws IOException, WriterException {
-        return generateQRCodeImage(generateContent(), width, height).toByteArray();
-    }
+//    public byte[] drawToByteArray(int width, int height) throws IOException, WriterException {
+//        return generateQRCodeImage(generateContent(), width, height).toByteArray();
+//    }
 
     public static class Builder {
         private String usageType;
