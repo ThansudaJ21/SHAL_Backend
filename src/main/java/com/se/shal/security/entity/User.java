@@ -2,6 +2,7 @@ package com.se.shal.security.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.se.shal.trading.entity.UserAddress;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +32,7 @@ public class User {
     @NotNull
     private String email;
 
-//    Line id
+    //    Line id
     @Column(name = "USER_ID", length = 50, unique = true)
     @NotNull
     private String userId;
@@ -67,4 +68,7 @@ public class User {
     @Builder.Default
     @ManyToMany
     private List<Authority> authorities = new ArrayList<>();
+//
+//    @OneToMany
+//    List<UserAddress> addressList;
 }

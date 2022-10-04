@@ -29,6 +29,8 @@ public class ProductOrder {
     PaymentStatus paymentStatus;
     OrderStatus orderStatus;
 
+    @OneToOne
+    UserAddress userAddress;
 
     @ManyToOne
     Options options;

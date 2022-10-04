@@ -26,4 +26,5 @@ public class ShopDto {
     String shopStatus;
     List<QueryFailureReasonListDto> failureReasonLists;
     Long userId;
+    String promptPayType;
 }

@@ -1,5 +1,6 @@
 package com.se.shal.trading.dto;
 
+import com.se.shal.trading.entity.UserAddress;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,8 @@ public class ProductOrderInputDto {
     Integer quantity;
     String paymentStatus;
     String orderStatus;
+
+    Long userAddress;
 
     Long products;
     Long shop;

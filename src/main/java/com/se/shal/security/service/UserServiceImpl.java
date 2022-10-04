@@ -76,14 +76,4 @@ public class UserServiceImpl implements UserService {
         return userDao.findByUserId(userId);
     }
 
-    @Transactional
-    @Override
-    public User setRoleUser(User user) {
-        Authority seller = authorityDao.findByName(AuthorityName.SELLER);
-        User existUser = userDao.findByUserId(user.getUserId());
-//        if (existUser.getShop().getShopStatus().equals(ShopStatusName.ENABLE)){
-//            existUser.setAuthorities(List.of(seller));
-//        }
-        return existUser;
-    }
 }

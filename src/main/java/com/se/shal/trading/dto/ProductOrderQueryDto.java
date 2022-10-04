@@ -27,6 +27,8 @@ public class ProductOrderQueryDto {
     String paymentStatus;
     String orderStatus;
 
+    QueryUserAddressDto userAddress;
+
     ProductQueryOrder products;
     UserQueryOrder users;
     ShopQueryDto shop;

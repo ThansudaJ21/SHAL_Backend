@@ -206,7 +206,11 @@ type Category{
     order: Int
     categoryName: String
 }
-
+type PromptPayType{
+    name: String
+    order: Int
+    promptPayType: String
+}
 
 #Product Input
 

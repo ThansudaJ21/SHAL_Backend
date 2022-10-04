@@ -11,8 +11,10 @@ import com.se.shal.security.entity.User;
 import com.se.shal.shop.dao.ShopDao;
 import com.se.shal.shop.entity.Shop;
 import com.se.shal.trading.dao.ProductOrderDao;
+import com.se.shal.trading.dao.UserAddressDao;
 import com.se.shal.trading.dto.ProductOrderInputDto;
 import com.se.shal.trading.entity.ProductOrder;
+import com.se.shal.trading.entity.UserAddress;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.trading.entity.enumeration.PaymentStatus;
 import com.se.shal.trading.exception.MaximumQuantityException;
@@ -43,13 +45,15 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Autowired
     OptionsDao optionsDao;
 
+    @Autowired
+    UserAddressDao userAddressDao;
 
     @Transactional
     @Override
     public ProductOrder buyProduct(ProductOrderInputDto productOrderInputDto) {
         User user = userDao.findById(productOrderInputDto.getUsers());
         Product product = productDao.getProduct(productOrderInputDto.getProducts());
-
+        UserAddress userAddress = userAddressDao.findById(productOrderInputDto.getUserAddress());
         Shop shop = shopDao.findById(productOrderInputDto.getShop());
         Integer storage = product.getStorage();
         if (productOrderInputDto.getQuantity() <= storage && productOrderInputDto.getQuantity() > 0) {
@@ -64,6 +68,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .orderStatus(OrderStatus.BUY)
                     .options(optionsDao.findById(productOrderInputDto.getOption()))
                     .paymentStatus(PaymentStatus.UNPAID)
+                    .userAddress(userAddress)
                     .shop(shop)
                     .users(user)
                     .build();
