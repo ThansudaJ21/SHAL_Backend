@@ -28,8 +28,8 @@ public class ProductOrderMutationQL implements GraphQLMutationResolver {
     }
 
     @Transactional
-    public ProductOrderInputDto updatePaymentStatusToPaid(Long productOrderId) {
-        ProductOrder addToCartOrder = productOrderService.updatePaymentStatusToPaid(productOrderId);
+    public ProductOrderInputDto updatePaymentStatusToPaid(Long productOrderId, String slipPaymentUrl) {
+        ProductOrder addToCartOrder = productOrderService.updatePaymentStatusToPaid(productOrderId, slipPaymentUrl);
         return ShalMapper.INSTANCE.buyProduct(addToCartOrder);
     }
 

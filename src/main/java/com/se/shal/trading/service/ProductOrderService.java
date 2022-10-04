@@ -18,7 +18,9 @@ public interface ProductOrderService {
 
     List<ProductOrder> findByShopIdAndPaymentStatus(Long shopId, String paymentStatus);
 
-    ProductOrder updatePaymentStatusToPaid(Long productOrderId);
+    ProductOrder updatePaymentStatusToPaid(Long productOrderId, String slipPaymentUrl);
 
     ProductOrder updatePaymentStatusToDelivered(Long productOrderId, String trackingNumber);
+
+    ProductOrder getProductOrderById(Long productOrderId);
 }

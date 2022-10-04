@@ -20,12 +20,11 @@ public class ProductOrderInputDto {
     Integer quantity;
     String paymentStatus;
     String orderStatus;
-String trackingNumber;
+    String trackingNumber;
     Long userAddress;
-
+    String slipPaymentUrl;
     Long products;
     Long shop;
     Long users;
-
     Long option;
 }

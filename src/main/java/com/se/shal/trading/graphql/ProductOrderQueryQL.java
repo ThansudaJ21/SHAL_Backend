@@ -18,19 +18,25 @@ public class ProductOrderQueryQL implements GraphQLQueryResolver {
 
     @Transactional
     public List<ProductOrderQueryDto> findProductOrderByUserIdOrProductIdOrShopId(Long userId, Long productId, Long shopId) {
-        List<ProductOrder> productOrderByShopId = productOrderService.findByUsersIdOrProductsIdOrShopId(userId, productId, shopId);
-        return ShalMapper.INSTANCE.getProductOrder(productOrderByShopId);
+        List<ProductOrder> productOrderList = productOrderService.findByUsersIdOrProductsIdOrShopId(userId, productId, shopId);
+        return ShalMapper.INSTANCE.getProductOrder(productOrderList);
     }
 
     @Transactional
     public List<ProductOrderQueryDto> getAddToCartProduct(Long userId) {
-        List<ProductOrder> addToCartProduct = productOrderService.getAddToCartProduct(userId);
-        return ShalMapper.INSTANCE.getProductOrder(addToCartProduct);
+        List<ProductOrder> productOrderList = productOrderService.getAddToCartProduct(userId);
+        return ShalMapper.INSTANCE.getProductOrder(productOrderList);
     }
 
     @Transactional
     public List<ProductOrderQueryDto> findByShopIdAndPaymentStatus(Long shopId, String paymentStatus) {
-        List<ProductOrder> productOrderByShopId = productOrderService.findByShopIdAndPaymentStatus(shopId, paymentStatus);
-        return ShalMapper.INSTANCE.getProductOrder(productOrderByShopId);
+        List<ProductOrder> productOrderList = productOrderService.findByShopIdAndPaymentStatus(shopId, paymentStatus);
+        return ShalMapper.INSTANCE.getProductOrder(productOrderList);
+    }
+
+    @Transactional
+    public ProductOrderQueryDto getProductOrderById(Long productOrderId) {
+        ProductOrder productOrder = productOrderService.getProductOrderById(productOrderId);
+        return ShalMapper.INSTANCE.getProductOrder(productOrder);
     }
 }

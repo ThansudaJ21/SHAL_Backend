@@ -19,6 +19,7 @@ import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.trading.entity.enumeration.PaymentStatus;
 import com.se.shal.trading.exception.MaximumQuantityException;
 import com.se.shal.trading.exception.ProductSoldOutException;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -146,10 +147,11 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
     @Transactional
     @Override
-    public ProductOrder updatePaymentStatusToPaid(Long productOrderId) {
+    public ProductOrder updatePaymentStatusToPaid(Long productOrderId, String slipPaymentUrl) {
         ProductOrder p = productOrderDao.findById(productOrderId);
         if (p.getPaymentStatus().equals(PaymentStatus.UNPAID)) {
             p.setPaymentStatus(PaymentStatus.PAID);
+            p.setSlipPaymentUrl(slipPaymentUrl);
         }
         return productOrderDao.save(p);
     }
@@ -163,5 +165,17 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             p.setPaymentStatus(PaymentStatus.DELIVERED);
         }
         return productOrderDao.save(p);
+    }
+
+    @Transactional
+    @Override
+    public ProductOrder getProductOrderById(Long productOrderId) {
+        ProductOrder p = productOrderDao.findById(productOrderId);
+        Hibernate.initialize(p.getProducts());
+        Hibernate.initialize(p.getShop());
+        Hibernate.initialize(p.getUsers());
+        Hibernate.initialize(p.getUserAddress());
+        Hibernate.initialize(p.getOptions());
+        return p;
     }
 }

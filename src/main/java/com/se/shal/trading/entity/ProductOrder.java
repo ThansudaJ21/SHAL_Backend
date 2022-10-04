@@ -29,6 +29,7 @@ public class ProductOrder {
     PaymentStatus paymentStatus;
     OrderStatus orderStatus;
     String trackingNumber;
+    String slipPaymentUrl;
 
     @OneToOne
     UserAddress userAddress;

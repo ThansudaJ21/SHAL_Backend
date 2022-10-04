@@ -27,6 +27,7 @@ type Query {
     findByShopIdAndPaymentStatus(shopId: Int, paymentStatus:String) : [Order]
     getUserAddressList(userId: Int): [UserAddressQueryDto]
     getUserAddress(userId: Int):UserAddressQueryDto
+    getProductOrderById(productOrderId: Int):Order
 }
 
 
@@ -50,7 +51,7 @@ type Mutation {
     # User Address
     saveUserAddress(address: InputUserAddress): UserAddress
     updateUserAddress(address: InputUserAddress): UserAddress
-    updatePaymentStatusToPaid(productOrderId: Int): SaveOrder
+    updatePaymentStatusToPaid(productOrderId: Int,slipPaymentUrl:String): SaveOrder
     updatePaymentStatusToDelivered(productOrderId: Int,trackingNumber:String ): SaveOrder
 }
 
