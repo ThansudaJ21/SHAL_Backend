@@ -50,6 +50,7 @@ type Mutation {
     # User Address
     saveUserAddress(address: InputUserAddress): UserAddress
     updateUserAddress(address: InputUserAddress): UserAddress
-
+    updatePaymentStatusToPaid(productOrderId: Int): SaveOrder
+    updatePaymentStatusToDelivered(productOrderId: Int,trackingNumber:String ): SaveOrder
 }
 

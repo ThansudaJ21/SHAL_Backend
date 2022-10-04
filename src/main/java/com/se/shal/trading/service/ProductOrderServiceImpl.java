@@ -131,4 +131,37 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         }
         return addToCartList;
     }
+
+    @Transactional
+    @Override
+    public List<ProductOrder> findByShopIdAndPaymentStatus(Long shopId, String paymentStatus) {
+        if (paymentStatus.equals(PaymentStatus.UNPAID.name())) {
+            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.UNPAID);
+        } else if (paymentStatus.equals(PaymentStatus.PAID.name())) {
+            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PAID);
+        } else {
+            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.DELIVERED);
+        }
+    }
+
+    @Transactional
+    @Override
+    public ProductOrder updatePaymentStatusToPaid(Long productOrderId) {
+        ProductOrder p = productOrderDao.findById(productOrderId);
+        if (p.getPaymentStatus().equals(PaymentStatus.UNPAID)) {
+            p.setPaymentStatus(PaymentStatus.PAID);
+        }
+        return productOrderDao.save(p);
+    }
+
+    @Transactional
+    @Override
+    public ProductOrder updatePaymentStatusToDelivered(Long productOrderId, String trackingNumber) {
+        ProductOrder p = productOrderDao.findById(productOrderId);
+        if (p.getPaymentStatus().equals(PaymentStatus.PAID)) {
+            p.setTrackingNumber(trackingNumber);
+            p.setPaymentStatus(PaymentStatus.DELIVERED);
+        }
+        return productOrderDao.save(p);
+    }
 }
