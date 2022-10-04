@@ -1,6 +1,8 @@
 package com.se.shal.trading.dao;
 
 import com.se.shal.trading.entity.ProductOrder;
+import com.se.shal.trading.entity.enumeration.OrderStatus;
+import com.se.shal.trading.entity.enumeration.PaymentStatus;
 import com.se.shal.trading.repository.ProductOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,5 +38,10 @@ public class ProductOrderDaoImpl implements ProductOrderDao {
     @Override
     public ProductOrder findById(Long id) {
         return productOrderRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<ProductOrder> findByShopIdAndPaymentStatus(Long shopId, PaymentStatus paymentStatus) {
+        return productOrderRepository.findByShopIdAndPaymentStatus(shopId, paymentStatus);
     }
 }

@@ -131,4 +131,16 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         }
         return addToCartList;
     }
+
+    @Transactional
+    @Override
+    public List<ProductOrder> findByShopIdAndPaymentStatus(Long shopId, String paymentStatus) {
+        if (paymentStatus.equals(PaymentStatus.UNPAID.name())) {
+            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.UNPAID);
+        } else if (paymentStatus.equals(PaymentStatus.PAID.name())) {
+            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PAID);
+        } else {
+            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.DELIVERED);
+        }
+    }
 }

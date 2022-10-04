@@ -3,6 +3,7 @@ package com.se.shal.trading.service;
 import com.se.shal.trading.dto.ProductOrderInputDto;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.ProductOrder;
+import com.se.shal.trading.entity.enumeration.PaymentStatus;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface ProductOrderService {
 
     List<ProductOrder> getAddToCartProduct(Long userId);
 
-
+    List<ProductOrder> findByShopIdAndPaymentStatus(Long shopId, String paymentStatus);
 }

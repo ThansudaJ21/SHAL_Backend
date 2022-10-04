@@ -1,6 +1,8 @@
 package com.se.shal.trading.dao;
 
 import com.se.shal.trading.entity.ProductOrder;
+import com.se.shal.trading.entity.enumeration.OrderStatus;
+import com.se.shal.trading.entity.enumeration.PaymentStatus;
 
 import java.util.List;
 
@@ -14,4 +16,6 @@ public interface ProductOrderDao {
     List<ProductOrder> findAll();
 
     ProductOrder findById(Long id);
+
+    List<ProductOrder> findByShopIdAndPaymentStatus(Long shopId, PaymentStatus paymentStatus);
 }

@@ -24,7 +24,7 @@ type Query {
     getAddToCartProduct(userId: Int ):[Order]
     getAuctionWinner(auctionId: Int):BidQueryDto
     getProductAuctionType(shopId: Int ):[QueryProductDto]
-
+    findByShopIdAndPaymentStatus(shopId: Int, paymentStatus:String) : [Order]
     getUserAddressList(userId: Int): [UserAddressQueryDto]
     getUserAddress(userId: Int):UserAddressQueryDto
 }

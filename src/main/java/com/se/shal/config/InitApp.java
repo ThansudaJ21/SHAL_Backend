@@ -675,10 +675,26 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .orderStatus(OrderStatus.BUY)
                 .paymentStatus(PaymentStatus.UNPAID)
                 .users(user)
+                .shop(shop)
+                .products(product)
+                .userAddress(null)
+                .build();
+
+        ProductOrder p2 = ProductOrder.builder()
+                .totalPrice(500.00)
+                .quantity(1)
+                .options(options)
+                .dateTime(LocalDateTime.now())
+                .orderStatus(OrderStatus.BUY)
+                .paymentStatus(PaymentStatus.PAID)
+                .users(user)
+                .shop(shop)
                 .products(product)
                 .userAddress(null)
                 .build();
         productOrderRepository.save(p);
+        productOrderRepository.save(p2);
+
     }
 
     @Autowired
