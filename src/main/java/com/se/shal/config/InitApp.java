@@ -15,7 +15,11 @@ import com.se.shal.shop.repository.FailureReasonRepository;
 import com.se.shal.shop.repository.ShopRepository;
 import com.se.shal.shop.repository.ShopStatusRepository;
 import com.se.shal.trading.entity.Auction;
+import com.se.shal.trading.entity.ProductOrder;
+import com.se.shal.trading.entity.enumeration.OrderStatus;
+import com.se.shal.trading.entity.enumeration.PaymentStatus;
 import com.se.shal.trading.repository.AuctionRepository;
+import com.se.shal.trading.repository.ProductOrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -26,6 +30,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +41,8 @@ import java.util.Set;
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    ProductOrderRepository productOrderRepository;
     @Autowired
     AttributeRepository attributeRepository;
     @Autowired
@@ -199,6 +206,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .promptPay("0954475249")
                 .idCard("1234567891234")
                 .shopStatus(ShopStatusName.DISABLE)
+                .promptPayType(PromptPayType.PHONE)
                 .shopLogoImagePath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20215820811-shopLogo1.png?generation=1655305100953281&alt=media")
                 .selfiePhotoWithIdCardPath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20215941465-selfiePhotoWithIdCardPath1.png?generation=1655305181566480&alt=media")
                 .shopAddress(ShopAddress.builder()
@@ -213,9 +221,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Shop shop2 = shopRepository.save(Shop.builder()
                 .shopName("Patteeda shop")
                 .email("Patteera@gmail.com")
-                .promptPay("0953348895")
+                .promptPay("0953348895123")
                 .idCard("1234567891234")
                 .shopStatus(ShopStatusName.ENABLE)
+                .promptPayType(PromptPayType.NATIONAL_ID)
                 .shopLogoImagePath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20220538725-shopLogo2.png?generation=1655305538800881&alt=media")
                 .selfiePhotoWithIdCardPath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20220520826-selfiePhotoWithIdCardPath2.png?generation=1655305520955480&alt=media")
                 .shopAddress(ShopAddress.builder()
@@ -230,9 +239,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Shop shop3 = shopRepository.save(Shop.builder()
                 .shopName("GameZa shop")
                 .email("GameZa@gmail.com")
-                .promptPay("0885558125")
+                .promptPay("088555812512345")
                 .idCard("1111111111111")
                 .shopStatus(ShopStatusName.DISABLE)
+                .promptPayType(PromptPayType.E_WALLET)
                 .shopLogoImagePath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20220146496-shopLogo3.png?generation=1655305306554049&alt=media")
                 .selfiePhotoWithIdCardPath("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-15%20220131035-selfiePhotoWithIdCardPath3.jpg?generation=1655305291158439&alt=media")
                 .shopAddress(ShopAddress.builder()
@@ -251,6 +261,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 failureReasonListRepository.save(FailureReasonList.builder()
                         .failureReasons(name)
                         .build())));
+
 
         Options options = optionsRepository.save(Options.builder()
                 .optionName("128GB")
@@ -655,6 +666,19 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .imagesPath(List.of("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20020156160-lip-glow.jpg?generation=1655319715951935&alt=media"))
                 .build());
 
+
+        ProductOrder p = ProductOrder.builder()
+                .totalPrice(200.00)
+                .quantity(2)
+                .options(options)
+                .dateTime(LocalDateTime.now())
+                .orderStatus(OrderStatus.BUY)
+                .paymentStatus(PaymentStatus.UNPAID)
+                .users(user)
+                .products(product)
+                .userAddress(null)
+                .build();
+        productOrderRepository.save(p);
     }
 
     @Autowired
