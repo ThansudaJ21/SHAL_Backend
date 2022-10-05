@@ -45,4 +45,15 @@ public class ProductOrderMutationQL implements GraphQLMutationResolver {
         return ShalMapper.INSTANCE.buyProduct(addToCartOrder);
     }
 
+    @Transactional
+    public ProductOrderInputDto deleteProductOrderById(Long productOrderId) {
+        ProductOrder addToCartOrder = productOrderService.deleteProductOrderById(productOrderId);
+        return ShalMapper.INSTANCE.buyProduct(addToCartOrder);
+    }
+
+    @Transactional
+    public ProductOrderInputDto cancelProductOrderById(Long productOrderId) {
+        ProductOrder addToCartOrder = productOrderService.cancelProductOrderById(productOrderId);
+        return ShalMapper.INSTANCE.buyProduct(addToCartOrder);
+    }
 }

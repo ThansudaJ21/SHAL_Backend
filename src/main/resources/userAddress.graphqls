@@ -19,6 +19,7 @@ type UserAddress {
     mooName: String
     postalCode: String
     district: String
+    addressStatus:String
     subDistrict: String
     province: String
     user: Int
@@ -33,6 +34,7 @@ type  UserAddressQueryDto{
     postalCode: String
     district: String
     subDistrict: String
+    addressStatus:String
     province: String
     user: Int
 }

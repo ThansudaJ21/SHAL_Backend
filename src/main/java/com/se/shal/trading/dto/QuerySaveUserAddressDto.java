@@ -19,5 +19,6 @@ public class QuerySaveUserAddressDto {
     String district;
     String subDistrict;
     String province;
+    String addressStatus;
     Long user;
 }

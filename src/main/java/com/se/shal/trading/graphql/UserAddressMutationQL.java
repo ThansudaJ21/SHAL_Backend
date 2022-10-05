@@ -2,7 +2,9 @@ package com.se.shal.trading.graphql;
 
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.trading.dto.InputUserAddressDto;
+import com.se.shal.trading.dto.ProductOrderInputDto;
 import com.se.shal.trading.dto.QuerySaveUserAddressDto;
+import com.se.shal.trading.entity.ProductOrder;
 import com.se.shal.trading.entity.UserAddress;
 import com.se.shal.trading.service.UserAddressService;
 import com.se.shal.util.ShalMapper;
@@ -26,6 +28,12 @@ public class UserAddressMutationQL implements GraphQLMutationResolver {
     @Transactional
     public QuerySaveUserAddressDto updateUserAddress(InputUserAddressDto inputUserAddressDto) {
         UserAddress userAddress = userAddressService.saveUserAddress(inputUserAddressDto);
+        return ShalMapper.INSTANCE.saveUserAddress(userAddress);
+    }
+
+    @Transactional
+    public QuerySaveUserAddressDto deleteUserAddressById(Long userAddressId) {
+        UserAddress userAddress = userAddressService.deleteUserAddressById(userAddressId);
         return ShalMapper.INSTANCE.saveUserAddress(userAddress);
     }
 }

@@ -1,6 +1,7 @@
 package com.se.shal.trading.entity;
 
 import com.se.shal.security.entity.User;
+import com.se.shal.trading.entity.enumeration.AddressStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ public class UserAddress {
     String district;
     String subDistrict;
     String province;
-
+    AddressStatus addressStatus;
     @ManyToOne
     User user;
 }

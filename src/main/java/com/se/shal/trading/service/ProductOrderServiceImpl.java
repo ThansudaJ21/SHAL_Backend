@@ -117,7 +117,14 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Transactional
     @Override
     public List<ProductOrder> findByUsersIdOrProductsIdOrShopId(Long userId, Long productId, Long shopId) {
-        return productOrderDao.findByUsersIdOrProductsIdOrShopId(userId, productId, shopId);
+        List<ProductOrder> p = productOrderDao.findByUsersIdOrProductsIdOrShopId(userId, productId, shopId);
+        List<ProductOrder> newOrder = new ArrayList<>();
+        p.forEach(productOrder -> {
+            if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
+                newOrder.add(productOrder);
+            }
+        });
+        return newOrder;
     }
 
     @Transactional
@@ -126,7 +133,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         List<ProductOrder> productOrderList = productOrderDao.findByUsersId(userId);
         List<ProductOrder> addToCartList = new ArrayList<>();
         for (ProductOrder productOrder : productOrderList) {
-            if (productOrder.getOrderStatus().equals(OrderStatus.ADD_TO_CART)) {
+            if (productOrder.getOrderStatus().equals(OrderStatus.ADD_TO_CART) && !productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
                 addToCartList.add(productOrder);
             }
         }
@@ -136,14 +143,43 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Transactional
     @Override
     public List<ProductOrder> findByShopIdAndPaymentStatus(Long shopId, String paymentStatus) {
+
         if (paymentStatus.equals(PaymentStatus.UNPAID.name())) {
-            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.UNPAID);
+            List<ProductOrder> p = productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.UNPAID);
+            List<ProductOrder> newOrder = new ArrayList<>();
+            p.forEach(productOrder -> {
+                if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
+                    newOrder.add(productOrder);
+                }
+            });
+            return newOrder;
         } else if (paymentStatus.equals(PaymentStatus.PAID.name())) {
-            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PAID);
+            List<ProductOrder> p = productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PAID);
+            List<ProductOrder> newOrder = new ArrayList<>();
+            p.forEach(productOrder -> {
+                if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
+                    newOrder.add(productOrder);
+                }
+            });
+            return newOrder;
         } else if (paymentStatus.equals(PaymentStatus.PENDING_TO_CONFIRM.name())) {
-            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PENDING_TO_CONFIRM);
+            List<ProductOrder> p = productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PENDING_TO_CONFIRM);
+            List<ProductOrder> newOrder = new ArrayList<>();
+            p.forEach(productOrder -> {
+                if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
+                    newOrder.add(productOrder);
+                }
+            });
+            return newOrder;
         } else {
-            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.DELIVERED);
+            List<ProductOrder> p = productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.DELIVERED);
+            List<ProductOrder> newOrder = new ArrayList<>();
+            p.forEach(productOrder -> {
+                if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
+                    newOrder.add(productOrder);
+                }
+            });
+            return newOrder;
         }
     }
 
@@ -151,7 +187,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public ProductOrder updatePaymentStatusToPaid(Long productOrderId) {
         ProductOrder p = productOrderDao.findById(productOrderId);
-        if (p.getPaymentStatus().equals(PaymentStatus.PENDING_TO_CONFIRM)) {
+        if (p.getPaymentStatus().equals(PaymentStatus.PENDING_TO_CONFIRM) && !p.getOrderStatus().equals(OrderStatus.DELETE) && !p.getOrderStatus().equals(OrderStatus.CANCEL)) {
             p.setPaymentStatus(PaymentStatus.PAID);
         }
         return productOrderDao.save(p);
@@ -161,7 +197,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public ProductOrder updatePaymentStatusToDelivered(Long productOrderId, String trackingNumber) {
         ProductOrder p = productOrderDao.findById(productOrderId);
-        if (p.getPaymentStatus().equals(PaymentStatus.PAID)) {
+        if (p.getPaymentStatus().equals(PaymentStatus.PAID) && !p.getOrderStatus().equals(OrderStatus.DELETE) && !p.getOrderStatus().equals(OrderStatus.CANCEL)) {
             p.setTrackingNumber(trackingNumber);
             p.setPaymentStatus(PaymentStatus.DELIVERED);
         }
@@ -171,7 +207,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public ProductOrder updatePaymentStatusToPendingToConfirm(Long productOrderId, String slipPaymentUrl) {
         ProductOrder p = productOrderDao.findById(productOrderId);
-        if (p.getPaymentStatus().equals(PaymentStatus.UNPAID)) {
+        if (p.getPaymentStatus().equals(PaymentStatus.UNPAID) && !p.getOrderStatus().equals(OrderStatus.DELETE) && !p.getOrderStatus().equals(OrderStatus.CANCEL)) {
             p.setSlipPaymentUrl(slipPaymentUrl);
             p.setPaymentStatus(PaymentStatus.PENDING_TO_CONFIRM);
         }
@@ -182,11 +218,34 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public ProductOrder getProductOrderById(Long productOrderId) {
         ProductOrder p = productOrderDao.findById(productOrderId);
-        Hibernate.initialize(p.getProducts());
-        Hibernate.initialize(p.getShop());
-        Hibernate.initialize(p.getUsers());
-        Hibernate.initialize(p.getUserAddress());
-        Hibernate.initialize(p.getOptions());
-        return p;
+        if (!p.getOrderStatus().equals(OrderStatus.DELETE) && !p.getOrderStatus().equals(OrderStatus.CANCEL)) {
+            Hibernate.initialize(p.getProducts());
+            Hibernate.initialize(p.getShop());
+            Hibernate.initialize(p.getUsers());
+            Hibernate.initialize(p.getUserAddress());
+            Hibernate.initialize(p.getOptions());
+            return p;
+        }
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public ProductOrder deleteProductOrderById(Long productOrderId) {
+        ProductOrder p = productOrderDao.findById(productOrderId);
+        if (!p.getOrderStatus().equals(OrderStatus.DELETE)) {
+            p.setOrderStatus(OrderStatus.DELETE);
+        }
+        return productOrderDao.save(p);
+    }
+
+    @Transactional
+    @Override
+    public ProductOrder cancelProductOrderById(Long productOrderId) {
+        ProductOrder p = productOrderDao.findById(productOrderId);
+        if (!p.getOrderStatus().equals(OrderStatus.CANCEL)) {
+            p.setOrderStatus(OrderStatus.CANCEL);
+        }
+        return productOrderDao.save(p);
     }
 }

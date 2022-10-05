@@ -5,10 +5,13 @@ import com.se.shal.security.entity.User;
 import com.se.shal.trading.dao.UserAddressDao;
 import com.se.shal.trading.dto.InputUserAddressDto;
 import com.se.shal.trading.entity.UserAddress;
+import com.se.shal.trading.entity.enumeration.AddressStatus;
+import com.se.shal.trading.entity.enumeration.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,6 +44,7 @@ public class UserAddressServiceImpl implements UserAddressService {
                     .houseNumber(inputUserAddressDto.getHouseNumber())
                     .district(inputUserAddressDto.getDistrict())
                     .subDistrict(inputUserAddressDto.getSubDistrict())
+                    .addressStatus(AddressStatus.ACTIVE)
                     .province(inputUserAddressDto.getProvince())
                     .postalCode(inputUserAddressDto.getPostalCode())
                     .user(user)
@@ -52,12 +56,31 @@ public class UserAddressServiceImpl implements UserAddressService {
     @Transactional
     @Override
     public List<UserAddress> getUserAddressByUserId(Long userId) {
-        return userAddressDao.findByUserId(userId);
+        List<UserAddress> addresses = userAddressDao.findByUserId(userId);
+        List<UserAddress> newAddresses = new ArrayList<>();
+        addresses.forEach(address -> {
+            if (!address.getAddressStatus().equals(AddressStatus.DELETE)) {
+                newAddresses.add(address);
+            }
+        });
+        return newAddresses;
     }
 
     @Transactional
     @Override
     public UserAddress getUserAddress(Long userAddressId) {
-        return userAddressDao.findById(userAddressId);
+        UserAddress address = userAddressDao.findById(userAddressId);
+        if (!address.getAddressStatus().equals(AddressStatus.DELETE)) {
+            return address;
+        }
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public UserAddress deleteUserAddressById(Long userAddressId) {
+        UserAddress address = userAddressDao.findById(userAddressId);
+        address.setAddressStatus(AddressStatus.DELETE);
+        return address;
     }
 }

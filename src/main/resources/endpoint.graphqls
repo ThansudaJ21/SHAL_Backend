@@ -54,5 +54,8 @@ type Mutation {
     updatePaymentStatusToPaid(productOrderId: Int): SaveOrder
     updatePaymentStatusToDelivered(productOrderId: Int,trackingNumber:String ): SaveOrder
     updatePaymentStatusToPendingToConfirm(productOrderId: Int,slipPaymentUrl:String): SaveOrder
+    deleteUserAddressById(userAddressId: Int):UserAddress
+    deleteProductOrderById(productOrderId: Int): SaveOrder
+    cancelProductOrderById(productOrderId: Int): SaveOrder
 }
 

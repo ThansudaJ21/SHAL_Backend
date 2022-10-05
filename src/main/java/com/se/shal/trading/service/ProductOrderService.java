@@ -25,4 +25,8 @@ public interface ProductOrderService {
     ProductOrder updatePaymentStatusToPendingToConfirm(Long productOrderId, String slipPaymentUrl);
 
     ProductOrder getProductOrderById(Long productOrderId);
+
+    ProductOrder deleteProductOrderById(Long productOrderId);
+
+    ProductOrder cancelProductOrderById(Long productOrderId);
 }

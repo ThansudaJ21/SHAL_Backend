@@ -1,5 +1,5 @@
 package com.se.shal.trading.entity.enumeration;
 
 public enum OrderStatus {
-    NA, ADD_TO_CART, BUY, AUCTION
+    NA, ADD_TO_CART, BUY, AUCTION, DELETE, CANCEL
 }

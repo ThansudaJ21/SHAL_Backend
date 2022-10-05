@@ -16,7 +16,7 @@ public class ProductOrderDaoImpl implements ProductOrderDao {
     ProductOrderRepository productOrderRepository;
 
     @Override
-    public com.se.shal.trading.entity.ProductOrder save(com.se.shal.trading.entity.ProductOrder productOrder) {
+    public ProductOrder save(com.se.shal.trading.entity.ProductOrder productOrder) {
         return this.productOrderRepository.save(productOrder);
     }
 
@@ -44,4 +44,5 @@ public class ProductOrderDaoImpl implements ProductOrderDao {
     public List<ProductOrder> findByShopIdAndPaymentStatus(Long shopId, PaymentStatus paymentStatus) {
         return productOrderRepository.findByShopIdAndPaymentStatus(shopId, paymentStatus);
     }
+
 }
