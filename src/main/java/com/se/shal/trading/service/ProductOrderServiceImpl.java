@@ -140,6 +140,8 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.UNPAID);
         } else if (paymentStatus.equals(PaymentStatus.PAID.name())) {
             return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PAID);
+        } else if (paymentStatus.equals(PaymentStatus.PENDING_TO_CONFIRM.name())) {
+            return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PENDING_TO_CONFIRM);
         } else {
             return productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.DELIVERED);
         }
@@ -147,11 +149,10 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
     @Transactional
     @Override
-    public ProductOrder updatePaymentStatusToPaid(Long productOrderId, String slipPaymentUrl) {
+    public ProductOrder updatePaymentStatusToPaid(Long productOrderId) {
         ProductOrder p = productOrderDao.findById(productOrderId);
-        if (p.getPaymentStatus().equals(PaymentStatus.UNPAID)) {
+        if (p.getPaymentStatus().equals(PaymentStatus.PENDING_TO_CONFIRM)) {
             p.setPaymentStatus(PaymentStatus.PAID);
-            p.setSlipPaymentUrl(slipPaymentUrl);
         }
         return productOrderDao.save(p);
     }
@@ -163,6 +164,16 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         if (p.getPaymentStatus().equals(PaymentStatus.PAID)) {
             p.setTrackingNumber(trackingNumber);
             p.setPaymentStatus(PaymentStatus.DELIVERED);
+        }
+        return productOrderDao.save(p);
+    }
+
+    @Override
+    public ProductOrder updatePaymentStatusToPendingToConfirm(Long productOrderId, String slipPaymentUrl) {
+        ProductOrder p = productOrderDao.findById(productOrderId);
+        if (p.getPaymentStatus().equals(PaymentStatus.UNPAID)) {
+            p.setSlipPaymentUrl(slipPaymentUrl);
+            p.setPaymentStatus(PaymentStatus.PENDING_TO_CONFIRM);
         }
         return productOrderDao.save(p);
     }
