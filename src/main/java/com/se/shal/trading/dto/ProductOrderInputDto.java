@@ -1,5 +1,6 @@
 package com.se.shal.trading.dto;
 
+import com.se.shal.product.entity.Shipment;
 import com.se.shal.trading.entity.UserAddress;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class ProductOrderInputDto {
     String trackingNumber;
     Long userAddress;
     String slipPaymentUrl;
+    String shipment;
     Long products;
     Long shop;
     Long users;

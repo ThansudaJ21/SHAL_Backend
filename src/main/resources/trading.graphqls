@@ -8,6 +8,7 @@ type SaveOrder {
     trackingNumber: String
     slipPaymentUrl:String
     products:Int
+    shipment: String
     users: Int
     option: Int
     shop:Int
@@ -20,7 +21,8 @@ input OrderInput {
     products: Int,
     quantity:Int,
     userAddress:Int,
-    shop:Int
+    shop:Int,
+    shipment: String
 }
 type SaveOrderVariations {
     id:Int
@@ -72,10 +74,12 @@ type Order {
     orderStatus: String
     trackingNumber: String
     slipPaymentUrl:String
+    shipment: String
     products:ProductQueryOrder
     users: UserQueryOrder
     shop:ShopQueryBid
     option: QueryOrderOptions
+    userAddress: UserAddressQueryDto
 }
 type QueryOrderVariations {
     id:Int

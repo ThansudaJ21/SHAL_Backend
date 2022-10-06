@@ -126,9 +126,9 @@ public interface ShalMapper {
             @Mapping(target = "products", source = "products"),
             @Mapping(target = "shop", source = "shop"),
             @Mapping(target = "option", source = "options"),
-
+            @Mapping(target = "shipment", source = "shipment.shipmentName")
     })
-    ProductOrderQueryDto getProductOrder(ProductOrder tradingHistories);
+    ProductOrderQueryDto getProductOrder(ProductOrder productOrder);
 
     @Mappings({
             @Mapping(target = "userId", source = "user.id"),
@@ -149,8 +149,8 @@ public interface ShalMapper {
             @Mapping(target = "products", source = "products.id"),
             @Mapping(target = "option", source = "options.id"),
             @Mapping(target = "shop", source = "shop.id"),
-            @Mapping(target = "userAddress", source = "userAddress.id")
-
+            @Mapping(target = "userAddress", source = "userAddress.id"),
+            @Mapping(target = "shipment", source = "shipment.shipmentName")
     })
     ProductOrderInputDto buyProduct(ProductOrder productOrder);
 

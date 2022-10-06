@@ -16,10 +16,13 @@ import com.se.shal.shop.repository.ShopRepository;
 import com.se.shal.shop.repository.ShopStatusRepository;
 import com.se.shal.trading.entity.Auction;
 import com.se.shal.trading.entity.ProductOrder;
+import com.se.shal.trading.entity.UserAddress;
+import com.se.shal.trading.entity.enumeration.AddressStatus;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.trading.entity.enumeration.PaymentStatus;
 import com.se.shal.trading.repository.AuctionRepository;
 import com.se.shal.trading.repository.ProductOrderRepository;
+import com.se.shal.trading.repository.UserAddressRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -69,6 +72,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     UserRepository userRepository;
     @Autowired
     AuctionRepository auctionRepository;
+    @Autowired
+    UserAddressRepository userAddressRepository;
 
     @Override
     @Transactional
@@ -101,6 +106,32 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .enabled(true)
                 .build();
         userRepository.save(user2);
+
+        UserAddress userAddress = UserAddress.builder()
+                .addressName("Thansuda Janthakham")
+                .addressStatus(AddressStatus.ACTIVE)
+                .mooName("Ban tung")
+                .district("meachan")
+                .houseNumber("322")
+                .moo("12").subDistrict("mea kham")
+                .postalCode("57240")
+                .province("chiang rai")
+                .user(user)
+                .build();
+        userAddressRepository.save(userAddress);
+        UserAddress userAddress2 = UserAddress.builder()
+                .addressName("Great Jelo")
+                .addressStatus(AddressStatus.ACTIVE)
+                .mooName("San sai")
+                .district("Mueang")
+                .houseNumber("50")
+                .moo("12").subDistrict("San sai")
+                .postalCode("57000")
+                .province("chiang mai")
+                .user(user2)
+                .build();
+        userAddressRepository.save(userAddress2);
+
         FailureReason not_clear = FailureReason.builder().reason("Selfie Photo with ID card does not clear").build();
         FailureReason logo = FailureReason.builder().reason("Inappropriate shop logo").build();
         FailureReason name = FailureReason.builder().reason("Inappropriate shop name").build();
@@ -666,22 +697,52 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .imagesPath(List.of("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20020156160-lip-glow.jpg?generation=1655319715951935&alt=media"))
                 .build());
 
-
-        ProductOrder p = ProductOrder.builder()
-                .totalPrice(200.00)
+        ProductOrder p1 = ProductOrder.builder()
+                .totalPrice(400.00)
                 .quantity(2)
-                .options(options)
                 .dateTime(LocalDateTime.now())
                 .orderStatus(OrderStatus.BUY)
                 .paymentStatus(PaymentStatus.UNPAID)
                 .users(user)
-                .shop(shop)
-                .products(product)
-                .userAddress(null)
+                .shop(shop2)
+                .options(opt_floral_Dress_s)
+                .trackingNumber(null)
+                .slipPaymentUrl(null)
+                .products(floral_Dress)
+                .userAddress(userAddress)
                 .build();
 
         ProductOrder p2 = ProductOrder.builder()
-                .totalPrice(500.00)
+                .totalPrice(3500.00)
+                .quantity(1)
+                .options(options_dior)
+                .dateTime(LocalDateTime.now())
+                .orderStatus(OrderStatus.BUY)
+                .paymentStatus(PaymentStatus.UNPAID)
+                .users(user2)
+                .trackingNumber(null)
+                .slipPaymentUrl(null)
+                .shop(shop2)
+                .products(lipstick_dior)
+                .userAddress(userAddress2)
+                .build();
+        ProductOrder p3 = ProductOrder.builder()
+                .totalPrice(7000.00)
+                .quantity(2)
+                .options(options_chanel1)
+                .dateTime(LocalDateTime.now())
+                .orderStatus(OrderStatus.ADD_TO_CART)
+                .paymentStatus(PaymentStatus.UNPAID)
+                .users(user)
+                .trackingNumber(null)
+                .slipPaymentUrl(null)
+                .shop(shop)
+                .shipment(null)
+                .products(dress_chanel)
+                .userAddress(userAddress2)
+                .build();
+        ProductOrder p4 = ProductOrder.builder()
+                .totalPrice(35000.00)
                 .quantity(1)
                 .options(options)
                 .dateTime(LocalDateTime.now())
@@ -690,11 +751,30 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .users(user)
                 .shop(shop)
                 .products(product)
-                .userAddress(null)
+                .shipment(jandt)
+                .slipPaymentUrl("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20020156160-lip-glow.jpg?generation=1655319715951935&alt=media")
+                .userAddress(userAddress)
                 .build();
-        productOrderRepository.save(p);
+        ProductOrder p5 = ProductOrder.builder()
+                .totalPrice(1200.00)
+                .quantity(1)
+                .options(opt_LIP_GLOW1)
+                .dateTime(LocalDateTime.now())
+                .orderStatus(OrderStatus.BUY)
+                .paymentStatus(PaymentStatus.DELIVERED)
+                .shipment(kerry)
+                .users(user)
+                .shop(shop)
+                .products(LIP_GLOW)
+                .trackingNumber("TH1535787242TH")
+                .slipPaymentUrl("https://storage.googleapis.com/download/storage/v1/b/shal-f28ac.appspot.com/o/2565-06-16%20020156160-lip-glow.jpg?generation=1655319715951935&alt=media")
+                .userAddress(userAddress)
+                .build();
+        productOrderRepository.save(p1);
         productOrderRepository.save(p2);
-
+        productOrderRepository.save(p3);
+        productOrderRepository.save(p4);
+        productOrderRepository.save(p5);
     }
 
     @Autowired

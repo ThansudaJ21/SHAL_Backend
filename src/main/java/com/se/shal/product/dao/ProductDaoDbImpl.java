@@ -3,16 +3,11 @@ package com.se.shal.product.dao;
 import com.google.common.base.Strings;
 import com.se.shal.product.entity.Product;
 import com.se.shal.product.entity.Product_;
-import com.se.shal.product.entity.Variations;
 import com.se.shal.product.entity.enumeration.CategoryName;
 import com.se.shal.product.entity.enumeration.ProductStatus;
 import com.se.shal.product.entity.enumeration.SaleTypeName;
 import com.se.shal.product.graphql.entity.ProductFilter;
 import com.se.shal.product.repository.ProductRepository;
-import com.se.shal.shop.entity.Shop;
-import com.se.shal.shop.entity.ShopStatusName;
-import com.se.shal.shop.entity.Shop_;
-import com.se.shal.shop.graphql.entity.ShopQueryFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -30,10 +25,11 @@ import java.util.List;
 
 @Repository
 @Profile("db")
-public class ProductDaoDbImpl implements ProductDao{
+public class ProductDaoDbImpl implements ProductDao {
 
     @Autowired
     ProductRepository productRepository;
+
     @Override
     public Product saveProduct(Product product) {
         return productRepository.save(product);
@@ -59,7 +55,7 @@ public class ProductDaoDbImpl implements ProductDao{
         Specification<Product> specification = getProductPredicate(productFilter);
         try {
             return productRepository.findAll(specification, pageRequest);
-        } catch (IllegalArgumentException  | InvalidDataAccessApiUsageException ex) {
+        } catch (IllegalArgumentException | InvalidDataAccessApiUsageException ex) {
             return null;
         }
     }

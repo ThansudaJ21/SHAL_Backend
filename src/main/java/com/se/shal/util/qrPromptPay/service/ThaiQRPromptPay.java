@@ -31,10 +31,6 @@ import java.text.DecimalFormat;
 
 public class ThaiQRPromptPay {
     private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("0.00");
-    @Autowired
-    ShopDao shopDao;
-    @Autowired
-    ProductOrderDao productOrderDao;
     private final Integer paymentField;
     private final String usageType;
     private final String acquirerId;
@@ -81,7 +77,7 @@ public class ThaiQRPromptPay {
     /**
      * Returns the content for later QR generation
      *
-     * @return The content of generated QR.
+     * @return The content of generat56ed QR.
      */
     public String generateContent() {
         switch (outputType) {
@@ -93,14 +89,12 @@ public class ThaiQRPromptPay {
         }
     }
 
-
     private static BufferedImage generateQRCodeImage(String text, int width, int height)
             throws IOException, WriterException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
         MatrixToImageConfig config = new MatrixToImageConfig(MatrixToImageConfig.BLACK, MatrixToImageConfig.WHITE);
-        BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix, config);
-        return qrImage;
+        return MatrixToImageWriter.toBufferedImage(bitMatrix, config);
     }
 
     private String generateBOT() {

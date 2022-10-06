@@ -2,10 +2,10 @@ package com.se.shal.trading.service;
 
 import com.se.shal.product.dao.OptionsDao;
 import com.se.shal.product.dao.ProductDao;
-import com.se.shal.product.dao.VariationDao;
+import com.se.shal.product.dao.ShipmentDao;
 import com.se.shal.product.entity.Options;
 import com.se.shal.product.entity.Product;
-import com.se.shal.product.entity.Variations;
+import com.se.shal.product.entity.Shipment;
 import com.se.shal.security.dao.UserDao;
 import com.se.shal.security.entity.User;
 import com.se.shal.shop.dao.ShopDao;
@@ -19,11 +19,11 @@ import com.se.shal.trading.entity.enumeration.OrderStatus;
 import com.se.shal.trading.entity.enumeration.PaymentStatus;
 import com.se.shal.trading.exception.MaximumQuantityException;
 import com.se.shal.trading.exception.ProductSoldOutException;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,23 +31,16 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
+@RequiredArgsConstructor
 public class ProductOrderServiceImpl implements ProductOrderService {
+    final ProductDao productDao;
+    final ShopDao shopDao;
+    final UserDao userDao;
+    final ProductOrderDao productOrderDao;
+    final OptionsDao optionsDao;
+    final UserAddressDao userAddressDao;
 
-    @Autowired
-    ProductDao productDao;
-    @Autowired
-    ShopDao shopDao;
-    @Autowired
-    UserDao userDao;
-    @Autowired
-    VariationDao variationDao;
-    @Autowired
-    ProductOrderDao productOrderDao;
-    @Autowired
-    OptionsDao optionsDao;
-
-    @Autowired
-    UserAddressDao userAddressDao;
+    final ShipmentDao shipmentDao;
 
     @Transactional
     @Override
@@ -57,6 +50,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         UserAddress userAddress = userAddressDao.findById(productOrderInputDto.getUserAddress());
         Shop shop = shopDao.findById(productOrderInputDto.getShop());
         Integer storage = product.getStorage();
+        Shipment shipment = shipmentDao.findShipmentByName(productOrderInputDto.getShipment());
         if (productOrderInputDto.getQuantity() <= storage && productOrderInputDto.getQuantity() > 0) {
             int finalStorage = 0;
             finalStorage = storage - productOrderInputDto.getQuantity();
@@ -69,6 +63,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
                     .orderStatus(OrderStatus.BUY)
                     .options(optionsDao.findById(productOrderInputDto.getOption()))
                     .paymentStatus(PaymentStatus.UNPAID)
+                    .shipment(shipment)
                     .userAddress(userAddress)
                     .shop(shop)
                     .users(user)
@@ -121,6 +116,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         List<ProductOrder> newOrder = new ArrayList<>();
         p.forEach(productOrder -> {
             if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
+                Hibernate.initialize(productOrder.getShipment());
                 newOrder.add(productOrder);
             }
         });
@@ -143,10 +139,9 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Transactional
     @Override
     public List<ProductOrder> findByShopIdAndPaymentStatus(Long shopId, String paymentStatus) {
-
+        List<ProductOrder> newOrder = new ArrayList<>();
         if (paymentStatus.equals(PaymentStatus.UNPAID.name())) {
             List<ProductOrder> p = productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.UNPAID);
-            List<ProductOrder> newOrder = new ArrayList<>();
             p.forEach(productOrder -> {
                 if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
                     newOrder.add(productOrder);
@@ -155,7 +150,6 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             return newOrder;
         } else if (paymentStatus.equals(PaymentStatus.PAID.name())) {
             List<ProductOrder> p = productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PAID);
-            List<ProductOrder> newOrder = new ArrayList<>();
             p.forEach(productOrder -> {
                 if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
                     newOrder.add(productOrder);
@@ -164,7 +158,6 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             return newOrder;
         } else if (paymentStatus.equals(PaymentStatus.PENDING_TO_CONFIRM.name())) {
             List<ProductOrder> p = productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.PENDING_TO_CONFIRM);
-            List<ProductOrder> newOrder = new ArrayList<>();
             p.forEach(productOrder -> {
                 if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
                     newOrder.add(productOrder);
@@ -173,7 +166,6 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             return newOrder;
         } else {
             List<ProductOrder> p = productOrderDao.findByShopIdAndPaymentStatus(shopId, PaymentStatus.DELIVERED);
-            List<ProductOrder> newOrder = new ArrayList<>();
             p.forEach(productOrder -> {
                 if (!productOrder.getOrderStatus().equals(OrderStatus.DELETE) && !productOrder.getOrderStatus().equals(OrderStatus.CANCEL)) {
                     newOrder.add(productOrder);

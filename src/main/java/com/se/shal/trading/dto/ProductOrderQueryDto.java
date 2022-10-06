@@ -5,6 +5,7 @@ import com.se.shal.product.dto.query.ProductQuery;
 import com.se.shal.product.dto.query.QueryProductDto;
 import com.se.shal.product.dto.query.QueryVariationsDto;
 import com.se.shal.product.entity.Product;
+import com.se.shal.product.entity.Shipment;
 import com.se.shal.security.entity.User;
 import com.se.shal.security.entity.UserDto;
 import com.se.shal.trading.entity.enumeration.OrderStatus;
@@ -28,6 +29,7 @@ public class ProductOrderQueryDto {
     String orderStatus;
     String trackingNumber;
     String slipPaymentUrl;
+    String shipment;
     QueryUserAddressDto userAddress;
     ProductQueryOrder products;
     UserQueryOrder users;
